@@ -26,7 +26,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center text-white font-bold">
+        <a href="/" className="flex items-center text-white font-bold">
           Beranda
         </a>
       </Typography>
@@ -46,7 +46,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className="p-1 font-normal text-white "
       >
-        <a href="#" className="flex items-center font-bold ">
+        <a href="/mitra" className="flex items-center font-bold ">
           Mitra Bisnis
         </a>
       </Typography>
