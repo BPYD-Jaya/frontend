@@ -10,7 +10,7 @@ import {
 
 export default function MasterCard() {
   return (
-    <Card className="w-96 my-16">
+    <Card className="w-96">
       <CardHeader color="blue-gray" className="relative h-auto">
         <img
           src="https://warungpangan.com/upload/img/5be1e2e75c4f7f54e04a8e7bced4039f.jpg"

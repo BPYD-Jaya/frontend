@@ -4,8 +4,8 @@ import MitraPage from './pages/MitraPage';
  
 export default function App() {
   return (
-    <Home />
-    // <MitraPage/>
+    // <Home />
+    <MitraPage/>
   );
 }
  

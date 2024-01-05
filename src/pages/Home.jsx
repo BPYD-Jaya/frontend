@@ -40,18 +40,21 @@ export default function Home() {
       </div>
 
       {/* Jumbotron */}
-      <div className=" bg-wpigreen-50 " style={{ height: "820px" }}>
+      <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1070px] h-[900px]">
         <div
-          className="bg-wpiblue-50 flex flex-col  px-36"
-          style={{ height: "600px", borderRadius: "0 0 50px 50px" }}
+          className="bg-wpiblue-50 flex flex-col px-4 xl:px-36 xl:h-[600px] md:h-[960px] lg:h-[450px] h-[800px]"
+          style={{ borderRadius: "0 0 50px 50px" }}
         >
           <div
-            className="container mx-auto grid grid-cols-1 lg:grid-cols-2"
+            className="container mx-auto grid lg:grid-cols-12 grid-cols-1"
             style={{ height: "500px" }}
           >
-            <div className="flex justify-center items-center text-white">
+            <div className="flex justify-center items-center text-white col-span-5 pl-0 pt-2 lg:pl-6 ">
               <div>
-                <Typography variant="h3" className="mb-4">
+                <Typography
+                  variant="h3"
+                  className="mb-4 text-center lg:text-left"
+                >
                   SATU APLIKASI UNTUK
                   <br /> SEMUA KEBUTUHAN WARUNG
                 </Typography>
@@ -72,29 +75,31 @@ export default function Home() {
                 <Typography variant="h5" className="mb-4 flex items-start">
                   <FcOk className="mr-4" size={30} /> Beragam pilihan pendanaan
                 </Typography>
-                <Button
-                  className="hover:text-green-100 bg-wpigreen-50"
-                  size="lg"
-                >
-                  <div className="flex items-center">
-                    GABUNG SEKARANG <FaArrowRight className="ml-2" />
-                  </div>
-                </Button>
+                <div className="flex justify-center xl:justify-start md:justify-start">
+                  <Button
+                    className="hover:text-green-100 bg-wpigreen-50 "
+                    size="lg"
+                  >
+                    <div className="flex items-center">
+                      GABUNG SEKARANG <FaArrowRight className="ml-2" />
+                    </div>
+                  </Button>
+                </div>
               </div>
             </div>
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center col-span-7 xl:-translate-x-4">
               <img
                 src="https://warungpangan.com/upload/settings/home_banner3.png"
                 alt="image 1"
-                className="h-full" 
-                style={{width:"1000px"}}
+                className="xl:h-full pt-4 lg:pt-0"
+                style={{ width: "1000px" }}
               />
             </div>
           </div>
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto -translate-y-32 px-12">
+        <div className="container mx-auto xl:-translate-y-32 lg:-translate-y-16 md:-translate-y-32 -translate-y-16 xl:px-12 px-4 sm:px-0 lg:px-2 ">
           <MasterCarousel />
         </div>
 
@@ -103,12 +108,12 @@ export default function Home() {
           className="bg-white lg:-translate-y-16
         "
         >
-          <div className="container mx-auto text-center">
+          <div className="container mx-auto text-center xl:mb-16 mb-12 ">
             <Typography variant="h3">
               Kenapa Harus Warung Pangan Indonesia
             </Typography>
           </div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
             <div className="flex justify-center items-center">
               <MasterCard />
             </div>
@@ -122,8 +127,8 @@ export default function Home() {
         </div>
 
         {/* Content 2 */}
-        <div className="gap-8 container mx-auto flex justify-center -translate-y-10">
-          <div className=" w-1/2 py-auto grid grid-cols-1 justify-center ">
+        <div className="container mx-auto grid xl:grid-cols-12 grid-cols-1 gap-6 px-10 pt-6 lg:pt-0">
+          <div className="lg:col-span-7 col-span-1 flex flex-col justify-start">
             <div>
               <Typography variant="h3">
                 Keunggulan Berbelanja di Aplikasi Warung Pangan
@@ -135,7 +140,7 @@ export default function Home() {
                 <Typography variant="lead">
                   <b>Pasokan Produk Berkualitas</b>
                 </Typography>
-                <p className="text-justify">
+                <p>
                   Banyak produk yang ditawarkan terutama produk-produk BUMN
                   kluster pangan (ID Food) dengan kualitas terjamin dengan harga
                   yang kompetitif dan pengiriman barang yang tepat waktu.
@@ -148,7 +153,7 @@ export default function Home() {
                 <Typography variant="lead">
                   <b>Digitalisasi Warung</b>
                 </Typography>
-                <p className="text-justify">
+                <p>
                   Solusi lengkap bagi pemilik warung mengelola bisnis mereka,
                   yang mencakup pencatatan transaksi, manajemen inventori, dan
                   pemesanan via aplikasi
@@ -161,7 +166,7 @@ export default function Home() {
                 <Typography variant="lead">
                   <b>Pembinaan Mitra</b>
                 </Typography>
-                <p className="text-justify">
+                <p>
                   Kami membantu para mitra agar bisnisnya dapat berkembang lebih
                   maju, dengan pelatihan, permodalan, dan promosi yang bertujuan
                   meningkatkan penjualan dan pengembangan kapasitas
@@ -169,7 +174,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className=" border shadow-lg flex justify-center w-2/5 rounded-md translate-x-4 ">
+
+          <div className=" lg:col-span-5 col-span-1 border shadow-lg flex justify-center rounded-md items-center">
             <img
               src="https://warungpangan.com/upload/settings/home_banner_keunggulan.png"
               alt="image-2"
@@ -179,13 +185,16 @@ export default function Home() {
         </div>
 
         {/* Content 3 */}
-        <div className="container mx-auto">
-          <div className="justify-center text-center">
-            <Typography className="ml-14 flex justify-start" variant="h3">
+        <div className="container mx-auto mb-6">
+          <div className="my-10">
+            <Typography
+              className="xl:ml-14 lg:ml-4 md:ml-4 ml-14 flex justify-start"
+              variant="h3"
+            >
               Cerita Mitra Warung Pangan
             </Typography>
           </div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center pb-8">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
             <div className="flex justify-center items-center">
               <MasterCard />
             </div>
@@ -199,7 +208,7 @@ export default function Home() {
         </div>
 
         {/* Content Image */}
-        <div class="container mx-auto flex justify-center -translate-y-10 pb-16 px-8">
+        <div class="container mx-auto flex justify-center pb-16 px-8">
           <div class="overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <img
               src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
@@ -210,32 +219,34 @@ export default function Home() {
         </div>
 
         {/* Form Email */}
-        <div className="bg-blue-50 px-28" style={{ height: "50px" }}>
-          <div className=" bg-white container mx-auto border rounded-lg shadow-lg flex py-8 px-4 -translate-y-14">
-            <div className="w-1/2 text-center flex items-center justify-start">
+        <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
+          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
+            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
               <Typography variant="h4">
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>
-            <div className="w-1/2 flex gap-2">
-              <Input
-                size="lg"
-                placeholder="Email address"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-              <Button className="hover:bg-green-400 bg-wpigreen-50">
-                Submit
-              </Button>
+            <div className=" col-span-6">
+              <div className="flex gap-2">
+                <Input
+                  size="lg"
+                  placeholder="Email address"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                  labelProps={{
+                    className: "before:content-none after:content-none w-full",
+                  }}
+                />
+                <Button className="hover:bg-green-400 bg-wpigreen-50">
+                  Submit
+                </Button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="bg-blue-50">
-          <div className="container mx-auto pt-8">
+          <div className="container mx-auto pt-20 lg:pt-8">
             <MasterFooter />
           </div>
         </div>
