@@ -60,14 +60,16 @@ export default function MitraPage() {
                 optimal!
               </Typography>
               <div className="flex justify-center lg:justify-start">
-                <Button
-                  className="hover:text-green-100 bg-wpigreen-50"
-                  size="lg"
-                >
-                  <div className="flex items-center">
-                    GABUNG SEKARANG <FaArrowRight className="ml-2" />
-                  </div>
-                </Button>
+                <a href="/login">
+                  <Button
+                    className="hover:text-green-100 bg-wpigreen-50"
+                    size="lg"
+                  >
+                    <div className="flex items-center">
+                      GABUNG SEKARANG <FaArrowRight className="ml-2" />
+                    </div>
+                  </Button>
+                </a>
               </div>
             </div>
           </div>

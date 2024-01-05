@@ -56,7 +56,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className="p-1 font-normal text-white"
       >
-        <a href="#" className="flex items-center font-bold">
+        <a href="/news" className="flex items-center font-bold">
           Blog
         </a>
       </Typography>
