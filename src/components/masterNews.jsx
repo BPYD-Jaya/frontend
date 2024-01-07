@@ -34,7 +34,6 @@ export default function MasterNews() {
           melakukan Launching Food Hub "Kios Pangan ID FOOD" di Pasar Induk
           Tanah Tinggi, Tangerang.
         </Typography>
-        <Button className="mt-4 bg-wpigreen-50">Readmore</Button>
       </CardBody>
       <CardFooter className="flex items-center justify-between">
         <div className="flex items-center -space-x-3">

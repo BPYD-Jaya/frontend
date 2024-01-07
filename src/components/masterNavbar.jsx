@@ -10,12 +10,22 @@ import {
 
 export default function MasterNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 960);
+      if (window.innerWidth >= 960) {
+        setOpenNav(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial check
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const navList = (
@@ -66,7 +76,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className="p-1 font-normal text-white"
       >
-        <a href="#" className="flex items-center font-bold">
+        <a href="/about" className="flex items-center font-bold">
           Tentang
         </a>
       </Typography>
@@ -77,14 +87,19 @@ export default function MasterNavbar() {
     <div className="container mx-auto px-4 py-4">
       <div className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 w-full bg-wpiblue-50">
         <div className="flex items-center justify-between text-white  ">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 cursor-pointer py-1.5 font-bold"
-            variant="h5"
-          >
-            Warung Pangan Indonesia
-          </Typography>
+          <div className="flex justify-center items-center gap-4">
+            <img src="assets/logo-wpi.png" alt="" width={50} className="" />
+            {!isSmallScreen && (
+              <Typography
+                as="a"
+                href="#"
+                className="mr-4 cursor-pointer py-1.5 font-bold"
+                variant="h5"
+              >
+                Warung Pangan Indonesia
+              </Typography>
+            )}
+          </div>
           <div className="flex items-center gap-4 ">
             <div className="mr-4 hidden lg:block ">{navList}</div>
             <IconButton
