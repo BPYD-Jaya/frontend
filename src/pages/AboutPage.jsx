@@ -111,6 +111,83 @@ export default function AboutPage() {
           </Typography>
         </div>
 
+        {/* Produk dan Layanan */}
+        <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-8">
+          <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/coal.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">
+                  Batubara dan Mineral
+                </Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/corn.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Horticultural</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/agriculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Agriculture</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/aquaculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Aquaculture</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/mineral.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Mineral</Typography>
+              </div>
+            </div>
+
+            {/* Efek Hover */}
+            {/* <div className="bg-black py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-2 flex items-center justify-center h-[70px]">
+                <Typography className="font-bold text-white">
+                  Lihat Selengkapnya
+                </Typography>
+              </div>
+            </div> */}
+          </div>
+        </div>
+
         {/* Visi dan Misi */}
         <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mt-12">
           <div className="col-span-3 md:col-span-2 flex justify-center">
@@ -187,83 +264,6 @@ export default function AboutPage() {
                 </Typography>
               </Card>
             </div>
-          </div>
-        </div>
-
-        {/* Produk dan Layanan */}
-        <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-8">
-          <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/coal.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">
-                  Batubara dan Mineral
-                </Typography>
-              </div>
-            </div>
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/corn.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">Horticultural</Typography>
-              </div>
-            </div>
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/agriculture.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">Agriculture</Typography>
-              </div>
-            </div>
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/aquaculture.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">Aquaculture</Typography>
-              </div>
-            </div>
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/mineral.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">Mineral</Typography>
-              </div>
-            </div>
-
-            {/* Efek Hover */}
-            {/* <div className="bg-black py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-2 flex items-center justify-center h-[70px]">
-                <Typography className="font-bold text-white">
-                  Lihat Selengkapnya
-                </Typography>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
