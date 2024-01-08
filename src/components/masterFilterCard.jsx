@@ -19,7 +19,7 @@ export default function MasterFilterCard() {
   const toggleSection3 = () => setSection3Expanded(!section3Expanded);
 
   return (
-    <Card className="w-96">
+    <Card className="w-96 border-2 border-gray-300 shadow-md p-4">
       {/* Section 1 */}
       <Button
         color={section1Expanded ? "white" : "white"}
@@ -28,11 +28,11 @@ export default function MasterFilterCard() {
           section1Expanded
             ? "border-b border-black transition-opacity duration-300 ease-in-out"
             : "border-b border-black"
-        }`}
+        } hover:bg-gray-100`}
       >
         <Typography
           color={section1Expanded ? "black" : "black"}
-          className="text-left"
+          className="text-left uppercase font-semibold"
         >
           Lokasi
           <span className="float-right">
@@ -41,9 +41,9 @@ export default function MasterFilterCard() {
         </Typography>
       </Button>
       {section1Expanded && (
-        <CardBody className={`${section1Expanded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
+        <CardBody className={`${section1Expanded ? "opacity-100" : "opacity-0"} transition-opacity`}>
           {/* Content for Section 1 */}
-          <Typography>Content for Section 1 goes here.</Typography>
+          <Typography className="text-sm text-gray-700">Content for Section 1 goes here.</Typography>
         </CardBody>
       )}
 
@@ -51,15 +51,15 @@ export default function MasterFilterCard() {
       <Button
         color={section2Expanded ? "white" : "white"}
         onClick={toggleSection2}
-        className={`mt-0 rounded-none ${
+        className={`mt-2 rounded-none ${
           section2Expanded
             ? "border-b border-black transition-opacity duration-300 ease-in-out"
             : "border-b border-black"
-        }`}
+        } hover:bg-gray-100`}
       >
         <Typography
           color={section2Expanded ? "black" : "black"}
-          className="text-left"
+          className="text-left uppercase font-semibold"
         >
           Kategori
           <span className="float-right">
@@ -70,7 +70,7 @@ export default function MasterFilterCard() {
       {section2Expanded && (
         <CardBody className={`${section2Expanded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
           {/* Content for Section 2 */}
-          <Typography>Content for Section 2 goes here.</Typography>
+          <Typography className="text-sm text-gray-700">Content for Section 2 goes here.</Typography>
         </CardBody>
       )}
 
@@ -78,15 +78,15 @@ export default function MasterFilterCard() {
       <Button
         color={section3Expanded ? "white" : "white"}
         onClick={toggleSection3}
-        className={`mt-0 rounded-none ${
+        className={`mt-2 rounded-none ${
           section3Expanded
             ? "border-b border-black transition-opacity duration-300 ease-in-out"
             : "border-b border-black"
-        }`}
+        } hover:bg-gray-100`}
       >
         <Typography
           color={section3Expanded ? "black" : "black"}
-          className="text-left"
+          className="text-left uppercase font-semibold"
         >
           Harga
           <span className="float-right">
@@ -97,13 +97,13 @@ export default function MasterFilterCard() {
       {section3Expanded && (
         <CardBody className={`${section3Expanded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
           {/* Content for Section 3 */}
-          <Typography>Content for Section 3 goes here.</Typography>
+          <Typography className="text-sm text-gray-700">Content for Section 3 goes here.</Typography>
         </CardBody>
       )}
 
       {/* Footer (optional) */}
-      <CardFooter>
-        <Button color="gray">Apply Filters</Button>
+      <CardFooter className="mt-4">
+        <Button className="w-full bg-wpigreen-50">Apply Filters</Button>
       </CardFooter>
     </Card>
   );
