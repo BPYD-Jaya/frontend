@@ -36,7 +36,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center text-white font-bold">
+        <a href="/produk" className="flex items-center text-white font-bold">
           Produk
         </a>
       </Typography>
