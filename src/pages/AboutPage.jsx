@@ -5,6 +5,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
   Input,
   Textarea,
   Typography,
@@ -85,39 +86,200 @@ export default function AboutPage() {
 
       {/* Content 2 */}
       <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-18 lg:-translate-y-14 ">
-        <Typography variant="h3" className="text-center lg:text-start mb-4">
-          Tentang Warung Pangan Indonesia
-        </Typography>
-        <Typography variant="lead" color="black" className="text-justify">
-          Warung Pangan Indonesia (WPI) didirikan pada tahun 2023 dan merupakan
-          perusahaan baru yang telah membangun posisinya sebagai pemain penting
-          dalam industri pangan. Dengan fokus pada agregasi komoditas pangan dan
-          dukungan pangan lainnya, WPI mengintegrasikan Supply Chain Management,
-          Trading, Finance Scheme, dan Business Networking dengan dukungan
-          Teknologi Informasi. WPI tidak hanya terlibat dalam manajemen sumber
-          daya pangan dari dalam dan luar negeri, tetapi juga berperan dalam
-          meningkatkan nilai tambah komoditas pangan. Perusahaan ini aktif dalam
-          perdagangan dan distribusi, menawarkan komoditas pangan dengan harga
-          terjangkau di pasar domestik dan bersaing di pasar internasional.
-          Dengan pendekatan holistik dan inovatif terhadap rantai pasokan, WPI
-          berkontribusi pada ketahanan pangan dan memastikan ketersediaan
-          berbagai jenis produk pangan untuk masyarakat Indonesia. Dengan visi
-          yang jelas dan komitmen terhadap teknologi, WPI terus tumbuh sebagai
-          pemain kunci dalam industri pangan, menciptakan dampak positif secara
-          lokal dan global.
-        </Typography>
+        <div>
+          <Typography variant="h3" className="text-center lg:text-start mb-4">
+            Tentang Warung Pangan Indonesia
+          </Typography>
+          <Typography variant="lead" color="black" className="text-justify">
+            Warung Pangan Indonesia (WPI) didirikan pada tahun 2023 dan
+            merupakan perusahaan baru yang telah membangun posisinya sebagai
+            pemain penting dalam industri pangan. Dengan fokus pada agregasi
+            komoditas pangan dan dukungan pangan lainnya, WPI mengintegrasikan
+            Supply Chain Management, Trading, Finance Scheme, dan Business
+            Networking dengan dukungan Teknologi Informasi. WPI tidak hanya
+            terlibat dalam manajemen sumber daya pangan dari dalam dan luar
+            negeri, tetapi juga berperan dalam meningkatkan nilai tambah
+            komoditas pangan. Perusahaan ini aktif dalam perdagangan dan
+            distribusi, menawarkan komoditas pangan dengan harga terjangkau di
+            pasar domestik dan bersaing di pasar internasional. Dengan
+            pendekatan holistik dan inovatif terhadap rantai pasokan, WPI
+            berkontribusi pada ketahanan pangan dan memastikan ketersediaan
+            berbagai jenis produk pangan untuk masyarakat Indonesia. Dengan visi
+            yang jelas dan komitmen terhadap teknologi, WPI terus tumbuh sebagai
+            pemain kunci dalam industri pangan, menciptakan dampak positif
+            secara lokal dan global.
+          </Typography>
+        </div>
+
+        {/* Visi dan Misi */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mt-12">
+          <div className="col-span-3 md:col-span-2 flex justify-center">
+            <Card className="shadow-lg w-full h-[300px] md:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+              <Typography
+                variant="lead"
+                color="white"
+                className="mt-3 font-normal"
+              >
+                Menjadi perusahaan aggregator pangan dan pendukung pangan
+                lainnya yang kuat secara Nasional dan terintegrasi di Pasar
+                Internasional
+              </Typography>
+            </Card>
+          </div>
+          <div className="col-span-3 md:col-span-4 flex justify-center items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Membeli produk unggulan komoditas pangan dari sumber local
+                  dengan harga yang menari
+                </Typography>
+              </Card>
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Menjual produk komoditas pangan dgn harga yang terjangkau
+                </Typography>
+              </Card>
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Menyiapkan peluang ekspor ke luar negeri dgn standarisasi dan
+                  perizinan yang relevan sesuai kebutuhan pasar
+                </Typography>
+              </Card>
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Membantu pemerintah dgn berkolaborasi kepada kelembagaan yang
+                  terkait untuk komoditas pangan
+                </Typography>
+              </Card>
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Melakukan digitalisasi untuk percepatan forecasting supply dan
+                  demand komoditi pangan
+                </Typography>
+              </Card>
+              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                <Typography
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal"
+                >
+                  Menghadirkan teknologi pendukung yang efektif dan efisien
+                </Typography>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        {/* Produk dan Layanan */}
+        <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-8">
+          <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/coal.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">
+                  Batubara dan Mineral
+                </Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/corn.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Horticultural</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/agriculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Agriculture</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/aquaculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Aquaculture</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/mineral.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Mineral</Typography>
+              </div>
+            </div>
+
+            {/* Efek Hover */}
+            {/* <div className="bg-black py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-2 flex items-center justify-center h-[70px]">
+                <Typography className="font-bold text-white">
+                  Lihat Selengkapnya
+                </Typography>
+              </div>
+            </div> */}
+          </div>
+        </div>
       </div>
 
       {/* Budaya Kerja */}
-      <div className="container mx-auto lg:py-0 py-8 mb-8">
+      <div className="container mx-auto lg:py-0 py-8 mb-8 lg:px-0 px-6">
         <div>
-          <Typography variant="h3">Budaya Kerja ( LAPAK )</Typography>
+          <Typography variant="h3" className="text-center lg:text-start">
+            Budaya Kerja ( LAPAK )
+          </Typography>
         </div>
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6 ">
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
             <CardBody>
               <img
-                src="assets/logo-wpi.png"
+                src="assets/layanan.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
@@ -134,7 +296,7 @@ export default function AboutPage() {
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
             <CardBody>
               <img
-                src="assets/logo-wpi.png"
+                src="assets/amanah.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
@@ -151,7 +313,7 @@ export default function AboutPage() {
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
             <CardBody>
               <img
-                src="assets/logo-wpi.png"
+                src="assets/profesional.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
@@ -168,7 +330,7 @@ export default function AboutPage() {
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
             <CardBody>
               <img
-                src="assets/logo-wpi.png"
+                src="assets/adapt.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
@@ -185,7 +347,7 @@ export default function AboutPage() {
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
             <CardBody>
               <img
-                src="assets/logo-wpi.png"
+                src="assets/collaborative.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
@@ -227,7 +389,11 @@ export default function AboutPage() {
             <div className=" flex justify-center items-center xl:w-1/2 w-full">
               <form className=" py-6 mt-8 mb-2 max-w-screen-lg sm:w-96 w-full px-2">
                 <div className="flex flex-col gap-4">
-                  <Typography variant="h6" color="blue-gray" className="-mb-3 text-start">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 text-start"
+                  >
                     Nama Lengkap
                   </Typography>
                   <Input
@@ -239,7 +405,11 @@ export default function AboutPage() {
                       className: "before:content-none after:content-none",
                     }}
                   />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3 text-start">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 text-start"
+                  >
                     No Handphone
                   </Typography>
                   <Input
@@ -251,7 +421,11 @@ export default function AboutPage() {
                       className: "before:content-none after:content-none",
                     }}
                   />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3 text-start">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 text-start"
+                  >
                     Email
                   </Typography>
                   <Input
@@ -263,7 +437,11 @@ export default function AboutPage() {
                       className: "before:content-none after:content-none",
                     }}
                   />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3 text-start">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 text-start"
+                  >
                     Perihal
                   </Typography>
                   <Input
@@ -275,7 +453,11 @@ export default function AboutPage() {
                       className: "before:content-none after:content-none",
                     }}
                   />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3 text-start">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 text-start"
+                  >
                     Pertanyaan
                   </Typography>
                   <Textarea
