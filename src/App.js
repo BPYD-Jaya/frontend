@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DetailNews from "./pages/detailNews";
 import AboutPage from "./pages/AboutPage";
+import DashboardPage from "./pages/Dashboard";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <Route path="/news" element={<NewsPage />} />
       <Route path="/detailnews" element={<DetailNews />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   );
 }
