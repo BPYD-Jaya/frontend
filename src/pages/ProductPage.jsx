@@ -6,20 +6,16 @@ import MasterFilterCard from "../components/masterFilterCard";
 import MasterCard from "../components/masterCard";
 import MasterCatalog from "../components/masterCatalog";
 import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
 
 export default function ProductPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setIsNavbarFixed(scrollTop > 0);
     };
-
-    // Contoh pengaturan totalItems, sesuaikan dengan logika Anda
-    const totalItemsCount = 9; // Misalnya, kita ingin menampilkan 10 items pertama
-    setTotalItems(totalItemsCount);
 
     window.addEventListener("scroll", handleScroll);
 
@@ -39,68 +35,140 @@ export default function ProductPage() {
         <MasterNavbar />
       </div>
 
+      {/* Kategori Produk */}
+      <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-4">
+        <Typography tag="h5" className="font-bold text-3xl text-black ml-8">
+          Kategori Produk
+        </Typography>
+        <div className=" p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
+        <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/coal.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="text-white font-bold">
+                  Batubara dan Mineral
+                </Typography>
+              </div>
+            </div>
+            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/corn.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="text-white font-bold">Horticultural</Typography>
+              </div>
+            </div>
+            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/agriculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="text-white font-bold">Agriculture</Typography>
+              </div>
+            </div>
+            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/aquaculture.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="text-white font-bold">Aquaculture</Typography>
+              </div>
+            </div>
+            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
+                  src="assets/mineral.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="text-white font-bold">Mineral</Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+
       {/* Content */}
-      <div className="pb-20 overflow-y-auto">
-        <form className="max-w-screen-lg mx-auto flex items-center justify-center mt-4">
-          <div className="relative w-full">
-            <input
-              type="text"
-              placeholder="Cari Produk"
-              className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
-            />
-            <button
-              type="button"
-              className="absolute right-0 top-0 bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 rounded-r-md"
-            >
-              <FaMagnifyingGlass />
-            </button>
-          </div>
-        </form>
-        <div>
-          <div className="flex flex-col justify-left">
-            <Typography tag="h5" className="font-bold text-3xl mb-2 text-black ml-20 mt-4">
-              Kategori Produk
-            </Typography>
-          </div>
-          <div className="flex justify-between items-center ml-20 mb-2">
-            <div className="flex flex-col items-center">
-              <Typography variant="body2" color="gray">
-                Menampilkan {totalItems} barang dari total 9
-              </Typography>
-            </div>
-            <div className="flex flex-col">
-              <Typography tag="h5" className="font-bold text-3 text-black">
-                Filter
-              </Typography>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 ml-20 mt-5 mr-20">
-            <div className="col-span-1">
-              <MasterFilterCard />
+      <div className="container mx-auto pb-20 overflow-y-auto">
+        <div className="container mx-auto">
+          <div className="container mx-auto grid grid-cols-3">
+            <div className="col-span-1 flex justify-start items-center">
+              <div>
+                <Typography tag="h5" className="font-bold text-xl text-black ml-9 mb-3">
+                  Filter
+                </Typography>
+              </div>
             </div>
             <div className="col-span-2">
-              <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
-                </div>
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
-                </div>
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
-                </div>
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
-                </div>
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
-                </div>
-                <div className="flex justify-center items-center">
-                  <MasterCatalog />
+              <div className="container mx-auto grid grid-cols-1 pb-4">
+                <div className="flex justify-center items-center mx-5">
+                  <input 
+                  type="text"
+                    placeholder="Cari Produk"
+                    className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
+                  />
+                  <button
+                    type="button"
+                    className="bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 rounded-r-md"
+                  >
+                    <FaMagnifyingGlass />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className="container mx-auto">
+          <div className="container mx-auto grid grid-cols-3">
+            <div className="col-span-1 flex justify-center">
+              <div>
+                <MasterFilterCard />
+              </div>
+            </div>
+            <div className="col-span-2">
+              <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+            </div>
+              <div className="flex justify-center mt-6">
+              <MasterPagination />
+              </div>
+          </div>
+        </div>
         </div>
       </div>
 

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import {
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
   Card,
   CardHeader,
   CardBody,
@@ -21,90 +24,61 @@ export default function MasterFilterCard() {
   return (
     <Card className="w-96 border-2 border-gray-300 shadow-md p-4">
       {/* Section 1 */}
-      <Button
-        color={section1Expanded ? "white" : "white"}
-        onClick={toggleSection1}
-        className={`mt-0 rounded-none ${
-          section1Expanded
-            ? "border-b border-black transition-opacity duration-300 ease-in-out"
-            : "border-b border-black"
-        } hover:bg-gray-100`}
-      >
-        <Typography
-          color={section1Expanded ? "black" : "black"}
-          className="text-left uppercase font-semibold"
-        >
-          Lokasi
-          <span className="float-right">
-            {section1Expanded ? <FaAngleUp /> : <FaAngleDown />}
-          </span>
-        </Typography>
-      </Button>
-      {section1Expanded && (
-        <CardBody className={`${section1Expanded ? "opacity-100" : "opacity-0"} transition-opacity`}>
-          {/* Content for Section 1 */}
+      <Accordion open={section1Expanded} icon={<AccordionIcon open={section1Expanded} />}>
+        <AccordionHeader onClick={toggleSection1}>
+          <Typography
+            color={section1Expanded ? "green" : "black"}
+            className="text-left uppercase font-semibold"
+          >
+            Lokasi
+          </Typography>
+        </AccordionHeader>
+        <AccordionBody>
           <Typography className="text-sm text-gray-700">Content for Section 1 goes here.</Typography>
-        </CardBody>
-      )}
+        </AccordionBody>
+      </Accordion>
 
       {/* Section 2 */}
-      <Button
-        color={section2Expanded ? "white" : "white"}
-        onClick={toggleSection2}
-        className={`mt-2 rounded-none ${
-          section2Expanded
-            ? "border-b border-black transition-opacity duration-300 ease-in-out"
-            : "border-b border-black"
-        } hover:bg-gray-100`}
-      >
-        <Typography
-          color={section2Expanded ? "black" : "black"}
-          className="text-left uppercase font-semibold"
-        >
-          Kategori
-          <span className="float-right">
-            {section2Expanded ? <FaAngleUp /> : <FaAngleDown />}
-          </span>
-        </Typography>
-      </Button>
-      {section2Expanded && (
-        <CardBody className={`${section2Expanded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
-          {/* Content for Section 2 */}
+      <Accordion open={section2Expanded} icon={<AccordionIcon open={section2Expanded} />}>
+        <AccordionHeader onClick={toggleSection2}>
+          <Typography
+            color={section2Expanded ? "green" : "black"}
+            className="text-left uppercase font-semibold"
+          >
+            Kategori
+          </Typography>
+        </AccordionHeader>
+        <AccordionBody>
           <Typography className="text-sm text-gray-700">Content for Section 2 goes here.</Typography>
-        </CardBody>
-      )}
+        </AccordionBody>
+      </Accordion>
 
       {/* Section 3 */}
-      <Button
-        color={section3Expanded ? "white" : "white"}
-        onClick={toggleSection3}
-        className={`mt-2 rounded-none ${
-          section3Expanded
-            ? "border-b border-black transition-opacity duration-300 ease-in-out"
-            : "border-b border-black"
-        } hover:bg-gray-100`}
-      >
-        <Typography
-          color={section3Expanded ? "black" : "black"}
-          className="text-left uppercase font-semibold"
-        >
-          Harga
-          <span className="float-right">
-            {section3Expanded ? <FaAngleUp /> : <FaAngleDown />}
-          </span>
-        </Typography>
-      </Button>
-      {section3Expanded && (
-        <CardBody className={`${section3Expanded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
-          {/* Content for Section 3 */}
+      <Accordion open={section3Expanded} icon={<AccordionIcon open={section3Expanded} />}>
+        <AccordionHeader onClick={toggleSection3}>
+          <Typography
+            color={section3Expanded ? "green" : "black"}
+            className="text-left uppercase font-semibold"
+          >
+            Harga
+          </Typography>
+        </AccordionHeader>
+        <AccordionBody>
           <Typography className="text-sm text-gray-700">Content for Section 3 goes here.</Typography>
-        </CardBody>
-      )}
+        </AccordionBody>
+      </Accordion>
 
       {/* Footer (optional) */}
       <CardFooter className="mt-4">
-        <Button className="w-full bg-wpigreen-50">Apply Filters</Button>
+        <Button className="w-full bg-wpigreen-50">Tampilkan</Button>
       </CardFooter>
     </Card>
   );
 }
+
+// Component for Accordion Icon
+const AccordionIcon = ({ open }) => (
+  <FaAngleDown
+    className={`h-5 w-5 transform ${open ? "rotate-180" : ""} transition-transform`}
+  />
+);

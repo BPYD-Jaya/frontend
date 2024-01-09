@@ -58,25 +58,43 @@ export default function NewsPage() {
               News
             </Typography>
           </div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
-            <div className="flex justify-center items-center">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12 ">
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
-            <div className="flex justify-center items-center">
+            </a>
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
-            <div className="flex justify-center items-center">
+            </a>
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
-            <div className="flex justify-center items-center">
+            </a>
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
-            <div className="flex justify-center items-center">
+            </a>
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
-            <div className="flex justify-center items-center">
+            </a>
+            <a
+              href="/detailnews"
+              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
               <MasterNews />
-            </div>
+            </a>
           </div>
         </div>
 
