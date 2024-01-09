@@ -6,6 +6,7 @@ import NewsPage from "./pages/NewsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductPage from "./pages/ProductPage";
+import DetailProduct from "./pages/detailProduct";
 export default function App() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/mitra" element={<MitraPage />} />
       <Route path="/news" element={<NewsPage />} />
       <Route path="/produk" element={<ProductPage />} />
+      <Route path="/detailproduk" element={<DetailProduct />} />
     </Routes>
   );
 }
