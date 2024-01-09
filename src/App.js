@@ -8,7 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import DetailNews from "./pages/detailNews";
 import AboutPage from "./pages/AboutPage";
 import DashboardPage from "./pages/Dashboard";
-
+import ProductPage from "./pages/ProductPage";
 export default function App() {
   return (
     <Routes>
@@ -20,6 +20,7 @@ export default function App() {
       <Route path="/detailnews" element={<DetailNews />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/produk" element={<ProductPage />} />
     </Routes>
   );
 }
