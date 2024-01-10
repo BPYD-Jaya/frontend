@@ -103,7 +103,6 @@ export default function AdminDetailProduct() {
       <div className="pt-10">
         <MasterFooterAdmin />
       </div>
-         
     </div>
   );
 }

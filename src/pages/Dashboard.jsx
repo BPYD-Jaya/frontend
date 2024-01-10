@@ -56,5 +56,6 @@ export default function DashboardPage() {
         <MasterFooterAdmin />
       </div>
     </div>
+    </div>
   );
 }
