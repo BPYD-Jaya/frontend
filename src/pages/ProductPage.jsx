@@ -163,20 +163,8 @@ export default function ProductPage() {
               <div className="flex justify-center items-center">
                 <MasterCatalog />
               </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
+              <div className="flex justify-center mt-6">
+                <MasterPagination />
               </div>
             </div>
             <div className="flex justify-center mt-6 ">
