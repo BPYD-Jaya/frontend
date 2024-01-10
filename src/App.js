@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import NewsPage from "./pages/NewsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import DetailNews from "./pages/detailNews";
+import AboutPage from "./pages/AboutPage";
 import ProductPage from "./pages/ProductPage";
 import DetailProduct from "./pages/detailProduct";
 export default function App() {
@@ -15,6 +17,8 @@ export default function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/mitra" element={<MitraPage />} />
       <Route path="/news" element={<NewsPage />} />
+      <Route path="/detailnews" element={<DetailNews />} />
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/produk" element={<ProductPage />} />
       <Route path="/detailproduk" element={<DetailProduct />} />
     </Routes>
