@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Select, Option, Input } from "@material-tailwind/react";
+import { Slider } from "@material-tailwind/react";
 import {
   Accordion,
   AccordionHeader,
@@ -9,6 +11,10 @@ import {
   CardFooter,
   Typography,
   Button,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemPrefix,
 } from "@material-tailwind/react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
@@ -33,10 +39,30 @@ export default function MasterFilterCard() {
             Lokasi
           </Typography>
         </AccordionHeader>
-        <AccordionBody>
-          <Typography className="text-sm text-gray-700">Content for Section 1 goes here.</Typography>
+        <AccordionBody className="full-height">
+          <div className="flex w full flex-col gap-6 relative">
+            <div>
+              <Select size="lg" label="Pilih Provinsi" className="full-height-select z-100" menuIsOpen={true}>
+                <Option>Material Tailwind HTML</Option>
+                <Option>Material Tailwind React</Option>
+                <Option>Material Tailwind Vue</Option>
+                <Option>Material Tailwind Angular</Option>
+                <Option>Material Tailwind Svelte</Option>
+              </Select>
+            </div>
+            <div>
+              <Select size="lg" label="Pilih Kabupaten/Kota" className="full-height-select z-100" menuIsOpen={true}>
+                <Option>Material Tailwind HTML</Option>
+                <Option>Material Tailwind React</Option>
+                <Option>Material Tailwind Vue</Option>
+                <Option>Material Tailwind Angular</Option>
+                <Option>Material Tailwind Svelte</Option>
+              </Select>
+            </div>
+          </div>
         </AccordionBody>
       </Accordion>
+
 
       {/* Section 2 */}
       <Accordion open={section2Expanded} icon={<AccordionIcon open={section2Expanded} />}>
@@ -49,7 +75,108 @@ export default function MasterFilterCard() {
           </Typography>
         </AccordionHeader>
         <AccordionBody>
-          <Typography className="text-sm text-gray-700">Content for Section 2 goes here.</Typography>
+            <List>
+              <ListItem className="p-0">
+                <label
+                  htmlFor="vertical-list-react"
+                  className="flex w-full cursor-pointer items-center px-3 py-2"
+                >
+                  <ListItemPrefix className="mr-3">
+                    <Checkbox
+                      id="vertical-list-react"
+                      ripple={false}
+                      className="hover:before:opacity-0"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                    />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="font-medium">
+                    Batubara
+                  </Typography>
+                </label>
+              </ListItem>
+              <ListItem className="p-0">
+                <label
+                  htmlFor="vertical-list-vue"
+                  className="flex w-full cursor-pointer items-center px-3 py-2"
+                >
+                  <ListItemPrefix className="mr-3">
+                    <Checkbox
+                      id="vertical-list-vue"
+                      ripple={false}
+                      className="hover:before:opacity-0"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                    />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="font-medium">
+                    Horticultural
+                  </Typography>
+                </label>
+              </ListItem>
+              <ListItem className="p-0">
+                <label
+                  htmlFor="vertical-list-svelte"
+                  className="flex w-full cursor-pointer items-center px-3 py-2"
+                >
+                  <ListItemPrefix className="mr-3">
+                    <Checkbox
+                      id="vertical-list-svelte"
+                      ripple={false}
+                      className="hover:before:opacity-0"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                    />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="font-medium">
+                    Agriculture
+                  </Typography>
+                </label>
+              </ListItem>
+              <ListItem className="p-0">
+                <label
+                  htmlFor="vertical-list-svelte"
+                  className="flex w-full cursor-pointer items-center px-3 py-2"
+                >
+                  <ListItemPrefix className="mr-3">
+                    <Checkbox
+                      id="vertical-list-svelte"
+                      ripple={false}
+                      className="hover:before:opacity-0"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                    />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="font-medium">
+                    Aquaculture
+                  </Typography>
+                </label>
+              </ListItem>
+              <ListItem className="p-0">
+                <label
+                  htmlFor="vertical-list-svelte"
+                  className="flex w-full cursor-pointer items-center px-3 py-2"
+                >
+                  <ListItemPrefix className="mr-3">
+                    <Checkbox
+                      id="vertical-list-svelte"
+                      ripple={false}
+                      className="hover:before:opacity-0"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                    />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="font-medium">
+                    Mineral
+                  </Typography>
+                </label>
+              </ListItem>
+            </List>
         </AccordionBody>
       </Accordion>
 
@@ -64,12 +191,19 @@ export default function MasterFilterCard() {
           </Typography>
         </AccordionHeader>
         <AccordionBody>
-          <Typography className="text-sm text-gray-700">Content for Section 3 goes here.</Typography>
+          <div className="w-full mb-10">
+            <Input label="Terendah" />
+            <Slider defaultValue={50} />
+          </div>
+          <div className="w-full">
+            <Input label="Tertinggi" />
+            <Slider defaultValue={50} />
+          </div>
         </AccordionBody>
       </Accordion>
 
       {/* Footer (optional) */}
-      <CardFooter className="mt-4">
+      <CardFooter className="mt-2">
         <Button className="w-full bg-wpigreen-50">Tampilkan</Button>
       </CardFooter>
     </Card>

@@ -88,7 +88,7 @@ export default function MasterNavbar() {
 
   return (
     <div className="container mx-auto px-4 py-4">
-      <div className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 w-full bg-wpiblue-50">
+      <div className="sticky top-0 z-50 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 w-full bg-wpiblue-50">
         <div className="flex items-center justify-between text-white">
           <div className="flex justify-center items-center gap-4">
             <img src="assets/logo-wpi.png" alt="" width={50} className="" />

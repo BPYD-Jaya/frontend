@@ -6,21 +6,21 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import MasterButtonWa from "./masterButtonWa";
 
 export default function MasterCatalog() {
   return (
     <Card className="max-w-[250px] overflow-hidden">
-      <CardHeader
+      <CardHeader 
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 rounded-none overflow-hidden relative"
+        className=" object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <a href="#">
-          <img
-            src="https://warungpangan.com/upload/img/f7ec7beff1317722e1df5a97055d23eb.jpg"
+        <a href="/detailproduk">
+          <img className="rounded-md"
+            src="https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg"
             alt="ui/ux review check"
-            className="w-full h-40 object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
           />
         </a>
       </CardHeader>
@@ -36,7 +36,7 @@ export default function MasterCatalog() {
         >
           Rp 100 Juta - 500 Juta
         </Typography>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2">
           <Typography variant="body2" color="gray" className="font-normal text-wpigreen-50 italic whitespace-nowrap text-xs">
             Gratis Pengiriman
           </Typography>
@@ -44,15 +44,8 @@ export default function MasterCatalog() {
             Terjual 1000
           </Typography>
         </div>
-        <div className="flex items-center justify-center mt-4">
-          <button 
-            type="button"
-            className="ml-0 mb-[-10px] mt-4 bg-wpigreen-50 text-white font-bold py- px-4 h-10 w-full rounded-md">
-              <div className="flex justify-center items-center gap-3">
-                <img alt="" src="./assets/whatsapp.png" className="h-[25px]"/>
-                Hubungi Kami
-              </div>
-          </button>
+        <div className="flex items-center justify-center mb-2">
+            <MasterButtonWa />
         </div>
       </CardBody>
     </Card>
