@@ -3,7 +3,12 @@ import MasterNavbar from "../components/masterNavbar";
 import MasterFooter from "../components/masterFooter";
 import MasterBreadcrumbs from "../components/masterBreadcrumbs";
 import MasterProductImage from "../components/masterProductImage";
-import { Typography, ButtonGroup, Button, Input } from "@material-tailwind/react";
+import {
+  Typography,
+  ButtonGroup,
+  Button,
+  Input,
+} from "@material-tailwind/react";
 
 export default function DetailProduct() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -20,6 +25,22 @@ export default function DetailProduct() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+
+  const handleIncrement = () => {
+    handleQuantityChange(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      handleQuantityChange(quantity - 1);
+    }
+  };
 
   return (
     <div>
@@ -70,15 +91,20 @@ export default function DetailProduct() {
                 </Typography>
               </div>
               <ButtonGroup size="md" className="ml-4 justify-center">
-                <Button className="hover:bg-blue-400 bg-wpiblue-50">-</Button>
-                <input
-                  type="qty"
-                  className="w-[45px] max-w-[45px] border text-center"
-                  placeholder="Qty."
-                />
-                <Button className="hover:bg-blue-400 bg-wpiblue-50">+</Button>
-              </ButtonGroup>
-            </div>
+          <Button onClick={handleDecrement} className="hover:bg-blue-400 bg-wpiblue-50">
+            -
+          </Button>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => handleQuantityChange(parseInt(e.target.value))}
+            className="w-[45px] max-w-[45px] border text-center"
+            placeholder="Qty."
+          />
+          <Button onClick={handleIncrement} className="hover:bg-blue-400 bg-wpiblue-50">
+            +
+          </Button>
+        </ButtonGroup>            </div>
             <div className="w-full flex items-center justify-center mt-4">
               <Button className="hover:bg-green-400 bg-wpigreen-50 w-full">
                 Hubungi Kami
