@@ -20,11 +20,9 @@ export default function App() {
       <Route path="/news" element={<NewsPage />} />
       <Route path="/detailnews" element={<DetailNews />} />
       <Route path="/about" element={<AboutPage />} />
-<<<<<<<<< Temporary merge branch 1
       <Route path="/produk" element={<ProductPage />} />
-=========
       <Route path="/dashboard" element={<DashboardPage />} />
->>>>>>>>> Temporary merge branch 2
+      <Route path="/detailproduk" element={<DetailProduct />} />
     </Routes>
   );
 }
