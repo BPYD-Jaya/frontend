@@ -124,7 +124,7 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* Content */}
+        {/* Content */}
       <div className="container mx-auto pb-20 overflow-y-auto">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3">
           <div className="md:col-span-1 flex justify-start items-center">
@@ -163,8 +163,20 @@ export default function ProductPage() {
               <div className="flex justify-center items-center">
                 <MasterCatalog />
               </div>
-              <div className="flex justify-center mt-6">
-                <MasterPagination />
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
+              </div>
+              <div className="flex justify-center items-center">
+                <MasterCatalog />
               </div>
             </div>
             <div className="flex justify-center mt-6 ">
