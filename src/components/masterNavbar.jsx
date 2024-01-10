@@ -12,6 +12,9 @@ export default function MasterNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
 
+  // Menentukan halaman aktif berdasarkan path saat ini
+  const currentPath = window.location.pathname;
+
   React.useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 960);
@@ -21,7 +24,7 @@ export default function MasterNavbar() {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initial check
+    handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -34,9 +37,9 @@ export default function MasterNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className={`p-1 font-${currentPath === '/' ? 'bold' : 'normal'}`}
       >
-        <a href="/" className="flex items-center text-white font-bold">
+        <a href="/" className={`flex items-center text-white ${currentPath === '/' ? 'font-bold' : ''}`}>
           Beranda
         </a>
       </Typography>
@@ -44,9 +47,9 @@ export default function MasterNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className={`p-1 font-${currentPath === '/produk' ? 'bold' : 'normal'}`}
       >
-        <a href="/produk" className="flex items-center text-white font-bold">
+        <a href="/produk" className={`flex items-center text-white ${currentPath === '/produk' ? 'font-bold' : ''}`}>
           Produk
         </a>
       </Typography>
@@ -54,9 +57,9 @@ export default function MasterNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-1 font-normal text-white "
+        className={`p-1 font-${currentPath === '/mitra' ? 'bold' : 'normal'}`}
       >
-        <a href="/mitra" className="flex items-center font-bold ">
+        <a href="/mitra" className={`flex items-center ${currentPath === '/mitra' ? 'font-bold text-white' : 'text-white'}`}>
           Mitra Bisnis
         </a>
       </Typography>
@@ -64,9 +67,9 @@ export default function MasterNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-1 font-normal text-white"
+        className={`p-1 font-${currentPath === '/news' ? 'bold' : 'normal'}`}
       >
-        <a href="/news" className="flex items-center font-bold">
+        <a href="/news" className={`flex items-center ${currentPath === '/news' ? 'font-bold text-white' : 'text-white'}`}>
           Blog
         </a>
       </Typography>
@@ -74,9 +77,9 @@ export default function MasterNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-1 font-normal text-white"
+        className={`p-1 font-${currentPath === '/about' ? 'bold' : 'normal'}`}
       >
-        <a href="/about" className="flex items-center font-bold">
+        <a href="/about" className={`flex items-center ${currentPath === '/about' ? 'font-bold text-white' : 'text-white'}`}>
           Tentang
         </a>
       </Typography>
@@ -86,7 +89,7 @@ export default function MasterNavbar() {
   return (
     <div className="container mx-auto px-4 py-4">
       <div className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 w-full bg-wpiblue-50">
-        <div className="flex items-center justify-between text-white  ">
+        <div className="flex items-center justify-between text-white">
           <div className="flex justify-center items-center gap-4">
             <img src="assets/logo-wpi.png" alt="" width={50} className="" />
             {!isSmallScreen && (
