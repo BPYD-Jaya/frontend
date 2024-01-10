@@ -10,6 +10,7 @@ import AboutPage from "./pages/AboutPage";
 import ProductPage from "./pages/ProductPage";
 import DashboardPage from "./pages/Dashboard";
 import DetailProduct from "./pages/detailProduct";
+import AdminCatalog from "./pages/AdminCatalog";
 export default function App() {
   return (
     <Routes>
@@ -22,6 +23,7 @@ export default function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/produk" element={<ProductPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/admincalatog" element={<AdminCatalog />} />
       <Route path="/detailproduk" element={<DetailProduct />} />
     </Routes>
   );
