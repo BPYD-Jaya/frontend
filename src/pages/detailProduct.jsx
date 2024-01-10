@@ -38,12 +38,12 @@ export default function DetailProduct() {
       </div>
 
       {/* Breadcrumbs */}
-      <div className="container mx-auto flex justify-start pt-4 xl:px-0 px-4">
-        <MasterBreadcrumbs />
-      </div>
+      {/* <div className="container mx-auto flex justify-start pt-4 xl:px-0 px-4">
+      </div> */}
 
       <div className="grid grid-cols-2 gap-0 mt-4 px-4 max-w-screen-xl mx-auto">
         <div className="col-span-1">
+        <MasterBreadcrumbs />
           <MasterProductImage />
         </div>
         <div className="col-span-1">
