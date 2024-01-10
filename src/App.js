@@ -1,7 +1,7 @@
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import MitraPage from "./pages/MitraPage";
-import { Route, Routes } from "react-router-dom";
 import NewsPage from "./pages/NewsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";

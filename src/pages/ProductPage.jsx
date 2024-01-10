@@ -41,78 +41,87 @@ export default function ProductPage() {
           Kategori Produk
         </Typography>
         <div className=" p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
-        <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/coal.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold">
-                  Batubara dan Mineral
-                </Typography>
-              </div>
+          <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/coal.png"
+                alt=""
+                className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+              />
             </div>
-            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/corn.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold">Horticultural</Typography>
-              </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <Typography className="text-white font-bold">
+                Batubara dan Mineral
+              </Typography>
             </div>
-            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/agriculture.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold">Agriculture</Typography>
-              </div>
+          </div>
+          <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/corn.png"
+                alt=""
+                className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+              />
             </div>
-            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/aquaculture.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold">Aquaculture</Typography>
-              </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <Typography className="text-white font-bold">
+                Horticultural
+              </Typography>
             </div>
-            <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/mineral.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold">Mineral</Typography>
-              </div>
+          </div>
+          <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/agriculture.png"
+                alt=""
+                className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <Typography className="text-white font-bold">
+                Agriculture
+              </Typography>
+            </div>
+          </div>
+          <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/aquaculture.png"
+                alt=""
+                className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <Typography className="text-white font-bold">
+                Aquaculture
+              </Typography>
+            </div>
+          </div>
+          <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/mineral.png"
+                alt=""
+                className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <Typography className="text-white font-bold">Mineral</Typography>
             </div>
           </div>
         </div>
+      </div>
 
-      {/* Content */}
+      {/* Filter */}
       <div className="container mx-auto pb-20 overflow-y-auto">
         <div className="container mx-auto">
           <div className="container mx-auto grid grid-cols-3">
             <div className="col-span-1 flex justify-start items-center">
               <div>
-                <Typography tag="h5" className="font-bold text-xl text-black ml-9 mb-3">
+                <Typography
+                  tag="h5"
+                  className="font-bold text-xl text-black ml-9 mb-3"
+                >
                   Filter
                 </Typography>
               </div>
@@ -120,8 +129,8 @@ export default function ProductPage() {
             <div className="col-span-2">
               <div className="container mx-auto grid grid-cols-1 pb-4">
                 <div className="flex justify-center items-center mx-5">
-                  <input 
-                  type="text"
+                  <input
+                    type="text"
                     placeholder="Cari Produk"
                     className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
                   />
@@ -143,32 +152,34 @@ export default function ProductPage() {
                 <MasterFilterCard />
               </div>
             </div>
+
+            {/* Catalog */}
             <div className="col-span-2">
               <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-0 gap-12">
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
+                <div className="flex justify-center items-center">
+                  <MasterCatalog />
+                </div>
               </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
+              <div className="flex justify-center mt-6">
+                <MasterPagination />
               </div>
             </div>
-              <div className="flex justify-center mt-6">
-              <MasterPagination />
-              </div>
           </div>
-        </div>
         </div>
       </div>
 
