@@ -24,16 +24,16 @@ export function DefaultPagination() {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-">
       <Button
         variant="text"
-        className="flex items-center gap-2"
+        className="flex items-center text-s"
         onClick={prev}
         disabled={active === 1}
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <IconButton {...getItemProps(1)}>1</IconButton>
         <IconButton {...getItemProps(2)}>2</IconButton>
         <IconButton {...getItemProps(3)}>3</IconButton>
@@ -42,7 +42,7 @@ export function DefaultPagination() {
       </div>
       <Button
         variant="text"
-        className="flex items-center gap-2"
+        className="flex items-center text-s"
         onClick={next}
         disabled={active === 5}
       >
