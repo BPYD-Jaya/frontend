@@ -56,7 +56,7 @@ export default function MasterCatalogAdmin() {
           </Typography>
         </div>
         <div className="flex justify-between items-center mt-4 ">
-          <a href="/admindetailproduct">
+          <a href="/admindetailproduk">
             <button
               type="button"
               className="ml-0 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"
