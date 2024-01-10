@@ -91,20 +91,29 @@ export default function DetailProduct() {
                 </Typography>
               </div>
               <ButtonGroup size="md" className="ml-4 justify-center">
-          <Button onClick={handleDecrement} className="hover:bg-blue-400 bg-wpiblue-50">
-            -
-          </Button>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => handleQuantityChange(parseInt(e.target.value))}
-            className="w-[45px] max-w-[45px] border text-center"
-            placeholder="Qty."
-          />
-          <Button onClick={handleIncrement} className="hover:bg-blue-400 bg-wpiblue-50">
-            +
-          </Button>
-        </ButtonGroup>            </div>
+                <Button
+                  onClick={handleDecrement}
+                  className="hover:bg-blue-400 bg-wpiblue-50"
+                >
+                  -
+                </Button>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) =>
+                    handleQuantityChange(parseInt(e.target.value))
+                  }
+                  className="w-[45px] max-w-[45px] border text-center"
+                  placeholder="Qty."
+                />
+                <Button
+                  onClick={handleIncrement}
+                  className="hover:bg-blue-400 bg-wpiblue-50"
+                >
+                  +
+                </Button>
+              </ButtonGroup>{" "}
+            </div>
             <div className="w-full flex items-center justify-center mt-4">
               <Button className="hover:bg-green-400 bg-wpigreen-50 w-full">
                 Hubungi Kami
@@ -156,6 +165,17 @@ export default function DetailProduct() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Content Image */}
+      <div class="container mx-auto flex justify-center pb-16 px-8">
+        <div class="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <img
+            src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+            alt=""
+            class="w-full"
+          />
         </div>
       </div>
 
