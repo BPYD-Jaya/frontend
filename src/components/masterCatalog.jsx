@@ -16,7 +16,7 @@ export default function MasterCatalog() {
         color="transparent"
         className="m-0 rounded-none overflow-hidden relative"
       >
-        <a href="#">
+        <a href="/detailproduk">
           <img
             src="https://warungpangan.com/upload/img/f7ec7beff1317722e1df5a97055d23eb.jpg"
             alt="ui/ux review check"
