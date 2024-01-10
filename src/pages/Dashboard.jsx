@@ -12,6 +12,12 @@ export default function DashboardPage() {
         <MasterSidebar />
       </div>
 
+    <div className="bg-gray-100 h-full flex flex-col min-h-screen">
+      {/* Sidebar */}
+      <div className="bg-white z-50 fixed top-0 h-full">
+        <MasterSidebar />
+      </div>
+
       {/* Navbar */}
       <MasterNavbarAdmin />
 
@@ -43,6 +49,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Footer */}
+      <div className="pt-10 justify-bottom w-full">
+        <MasterFooterAdmin />
+      </div>
       <div className="pt-10 justify-bottom w-full">
         <MasterFooterAdmin />
       </div>

@@ -36,7 +36,7 @@ export default function MasterSidebar() {
     setOpen(open === value ? 0 : value);
   };
   return (
-    <div className=" w-full max-w-[20rem] p-4 shadow-md shadow-blue-gray-900/5">
+    <div className=" w-full h-screen max-w-[20rem] p-4 shadow-md shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4 justify-center">
         <img src="../assets/logo-wpi.png" alt="brand" className="h-[50px]" />
       </div>
@@ -51,23 +51,23 @@ export default function MasterSidebar() {
             </ListItem>
           </Accordion>
         </a>
-        <a href="/admincalatog">
+        <a href="/adminproduct">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
                 <ShoppingBagIcon className="h-5 w-5" />
               </ListItemPrefix>
-              Catalog
+              Product
             </ListItem>
           </Accordion>
         </a>
-        <a href="#">
+        <a href="/adminnews">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
                 <NewspaperIcon className="h-5 w-5" />
               </ListItemPrefix>
-              Blog
+              News
             </ListItem>
           </Accordion>
         </a>
@@ -98,23 +98,23 @@ export default function MasterSidebar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <a href="#">
+              <a href="/master-produk">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
-                  Category Product
+                  Product
                 </ListItem>
               </a>
-              <a href="#">
+              <a href="/master-blog">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
-                  Category Blog
+                  Blog
                 </ListItem>
               </a>
-              <a href="#">
+              <a href="/master-city">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
@@ -122,7 +122,7 @@ export default function MasterSidebar() {
                   City
                 </ListItem>
               </a>
-              <a href="#">
+              <a href="/master-province">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
