@@ -38,12 +38,12 @@ export default function DetailProduct() {
       </div>
 
       {/* Breadcrumbs */}
-      <div className="container mx-auto flex justify-start pt-4 xl:px-0 px-4">
-        <MasterBreadcrumbs />
-      </div>
+      {/* <div className="container mx-auto flex justify-start pt-4 xl:px-20 bg-blue-100"> */}
+      {/* </div> */}
 
-      <div className="grid grid-cols-2 gap-0 mt-4 px-4 max-w-screen-xl mx-auto">
-        <div className="col-span-1">
+      <div className="grid grid-cols-2 gap-1 mt-4 max-w-screen-xl mx-auto flex">
+        <div className="col-span-1 mx-auto">
+          <MasterBreadcrumbs />
           <MasterProductImage />
         </div>
         <div className="col-span-1">
@@ -83,12 +83,16 @@ export default function DetailProduct() {
             <div className="flex items-center w-[150px]">
               <ButtonGroup size="md" className="w-[150px]">
                 <Button className="hover:bg-blue-400 bg-wpiblue-50">-</Button>
-                <input type="qty" className="w-[45px] max-w-[45px] border text-center" placeholder="Qty."></input>
+                <input
+                  type="qty"
+                  className="w-[45px] max-w-[45px] border text-center"
+                  placeholder="Qty."
+                ></input>
                 <Button className="hover:bg-blue-400 bg-wpiblue-50 ">+</Button>
               </ButtonGroup>
             </div>
           </div>
-          <div className="flex items-center justify-left pt-8">
+          <div className="flex items-center justify-left pt-8 px-3.5">
             <Button className="hover:bg-green-400 bg-wpigreen-50">
               Hubungi Kami
             </Button>
