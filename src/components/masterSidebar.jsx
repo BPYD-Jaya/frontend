@@ -159,7 +159,7 @@ export default function MasterSidebar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <a href="#">
+              <a href="/admineditprofile">
                 <ListItem>
                   <ListItemPrefix>
                     <UserCircleIcon className="h-5 w-5" />

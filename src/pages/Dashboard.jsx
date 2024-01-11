@@ -75,6 +75,7 @@ export default function DashboardPage() {
       <div className="pt-10 justify-bottom w-full">
         <MasterFooterAdmin />
       </div>
+      </div>
     </div>
   );
 }

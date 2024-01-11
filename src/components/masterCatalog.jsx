@@ -10,7 +10,7 @@ import MasterButtonWa from "./masterButtonWa";
 
 export default function MasterCatalog() {
   return (
-    <Card className="max-w-[250px] overflow-hidden">
+    <Card className="lg:max-w-[250px] w-full overflow-hidden">
       <CardHeader 
         floated={false}
         shadow={false}

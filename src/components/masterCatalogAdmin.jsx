@@ -10,17 +10,18 @@ import {
 export default function MasterCatalogAdmin() {
   return (
     <Card className="max-w-[250px] overflow-hidden">
-      <CardHeader
+      <CardHeader 
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 rounded-none overflow-hidden relative"
+        className=" object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <img
-          src="https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg"
-          alt="ui/ux review check"
-          className="w-auto h-full object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
-        />
+        <a href="/detailproduk">
+          <img className="rounded-md"
+            src="https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg"
+            alt="ui/ux review check"
+          />
+        </a>
       </CardHeader>
       <CardBody className="">
         <Typography
@@ -54,7 +55,7 @@ export default function MasterCatalogAdmin() {
             Terjual 1000
           </Typography>
         </div>
-        <div className="flex justify-center items-center mt-4">
+        <div className="flex justify-between items-center mt-4 ">
           <a href="/admindetailproduk">
             <button
               type="button"
