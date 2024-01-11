@@ -1,6 +1,8 @@
-import { Avatar, Typography } from "@material-tailwind/react";
+import { Avatar, Button, Typography } from "@material-tailwind/react";
 import React from "react";
+import { FaBars } from "react-icons/fa6";
 
+export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
 export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
   return (
     <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex justify-between items-center px-8 h-[80px] shadow-sm gap-4">
