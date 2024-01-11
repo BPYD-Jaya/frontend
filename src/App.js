@@ -19,15 +19,17 @@ import AdminProduct from "./pages/AdminProduct";
 import AdminDetailProduct from "./pages/AdminDetailProduct";
 import AdminDetailNews from "./pages/AdminDetailNews";
 import AdminEditNews from "./pages/AdminEditNews";
+import AdminAddProduct from "./pages/AdminAddProduct";
+import AdminEditProduct from "./pages/AdminEditProduct";
 import AddMasterProduct from "./pages/addMasterProduct";
-import AddMasterBlog from "./pages/addMasterBlog"
+import AddMasterBlog from "./pages/addMasterBlog";
 import AddMasterCity from "./pages/addMasterCity";
-import AddMasterProvince from "./pages/addMasterProvince"
+import AddMasterProvince from "./pages/addMasterProvince";
 import EditMasterProduct from "./pages/editMasterProduct";
-import EditMasterBlog from "./pages/editMasterBlog"
+import EditMasterBlog from "./pages/editMasterBlog";
 import EditMasterCity from "./pages/editMasterCity";
-import EditMasterProvince from "./pages/editMasterProvince"
-import AdminEditProfile from "./pages/AdminEditProfile"
+import EditMasterProvince from "./pages/editMasterProvince";
+import AdminEditProfile from "./pages/AdminEditProfile";
 export default function App() {
   return (
     <Routes>
@@ -46,6 +48,12 @@ export default function App() {
       <Route path="/adminnews" element={<AdminNews />} />
       <Route path="/admindetailnews" element={<AdminDetailNews />} />
       <Route path="/admin-edit-news" element={<AdminEditNews />} />
+      <Route path="/master-produk" element={<MasterProduct />} />
+      <Route path="/master-blog" element={<MasterBlog />} />
+      <Route path="/master-city" element={<MasterCity />} />
+      <Route path="/master-province" element={<MasterProvince />} />
+      <Route path="/admintambahproduk" element={<AdminAddProduct />} />
+      <Route path="/admineditproduk" element={<AdminEditProduct />} />
       <Route path="/master-produk" element={<MasterProduct />} />
       <Route path="/master-blog" element={<MasterBlog />} />
       <Route path="/master-city" element={<MasterCity />} />
