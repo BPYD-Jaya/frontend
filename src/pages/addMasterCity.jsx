@@ -1,6 +1,6 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -19,27 +19,55 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 
 export default function AddMasterCity() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setOpenSidebar(window.innerWidth >= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div className="bg-white z-50 fixed top-0 h-full">
+      <div
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
+          openSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <MasterSidebar />
       </div>
 
+      {openSidebar && (
+        <div
+          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
+          onClick={() => setOpenSidebar(false)}
+        ></div>
+      )}
+
       {/* Navbar */}
-      <MasterNavbarAdmin />
+      <MasterNavbarAdmin
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
 
       {/* Content Product */}
-      <div className="flex-grow h-full ml-80 pt-10 mr-0">
+      <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form>
-          <div className="grid grid-cols-4 gap-2 bg-white mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="col-span-4">
+          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+          <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Kota
               </Typography>
             </div>
-            <div className="col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="small" className="">
                 Nama Kota
               </Typography>
@@ -55,7 +83,7 @@ export default function AddMasterCity() {
                 }}
               />
             </div>
-            <div className="col-span-4 flex justify-end items-center pt-6">
+            <div className="md:col-span-4 flex justify-end items-center pt-6">
             <a href="/addmaster-city" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button color="" className="bg-red-400 flex">
                  Reset
