@@ -18,6 +18,7 @@ import MasterProvince from "./pages/MasterProvince";
 import AdminProduct from "./pages/AdminProduct";
 import AdminDetailProduct from "./pages/AdminDetailProduct";
 import AdminDetailNews from "./pages/AdminDetailNews";
+import AdminEditNews from "./pages/AdminEditNews";
 export default function App() {
   return (
     <Routes>
@@ -35,6 +36,7 @@ export default function App() {
       <Route path="/detailproduk" element={<DetailProduct />} />
       <Route path="/adminnews" element={<AdminNews />} />
       <Route path="/admindetailnews" element={<AdminDetailNews />} />
+      <Route path="/admin-edit-news" element={<AdminEditNews />} />
       <Route path="/master-produk" element={<MasterProduct />} />
       <Route path="/master-blog" element={<MasterBlog />} />
       <Route path="/master-city" element={<MasterCity />} />

@@ -22,44 +22,43 @@ export default function MasterCatalogAdmin() {
           className="w-auto h-full object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
         />
       </CardHeader>
-      <CardBody className="p-6">
+      <CardBody className="">
         <Typography
           variant="h4"
           color="blue-gray"
-          className="mb-2 text-xl whitespace-nowrap font-semibold"
-          style={{ fontSize: "19px" }}
+          className="mb-2 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
         >
           Minyak Goreng Curah
         </Typography>
         <Typography
           variant="lead"
           color="black"
-          className="mb-4 font-normal whitespace-nowrap"
+          className="mb-4 font-normal xl:whitespace-nowrap"
           style={{ fontSize: "0.950rem" }}
         >
           Rp 100 Juta - 500 Juta
         </Typography>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 gap-2">
           <Typography
             variant="body2"
             color="gray"
-            className="font-normal text-wpigreen-50 italic whitespace-nowrap text-xs"
+            className="font-normal text-wpigreen-50 italic xl:whitespace-nowrap text-xs"
           >
             Gratis Pengiriman
           </Typography>
           <Typography
             variant="caption"
             color="gray"
-            className="font-normal whitespace-nowrap text-xs"
+            className="font-normal  text-xs"
           >
             Terjual 1000
           </Typography>
         </div>
-        <div className="flex justify-between items-center mt-4 ">
+        <div className="flex justify-center items-center mt-4">
           <a href="/admindetailproduk">
             <button
               type="button"
-              className="ml-0 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"
+              className="ml-0 mb-[-10px] bg-wpiblue-50 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
@@ -87,7 +86,7 @@ export default function MasterCatalogAdmin() {
           <a href="#">
             <button
               type="button"
-              className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+              className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
@@ -110,7 +109,7 @@ export default function MasterCatalogAdmin() {
           <a href="#">
             <button
               type="button"
-              className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"
+              className="ml-2 mb-[-10px] bg-red-500 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
