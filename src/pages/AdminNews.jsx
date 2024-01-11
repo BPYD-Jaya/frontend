@@ -53,7 +53,7 @@ export default function AdminNews() {
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
             <Button className="bg-wpigreen-50 flex gap-2 items-center">
               <PlusCircleIcon className="h-[15px] w-auto" />
-              <p>Tambah Produk</p>
+              <p>Tambah News</p>
             </Button>
           </div>
         </div>

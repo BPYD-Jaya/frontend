@@ -54,10 +54,12 @@ export default function AdminProduct() {
             Product
           </Typography>
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
+            <a href="/admintambahproduk">
             <Button className="bg-wpigreen-50 flex gap-2 items-center">
               <PlusCircleIcon className="h-[15px] w-auto" />
               <p>Tambah Produk</p>
             </Button>
+            </a>
           </div>
           {/* <div className="col-span-2"></div> */}
           <div className="col-span-4">

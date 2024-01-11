@@ -89,7 +89,7 @@ export default function AdminDetailNews() {
                 Tri Wahyundo, dan Direktur Business Development Paskomnas, Bapak
                 Kukun Sutardjana
               </Typography>
-            </div>
+            </div>    
           </div>
         </div>
       </div>

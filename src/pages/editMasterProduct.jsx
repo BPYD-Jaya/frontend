@@ -106,9 +106,9 @@ export default function EditMasterProduct() {
               </div>
             </div>
             <div className="col-span-4 flex justify-end items-center pt-6">
-              <a href="/editmaster-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+              <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
-                 Reset
+                 Batal
                 </Button>
               </a>
               <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">

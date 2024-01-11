@@ -69,7 +69,7 @@ export default function AdminEditNews() {
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">  
           <form>
-            <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+            <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg ">
               <div className="md:col-span-4">
                 <Typography variant="h5" className="pb-10">
                   Edit News
@@ -80,7 +80,7 @@ export default function AdminEditNews() {
                   Judul Berita
                 </Typography>
               </div>
-              <div className="shadow-md md:col-span-4 rounded-lg">
+              <div className=" md:col-span-4 rounded-lg">
                 <Input
                   color="indigo"
                   size="lg"
@@ -96,7 +96,7 @@ export default function AdminEditNews() {
                   Nama Penulis
                 </Typography>
               </div>
-              <div className="shadow-md md:col-span-4 rounded-lg">
+              <div className=" md:col-span-4 rounded-lg">
                 <Input
                   color="indigo"
                   size="lg"
@@ -112,7 +112,7 @@ export default function AdminEditNews() {
                   Tanggal Berita
                 </Typography>
               </div>
-              <div className="shadow-md md:col-span-4 rounded-lg">
+              <div className=" md:col-span-4 rounded-lg">
                 <Input
                   type="datetime-local"
                   size="lg"
@@ -132,7 +132,7 @@ export default function AdminEditNews() {
                 <Textarea
                   color="indigo"
                   // placeholder="Deskripsi Produk"
-                  className="shadow-md md:col-span-4 w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
+                  className=" md:col-span-4 w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
@@ -143,7 +143,7 @@ export default function AdminEditNews() {
                   Upload Gambar
                 </Typography>
               </div>
-              <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
+              <div className="md:col-span-4  rounded-lg border b-2 border-gray-400">
                 <div className="px-2 md:px-4 pt-2">
                   <div className="overflow-hidden w-full max-w-[500px] md:w-full h-auto">
                     <img
@@ -176,25 +176,17 @@ export default function AdminEditNews() {
                 </div>
               </div>
               <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-            <a
-                href="/admineditproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-red-400">
-                  Reset
-                </Button>
-              </a>
-
-              <a
-                href="/adminproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-wpigreen-50 flex">
-                  Simpan
-                </Button>
-              </a>
-            </div>
-
+                <a href="/adminnews" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                    <Button className="bg-red-400 flex">
+                    Batal
+                    </Button>
+                  </a>
+                  <a href="/adminnews" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                    <Button className="bg-wpigreen-50 flex">
+                    Simpan
+                    </Button>
+                  </a>
+              </div>
             </div>
           </form>
         
