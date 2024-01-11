@@ -124,14 +124,11 @@ export default function ProductPage() {
         </div>
       </div>
 
-        {/* Content */}
+      {/* Content */}
       <div className="container mx-auto pb-20 overflow-y-auto">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3">
-          <div className="md:col-span-1 flex justify-start items-center">
-          </div>
-          <div className="md:col-span-2">
+      <div className="md:col-span-2">
             <div className="container mx-auto grid grid-cols-1 pb-4">
-              <div className="flex justify-center items-center mx-5">
+              <div className="flex justify-center items-center md:ml-[50px] lg:ml-[460px] lg:mr-[30px]">
                 <input
                   type="text"
                   placeholder="Cari Produk"
@@ -147,19 +144,20 @@ export default function ProductPage() {
               </div>
             </div>
           <div>
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3">
             <Typography tag="h5" className="font-bold text-xl text-black ml-8 mb-1">
                 Filter
             </Typography>
           </div>
         </div>
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-1 flex justify-center ml-3">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="md:col-span-1 ml-7">
             <div>
               <MasterFilterCard />
             </div>
           </div>
           <div className="md:col-span-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mr-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mr-4">
               <div className="flex justify-center items-center">
                 <MasterCatalog />
               </div>

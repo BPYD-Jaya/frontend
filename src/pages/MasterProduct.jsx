@@ -8,35 +8,36 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MasterNewsAdmin from "../components/masterNewsAdmin";
 
 export default function MasterProduct() {
-  const TABLE_HEAD = ["Name", "Job", "Employed", ""];
+  const TABLE_HEAD = ["Nomor", "Kategori Produk", "Kategori Foto", "Aksi"];
 
   const TABLE_ROWS = [
     {
-      name: "John Michael",
-      job: "Manager",
-      date: "23/04/18",
+      id: 1,
+      categoryProduct: "Batubara",
+      categoryProductPhoto: "assets/coal.png",
     },
     {
-      name: "Alexa Liras",
-      job: "Developer",
-      date: "23/04/18",
+      id: 2,
+      categoryProduct: "Horticultural",
+      categoryProductPhoto: "assets/corn.png",
     },
     {
-      name: "Laurent Perrier",
-      job: "Executive",
-      date: "19/09/17",
+      id: 3,
+      categoryProduct: "Agriculture",
+      categoryProductPhoto: "assets/agriculture.png",
     },
     {
-      name: "Michael Levi",
-      job: "Developer",
-      date: "24/12/08",
+      id: 4,
+      categoryProduct: "Aquaculture",
+      categoryProductPhoto: "assets/aquaculture.png",
     },
     {
-      name: "Richard Gran",
-      job: "Manager",
-      date: "04/10/21",
+      id: 5,
+      categoryProduct: "Mineral",
+      categoryProductPhoto: "assets/mineral.png",
     },
   ];
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -51,96 +52,67 @@ export default function MasterProduct() {
       <div className="flex-grow h-full ml-80 pt-10 mr-0">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 py-4 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">
-            Product
+            Kategori Produk
           </Typography>
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
+          <a href="/addmaster-produk">
             <Button className="bg-wpigreen-50 flex gap-2 items-center">
               <PlusCircleIcon className="h-[15px] w-auto" />
               <p>Tambah Kategori Produk</p>
             </Button>
+            </a>
           </div>
         </div>
 
         {/* Table */}
         <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
-          <Card className="h-full w-full overflow-y-scroll rounded-md">
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal leading-none opacity-70"
-                      >
-                        {head}
-                      </Typography>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {TABLE_ROWS.map(({ name, job, date }, index) => (
-                  <tr key={name} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {name}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {job}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
+        <Card className="h-full w-full overflow-y-scroll rounded-md">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {TABLE_ROWS.map(({ id, categoryProduct, categoryProductPhoto}) => (
+              <tr key={id} className="even:bg-blue-gray-50/50">
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {id}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {categoryProduct}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <img src={categoryProductPhoto} alt={categoryProduct} className="h-10 w-10" />
+                </td>
+                <td className="p-4">
                       <div className="">
-                        <button
-                          type="button"
-                          className=" bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"
-                        >
-                          <div className="flex justify-center items-center gap-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-                              />
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                              />
-                            </svg>
-                          </div>
-                        </button>
+                        <a href="/editmaster-produk">
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
@@ -162,6 +134,7 @@ export default function MasterProduct() {
                             </svg>
                           </div>
                         </button>
+                        </a>
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"

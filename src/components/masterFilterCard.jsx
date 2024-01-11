@@ -28,7 +28,7 @@ export default function MasterFilterCard() {
   const toggleSection3 = () => setSection3Expanded(!section3Expanded);
 
   return (
-    <Card className="w-96 border-2 border-gray-300 shadow-md p-4">
+    <Card className="xl:w-96 w-full border-2 border-gray-300 shadow-md p-4">
       {/* Section 1 */}
       <Accordion open={section1Expanded} icon={<AccordionIcon open={section1Expanded} />}>
         <AccordionHeader onClick={toggleSection1}>

@@ -18,6 +18,15 @@ import MasterProvince from "./pages/MasterProvince";
 import AdminProduct from "./pages/AdminProduct";
 import AdminDetailProduct from "./pages/AdminDetailProduct";
 import AdminDetailNews from "./pages/AdminDetailNews";
+import AddMasterProduct from "./pages/addMasterProduct";
+import AddMasterBlog from "./pages/addMasterBlog"
+import AddMasterCity from "./pages/addMasterCity";
+import AddMasterProvince from "./pages/addMasterProvince"
+import EditMasterProduct from "./pages/editMasterProduct";
+import EditMasterBlog from "./pages/editMasterBlog"
+import EditMasterCity from "./pages/editMasterCity";
+import EditMasterProvince from "./pages/editMasterProvince"
+import AdminEditProfile from "./pages/AdminEditProfile"
 export default function App() {
   return (
     <Routes>
@@ -39,6 +48,15 @@ export default function App() {
       <Route path="/master-blog" element={<MasterBlog />} />
       <Route path="/master-city" element={<MasterCity />} />
       <Route path="/master-province" element={<MasterProvince />} />
+      <Route path="/addmaster-produk" element={<AddMasterProduct />} />
+      <Route path="/addmaster-blog" element={<AddMasterBlog />} />
+      <Route path="/addmaster-city" element={<AddMasterCity />} />
+      <Route path="/addmaster-province" element={<AddMasterProvince />} />
+      <Route path="/editmaster-produk" element={<EditMasterProduct />} />
+      <Route path="/editmaster-blog" element={<EditMasterBlog />} />
+      <Route path="/editmaster-city" element={<EditMasterCity />} />
+      <Route path="/editmaster-province" element={<EditMasterProvince />} />
+      <Route path="/admineditprofile" element={<AdminEditProfile />} />
     </Routes>
   );
 }
