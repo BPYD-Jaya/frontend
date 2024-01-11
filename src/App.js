@@ -18,6 +18,7 @@ import MasterProvince from "./pages/MasterProvince";
 import AdminProduct from "./pages/AdminProduct";
 import AdminDetailProduct from "./pages/AdminDetailProduct";
 import AdminDetailNews from "./pages/AdminDetailNews";
+import AdminEditNews from "./pages/AdminEditNews";
 import AddMasterProduct from "./pages/addMasterProduct";
 import AddMasterBlog from "./pages/addMasterBlog"
 import AddMasterCity from "./pages/addMasterCity";
