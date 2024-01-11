@@ -1,6 +1,6 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -8,6 +8,8 @@ import {
   Input,
   Textarea,
   ButtonGroup,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
@@ -16,13 +18,12 @@ import MasterAdminDetailImage from "../components/masterAdminDetailImage";
 export default function AdminEditProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileUpload = (acceptedFiles) => {
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
     // Handle the selected file as needed
-    setSelectedFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
+    console.log(file);
   };
-
-  
 
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
@@ -87,7 +88,29 @@ export default function AdminEditProduct() {
                   className: "before:content-none after:content-none",
                 }}
               />
-            </div>{" "}
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Kategori Produk
+              </Typography>
+            </div>
+            <div className="shadow-md md:col-span-4 rounded-lg">
+              <Select
+                color="indigo"
+                size="lg"
+                placeholder="Kategori Produk"
+                className="!border-t-gray-400 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              >
+                <Option>Batubara</Option>
+                <Option>Horticultural</Option>
+                <Option>Agriculture</Option>
+                <Option>Aquaculture</Option>
+                <Option>Mineral</Option>
+              </Select>
+            </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
                 Harga
@@ -125,11 +148,11 @@ export default function AdminEditProduct() {
               </Typography>
             </div>
             <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
-              <div className="md:pl-4">
+              <div className="px-2 md:px-4 pt-2">
                 <MasterAdminDetailImage />
               </div>
-              <div className="md:flex pt-4 md:pl-4 pb-6">
-                <div className="md:flex  justify-center items-center">
+              <div className="md:flex pt-4 pl-2 md:pl-4 pb-6">
+                <div className="md:flex justify-center items-center">
                   <Button
                     color=""
                     className="bg-wpiblue-50 relative overflow-hidden"
@@ -145,13 +168,25 @@ export default function AdminEditProduct() {
                     />
                   </Button>
                   <Typography className="md:pl-4">
-                    {selectedFile ? selectedFile.name : "No File Chosen"}
+                    {selectedFile ? `${selectedFile.name}` : "No File Chosen"}
                   </Typography>
                 </div>
               </div>
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a href="/adminproduk" className="text-wpigreen-500 md:ml-4 text-sm">
+            <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
+            <a
+                href="/admineditproduk"
+                className="text-wpigreen-500 md:ml-4 text-sm"
+              >
+                <Button color="" className="bg-red-400">
+                  Reset
+                </Button>
+              </a>
+
+              <a
+                href="/adminproduk"
+                className="text-wpigreen-500 md:ml-4 text-sm"
+              >
                 <Button color="" className="bg-wpigreen-50 flex">
                   Simpan
                 </Button>

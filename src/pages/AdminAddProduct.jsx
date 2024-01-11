@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import { Button, Input, Textarea, Typography,Select, Option } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
@@ -90,6 +90,29 @@ export default function AdminAddProduct() {
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
+                Kategori Produk
+              </Typography>
+            </div>
+            <div className="shadow-md md:col-span-4 rounded-lg">
+              <Select
+                color="indigo"
+                size="lg"
+                placeholder="Kategori Produk"
+                className="!border-t-gray-400 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              >
+                <Option>Batubara</Option>
+                <Option>Horticultural</Option>
+                <Option>Agriculture</Option>
+                <Option>Aquaculture</Option>
+                <Option>Mineral</Option>
+
+                </Select>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
                 Harga
               </Typography>
             </div>
@@ -137,13 +160,26 @@ export default function AdminAddProduct() {
                 </div>
               )}
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a href="/adminproduk" className="text-wpigreen-500 ml-4 text-sm">
+            <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
+            <a
+                href="/admintambahproduk"
+                className="text-wpigreen-500 md:ml-4 text-sm"
+              >
+                <Button color="" className="bg-red-400">
+                  Reset
+                </Button>
+              </a>
+
+              <a
+                href="/adminproduk"
+                className="text-wpigreen-500 md:ml-4 text-sm"
+              >
                 <Button color="" className="bg-wpigreen-50 flex">
-                  Tambah Produk
+                  Simpan
                 </Button>
               </a>
             </div>
+
           </div>
         </form>
       </div>

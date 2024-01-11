@@ -18,6 +18,7 @@ import MasterProvince from "./pages/MasterProvince";
 import AdminProduct from "./pages/AdminProduct";
 import AdminDetailProduct from "./pages/AdminDetailProduct";
 import AdminDetailNews from "./pages/AdminDetailNews";
+import AdminEditNews from "./pages/AdminEditNews";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminEditProduct from "./pages/AdminEditProduct";
 export default function App() {

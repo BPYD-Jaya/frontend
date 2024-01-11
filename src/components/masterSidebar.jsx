@@ -51,7 +51,7 @@ export default function MasterSidebar() {
             </ListItem>
           </Accordion>
         </a>
-        <a href="/adminproduct">
+        <a href="/adminproduk">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
