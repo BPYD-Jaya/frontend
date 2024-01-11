@@ -78,7 +78,7 @@ export default function AdminEditProduct() {
                 Nama Produk
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
@@ -94,7 +94,7 @@ export default function AdminEditProduct() {
                 Kategori Produk
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Select
                 color="indigo"
                 size="lg"
@@ -116,7 +116,7 @@ export default function AdminEditProduct() {
                 Harga
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
@@ -136,7 +136,7 @@ export default function AdminEditProduct() {
               <Textarea
                 color="indigo"
                 // placeholder="Deskripsi Produk"
-                className="shadow-md md:col-span-4 w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
+                className="md:col-span-4 w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -147,14 +147,13 @@ export default function AdminEditProduct() {
                 Upload Gambar
               </Typography>
             </div>
-            <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
+            <div className="md:col-span-4 rounded-lg border b-2 border-gray-400">
               <div className="px-2 md:px-4 pt-2">
                 <MasterAdminDetailImage />
               </div>
               <div className="md:flex pt-4 pl-2 md:pl-4 pb-6">
                 <div className="md:flex justify-center items-center">
                   <Button
-                    color=""
                     className="bg-wpiblue-50 relative overflow-hidden"
                   >
                     <span>
@@ -174,21 +173,14 @@ export default function AdminEditProduct() {
               </div>
             </div>
             <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-            <a
-                href="/admineditproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-red-400">
-                  Reset
+            <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button className="bg-red-400 flex">
+                 Batal
                 </Button>
               </a>
-
-              <a
-                href="/adminproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-wpigreen-50 flex">
-                  Simpan
+              <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button className="bg-wpigreen-50 flex">
+                 Simpan
                 </Button>
               </a>
             </div>

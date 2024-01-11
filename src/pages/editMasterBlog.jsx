@@ -100,10 +100,10 @@ export default function EditMasterCity() {
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a href="/editmaster-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+            <div className="col-span-4 flex justify-end items-center pt-6">
+              <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
-                 Reset
+                 Batal
                 </Button>
               </a>
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">

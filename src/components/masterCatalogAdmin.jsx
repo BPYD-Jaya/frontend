@@ -16,12 +16,10 @@ export default function MasterCatalogAdmin() {
         color="transparent"
         className=" object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <a href="/detailproduk">
           <img className="rounded-md"
             src="https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg"
             alt="ui/ux review check"
           />
-        </a>
       </CardHeader>
       <CardBody className="">
         <Typography
@@ -84,7 +82,7 @@ export default function MasterCatalogAdmin() {
               </div>
             </button>
           </a>
-          <a href="#">
+          <a href="/admineditproduk">
             <button
               type="button"
               className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold lg:px-4 px-2 h-10 rounded-md"

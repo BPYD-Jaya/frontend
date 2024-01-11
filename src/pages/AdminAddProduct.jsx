@@ -77,7 +77,7 @@ export default function AdminAddProduct() {
                 Nama Produk
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
@@ -93,7 +93,7 @@ export default function AdminAddProduct() {
                 Kategori Produk
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Select
                 color="indigo"
                 size="lg"
@@ -116,7 +116,7 @@ export default function AdminAddProduct() {
                 Harga
               </Typography>
             </div>
-            <div className="shadow-md md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
@@ -136,14 +136,14 @@ export default function AdminAddProduct() {
               <Textarea
                 color="indigo"
                 // placeholder="Deskripsi Produk"
-                className="shadow-md w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
+                className="w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               ></Textarea>
             </div>
             <div
-              className="md:col-span-4 border border-gray-400 shadow-md w-full rounded-lg  h-[150px] flex justify-center items-center"
+              className="md:col-span-4 border border-gray-400 w-full rounded-lg  h-[150px] flex justify-center items-center"
               {...getRootProps()}
             >
               <input {...getInputProps()} />
@@ -161,25 +161,17 @@ export default function AdminAddProduct() {
               )}
             </div>
             <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-            <a
-                href="/admintambahproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-red-400">
-                  Reset
+            <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button className="bg-red-400 flex">
+                 Batal
                 </Button>
               </a>
-
-              <a
-                href="/adminproduk"
-                className="text-wpigreen-500 md:ml-4 text-sm"
-              >
-                <Button color="" className="bg-wpigreen-50 flex">
-                  Simpan
+              <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button className="bg-wpigreen-50 flex">
+                 Simpan
                 </Button>
               </a>
             </div>
-
           </div>
         </form>
       </div>

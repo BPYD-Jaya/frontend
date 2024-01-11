@@ -83,14 +83,14 @@ export default function AddMasterBlog() {
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/addmaster-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button color="" className="bg-red-400 flex">
-                 Reset
+            <div className="col-span-4 flex justify-end items-center pt-6">
+            <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button className="bg-red-400 flex">
+                 Batal
                 </Button>
               </a>
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button color="" className="bg-wpigreen-50 flex">
+                <Button className="bg-wpigreen-50 flex">
                  Simpan
                 </Button>
               </a>
