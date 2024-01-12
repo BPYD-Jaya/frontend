@@ -30,6 +30,8 @@ import EditMasterBlog from "./pages/editMasterBlog";
 import EditMasterCity from "./pages/editMasterCity";
 import EditMasterProvince from "./pages/editMasterProvince";
 import AdminEditProfile from "./pages/AdminEditProfile";
+import AdminAddNews from "./pages/AdminAddNews";
+import Supplier from "./pages/Supplier";
 export default function App() {
   return (
     <Routes>
@@ -47,6 +49,7 @@ export default function App() {
       <Route path="/detailproduk" element={<DetailProduct />} />
       <Route path="/adminnews" element={<AdminNews />} />
       <Route path="/admindetailnews" element={<AdminDetailNews />} />
+      <Route path="/adminaddnews" element={<AdminAddNews />} />
       <Route path="/admin-edit-news" element={<AdminEditNews />} />
       <Route path="/master-produk" element={<MasterProduct />} />
       <Route path="/master-blog" element={<MasterBlog />} />
@@ -67,6 +70,7 @@ export default function App() {
       <Route path="/editmaster-city" element={<EditMasterCity />} />
       <Route path="/editmaster-province" element={<EditMasterProvince />} />
       <Route path="/admineditprofile" element={<AdminEditProfile />} />
+      <Route path="/adminsupplier" element={<Supplier />} />
     </Routes>
   );
 }

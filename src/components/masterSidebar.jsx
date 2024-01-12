@@ -27,6 +27,7 @@ import {
   ChevronDownIcon,
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 export default function MasterSidebar() {
   const [open, setOpen] = React.useState(0);
@@ -68,6 +69,16 @@ export default function MasterSidebar() {
                 <NewspaperIcon className="h-5 w-5" />
               </ListItemPrefix>
               News
+            </ListItem>
+          </Accordion>
+        </a>
+        <a href="/adminsupplier">
+          <Accordion>
+            <ListItem>
+              <ListItemPrefix>
+                <FaPeopleGroup className="h-5 w-5" />
+              </ListItemPrefix>
+              Supplier
             </ListItem>
           </Accordion>
         </a>
@@ -128,51 +139,6 @@ export default function MasterSidebar() {
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
                   Province
-                </ListItem>
-              </a>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
-              }`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
-            >
-              <ListItemPrefix>
-                <Cog6ToothIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Settings
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
-              <a href="/admineditprofile">
-                <ListItem>
-                  <ListItemPrefix>
-                    <UserCircleIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  Edit Profile
-                </ListItem>
-              </a>
-              <a href="#">
-                <ListItem>
-                  <ListItemPrefix>
-                    <PowerIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  Log Out
                 </ListItem>
               </a>
             </List>
