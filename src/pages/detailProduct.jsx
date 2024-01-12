@@ -233,8 +233,8 @@ export default function DetailProduct() {
 
         {/* Form Email */}
         <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
-            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
+          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8  -translate-y-10">
+            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0">
               <Typography
                 variant="h4"
                 style={{
@@ -245,7 +245,7 @@ export default function DetailProduct() {
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>
-            <div className=" col-span-6">
+            <div className=" col-span-6 px-2 md:px-0">
               <div className="flex gap-2">
                 <Input
                   size="lg"
