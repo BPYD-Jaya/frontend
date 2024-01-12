@@ -51,10 +51,12 @@ export default function AdminNews() {
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 py-4 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">News</Typography>
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
-            <Button className="bg-wpigreen-50 flex gap-2 items-center">
-              <PlusCircleIcon className="h-[15px] w-auto" />
-              <p>Tambah News</p>
-            </Button>
+            <a href="/adminaddnews">
+              <Button className="bg-wpigreen-50 flex gap-2 items-center">
+                <PlusCircleIcon className="h-[15px] w-auto" />
+                <p>Tambah News</p>
+              </Button>
+            </a>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
