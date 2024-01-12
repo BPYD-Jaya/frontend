@@ -90,6 +90,22 @@ export default function AdminAddProduct() {
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
+                Kode Produk
+              </Typography>
+            </div>
+            <div className="md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Kode Produk"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
                 Kategori Produk
               </Typography>
             </div>
