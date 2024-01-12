@@ -53,6 +53,7 @@ export default function DetailProduct() {
       </div>
 
       {/* Content */}
+      <div>
       <div className="px-4 lg:px-0">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-0 mt-4 px-0 w-full">
@@ -193,7 +194,7 @@ export default function DetailProduct() {
                 </div>
               </div>
               <div className="w-full items-left justify-left">
-                <div className="w-full justify-left items-left border-b pt-[8px]">
+                <div className="w-full justify-left items-left border-b pt-[8px] md:pl-0 pl-4">
                   <Typography variant="lead"  style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 500,
@@ -205,11 +206,11 @@ export default function DetailProduct() {
                   <Typography variant="lead"  style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 500,
-              }} className="text-black mt-4">
+              }} className="text-black mt-4 md:pl-0 pl-4">
                     Liter
                   </Typography>
                 </div>
-                <div className="w-full justify-left items-left border-b">
+                <div className="w-full justify-left items-left border-b md:pl-0 pl-4">
                   <Typography variant="lead"  style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 500,
@@ -217,7 +218,7 @@ export default function DetailProduct() {
                     Kalimantan Barat
                   </Typography>
                 </div>
-                <div className="w-full justify-left items-left  ">
+                <div className="w-full justify-left items-left md:pl-0 pl-4  ">
                   <Typography variant="lead"  style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 500,
@@ -234,7 +235,13 @@ export default function DetailProduct() {
         <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
           <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
             <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-              <Typography variant="h4">
+              <Typography
+                variant="h4"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>
@@ -254,6 +261,7 @@ export default function DetailProduct() {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* Footer */}
