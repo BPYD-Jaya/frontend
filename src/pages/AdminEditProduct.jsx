@@ -116,12 +116,59 @@ export default function AdminEditProduct() {
                 Harga
               </Typography>
             </div>
+            
             <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
                 placeholder="Rp 0"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Berat
+              </Typography>
+            </div>
+            <div className="md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Berat"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Satuan
+              </Typography>
+            </div>
+            <div className="md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Satuan"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Diambil Dari
+              </Typography>
+            </div>
+            <div className="md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Area Pengambilan"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}

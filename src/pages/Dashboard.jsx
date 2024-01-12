@@ -3,6 +3,7 @@ import MasterSidebar from "../components/masterSidebar";
 import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import MasterBarChart from "../components/masterBarChart";
 
 export default function DashboardPage() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -70,6 +71,10 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
+
+      <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
+        <MasterBarChart />
+</div>
 
       {/* Footer */}
       <div className="pt-10 justify-bottom w-full">
