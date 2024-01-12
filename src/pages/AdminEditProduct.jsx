@@ -166,7 +166,7 @@ export default function AdminEditProduct() {
                       onChange={handleFileUpload}
                     />
                   </Button>
-                  <Typography className="md:pl-4">
+                  <Typography className="pl-1 md:pl-4">
                     {selectedFile ? `${selectedFile.name}` : "No File Chosen"}
                   </Typography>
                 </div>

@@ -107,12 +107,12 @@ export default function EditMasterProduct() {
               </Typography>
             </div>
             <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
-              <div className="md:pl-4">
+              <div className="sm:ml-0 md:-ml-2">
                 <img alt="" src="assets/aquaculture.png">
 
                 </img>
               </div>
-              <div className="md:flex pt-4 md:pl-4 pb-6">
+              <div className="md:flex pt-4 pl-4 md:pl-4 pb-6">
                 <div className="md:flex  justify-center items-center">
                   <Button
                     color=""
@@ -128,13 +128,13 @@ export default function EditMasterProduct() {
                       onChange={handleFileUpload}
                     />
                   </Button>
-                  <Typography className="md:pl-4">
+                  <Typography className="pl-1 md:pl-4">
                     {selectedFile ? selectedFile.name : "No File Chosen"}
                   </Typography>
                 </div>
               </div>
             </div>
-            <div className="col-span-4 flex justify-end items-center pt-6">
+            <div className="md:col-span-4 flex justify-end items-center pt-6">
               <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
                  Batal
