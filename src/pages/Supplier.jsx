@@ -79,7 +79,7 @@ export default function Supplier() {
             <div className="flex justify-center items-center w-full pr-6 mb-4">
               <input
                 type="text"
-                placeholder="Cari Produk"
+                placeholder="Cari Supplier"
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border wpigreen-500"
               />
               <button

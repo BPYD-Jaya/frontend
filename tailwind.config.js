@@ -10,8 +10,12 @@ module.exports = withMT({
       wpigreen: {
         50: "#6DBE45",
       },
-    }, // <- Added missing closing bracket here
-    extend: {},
+    }, // <- Closing bracket was missing here
+    extend: {
+      fontFamily: {
+        "m-plus-rounded": ['"M PLUS Rounded 1c"', "sans-serif"],
+      },
+    },
   },
   plugins: [],
 });

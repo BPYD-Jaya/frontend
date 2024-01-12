@@ -21,7 +21,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="bg-gray-100 h-full flex flex-col min-h-screen">
+    <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
       <div
         className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
@@ -75,6 +75,6 @@ export default function DashboardPage() {
       <div className="pt-10 justify-bottom w-full">
         <MasterFooterAdmin />
       </div>
-      </div>
+    </div>
   );
 }
