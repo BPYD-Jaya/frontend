@@ -41,10 +41,24 @@ export default function NewsPage() {
         >
           <div className="flex flex-col justify-center items-center text-center text-white">
             <FaRegNewspaper size={100} className="mb-2" />
-            <Typography variant="h1" className="font-bold text-5xl mb-2">
+            <Typography
+              variant="h1"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+              className="font-bold text-5xl mb-2"
+            >
               Blog Warung Pangan Indonesia
             </Typography>
-            <Typography variant="h5" className="font-medium text-2xl">
+            <Typography
+              variant="h5"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }}
+              className="font-medium text-2xl"
+            >
               Dapatkan informasi bermanfaat seputar pengelolaan usaha anda dari
               artikel yang kami berikan
             </Typography>
@@ -54,7 +68,14 @@ export default function NewsPage() {
         {/* Content 1 */}
         <div className="">
           <div className="container mx-auto text-center xl:mb-4 pt-4 flex justify-center">
-            <Typography variant="h1" className="font-bold">
+            <Typography
+              variant="h1"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+              className="font-bold"
+            >
               News
             </Typography>
           </div>
@@ -113,7 +134,13 @@ export default function NewsPage() {
         <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
           <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
             <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-              <Typography variant="h4">
+              <Typography
+                variant="h4"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>

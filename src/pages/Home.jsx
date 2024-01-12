@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
 import MasterCarousel from "../components/masterCarousel";
-import { Button, Input, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Typography,
+  typography,
+} from "@material-tailwind/react";
 import { FaArrowRight } from "react-icons/fa";
 import {
   FcApproval,
@@ -111,7 +116,13 @@ export default function Home() {
         "
         >
           <div className="container mx-auto text-center xl:mb-16 mb-12 ">
-            <Typography variant="h3">
+            <Typography
+              variant="h3"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+            >
               Kenapa Harus Warung Pangan Indonesia
             </Typography>
           </div>
@@ -132,14 +143,27 @@ export default function Home() {
         <div className="container mx-auto grid xl:grid-cols-12 grid-cols-1 gap-6 px-10 pt-6 lg:pt-0">
           <div className="lg:col-span-7 col-span-1 flex flex-col justify-start">
             <div>
-              <Typography variant="h3">
+              <Typography
+                variant="h3"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 800,
+                }}
+                
+              >
                 Keunggulan Berbelanja di Aplikasi Warung Pangan
               </Typography>
             </div>
             <div className="flex items-start pt-2 gap-6">
               <FcApproval size={120} />
               <div>
-                <Typography variant="lead">
+                <Typography
+                  variant="lead"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 800,
+                  }}
+                >
                   <b>Pasokan Produk Berkualitas</b>
                 </Typography>
                 <p>
@@ -152,7 +176,13 @@ export default function Home() {
             <div className="flex items-start pt-2 gap-6">
               <FcMultipleDevices size={100} />
               <div>
-                <Typography variant="lead">
+                <Typography
+                  variant="lead"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 800,
+                  }}
+                >
                   <b>Digitalisasi Warung</b>
                 </Typography>
                 <p>
@@ -165,7 +195,13 @@ export default function Home() {
             <div className="flex items-center pt-2 gap-6">
               <FcCustomerSupport size={120} />
               <div>
-                <Typography variant="lead">
+                <Typography
+                  variant="lead"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 800,
+                  }}
+                >
                   <b>Pembinaan Mitra</b>
                 </Typography>
                 <p>
@@ -192,6 +228,10 @@ export default function Home() {
             <Typography
               className="xl:ml-14 lg:ml-4 md:ml-4 ml-14 flex justify-start"
               variant="h3"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
             >
               Cerita Mitra Warung Pangan
             </Typography>
@@ -224,7 +264,13 @@ export default function Home() {
         <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
           <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
             <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-              <Typography variant="h4">
+              <Typography
+                variant="h4"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>

@@ -63,7 +63,10 @@ export default function DetailProduct() {
             <div className="sm:order-2">
               <div className="w-full flex-shrink justify-left">
                 <Typography
-                  variant="h3"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}    variant="h3"
                   className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
                 >
                   Minyak Goreng Curah
@@ -71,24 +74,42 @@ export default function DetailProduct() {
               </div>
               <div className="w-full flex-shrink justify-left">
                 <Typography
-                  variant="h2"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}    variant="h2"
                   className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
                 >
                   Rp 50.000.000 - Rp 100.000.000
                 </Typography>
               </div>
-              <div className="w-full flex-shrink justify-left border-b">
+              <div className="w-full flex flex-shrink justify-left border-b">
                 <Typography
-                  variant="lead"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}    variant="lead"
                   className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
                 >
-                  Availability: In Stock
+                  Availability:
+                </Typography>
+                <Typography
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }}    variant="lead"
+                  className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
+                >
+                  In Stock
                 </Typography>
               </div>
               <div className="w-full flex items-center justify-left ml-4 mt-4">
                 <div className="">
                   <Typography
-                    variant="h5"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}      variant="h5"
                     className="font-bold mb-2 text-black"
                   >
                     Quantity:
@@ -128,15 +149,21 @@ export default function DetailProduct() {
               <div className="w-[210px] items-left justify-left">
                 <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
                   <Typography
-                    variant="lead"
-                    className="font-bold mb-2 text-black mt-4"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}      variant="lead"
+                    className="font-bold text-black mt-6"
                   >
                     Berat
                   </Typography>
                 </div>
                 <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
                   <Typography
-                    variant="lead"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}      variant="lead"
                     className="text-black mt-4 font-bold"
                   >
                     Satuan
@@ -144,7 +171,10 @@ export default function DetailProduct() {
                 </div>
                 <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
                   <Typography
-                    variant="lead"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}      variant="lead"
                     className="text-black mt-4 font-bold"
                   >
                     Diambil Dari
@@ -152,7 +182,10 @@ export default function DetailProduct() {
                 </div>
                 <div className="w-full justify-left items-left  ml-4 lg:ml-0">
                   <Typography
-                    variant="lead"
+                style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}      variant="lead"
                     className="text-black mt-4 font-bold"
                   >
                     Deskripsi Produk
@@ -161,22 +194,34 @@ export default function DetailProduct() {
               </div>
               <div className="w-full items-left justify-left">
                 <div className="w-full justify-left items-left border-b pt-[8px]">
-                  <Typography variant="lead" className="text-black mt-4">
+                  <Typography variant="lead"  style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }} className="text-black mt-4">
                     5000L
                   </Typography>
                 </div>
                 <div className="w-full justify-left items-left border-b">
-                  <Typography variant="lead" className="text-black mt-4">
+                  <Typography variant="lead"  style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }} className="text-black mt-4">
                     Liter
                   </Typography>
                 </div>
                 <div className="w-full justify-left items-left border-b">
-                  <Typography variant="lead" className="text-black mt-4">
+                  <Typography variant="lead"  style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }} className="text-black mt-4">
                     Kalimantan Barat
                   </Typography>
                 </div>
                 <div className="w-full justify-left items-left  ">
-                  <Typography variant="lead" className="text-black mt-4">
+                  <Typography variant="lead"  style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }} className="text-black mt-4">
                     Minyak Goreng Curah (LDC East)
                   </Typography>
                 </div>

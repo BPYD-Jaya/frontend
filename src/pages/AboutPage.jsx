@@ -87,10 +87,25 @@ export default function AboutPage() {
       {/* Content 2 */}
       <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-18 lg:-translate-y-14 ">
         <div>
-          <Typography variant="h3" className="text-center lg:text-start mb-4">
+          <Typography
+            variant="h3"
+            style={{
+              fontFamily: "'M PLUS Rounded 1c', sans-serif",
+              fontWeight: 800,
+            }}
+            className="text-center lg:text-start mb-4"
+          >
             Tentang Warung Pangan Indonesia
           </Typography>
-          <Typography variant="lead" color="black" className="text-justify">
+          <Typography
+            variant="lead"
+            style={{
+              fontFamily: "'M PLUS Rounded 1c', sans-serif",
+              fontWeight: 400,
+            }}
+            color="black"
+            className="text-justify "
+          >
             Warung Pangan Indonesia (WPI) didirikan pada tahun 2023 dan
             merupakan perusahaan baru yang telah membangun posisinya sebagai
             pemain penting dalam industri pangan. Dengan fokus pada agregasi
@@ -193,6 +208,10 @@ export default function AboutPage() {
           <div className="col-span-3 md:col-span-2 flex justify-center">
             <Card className="shadow-lg w-full h-[300px] md:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
               <Typography
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
                 variant="lead"
                 color="white"
                 className="mt-3 font-normal"
@@ -207,6 +226,10 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -217,6 +240,10 @@ export default function AboutPage() {
               </Card>
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -226,6 +253,10 @@ export default function AboutPage() {
               </Card>
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -236,6 +267,10 @@ export default function AboutPage() {
               </Card>
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -246,6 +281,10 @@ export default function AboutPage() {
               </Card>
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -256,6 +295,10 @@ export default function AboutPage() {
               </Card>
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
                   variant="lead"
                   color="white"
                   className="mt-3 font-normal"
@@ -271,7 +314,14 @@ export default function AboutPage() {
       {/* Budaya Kerja */}
       <div className="container mx-auto lg:py-0 py-8 mb-8 lg:px-0 px-6">
         <div>
-          <Typography variant="h3" className="text-center lg:text-start">
+          <Typography
+            variant="h3"
+            style={{
+              fontFamily: "'M PLUS Rounded 1c', sans-serif",
+              fontWeight: 800,
+            }}
+            className="text-center lg:text-start"
+          >
             Budaya Kerja ( LAPAK )
           </Typography>
         </div>
@@ -284,7 +334,15 @@ export default function AboutPage() {
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
+              <Typography
+                variant="h5"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+                color="blue-gray"
+                className="mb-2"
+              >
                 Layanan
               </Typography>
               <Typography>
@@ -301,7 +359,15 @@ export default function AboutPage() {
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
+              <Typography
+                variant="h5"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+                color="blue-gray"
+                className="mb-2"
+              >
                 Amanah
               </Typography>
               <Typography>
@@ -318,7 +384,15 @@ export default function AboutPage() {
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
+              <Typography
+                variant="h5"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+                color="blue-gray"
+                className="mb-2"
+              >
                 Profesional
               </Typography>
               <Typography>
@@ -335,7 +409,15 @@ export default function AboutPage() {
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
+              <Typography
+                variant="h5"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+                color="blue-gray"
+                className="mb-2"
+              >
                 Adaptif
               </Typography>
               <Typography>
@@ -352,7 +434,15 @@ export default function AboutPage() {
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
+              <Typography
+                variant="h5"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 700,
+                }}
+                color="blue-gray"
+                className="mb-2"
+              >
                 Kolaboratif
               </Typography>
               <Typography>
@@ -492,7 +582,13 @@ export default function AboutPage() {
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
         <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg text-center py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
           <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-            <Typography variant="h4">
+            <Typography
+              variant="h4"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }}
+            >
               Dapatkan info menarik dari kami!
             </Typography>
           </div>

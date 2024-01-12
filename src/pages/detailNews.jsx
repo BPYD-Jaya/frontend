@@ -47,10 +47,16 @@ export default function DetailNews() {
       >
         <div className="flex flex-col justify-center items-center text-center text-white">
           <FaRegNewspaper size={100} className="mb-2" />
-          <Typography variant="h1" className="font-bold text-5xl mb-2">
+          <Typography variant="h1" style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }} className="font-bold text-5xl mb-2">
             Blog Warung Pangan Indonesia
           </Typography>
-          <Typography variant="h5" className="font-medium text-2xl">
+          <Typography variant="h5" style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="font-medium text-2xl">
             Dapatkan informasi bermanfaat seputar pengelolaan usaha anda dari
             artikel yang kami berikan
           </Typography>
@@ -65,7 +71,10 @@ export default function DetailNews() {
       {/* Konten Berita */}
       <div className="container mx-auto">
         <div className=" py-8 xl:px-0 px-4">
-          <Typography variant="h3" className="pb-4">
+          <Typography variant="h3"style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }} className="pb-4">
             PPI & PASKOMNAS Jalin Kerja Sama Pengembangan Jaringan Agribisnis
           </Typography>
           <span className="">
@@ -88,6 +97,10 @@ export default function DetailNews() {
           <div className="py-6">
             <Typography
               variant="lead"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 500,
+              }}
               color="gray"
               className="mt-3 font-normal text-justify"
             >

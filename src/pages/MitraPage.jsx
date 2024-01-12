@@ -215,7 +215,10 @@ export default function MitraPage() {
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
         <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
           <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-            <Typography variant="h4">
+            <Typography variant="h4"style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }}>
               Dapatkan info menarik dari kami!
             </Typography>
           </div>

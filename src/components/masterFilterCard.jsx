@@ -33,6 +33,10 @@ export default function MasterFilterCard() {
       <Accordion open={section1Expanded} icon={<AccordionIcon open={section1Expanded} />}>
         <AccordionHeader onClick={toggleSection1}>
           <Typography
+            style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
             color={section1Expanded ? "green" : "black"}
             className="text-left uppercase font-semibold"
           >
@@ -68,6 +72,10 @@ export default function MasterFilterCard() {
       <Accordion open={section2Expanded} icon={<AccordionIcon open={section2Expanded} />}>
         <AccordionHeader onClick={toggleSection2}>
           <Typography
+            style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
             color={section2Expanded ? "green" : "black"}
             className="text-left uppercase font-semibold"
           >
@@ -91,7 +99,11 @@ export default function MasterFilterCard() {
                       }}
                     />
                   </ListItemPrefix>
-                  <Typography color="blue-gray" className="font-medium">
+                  <Typography
+                    style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} color="blue-gray" className="font-medium">
                     Batubara
                   </Typography>
                 </label>
@@ -111,7 +123,11 @@ export default function MasterFilterCard() {
                       }}
                     />
                   </ListItemPrefix>
-                  <Typography color="blue-gray" className="font-medium">
+                  <Typography
+                    style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} color="blue-gray" className="font-medium">
                     Horticultural
                   </Typography>
                 </label>
@@ -131,7 +147,11 @@ export default function MasterFilterCard() {
                       }}
                     />
                   </ListItemPrefix>
-                  <Typography color="blue-gray" className="font-medium">
+                  <Typography
+                    style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} color="blue-gray" className="font-medium">
                     Agriculture
                   </Typography>
                 </label>
@@ -151,7 +171,11 @@ export default function MasterFilterCard() {
                       }}
                     />
                   </ListItemPrefix>
-                  <Typography color="blue-gray" className="font-medium">
+                  <Typography
+                    style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} color="blue-gray" className="font-medium">
                     Aquaculture
                   </Typography>
                 </label>
@@ -171,7 +195,11 @@ export default function MasterFilterCard() {
                       }}
                     />
                   </ListItemPrefix>
-                  <Typography color="blue-gray" className="font-medium">
+                  <Typography
+                    style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} color="blue-gray" className="font-medium">
                     Mineral
                   </Typography>
                 </label>
@@ -184,6 +212,10 @@ export default function MasterFilterCard() {
       <Accordion open={section3Expanded} icon={<AccordionIcon open={section3Expanded} />}>
         <AccordionHeader onClick={toggleSection3}>
           <Typography
+            style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
             color={section3Expanded ? "green" : "black"}
             className="text-left uppercase font-semibold"
           >

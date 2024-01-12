@@ -37,7 +37,10 @@ export default function ProductPage() {
 
       {/* Kategori Produk */}
       <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-4">
-        <Typography tag="h5" className="font-bold text-3xl text-black ml-8">
+        <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }} variant="h3" className="ml-8">
           Kategori Produk
         </Typography>
         <div className="p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
@@ -51,7 +54,10 @@ export default function ProductPage() {
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold text-sm lg:text-base">
+                <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="text-white font-bold text-sm lg:text-base">
                   Batubara
                 </Typography>
               </div>
@@ -67,7 +73,10 @@ export default function ProductPage() {
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold text-sm lg:text-base">
+                <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="text-white font-bold text-sm lg:text-base">
                   Horticultural
                 </Typography>
               </div>
@@ -83,7 +92,10 @@ export default function ProductPage() {
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold text-sm lg:text-base">
+                <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="text-white font-bold text-sm lg:text-base">
                   Agriculture
                 </Typography>
               </div>
@@ -99,7 +111,10 @@ export default function ProductPage() {
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold text-sm lg:text-base">
+                <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="text-white font-bold text-sm lg:text-base">
                   Aquaculture
                 </Typography>
               </div>
@@ -115,7 +130,10 @@ export default function ProductPage() {
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="text-white font-bold text-sm lg:text-base">
+                <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+              }} className="text-white font-bold text-sm lg:text-base">
                   Mineral
                 </Typography>
               </div>
@@ -145,7 +163,10 @@ export default function ProductPage() {
             </div>
           <div>
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3">
-            <Typography tag="h5" className="font-bold text-xl text-black ml-8 mb-1">
+            <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }} tag="h5" className="font-bold text-xl text-black ml-8 mb-1">
                 Filter
             </Typography>
           </div>
@@ -188,7 +209,10 @@ export default function ProductPage() {
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
         <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
           <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-            <Typography variant="h4">
+            <Typography style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }} variant="h4">
               Dapatkan info menarik dari kami!
             </Typography>
           </div>
