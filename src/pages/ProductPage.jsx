@@ -36,11 +36,12 @@ export default function ProductPage() {
       </div>
 
       {/* Kategori Produk */}
-      <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-4">
+      <div className="container mx-auto md:py-0 md:px-0 
+     md:items-center md:justify-left justify-center px-6 mt-4">
         <Typography style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-              }} variant="h3" className="ml-8">
+              }} variant="h3" className="text-center md:text-left justify-center md:ml-8">
           Kategori Produk
         </Typography>
         <div className="p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
@@ -143,8 +144,8 @@ export default function ProductPage() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto pb-20 overflow-y-auto">
-      <div className="md:col-span-2">
+      <div className="container mx-auto pb-[80px]">
+      <div className="md:col-span-2 px-8 md:px-0">
             <div className="container mx-auto grid grid-cols-1 pb-4">
               <div className="flex justify-center items-center md:ml-[50px] lg:ml-[460px] lg:mr-[30px]">
                 <input
@@ -172,13 +173,13 @@ export default function ProductPage() {
           </div>
         </div>
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="md:col-span-1 ml-7">
+          <div className="md:col-span-1 md:ml-7 px-8 md:px-0">
             <div>
               <MasterFilterCard />
             </div>
           </div>
           <div className="md:col-span-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mr-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
               <div className="flex justify-center items-center">
                 <MasterCatalog />
               </div>
