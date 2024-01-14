@@ -106,7 +106,7 @@ export default function Home() {
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto xl:-translate-y-32 lg:-translate-y-16 md:-translate-y-32 -translate-y-16 xl:px-12 px-4 sm:px-0 lg:px-2 ">
+        <div className="container mx-auto xl:-translate-y-32 lg:-translate-y-16 md:-translate-y-24 -translate-y-16 xl:px-12 px-2 w-full h-[130px] md:h-[200px] lg:h-[300px]  sm:px-0 lg:px-2 ">
           <MasterCarousel />
         </div>
 
@@ -149,7 +149,6 @@ export default function Home() {
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
                   fontWeight: 800,
                 }}
-                
               >
                 Keunggulan Berbelanja di Aplikasi Warung Pangan
               </Typography>

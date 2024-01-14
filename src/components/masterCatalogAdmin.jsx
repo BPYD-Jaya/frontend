@@ -10,16 +10,17 @@ import {
 export default function MasterCatalogAdmin() {
   return (
     <Card className="max-w-[250px] overflow-hidden">
-      <CardHeader 
+      <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className=" object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-          <img className="rounded-md"
-            src="https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg"
-            alt="ui/ux review check"
-          />
+        <img
+          className="rounded-md"
+          src="https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg"
+          alt="ui/ux review check"
+        />
       </CardHeader>
       <CardBody className="">
         <Typography
@@ -53,11 +54,11 @@ export default function MasterCatalogAdmin() {
             Terjual 1000
           </Typography>
         </div>
-        <div className="flex justify-between items-center mt-4 ">
+        <div className="grid grid-cols-1 gap-4 w-full mt-4">
           <a href="/admindetailproduk">
             <button
               type="button"
-              className="ml-0 mb-[-10px] bg-wpiblue-50 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
+              className="bg-wpiblue-50 text-white font-bold h-10 rounded-md w-full"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
@@ -85,7 +86,7 @@ export default function MasterCatalogAdmin() {
           <a href="/admineditproduk">
             <button
               type="button"
-              className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
+              className="bg-orange-500 text-white font-bold h-10 rounded-md w-full"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
@@ -108,7 +109,7 @@ export default function MasterCatalogAdmin() {
           <a href="#">
             <button
               type="button"
-              className="ml-2 mb-[-10px] bg-red-500 text-white font-bold lg:px-4 px-2 h-10 rounded-md"
+              className="bg-red-500 text-white font-bold h-10 rounded-md w-full"
             >
               <div className="flex justify-center items-center gap-3">
                 <svg
