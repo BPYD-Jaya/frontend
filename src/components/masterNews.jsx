@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardHeader,
@@ -8,11 +8,11 @@ import {
   Button,
   Tooltip,
   Avatar,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 export default function MasterNews() {
   return (
-    <Card className="max-w-[24rem] overflow-hidden">
+    <Card className="lg:max-w-[24rem] overflow-hidden">
       <CardHeader
         floated={false}
         shadow={false}

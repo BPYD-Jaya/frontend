@@ -104,7 +104,7 @@ export default function AboutPage() {
               fontWeight: 400,
             }}
             color="black"
-            className="text-justify text-base lg:text-xl"
+            className="text-justify text-lg lg:text-xl"
           >
             Warung Pangan Indonesia (WPI) didirikan pada tahun 2023 dan
             merupakan perusahaan baru yang telah membangun posisinya sebagai
@@ -127,7 +127,7 @@ export default function AboutPage() {
         </div>
 
         {/* Produk dan Layanan */}
-        <div className="container mx-auto lg:py-0 lg:px-0 md:px-4 lg:px-6 mt-8">
+        <div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-8">
           <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
             <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
               <div className="col-span-1 flex items-center justify-center">
@@ -204,9 +204,9 @@ export default function AboutPage() {
         </div>
 
         {/* Visi dan Misi */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mt-12">
-          <div className="col-span-3 md:col-span-2 flex justify-center">
-            <Card className="shadow-lg w-full h-[300px] md:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+        <div className="grid w-full   grid-cols-1 lg:grid-cols-6 gap-2 lg:gap-8 mt-12">
+          <div className="col-span-3   lg:col-span-2 md:col-span-4 flex justify-center">
+            <Card className="shadow-lg  w-full h-[300px] lg:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
               <Typography
                 style={{
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 }}
                 variant="lead"
                 color="white"
-                className="mt-3 font-normal"
+                className="mt-3 font-normal "
               >
                 Menjadi perusahaan aggregator pangan dan pendukung pangan
                 lainnya yang kuat secara Nasional dan terintegrasi di Pasar
@@ -223,7 +223,7 @@ export default function AboutPage() {
             </Card>
           </div>
           <div className="col-span-3 md:col-span-4 flex justify-center items-center">
-            <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-4">
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
                   style={{
@@ -568,13 +568,15 @@ export default function AboutPage() {
       </div>
 
       {/* Content Image */}
-      <div class="container mx-auto w-full flex justify-center pb-16 px-2 lg:px-8">
-        <div class="overflow-hidden transform transition-transform duration-300 hover:scale-105">
-          <img
-            src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-            alt=""
-            class="w-full"
-          />
+      <div className="container mx-auto flex justify-center pb-16 px-8">
+        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <a href="/produk">
+            <img
+              src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+              alt=""
+              className="w-full"
+            />
+          </a>
         </div>
       </div>
 

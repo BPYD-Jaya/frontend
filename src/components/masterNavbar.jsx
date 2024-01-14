@@ -95,7 +95,7 @@ export default function MasterNavbar() {
             {!isSmallScreen && (
               <Typography
                 as="a"
-                href="#"
+                href="/"
                 className="mr-4 cursor-pointer py-1.5 font-bold"
                 variant="h5"
               >
