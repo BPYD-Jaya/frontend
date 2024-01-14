@@ -1,5 +1,5 @@
-import React from "react";
-import { Carousel } from "@material-tailwind/react";
+import React from 'react';
+import { Carousel } from '@material-tailwind/react';
 
 export default function MasterCarousel() {
   return (

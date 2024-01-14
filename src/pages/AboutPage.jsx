@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import MasterNavbar from "../components/masterNavbar";
+import React, { useState, useEffect } from 'react';
+import MasterNavbar from '../components/masterNavbar';
 import {
   Button,
   Card,
@@ -9,9 +9,9 @@ import {
   Input,
   Textarea,
   Typography,
-} from "@material-tailwind/react";
-import { TbMessage2Heart } from "react-icons/tb";
-import MasterFooter from "../components/masterFooter";
+} from '@material-tailwind/react';
+import { TbMessage2Heart } from 'react-icons/tb';
+import MasterFooter from '../components/masterFooter';
 
 export default function AboutPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -22,10 +22,10 @@ export default function AboutPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -34,7 +34,7 @@ export default function AboutPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+          isNavbarFixed ? 'fixed top-0 w-full z-10' : ''
         }`}
       >
         <MasterNavbar />
@@ -43,7 +43,7 @@ export default function AboutPage() {
       {/* Jumbotron */}
       <div
         className="bg-wpiblue-50 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
-        style={{ borderRadius: "0 0 50px 50px" }}
+        style={{ borderRadius: '0 0 50px 50px' }}
       >
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
           <div className=" flex justify-center items-center text-white col-span-8 pt-2 ">
@@ -54,7 +54,7 @@ export default function AboutPage() {
             />
           </div>
           <div className=" col-span-4 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-start">
-            <Typography variant="h1" className="py-4" color="white">
+            <Typography variant="h1" className="py-4 text-5xl" color="white">
               Kami hadir sebagai solusi digital untuk semua kebutuhan warung
             </Typography>
           </div>
@@ -73,7 +73,7 @@ export default function AboutPage() {
                 width={250}
               />
               <iframe
-                className="h-[400px] lg:h-[400px] w-full col-span-7"
+                className="h-[200px] md:h-[300px] lg:h-[400px] w-full col-span-7"
                 src="https://www.youtube.com/embed/MVMSfjhCE8g"
                 title="Semangat Juang - Informatika UNDIP"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -104,7 +104,7 @@ export default function AboutPage() {
               fontWeight: 400,
             }}
             color="black"
-            className="text-justify "
+            className="text-justify text-lg lg:text-xl"
           >
             Warung Pangan Indonesia (WPI) didirikan pada tahun 2023 dan
             merupakan perusahaan baru yang telah membangun posisinya sebagai
@@ -127,7 +127,7 @@ export default function AboutPage() {
         </div>
 
         {/* Produk dan Layanan */}
-        <div className="container mx-auto lg:py-0 lg:px-0 px-6 mt-8">
+        <div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-8">
           <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6">
             <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
               <div className="col-span-1 flex items-center justify-center">
@@ -204,9 +204,9 @@ export default function AboutPage() {
         </div>
 
         {/* Visi dan Misi */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mt-12">
-          <div className="col-span-3 md:col-span-2 flex justify-center">
-            <Card className="shadow-lg w-full h-[300px] md:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+        <div className="grid w-full   grid-cols-1 lg:grid-cols-6 gap-2 lg:gap-8 mt-12">
+          <div className="col-span-3   lg:col-span-2 md:col-span-4 flex justify-center">
+            <Card className="shadow-lg  w-full h-[300px] lg:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
               <Typography
                 style={{
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 }}
                 variant="lead"
                 color="white"
-                className="mt-3 font-normal"
+                className="mt-3 font-normal "
               >
                 Menjadi perusahaan aggregator pangan dan pendukung pangan
                 lainnya yang kuat secara Nasional dan terintegrasi di Pasar
@@ -223,7 +223,7 @@ export default function AboutPage() {
             </Card>
           </div>
           <div className="col-span-3 md:col-span-4 flex justify-center items-center">
-            <div className="grid grid-cols-1 lg:grid-cols-3  gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-4">
               <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
                   style={{
@@ -460,7 +460,7 @@ export default function AboutPage() {
           <div className="flex xl:flex-row flex-col">
             <div
               className="bg-gradient-to-r from-wpiblue-50 to-wpigreen-50 flex justify-center items-center text-center xl:w-1/2 w-full h-[300px] xl:h-auto"
-              style={{ borderRadius: "10px 100px 100px 10px" }}
+              style={{ borderRadius: '10px 100px 100px 10px' }}
             >
               <div className="flex flex-col justify-center items-center">
                 <TbMessage2Heart
@@ -492,7 +492,7 @@ export default function AboutPage() {
                     placeholder="Masukan nama lengkap"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography
@@ -508,7 +508,7 @@ export default function AboutPage() {
                     placeholder="Masukan nomor handphone "
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography
@@ -524,7 +524,7 @@ export default function AboutPage() {
                     placeholder="Masukan email"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography
@@ -540,7 +540,7 @@ export default function AboutPage() {
                     placeholder="Perihal"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography
@@ -568,27 +568,26 @@ export default function AboutPage() {
       </div>
 
       {/* Content Image */}
-      <div class="container mx-auto flex justify-center pb-16 px-8">
-        <div class="overflow-hidden transform transition-transform duration-300 hover:scale-105">
-          <img
-            src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-            alt=""
-            class="w-full"
-          />
+      <div className="container mx-auto flex justify-center pb-16 px-8">
+        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <a href="/produk">
+            <img
+              src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+              alt=""
+              className="w-full"
+            />
+          </a>
         </div>
       </div>
 
       {/* Form Email */}
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-        <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg text-center py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
+        <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
           <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-            <Typography
-              variant="h4"
-              style={{
+            <Typography variant="h4"style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 700,
-              }}
-            >
+              }}>
               Dapatkan info menarik dari kami!
             </Typography>
           </div>
@@ -612,7 +611,7 @@ export default function AboutPage() {
 
       {/* Footer */}
       <div className="bg-blue-50">
-        <div className="container mx-auto pt-20 lg:pt-8">
+        <div className="container mx-auto pt-40 lg:pt-8">
           <MasterFooter />
         </div>
       </div>

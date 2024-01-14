@@ -201,13 +201,15 @@ export default function MitraPage() {
       </div>
 
       {/* Content Image */}
-      <div class="container mx-auto flex justify-center pb-16 px-8">
-        <div class="overflow-hidden transform transition-transform duration-300 hover:scale-105">
-          <img
-            src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-            alt=""
-            class="w-full"
-          />
+      <div className="container mx-auto flex justify-center pb-16 px-8">
+        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <a href="/produk">
+            <img
+              src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+              alt=""
+              className="w-full"
+            />
+          </a>
         </div>
       </div>
 
