@@ -232,11 +232,12 @@ export default function DetailProduct() {
         </div>
 
         {/* Form Email */}
-        <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8  -translate-y-10">
-            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0">
+        <div className="bg-blue-50 lg:px-28 h-[50px] px-4">
+          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 lg:mx-0 -translate-y-10">
+            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
               <Typography
                 variant="h4"
+                className="lg:text-2xl md:text-xl text-base pb-2 lg:pb-0"
                 style={{
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
                   fontWeight: 700,
@@ -245,14 +246,14 @@ export default function DetailProduct() {
                 Dapatkan info menarik dari kami!
               </Typography>
             </div>
-            <div className=" col-span-6 px-2 md:px-0">
-              <div className="flex gap-2">
+            <div className=" col-span-6">
+              <div className="flex gap-x-2 gap-y-4 flex-col lg:flex-row">
                 <Input
                   size="lg"
                   placeholder="Email address"
                   className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
                   labelProps={{
-                    className: "before:content-none after:content-none w-full",
+                    className: 'before:content-none after:content-none w-full',
                   }}
                 />
                 <Button className="hover:bg-green-400 bg-wpigreen-50">
@@ -262,7 +263,6 @@ export default function DetailProduct() {
             </div>
           </div>
         </div>
-        </div>
 
         {/* Footer */}
         <div className="bg-blue-50">
@@ -271,6 +271,7 @@ export default function DetailProduct() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
