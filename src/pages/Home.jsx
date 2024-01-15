@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import MasterCarousel from '../components/masterCarousel';
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import MasterCarousel from "../components/masterCarousel";
 import {
   Button,
   Input,
   Typography,
   typography,
-} from '@material-tailwind/react';
-import { FaArrowRight } from 'react-icons/fa';
+} from "@material-tailwind/react";
+import { FaArrowRight } from "react-icons/fa";
 import {
   FcApproval,
   FcCustomerSupport,
   FcMultipleDevices,
   FcOk,
-} from 'react-icons/fc';
-import MasterCard from '../components/masterCard';
-import MasterFooter from '../components/masterFooter';
+} from "react-icons/fc";
+import MasterCard from "../components/masterCard";
+import MasterFooter from "../components/masterFooter";
 
 export default function Home() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -26,10 +26,10 @@ export default function Home() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -38,7 +38,7 @@ export default function Home() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? 'fixed top-0 w-full z-10' : ''
+          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
         }`}
       >
         <MasterNavbar />
@@ -48,7 +48,7 @@ export default function Home() {
       <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1050px] h-[810px]">
         <div
           className="bg-wpiblue-50 flex flex-col px-4 xl:px-36 xl:h-[600px] md:h-[950px] lg:h-[550px] h-[750px]"
-          style={{ borderRadius: '0 0 50px 50px' }}
+          style={{ borderRadius: "0 0 50px 50px" }}
         >
           <div className="container mx-auto flex flex-col lg:flex-row lg:h-[500px]">
             <div className="flex justify-center items-center text-white col-span-5 pl-0 pt-5 md:pt-8 lg:pt-0 lg:pl-6 ">
@@ -118,7 +118,7 @@ export default function Home() {
                 src="https://warungpangan.com/upload/settings/home_banner3.png"
                 alt="image1"
                 className="h-full w-full   "
-                style={{ width: '100%', height: '100%' }}
+                style={{ width: "100%", height: "100%" }}
               />
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function Home() {
             <img
               src="https://warungpangan.com/upload/settings/home_banner_keunggulan.png"
               alt="image2"
-              style={{ height: '500px' }}
+              style={{ height: "500px" }}
             />
           </div>
         </div>
@@ -254,7 +254,7 @@ export default function Home() {
         <div className="container mx-auto mb-6">
           <div className="my-10">
             <Typography
-              className="xl:ml-14 lg:ml-4 md:ml-4 ml-14 flex justify-start"
+              className="xl:ml-14 lg:ml-4 md:ml-4 ml-6 flex justify-start"
               variant="h3"
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
@@ -279,40 +279,40 @@ export default function Home() {
 
         {/* Content Image */}
         <div className="container mx-auto flex justify-center pb-16 px-8">
-        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
-          <a href="/produk">
-            <img
-              src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-              alt=""
-              className="w-full"
-            />
-          </a>
+          <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+            <a href="/produk">
+              <img
+                src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+                alt=""
+                className="w-full"
+              />
+            </a>
+          </div>
         </div>
-      </div>
 
         {/* Form Email */}
-        <div className="bg-blue-50 lg:px-28 h-[50px] px-4">
-          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 lg:mx-0 -translate-y-10">
-            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
+        <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
+          <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
+            <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
               <Typography
                 variant="h4"
-                className="lg:text-2xl md:text-xl text-base pb-2 lg:pb-0"
                 style={{
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
                   fontWeight: 700,
                 }}
               >
-                Dapatkan info menarik dari kami!
+                Masukkan alamat email Anda untuk mendapatkan informasi menarik
+                dari kami!
               </Typography>
             </div>
-            <div className=" col-span-6">
-              <div className="flex gap-x-2 gap-y-4 flex-col lg:flex-row">
+            <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
+              <div className="flex gap-2 w-full">
                 <Input
                   size="lg"
                   placeholder="Email address"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                  className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                   labelProps={{
-                    className: 'before:content-none after:content-none w-full',
+                    className: "before:content-none after:content-none w-full",
                   }}
                 />
                 <Button className="hover:bg-green-400 bg-wpigreen-50">
@@ -325,7 +325,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="bg-blue-50">
-          <div className="container mx-auto pt-40 lg:pt-8">
+          <div className="container mx-auto pt-40 lg:pt-18">
             <MasterFooter />
           </div>
         </div>

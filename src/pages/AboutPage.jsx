@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
 import {
   Button,
   Card,
@@ -9,9 +9,9 @@ import {
   Input,
   Textarea,
   Typography,
-} from '@material-tailwind/react';
-import { TbMessage2Heart } from 'react-icons/tb';
-import MasterFooter from '../components/masterFooter';
+} from "@material-tailwind/react";
+import { TbMessage2Heart } from "react-icons/tb";
+import MasterFooter from "../components/masterFooter";
 
 export default function AboutPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -22,10 +22,10 @@ export default function AboutPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -34,7 +34,7 @@ export default function AboutPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? 'fixed top-0 w-full z-10' : ''
+          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
         }`}
       >
         <MasterNavbar />
@@ -43,7 +43,7 @@ export default function AboutPage() {
       {/* Jumbotron */}
       <div
         className="bg-wpiblue-50 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
-        style={{ borderRadius: '0 0 50px 50px' }}
+        style={{ borderRadius: "0 0 50px 50px" }}
       >
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
           <div className=" flex justify-center items-center text-white col-span-8 pt-2 ">
@@ -132,15 +132,25 @@ export default function AboutPage() {
             <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
               <div className="col-span-1 flex items-center justify-center">
                 <img
+                  src="assets/mineral.png"
+                  alt=""
+                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
+                />
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <Typography className="font-bold">Mineral</Typography>
+              </div>
+            </div>
+            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
+              <div className="col-span-1 flex items-center justify-center">
+                <img
                   src="assets/coal.png"
                   alt=""
                   className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
                 />
               </div>
               <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">
-                  Batubara dan Mineral
-                </Typography>
+                <Typography className="font-bold">Batubara</Typography>
               </div>
             </div>
             <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
@@ -177,18 +187,6 @@ export default function AboutPage() {
               </div>
               <div className="col-span-1 flex items-center justify-center">
                 <Typography className="font-bold">Aquaculture</Typography>
-              </div>
-            </div>
-            <div className="bg-white py-2 px-2 grid grid-cols-2 overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg text-center">
-              <div className="col-span-1 flex items-center justify-center">
-                <img
-                  src="assets/mineral.png"
-                  alt=""
-                  className="block mx-auto mb-4 h-[70px] w-auto lg:mb-0"
-                />
-              </div>
-              <div className="col-span-1 flex items-center justify-center">
-                <Typography className="font-bold">Mineral</Typography>
               </div>
             </div>
 
@@ -460,7 +458,7 @@ export default function AboutPage() {
           <div className="flex xl:flex-row flex-col">
             <div
               className="bg-gradient-to-r from-wpiblue-50 to-wpigreen-50 flex justify-center items-center text-center xl:w-1/2 w-full h-[300px] xl:h-auto"
-              style={{ borderRadius: '10px 100px 100px 10px' }}
+              style={{ borderRadius: "10px 100px 100px 10px" }}
             >
               <div className="flex flex-col justify-center items-center">
                 <TbMessage2Heart
@@ -492,7 +490,7 @@ export default function AboutPage() {
                     placeholder="Masukan nama lengkap"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: 'before:content-none after:content-none',
+                      className: "before:content-none after:content-none",
                     }}
                   />
                   <Typography
@@ -508,7 +506,7 @@ export default function AboutPage() {
                     placeholder="Masukan nomor handphone "
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: 'before:content-none after:content-none',
+                      className: "before:content-none after:content-none",
                     }}
                   />
                   <Typography
@@ -524,7 +522,7 @@ export default function AboutPage() {
                     placeholder="Masukan email"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: 'before:content-none after:content-none',
+                      className: "before:content-none after:content-none",
                     }}
                   />
                   <Typography
@@ -540,7 +538,7 @@ export default function AboutPage() {
                     placeholder="Perihal"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className: 'before:content-none after:content-none',
+                      className: "before:content-none after:content-none",
                     }}
                   />
                   <Typography
@@ -600,7 +598,7 @@ export default function AboutPage() {
                 placeholder="Email address"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
                 labelProps={{
-                  className: 'before:content-none after:content-none w-full',
+                  className: "before:content-none after:content-none w-full",
                 }}
               />
               <Button className="hover:bg-green-400 bg-wpigreen-50">

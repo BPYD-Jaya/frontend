@@ -120,7 +120,7 @@ export default function NewsPage() {
         </div>
 
         {/* Content Image */}
-        <div className="container mx-auto flex justify-center pb-16 px-8">
+        <div className="container mx-auto flex justify-center pb-16 px-8 my-6">
         <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
           <a href="/produk">
             <img
