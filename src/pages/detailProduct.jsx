@@ -8,10 +8,64 @@ import {
   ButtonGroup,
   Button,
   Input,
+  Card,
 } from "@material-tailwind/react";
 
 export default function DetailProduct() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+
+  const TABLE_HEAD = ["Item ", "Value"];
+
+  const TABLE_ROWS = [
+    {
+      item: "Place of Origin",
+      value: "Japan",
+    },
+    {
+      item: "Brand Name",
+      value: "Yamanaka Inc.",
+    },
+    {
+      item: "Model Number",
+      value: "P-004692",
+    },
+    {
+      item: "Storage Type",
+      value: "Frozen",
+    },
+    {
+      item: "Style",
+      value: "FROZEN",
+    },
+    {
+      item: "Spesification",
+      value: "-",
+    },
+    {
+      item: "Shelf Life",
+      value: "Including production date 2 years",
+    },
+    {
+      item: "Manufacturer",
+      value: "YAMANAKA Inc.",
+    },
+    {
+      item: "Ingredients",
+      value: "Scallop",
+    },
+    {
+      item: "Content",
+      value: "L 21-25pc/kg. M 25-30pc/kg. S 31-35pc/kg",
+    },
+    {
+      item: "Address",
+      value: "Harajuku, Japan",
+    },
+    {
+      item: "Instruction for use",
+      value: "Natural decompression recomendation",
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,188 +107,108 @@ export default function DetailProduct() {
       </div>
 
       {/* Content */}
-      <div>
       <div className="px-4 lg:px-0">
+        {/* Breadcrumbs */}
+
+        <div className="container mx-auto flex justify-start pt-4 xl:px-0 px-4">
+          <MasterBreadcrumbs />
+        </div>
+
+        {/* Catalog */}
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-0 mt-4 px-0 w-full">
-            <div className="sm:order-1">
-              <MasterBreadcrumbs />
+          <div className="grid grid-cols-1 xl:grid-cols-12 mb-16 gap-2">
+            <div className="col-span-1 lg:col-span-7">
               <MasterProductImage />
-            </div>
-            <div className="sm:order-2">
-              <div className="w-full flex-shrink justify-left">
-                <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}    variant="h3"
-                  className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
-                >
-                  Minyak Goreng Curah
-                </Typography>
-              </div>
-              <div className="w-full flex-shrink justify-left">
-                <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}    variant="h2"
-                  className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
-                >
-                  Rp 50.000.000 - Rp 100.000.000
-                </Typography>
-              </div>
-              <div className="w-full flex flex-shrink justify-left border-b">
-                <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}    variant="lead"
-                  className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
-                >
-                  Availability:
-                </Typography>
-                <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 500,
-              }}    variant="lead"
-                  className="font-bold mb-2 text-black ml-0 lg:ml-4 mt-4"
-                >
-                  In Stock
-                </Typography>
-              </div>
-              <div className="w-full flex items-center justify-left ml-4 mt-4">
-                <div className="">
-                  <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}      variant="h5"
-                    className="font-bold mb-2 text-black"
-                  >
-                    Quantity:
-                  </Typography>
-                </div>
-                <ButtonGroup size="md" className="ml-4 justify-center">
-                  <Button
-                    onClick={handleDecrement}
-                    className="hover:bg-blue-400 bg-wpiblue-50"
-                  >
-                    -
-                  </Button>
-                  <input
-                    type="number"
-                    value={quantity}
-                    onChange={(e) =>
-                      handleQuantityChange(parseInt(e.target.value))
-                    }
-                    className="w-[45px] max-w-[45px] border text-center"
-                    placeholder="Qty."
-                  />
-                  <Button
-                    onClick={handleIncrement}
-                    className="hover:bg-blue-400 bg-wpiblue-50"
-                  >
-                    +
-                  </Button>
-                </ButtonGroup>{" "}
-              </div>
-              <div className="w-full flex items-center justify-center mt-4">
-                <Button className="hover:bg-green-400 bg-wpigreen-50 w-full">
-                  Hubungi Kami
-                </Button>
+              <Typography
+                variant="h4"
+                className="pt-8 mb-4 border-b-2 border-black"
+              >
+                Spesification
+              </Typography>
+              <div className="overflow-x-scroll">
+                <table className="w-full min-w-max table-auto text-left">
+                  <thead>
+                    <tr>
+                      {TABLE_HEAD.map((head) => (
+                        <th
+                          key={head}
+                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal leading-none opacity-70"
+                          >
+                            {head}
+                          </Typography>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {TABLE_ROWS.map(({ item, value }, index) => (
+                      <tr key={item} className="even:bg-blue-gray-50/50">
+                        <td className="p-4 break-words">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal "
+                          >
+                            {item}
+                          </Typography>
+                        </td>
+                        <td className="p-4">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {value}
+                          </Typography>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div className="sm:order-3 flex pb-20 col-span-1 lg:col-span-2 md:col-span-2 sm:col-span-2 w-full">
-              <div className="w-[210px] items-left justify-left">
-                <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
-                  <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}      variant="lead"
-                    className="font-bold text-black mt-6"
+            <div className=" col-span-1 lg:col-span-5 ">
+              <Card className="pb-8 px-4">
+                <div className="border-b">
+                  <p>hello</p>
+                </div>
+                <div className="border-b">
+                  <p>world</p>
+                </div>
+                <div className="w-full flex items-center justify-center">
+                  <a
+                    href="http://wa.me/6285710116209?text=mau beli ini dong"
+                    className="w-full"
                   >
-                    Berat
-                  </Typography>
+                    <Button
+                      type="button"
+                      className="ml-0 mb-[-10px] mt-4 bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 w-full rounded-md"
+                    >
+                      <div className="flex justify-center items-center gap-3">
+                        <img
+                          alt=""
+                          src="./assets/whatsapp.png"
+                          className="h-6"
+                        />
+                        Hubungi Kami
+                      </div>
+                    </Button>
+                  </a>
                 </div>
-                <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
-                  <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}      variant="lead"
-                    className="text-black mt-4 font-bold"
-                  >
-                    Satuan
-                  </Typography>
-                </div>
-                <div className="w-full justify-left items-left border-b ml-4 lg:ml-0">
-                  <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}      variant="lead"
-                    className="text-black mt-4 font-bold"
-                  >
-                    Diambil Dari
-                  </Typography>
-                </div>
-                <div className="w-full justify-left items-left  ml-4 lg:ml-0">
-                  <Typography
-                style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 800,
-              }}      variant="lead"
-                    className="text-black mt-4 font-bold"
-                  >
-                    Deskripsi Produk
-                  </Typography>
-                </div>
-              </div>
-              <div className="w-full items-left justify-left">
-                <div className="w-full justify-left items-left border-b pt-[8px] md:pl-0 pl-4">
-                  <Typography variant="lead"  style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 500,
-              }} className="text-black mt-4">
-                    5000L
-                  </Typography>
-                </div>
-                <div className="w-full justify-left items-left border-b">
-                  <Typography variant="lead"  style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 500,
-              }} className="text-black mt-4 md:pl-0 pl-4">
-                    Liter
-                  </Typography>
-                </div>
-                <div className="w-full justify-left items-left border-b md:pl-0 pl-4">
-                  <Typography variant="lead"  style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 500,
-              }} className="text-black mt-4">
-                    Kalimantan Barat
-                  </Typography>
-                </div>
-                <div className="w-full justify-left items-left md:pl-0 pl-4  ">
-                  <Typography variant="lead"  style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 500,
-              }} className="text-black mt-4">
-                    Minyak Goreng Curah (LDC East)
-                  </Typography>
-                </div>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
 
         {/* Form Email */}
         <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-          <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8  -translate-y-10">
-            <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0">
+          <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
+            <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
               <Typography
                 variant="h4"
                 style={{
@@ -242,15 +216,16 @@ export default function DetailProduct() {
                   fontWeight: 700,
                 }}
               >
-                Dapatkan info menarik dari kami!
+                Masukkan alamat email Anda untuk mendapatkan informasi menarik
+                dari kami!
               </Typography>
             </div>
-            <div className=" col-span-6 px-2 md:px-0">
-              <div className="flex gap-2">
+            <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
+              <div className="flex gap-2 w-full">
                 <Input
                   size="lg"
                   placeholder="Email address"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                  className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                   labelProps={{
                     className: "before:content-none after:content-none w-full",
                   }}
@@ -262,13 +237,12 @@ export default function DetailProduct() {
             </div>
           </div>
         </div>
-        </div>
 
         {/* Footer */}
-        <div className="bg-blue-50">
-          <div className="container mx-auto pt-20 lg:pt-8">
-            <MasterFooter />
-          </div>
+      </div>
+      <div className="bg-blue-50">
+        <div className="container mx-auto pt-40 lg:pt-20">
+          <MasterFooter />
         </div>
       </div>
     </div>

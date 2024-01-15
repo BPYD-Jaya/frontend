@@ -78,7 +78,7 @@ export default function MitraPage() {
 
       {/* Content */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto lg:-translate-y-[8.3rem] xl:-translate-y-[12rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto lg:-translate-y-[8.3rem] xl:-translate-y-[7rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="text-wpiblue-50">
             <Typography
               variant="h2"
@@ -125,7 +125,7 @@ export default function MitraPage() {
       </div>
 
       {/* Form Supplier */}
-      <div className="container mx-auto lg:-translate-y-8 -translate-y-0">
+      <div className="container mx-auto lg:-translate-y-10 -translate-y-0">
         <div className="mb-10 border rounded-lg shadow-lg mx-2 lg:mx-0 ">
           <div className="flex xl:flex-row flex-col">
             <div
