@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import MasterNavbar from "../components/masterNavbar";
-import { Button, Input, Typography } from "@material-tailwind/react";
-import { FaArrowRight } from "react-icons/fa";
-import MasterFooter from "../components/masterFooter";
+import React, { useState, useEffect } from 'react';
+import MasterNavbar from '../components/masterNavbar';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import { FaArrowRight } from 'react-icons/fa';
+import MasterFooter from '../components/masterFooter';
 
 export default function MitraPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -13,10 +13,10 @@ export default function MitraPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -25,7 +25,7 @@ export default function MitraPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+          isNavbarFixed ? 'fixed top-0 w-full z-10' : ''
         }`}
       >
         <MasterNavbar />
@@ -33,18 +33,18 @@ export default function MitraPage() {
 
       {/* Jumbotron */}
       <div
-        className="bg-wpiblue-50 xl:h-[675px] h-[890px] lg:pt-4 pt-0"
-        style={{ borderRadius: "0 0 50px 50px" }}
+        className="bg-wpiblue-50 xl:h-[675px] lg:h-[540px] h-[890px] lg:pt-4 pt-0"
+        style={{ borderRadius: '0 0 50px 50px' }}
       >
-        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
-          <div className=" flex justify-center items-center text-white col-span-6 pl-0 pt-2 lg:pl-6">
+        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 ">
+          <div className=" flex justify-center  items-center text-white col-span-6 pl-0 pt-2 lg:pl-6">
             <img
               src="https://warungpangan.com/upload/settings/mitra_bisnis_banner.png"
               alt="jumbotron"
-              style={{ maxWidth: "100%", height: "auto" }}
+              style={{ maxWidth: '100%', height: 'auto' }}
             />
           </div>
-          <div className=" col-span-6 xl:-translate-x-0 flex flex-col justify-center">
+          <div className=" col-span-6  xl:-translate-x-0 flex flex-col justify-center">
             <Typography variant="h2" color="white">
               GABUNG JADI SUPPLIER WARUNG PANGAN!
             </Typography>
@@ -78,7 +78,7 @@ export default function MitraPage() {
 
       {/* Content */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto lg:-translate-y-28 -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto lg:-translate-y-[8.3rem] xl:-translate-y-[12rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="text-wpiblue-50">
             <Typography
               variant="h2"
@@ -88,36 +88,36 @@ export default function MitraPage() {
             </Typography>
           </div>
           <div className="flex justify-center items-center">
-            <div className=" grid grid-cols-6 gap-10 items-center ">
+            <div className=" grid grid-cols-6  gap-10 items-center ">
               <img
                 src="https://warungpangan.com/upload/img/c38c8d98c6cff3469702e63cbe56686d.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
               <img
                 src="https://www.ptppi.co.id/wp-content/uploads/2022/01/PPI-ID-Food.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
               <img
                 src="https://www.bgrlogistik.id/bgr/img/logo_bli.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
               <img
                 src="https://warungpangan.com/upload/img/mitra_bisnis_logo_2.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
               <img
                 src="https://warungpangan.com/upload/img/mitra_bisnis_logo_5.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
               <img
                 src="https://warungpangan.com/upload/img/mitra_bisnis_logo_3.png"
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: '100%' }}
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function MitraPage() {
           <div className="flex xl:flex-row flex-col">
             <div
               className="bg-gradient-to-r from-wpiblue-50 to-wpigreen-50 flex justify-center items-center text-center xl:w-1/2 w-full h-[300px] xl:h-auto"
-              style={{ borderRadius: "10px 100px 100px 10px" }}
+              style={{ borderRadius: '10px 100px 100px 10px' }}
             >
               <Typography variant="h1" color="white">
                 Formulir Pendaftaran Supplier
@@ -148,7 +148,7 @@ export default function MitraPage() {
                     placeholder="xxxx@mail.com"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -160,7 +160,7 @@ export default function MitraPage() {
                     placeholder="********"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                   <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -172,7 +172,7 @@ export default function MitraPage() {
                     placeholder="********"
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className: "before:content-none after:content-none",
+                      className: 'before:content-none after:content-none',
                     }}
                   />
                 </div>
@@ -186,7 +186,7 @@ export default function MitraPage() {
                   color="gray"
                   className="mt-4 text-center font-normal"
                 >
-                  Already have an account?{" "}
+                  Already have an account?{' '}
                   <a
                     href="/login"
                     className="font-medium text-gray-900 hover:text-blue-600"
@@ -217,10 +217,13 @@ export default function MitraPage() {
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
         <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0 -translate-y-10">
           <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
-            <Typography variant="h4"style={{
+            <Typography
+              variant="h4"
+              style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 700,
-              }}>
+              }}
+            >
               Dapatkan info menarik dari kami!
             </Typography>
           </div>
@@ -231,7 +234,7 @@ export default function MitraPage() {
                 placeholder="Email address"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
                 labelProps={{
-                  className: "before:content-none after:content-none w-full",
+                  className: 'before:content-none after:content-none w-full',
                 }}
               />
               <Button className="hover:bg-green-400 bg-wpigreen-50">
