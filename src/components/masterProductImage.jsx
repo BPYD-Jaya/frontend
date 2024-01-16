@@ -6,7 +6,7 @@ export default function MasterProductImage() {
       <img
         src="https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg"
         alt=""
-        className="w-full"
+        className="w-full rounded-md"
       />
     </div>
   );
