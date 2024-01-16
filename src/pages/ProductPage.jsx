@@ -1,14 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import MasterFilterCard from '../components/masterFilterCard';
-// import MasterCard from "../components/masterCard";
-import MasterCatalog from '../components/masterCatalog';
-import MasterFooter from '../components/masterFooter';
-import MasterPagination from '../components/masterPagination';
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import MasterFilterCard from "../components/masterFilterCard";
+import MasterCatalog from "../components/masterCatalog";
+import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
 
 export default function ProductPage() {
+  const catalogItems = [
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg",
+      productName: "Minyak Goreng Curah",
+      priceRange: "$14.00 - $19.00",
+      minOrder: "1000.0 liters",
+    },
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png",
+      productName: "Tepung Terigu",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "800.0 kilograms",
+    },
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg",
+      productName: "Garam Enak",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "1000.0 kilograms",
+    },
+  ];
+
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
 
   useEffect(() => {
@@ -17,10 +40,10 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -29,7 +52,7 @@ export default function ProductPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? 'fixed top-0 w-full z-50' : ''
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
         }`}
       >
         <MasterNavbar />
@@ -184,7 +207,7 @@ export default function ProductPage() {
           </div>
         </div>
         <div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3">
+          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3">
             <Typography
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
@@ -205,27 +228,15 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-              <div className="flex justify-center items-center">
-                <MasterCatalog />
-              </div>
-            </div>
-            <div className="flex justify-center mt-6 ">
-              <MasterPagination />
+              {catalogItems.map((item, index) => (
+                <MasterCatalog
+                  key={index}
+                  imageUrl={item.imageUrl}
+                  productName={item.productName}
+                  priceRange={item.priceRange}
+                  minOrder={item.minOrder}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -233,43 +244,43 @@ export default function ProductPage() {
 
       {/* Form Email */}
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-          <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
-            <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
-              <Typography
-                variant="h4"
-                style={{
-                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                  fontWeight: 700,
-                }}
-              >
-                Masukkan alamat email Anda untuk mendapatkan informasi menarik
-                dari kami!
-              </Typography>
-            </div>
-            <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
-              <div className="flex gap-2 w-full">
-                <Input
-                  size="lg"
-                  placeholder="Email address"
-                  className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none w-full",
-                  }}
-                />
-                <Button className="hover:bg-green-400 bg-wpigreen-50">
-                  Submit
-                </Button>
-              </div>
-            </div>
+        <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
+          <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
+            <Typography
+              variant="h4"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }}
+            >
+              Masukkan alamat email Anda untuk mendapatkan informasi menarik
+              dari kami!
+            </Typography>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="bg-blue-50">
-          <div className="container mx-auto pt-40 lg:pt-18">
-            <MasterFooter />
+          <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
+            <div className="flex gap-2 w-full">
+              <Input
+                size="lg"
+                placeholder="Email address"
+                className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: "before:content-none after:content-none w-full",
+                }}
+              />
+              <Button className="hover:bg-green-400 bg-wpigreen-50">
+                Submit
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="bg-blue-50">
+        <div className="container mx-auto pt-40 lg:pt-18">
+          <MasterFooter />
+        </div>
+      </div>
+    </div>
   );
 }
