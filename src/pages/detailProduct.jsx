@@ -375,12 +375,11 @@ export default function DetailProduct() {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="bg-blue-50">
-          <div className="pt-40 lg:pt-18">
-            <MasterFooter />
-          </div>
+      </div>
+      {/* Footer */}
+      <div className="bg-blue-50">
+        <div className="container mx-auto pt-40 lg:pt-18">
+          <MasterFooter />
         </div>
       </div>
     </div>
