@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { Button, Input, Textarea, Typography,Select, Option } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Textarea,
+  Typography,
+  Select,
+  Option,
+} from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
@@ -15,11 +22,7 @@ export default function AdminAddProduct() {
     console.log(acceptedFiles[0]);
   };
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*", // Specify accepted file types
     onDrop: handleFileUpload,
   });
@@ -63,179 +66,67 @@ export default function AdminAddProduct() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Product */}
-      <div className="flex-grow h-full ml-5 md:ml-80 pt-10 mr-5 md:mr-0">
-        <form>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-            <div className="md:col-span-4">
-              <Typography variant="h5" className="pb-10">
-                Tambah Produk
-              </Typography>
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Nama Produk
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Nama Produk"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Kode Produk
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Kode Produk"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Kategori Produk
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Select
-                color="indigo"
-                size="lg"
-                placeholder="Kategori Produk"
-                className="!border-t-gray-400 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              >
-                <Option>Batubara</Option>
-                <Option>Horticultural</Option>
-                <Option>Agriculture</Option>
-                <Option>Aquaculture</Option>
-                <Option>Mineral</Option>
+      {/* ADD Product */}
+      <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
+        <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
+          <Typography className="col-span-2 flex items-center">
+            Add Product
+          </Typography>
+        </div>
 
-                </Select>
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Harga
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Rp 0"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Berat
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Berat"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Satuan
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Satuan"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Diambil Dari
-              </Typography>
-            </div>
-            <div className="md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Area Pengambilan"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Deskripsi Produk
-              </Typography>
-            </div>
-            <div className="md:col-span-4">
-              <Textarea
-                color="indigo"
-                // placeholder="Deskripsi Produk"
-                className="w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              ></Textarea>
-            </div>
-            <div
-              className="md:col-span-4 border border-gray-400 w-full rounded-lg  h-[150px] flex justify-center items-center"
-              {...getRootProps()}
-            >
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <div className="text-center flex flex-col items-center">
-                  <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
-                  <p className="mt-2">
-                    {selectedFile
-                      ? `File: ${selectedFile.name}`
-                      : "Drag and drop file here or click to select file"}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-            <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
-              </a>
-              <a href="/adminproduk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
-                </Button>
-              </a>
-            </div>
+        {/* Detail Product */}
+        <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Product Name
           </div>
-        </form>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Product Name" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Price
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Product Name" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Minimum order quantity
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Product Name" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Photo Product
+          </div>
+          <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop the files here ...</p>
+            ) : (
+              <div className="text-center flex flex-col items-center">
+                <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
+                <p className="mt-2">
+                  {selectedFile
+                    ? `File: ${selectedFile.name}`
+                    : "Drag and drop file here or click to select file"}
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="col-span-12 flex justify-end items-center">
+            <a
+              href="/adminproduk"
+              className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+            >
+              <Button className="bg-red-400 flex">Batal</Button>
+            </a>
+            <a
+              href="/adminproduk"
+              className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+            >
+              <Button className="bg-wpigreen-50 flex">Simpan</Button>
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}

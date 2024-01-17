@@ -26,32 +26,25 @@ export default function MasterCatalogAdmin() {
         <Typography
           variant="h4"
           color="blue-gray"
-          className="mb-2 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
+          className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
         >
           Minyak Goreng Curah
         </Typography>
         <Typography
           variant="lead"
           color="black"
-          className="mb-4 font-normal xl:whitespace-nowrap"
+          className="font-bold xl:whitespace-nowrap"
           style={{ fontSize: "0.950rem" }}
         >
-          Rp 100 Juta - 500 Juta
+          $14.00 - $19.00
         </Typography>
         <div className="flex items-center justify-between mb-4 gap-2">
           <Typography
             variant="body2"
             color="gray"
-            className="font-normal text-wpigreen-50 italic xl:whitespace-nowrap text-xs"
+            className="font-normal xl:whitespace-nowrap text-xs"
           >
-            Gratis Pengiriman
-          </Typography>
-          <Typography
-            variant="caption"
-            color="gray"
-            className="font-normal  text-xs"
-          >
-            Terjual 1000
+            Min. order: 1000.0 liters
           </Typography>
         </div>
         <div className="grid grid-cols-1 gap-4 w-full mt-4">
