@@ -66,7 +66,7 @@ export default function MasterBlog() {
             Kategori Blog
           </Typography>
           <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
-          <a href="/addmaster-blog">
+          <a href="/master-tambah-blog">
             <Button className="bg-wpigreen-50 flex gap-2 items-center">
               <PlusCircleIcon className="h-[15px] w-auto" />
               <p>Tambah Kategori Blog</p>
@@ -120,7 +120,7 @@ export default function MasterBlog() {
                 </td>
                 <td className="p-4">
                       <div className="">
-                        <a href="/editmaster-blog">
+                        <a href="/master-edit-blog">
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"

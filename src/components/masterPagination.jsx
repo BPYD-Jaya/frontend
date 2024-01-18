@@ -24,7 +24,7 @@ export function DefaultPagination() {
   };
 
   return (
-    <div className="flex items-center w-full">
+    <div className="flex items-center w-full translate-x-[0%] xl:translate-x-[60%]">
       <Button
         variant="text"
         className="flex items-center text-s gap-2"

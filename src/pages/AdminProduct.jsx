@@ -51,10 +51,10 @@ export default function AdminProduct() {
       <div className=" h-full ml-6 md:ml-80 pt-10 mr-0 font-m-plus-rounded">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">
-            Product
+            Produk
           </Typography>
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
-            <a href="/admintambahproduk">
+            <a href="/admin-tambah-produk">
               <Button className="bg-wpigreen-50 flex gap-2 items-center">
                 <PlusCircleIcon className="h-[15px] w-auto" />
                 <p>Tambah Produk</p>

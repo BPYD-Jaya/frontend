@@ -130,6 +130,7 @@ export default function AdminDetailProduct() {
           </div>
         </div>
       </div>
+      
       {/* Footer */}
       <div className="pt-10">
         <MasterFooterAdmin />

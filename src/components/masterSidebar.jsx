@@ -52,7 +52,7 @@ export default function MasterSidebar() {
             </ListItem>
           </Accordion>
         </a>
-        <a href="/adminproduk">
+        <a href="/admin-produk">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
@@ -62,17 +62,17 @@ export default function MasterSidebar() {
             </ListItem>
           </Accordion>
         </a>
-        <a href="/adminnews">
+        <a href="/admin-blog">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
                 <NewspaperIcon className="h-5 w-5" />
               </ListItemPrefix>
-              News
+              Blog
             </ListItem>
           </Accordion>
         </a>
-        <a href="/adminsupplier">
+        <a href="/admin-supplier">
           <Accordion>
             <ListItem>
               <ListItemPrefix>
@@ -114,7 +114,7 @@ export default function MasterSidebar() {
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
-                  Product
+                  Category Product
                 </ListItem>
               </a>
               <a href="/master-blog">
@@ -122,10 +122,10 @@ export default function MasterSidebar() {
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
-                  Blog
+                  Category Blog
                 </ListItem>
               </a>
-              <a href="/master-city">
+              <a href="/master-kota">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
@@ -133,7 +133,7 @@ export default function MasterSidebar() {
                   City
                 </ListItem>
               </a>
-              <a href="/master-province">
+              <a href="/master-provinsi">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />

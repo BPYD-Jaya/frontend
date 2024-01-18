@@ -72,7 +72,7 @@ export default function AdminEditNews() {
             <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg ">
               <div className="md:col-span-4">
                 <Typography variant="h5" className="pb-10">
-                  Edit News
+                  Edit Berita
                 </Typography>
               </div>
               <div className="md:col-span-4">
@@ -176,12 +176,12 @@ export default function AdminEditNews() {
                 </div>
               </div>
               <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-                <a href="/adminnews" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <a href="/admin-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                     <Button className="bg-red-400 flex">
                     Batal
                     </Button>
                   </a>
-                  <a href="/adminnews" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                  <a href="/admin-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                     <Button className="bg-wpigreen-50 flex">
                     Simpan
                     </Button>
@@ -189,7 +189,6 @@ export default function AdminEditNews() {
               </div>
             </div>
           </form>
-        
       </div>
 
       {/* Footer */}

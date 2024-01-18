@@ -21,7 +21,7 @@ export default function MasterCatalog({
         color="transparent"
         className="object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <a href="/detailproduk">
+        <a href="/detail-produk">
           <img className="rounded-md" src={imageUrl} alt={productName} />
         </a>
       </CardHeader>

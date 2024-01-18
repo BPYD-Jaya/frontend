@@ -69,7 +69,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className={`p-1 font-${currentPath === '/news' ? 'bold' : 'normal'}`}
       >
-        <a href="/news" className={`flex items-center ${currentPath === '/news' ? 'font-bold text-white' : 'text-white'}`}>
+        <a href="/blog" className={`flex items-center ${currentPath === '/blog' ? 'font-bold text-white' : 'text-white'}`}>
           Blog
         </a>
       </Typography>
@@ -79,7 +79,7 @@ export default function MasterNavbar() {
         color="blue-gray"
         className={`p-1 font-${currentPath === '/about' ? 'bold' : 'normal'}`}
       >
-        <a href="/about" className={`flex items-center ${currentPath === '/about' ? 'font-bold text-white' : 'text-white'}`}>
+        <a href="/tentang" className={`flex items-center ${currentPath === '/tentang' ? 'font-bold text-white' : 'text-white'}`}>
           Tentang
         </a>
       </Typography>

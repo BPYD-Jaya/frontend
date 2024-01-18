@@ -36,41 +36,37 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/produk" element={<ProductPage />} />
+      <Route path="/detail-produk" element={<DetailProduct />} />
+      <Route path="/mitra" element={<MitraPage />} />
+      <Route path="/blog" element={<NewsPage />} />
+      <Route path="/detail-blog" element={<DetailNews />} />
+      <Route path="/tentang" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/mitra" element={<MitraPage />} />
-      <Route path="/news" element={<NewsPage />} />
-      <Route path="/detailnews" element={<DetailNews />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/produk" element={<ProductPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/adminproduk" element={<AdminProduct />} />
-      <Route path="/admindetailproduk" element={<AdminDetailProduct />} />
-      <Route path="/detailproduk" element={<DetailProduct />} />
-      <Route path="/adminnews" element={<AdminNews />} />
-      <Route path="/admindetailnews" element={<AdminDetailNews />} />
-      <Route path="/adminaddnews" element={<AdminAddNews />} />
-      <Route path="/admin-edit-news" element={<AdminEditNews />} />
+      <Route path="/admin-produk" element={<AdminProduct />} />
+      <Route path="/admin-tambah-produk" element={<AdminAddProduct />} />
+      <Route path="/admin-detail-produk" element={<AdminDetailProduct />} />
+      <Route path="/admin-edit-produk" element={<AdminEditProduct />} />
+      <Route path="/admin-blog" element={<AdminNews />} />
+      <Route path="/admin-tambah-blog" element={<AdminAddNews />} />
+      <Route path="/admin-detail-blog" element={<AdminDetailNews />} />
+      <Route path="/admin-edit-blog" element={<AdminEditNews />} />
       <Route path="/master-produk" element={<MasterProduct />} />
       <Route path="/master-blog" element={<MasterBlog />} />
-      <Route path="/master-city" element={<MasterCity />} />
-      <Route path="/master-province" element={<MasterProvince />} />
-      <Route path="/admintambahproduk" element={<AdminAddProduct />} />
-      <Route path="/admineditproduk" element={<AdminEditProduct />} />
-      <Route path="/master-produk" element={<MasterProduct />} />
-      <Route path="/master-blog" element={<MasterBlog />} />
-      <Route path="/master-city" element={<MasterCity />} />
-      <Route path="/master-province" element={<MasterProvince />} />
-      <Route path="/addmaster-produk" element={<AddMasterProduct />} />
-      <Route path="/addmaster-blog" element={<AddMasterBlog />} />
-      <Route path="/addmaster-city" element={<AddMasterCity />} />
-      <Route path="/addmaster-province" element={<AddMasterProvince />} />
-      <Route path="/editmaster-produk" element={<EditMasterProduct />} />
-      <Route path="/editmaster-blog" element={<EditMasterBlog />} />
-      <Route path="/editmaster-city" element={<EditMasterCity />} />
-      <Route path="/editmaster-province" element={<EditMasterProvince />} />
-      <Route path="/admineditprofile" element={<AdminEditProfile />} />
-      <Route path="/adminsupplier" element={<Supplier />} />
+      <Route path="/master-kota" element={<MasterCity />} />
+      <Route path="/master-provinsi" element={<MasterProvince />} />
+      <Route path="/master-tambah-produk" element={<AddMasterProduct />} />
+      <Route path="/master-tambah-blog" element={<AddMasterBlog />} />
+      <Route path="/master-tambah-kota" element={<AddMasterCity />} />
+      <Route path="/master-tambah-provinsi" element={<AddMasterProvince />} />
+      <Route path="/master-edit-produk" element={<EditMasterProduct />} />
+      <Route path="/master-edit-blog" element={<EditMasterBlog />} />
+      <Route path="/master-edit-kota" element={<EditMasterCity />} />
+      <Route path="/master-edit-provinsi" element={<EditMasterProvince />} />
+      <Route path="/admin-edit-profil" element={<AdminEditProfile />} />
+      <Route path="/admin-supplier" element={<Supplier />} />
     </Routes>
   );
 }
