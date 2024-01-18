@@ -63,19 +63,83 @@ export default function AdminDetailProduct() {
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
             Minyak Goreng Curah
           </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Brand Name
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Minyak Goreng BPYD
+          </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Company Name
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            PT BPYD JAYA
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             Price
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
             $14.00 - $19.00
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Minimum order quantity
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Stock
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">-</div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Volume
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            1000 liters
+            1000 Liters
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Address
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Cafe Bdim Mulawarman
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Description
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
+            modi dolorem aliquam qui, sequi vitae quis sunt maiores eos
+            perspiciatis voluptatem aliquid temporibus sed similique at culpa
+            commodi accusantium assumenda!
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Category Product
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Agriculture
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            City
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Semarang
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Province
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Jawa Tengah
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Category Name
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            Foods and Beverages
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
             Photo Product
@@ -90,7 +154,7 @@ export default function AdminDetailProduct() {
           </div>
         </div>
       </div>
-      
+
       {/* Footer */}
       <div className="pt-10">
         <MasterFooterAdmin />
