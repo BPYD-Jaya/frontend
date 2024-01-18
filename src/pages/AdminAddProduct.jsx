@@ -189,7 +189,7 @@ export default function AdminAddProduct() {
               onClick={handleAddDescription}
               className="bg-blue-500 text-white"
             >
-              Add Description
+              Add Specification
             </Button>
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">

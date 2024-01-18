@@ -189,7 +189,7 @@ export default function AdminEditProduct() {
               onClick={handleAddDescription}
               className="bg-blue-500 text-white"
             >
-              Add Description
+              Add Specification
             </Button>
           </div>{" "}
 
