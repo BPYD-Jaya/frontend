@@ -15,7 +15,7 @@ import { FaCloudArrowUp } from "react-icons/fa6";
 
 export default function AdminAddProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [descriptionInputs, setDescriptionInputs] = useState(1);
   const handleFileUpload = (acceptedFiles) => {
     // Handle the selected file as needed
     setSelectedFile(acceptedFiles[0]);
@@ -41,6 +41,10 @@ export default function AdminAddProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleAddDescription = () => {
+    setDescriptionInputs(descriptionInputs + 1);
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -76,79 +80,152 @@ export default function AdminAddProduct() {
 
         {/* Detail Product */}
         <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Product Name
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Product Name" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Product Name" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Brand Name
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Brand Name" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Brand Name" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Company Name
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Minyak Goreng BPYD" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Minyak Goreng BPYD" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Price
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Price" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Price" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Stock
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Stock" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Stock" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Stock
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Stock" />
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Volume
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Volume" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Volume" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Address" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Address" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Description
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-start pb-8 ">
+            Specification
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Description" />
+          <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
+            {[...Array(descriptionInputs)].map((_, index) => (
+              <div className=" w-full" key={index}>
+                <div className="pb-8">
+                  <div className="pb-4">
+                    <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Item" />
+                  </div>
+                  <div className="pb-4">
+                    <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Value" />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+          <div className="col-span-12 flex justify-center lg:justify-end items-center pb-8">
+            <Button
+              onClick={handleAddDescription}
+              className="bg-blue-500 text-white"
+            >
+              Add Description
+            </Button>
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Category Product" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Category Product" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             City
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input City" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input City" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Province
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Province" />
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} placeholder="Input Province" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Photo Product
           </div>
           <div
