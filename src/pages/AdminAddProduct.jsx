@@ -82,22 +82,79 @@ export default function AdminAddProduct() {
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
             <Input placeholder="Input Product Name" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Brand Name
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Brand Name" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Company Name
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Minyak Goreng BPYD" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             Price
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Product Name" />
+            <Input placeholder="Input Price" />
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Minimum order quantity
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Stock
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            <Input placeholder="Input Product Name" />
+            <Input placeholder="Input Stock" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Stock
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Stock" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Volume
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Volume" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Address
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Address" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Description
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Description" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Category Product
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Category Product" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            City
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input City" />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Province
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            <Input placeholder="Input Province" />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
             Photo Product
           </div>
-          <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+          <div
+            className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
+            {...getRootProps()}
+          >
             <input {...getInputProps()} />
             {isDragActive ? (
               <p>Drop the files here ...</p>
