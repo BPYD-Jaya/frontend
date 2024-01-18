@@ -260,7 +260,7 @@ export default function ProductPage() {
               </div>
             </a>
           </SwiperSlide>
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <a href="#">
               <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
@@ -283,7 +283,7 @@ export default function ProductPage() {
                 </div>
               </div>
             </a>
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
 

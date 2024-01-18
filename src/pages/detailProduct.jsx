@@ -155,7 +155,21 @@ export default function DetailProduct() {
         {/* Breadcrumbs */}
 
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
-          <MasterBreadcrumbs />
+          <div className="flex gap-2">
+            <a
+              href="/produk"
+              className="text-wpigreen-50 hover:text-green-900 opacity-60"
+            >
+              Product
+            </a>
+            <div>/</div>
+            <a
+              href="#"
+              className="text-wpigreen-50 hover:text-green-900 font-bold"
+            >
+              *Nama detail product*
+            </a>
+          </div>
         </div>
 
         {/* Catalog */}
