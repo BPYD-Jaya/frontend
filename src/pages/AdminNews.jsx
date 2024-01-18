@@ -49,12 +49,12 @@ export default function AdminNews() {
       {/* Content Product */}
       <div className="flex-grow h-full ml-6 md:ml-80 pt-10 mr-0 ">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 py-4 pl-6 rounded-lg shadow-md ">
-          <Typography className="col-span-2 flex items-center">News</Typography>
+          <Typography className="col-span-2 flex items-center">Blog</Typography>
           <div className=" pr-6 col-span-2 flex justify-end items-center ">
-            <a href="/adminaddnews">
+            <a href="/admin-tambah-blog">
               <Button className="bg-wpigreen-50 flex gap-2 items-center">
                 <PlusCircleIcon className="h-[15px] w-auto" />
-                <p>Tambah News</p>
+                <p>Tambah Berita</p>
               </Button>
             </a>
           </div>

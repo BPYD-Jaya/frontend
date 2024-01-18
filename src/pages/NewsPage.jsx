@@ -81,37 +81,37 @@ export default function NewsPage() {
           </div>
           <div className="container px-2 lg:px-0  mx-auto grid grid-cols-1 lg:grid-cols-3 justify-center items-center gap-6 lg:gap-x-4 lg:gap-y-12 ">
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />
             </a>
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />
             </a>
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />
             </a>
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />
             </a>
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />
             </a>
             <a
-              href="/detailnews"
+              href="/detail-blog"
               className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
             >
               <MasterNews />

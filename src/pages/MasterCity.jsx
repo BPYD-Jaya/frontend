@@ -66,7 +66,7 @@ export default function MasterCity() {
             Kota
           </Typography>
           <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
-          <a href="/addmaster-city">
+          <a href="/master-tambah-kota">
             <Button className="bg-wpigreen-50 flex gap-2 items-center">
               <PlusCircleIcon className="h-[15px] w-auto" />
               <p>Tambah Kota</p>
@@ -120,7 +120,7 @@ export default function MasterCity() {
                 </td>
                 <td className="p-4">
                       <div className="">
-                        <a href="/editmaster-city">
+                        <a href="/master-edit-kota">
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"

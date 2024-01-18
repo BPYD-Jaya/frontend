@@ -48,7 +48,7 @@ export default function MasterCatalogAdmin() {
           </Typography>
         </div>
         <div className="grid grid-cols-1 gap-4 w-full mt-4">
-          <a href="/admindetailproduk">
+          <a href="/admin-detail-produk">
             <button
               type="button"
               className="bg-wpiblue-50 text-white font-bold h-10 rounded-md w-full"
@@ -76,7 +76,7 @@ export default function MasterCatalogAdmin() {
               </div>
             </button>
           </a>
-          <a href="/admineditproduk">
+          <a href="/admin-edit-produk">
             <button
               type="button"
               className="bg-orange-500 text-white font-bold h-10 rounded-md w-full"

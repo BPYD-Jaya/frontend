@@ -74,7 +74,7 @@ export default function DashboardPage() {
 
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <MasterBarChart />
-</div>
+      </div>
 
       {/* Footer */}
       <div className="pt-10 justify-bottom w-full">

@@ -4,7 +4,7 @@ export default function MasterBreadcrumbs() {
   return (
     <div className="flex gap-2">
       <a
-        href="/news"
+        href="/blog"
         className="text-wpigreen-50 hover:text-green-900 opacity-60"
       >
         News

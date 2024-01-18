@@ -60,7 +60,7 @@ export default function MasterNewsAdmin() {
       </CardFooter>
       <CardFooter>
         <div className="flex justify-center items-center gap-2 w-full">
-          <a href="/admindetailnews">
+          <a href="/admin-detail-blog">
             <button
               type="button"
               className="ml-0 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md w-full"
@@ -88,7 +88,7 @@ export default function MasterNewsAdmin() {
               </div>
             </button>
           </a>
-          <a href="/admin-edit-news">
+          <a href="/admin-edit-blog">
             <button
               type="button"
               className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md w-full"
