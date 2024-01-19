@@ -1,18 +1,18 @@
-import React from 'react';
-import image from '../../src/assets/logo-wpi.png';
-import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa6';
+import React from "react";
+import image from "../../src/assets/logo-wpi.png";
+import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa6";
 const LINKS = [
   {
-    title: 'Product',
-    items: ['Overview', 'Features', 'Solutions', 'Tutorials'],
+    title: "Product",
+    items: ["Overview", "Features", "Solutions", "Tutorials"],
   },
   {
-    title: 'Company',
-    items: ['About us', 'Careers', 'Press', 'News'],
+    title: "Company",
+    items: ["About us", "Careers", "Press", "News"],
   },
   {
-    title: 'Resource',
-    items: ['Blog', 'Newsletter', 'Events', 'Help center'],
+    title: "Resource",
+    items: ["Blog", "Newsletter", "Events", "Help center"],
   },
 ];
 
@@ -27,22 +27,71 @@ export default function MasterFooter() {
       </div>
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-y-2 ">
         <div className="flex flex-col lg:flex-row   lg:gap-8 gap-2 ">
-          <p className="w-[60%]">
+          <p
+            className="w-[60%]"
+            style={{
+              fontFamily: "'M PLUS Rounded 1c', sans-serif",
+              fontWeight: 400,
+              fontSize: "0.950rem",
+            }}
+          >
             GRAHA PPI, Jl. Abdul Muis No.8, Jakarta Pusat, DKI Jakarta, 10160,
             Indonesia <br /> warungpangan@ptppi.co.id
             <br />
-            <strong> CS Warung Pangan Indonesia </strong>
+            <strong
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+            >
+              {" "}
+              CS Warung Pangan Indonesia{" "}
+            </strong>
             <br />
-            (+62) 21 69066
+            <p
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+                fontSize: "0.950rem",
+              }}
+            >
+              (+62) 21 69066
+            </p>
           </p>
 
           <p>
-          <strong className="text-black/80 "> Perusahaan </strong> <br />
-            <a href="#" className="hover:underline">
+            <strong
+              className="text-black "
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+            >
+              {" "}
+              Perusahaan{" "}
+            </strong>{" "}
+            <br />
+            <a
+              href="#"
+              className="hover:underline"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+                fontSize: "0.950rem",
+              }}
+            >
               Beranda
             </a>{" "}
             <br />
-            <a href="#" className="hover:underline">
+            <a
+              href="#"
+              className="hover:underline"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 400,
+                fontSize: "0.950rem",
+              }}
+            >
               Tentang Perusahaan
             </a>
           </p>
@@ -50,34 +99,87 @@ export default function MasterFooter() {
         <div className="flex flex-col gap-4  ">
           <div className="flex flex-col lg:flex-row lg:gap-8 gap-2 ">
             <p>
-              <strong className="text-black/80 text-nowrap">
-                {' '}
-                Warung Pangan Indonesia{' '}
-              </strong>{' '}
+              <strong
+                className="text-black text-nowrap"
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 800,
+                }}
+              >
+                {" "}
+                Warung Pangan Indonesia{" "}
+              </strong>{" "}
               <br />
               <div className="flex flex-col  w-full">
-                <a href="/produk" className="hover:underline">
+                <a
+                  href="/produk"
+                  className="hover:underline"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.950rem",
+                  }}
+                >
                   Produk
                 </a>
-                <a href="/mitra" className="hover:underline">
+                <a
+                  href="/mitra"
+                  className="hover:underline"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.950rem",
+                  }}
+                >
                   Mitra Bisnis
                 </a>
-                <a href="/blog" className="hover:underline">
+                <a
+                  href="/blog"
+                  className="hover:underline"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.950rem",
+                  }}
+                >
                   Blog
                 </a>
-                <a href="/tentang" className="hover:underline">
+                <a
+                  href="/tentang"
+                  className="hover:underline"
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.950rem",
+                  }}
+                >
                   Tentang
                 </a>
               </div>
             </p>
 
             <p>
-              <strong className="text-black/80 justify-end ">
+              <strong
+                className="text-black justify-end "
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 800,
+                }}
+              >
                 Layanan Pengaduan Konsumen
               </strong>
               <br />
-              Direktorat Jendral Perlindungan Konsumen dan Tertib Niaga
-              Kementrian Perdagangan Republik Indonesia (+62) 853 11111
+              <p
+                style={{
+                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                  fontWeight: 400,
+                  fontSize: "0.950rem",
+                }}
+              >
+                {" "}
+                Direktorat Jendral Perlindungan Konsumen dan Tertib Niaga
+                Kementrian Perdagangan Republik Indonesia (+62) 853 11111
+              </p>
             </p>
           </div>
         </div>
@@ -86,39 +188,54 @@ export default function MasterFooter() {
       <div className="grid lg:grid-cols-2 gap-y-2 grid-cols-1 mt-5 ">
         <div className="flex items-center gap-4  px-2">
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
-          <a
-            href="https://wa.me/NOMOR_WHATSAPP"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaWhatsapp />
+            <a
+              href="https://wa.me/NOMOR_WHATSAPP"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaWhatsapp />
             </a>
           </span>
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
-          <a
-            href="https://www.instagram.com/NAMA_INSTAGRAM"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram />
-          </a>
+            <a
+              href="https://www.instagram.com/NAMA_INSTAGRAM"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram />
+            </a>
           </span>
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
-          <a
-            href="https://www.facebook.com/NAMA_FACEBOOK"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook />
-          </a>
+            <a
+              href="https://www.facebook.com/NAMA_FACEBOOK"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook />
+            </a>
           </span>
           <p className="font-semibold text-lg">Warung Pangan Indonesia</p>
         </div>
         <div className=" ">
-          <p className="text-start ">
-            © 2024 Powered By{' '}
-            <strong> Warung Pangan Indonesia </strong> all rights
-            reserved
+          <p
+            className="text-start "
+            style={{
+              fontFamily: "'M PLUS Rounded 1c', sans-serif",
+              fontWeight: 400,
+              fontSize: "0.950rem",
+            }}
+          >
+            © 2024 Powered By{" "}
+            <strong
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+            >
+              {" "}
+              Warung Pangan Indonesia{" "}
+            </strong>{" "}
+            all rights reserved
           </p>
         </div>
       </div>
