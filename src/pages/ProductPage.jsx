@@ -312,6 +312,7 @@ export default function ProductPage() {
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
+                fontSize: '1.em',
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -321,7 +322,7 @@ export default function ProductPage() {
           </div>
         </div>
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
-          <div className="md:col-span-1  md:ml-7   px-8 md:px-0">
+          <div className="md:col-span-1 md:ml-7 px-8 md:px-0">
             <div>
               <MasterFilterCard />
             </div>
