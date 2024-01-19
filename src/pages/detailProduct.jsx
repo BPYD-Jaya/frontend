@@ -155,21 +155,7 @@ export default function DetailProduct() {
         {/* Breadcrumbs */}
 
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
-          <div className="flex gap-2">
-            <a
-              href="/produk"
-              className="text-wpigreen-50 hover:text-green-900 opacity-60"
-            >
-              Product
-            </a>
-            <div>/</div>
-            <a
-              href="#"
-              className="text-wpigreen-50 hover:text-green-900 font-bold"
-            >
-              *Nama detail product*
-            </a>
-          </div>
+          <MasterBreadcrumbs />
         </div>
 
         {/* Catalog */}
@@ -303,19 +289,55 @@ export default function DetailProduct() {
               >
                 <div className="pb-8 px-4 pt-4 border border-blue-gray-100 rounded-md shadow-md">
                   <div className="border-b">
-                    <Typography variant="h3" className="font-bold">
+                    <Typography
+                      variant="h3"
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 800,
+                      }}
+                      className="font-bold"
+                    >
                       Minyak Goreng Curah
                     </Typography>
                   </div>
                   <div className="border-b py-4">
                     <p>Minimum order quantity: 1000 liters</p>
-                    <Typography variant="h2" className="font-bold">
+                    <Typography
+                      variant="h2"
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      className="font-bold"
+                    >
                       $14.00 - $19.00
                     </Typography>
                   </div>
                   <div className="border-b">
                     <p className="py-4">Quantity</p>
-                    Button Group
+                    <ButtonGroup size="md" className=" justify-start pb-4">
+                      <Button
+                        onClick={handleDecrement}
+                        className="hover:bg-blue-400 bg-wpiblue-50"
+                      >
+                        -
+                      </Button>
+                      <input
+                        type="number"
+                        value={quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(parseInt(e.target.value))
+                        }
+                        className="w-[45px] max-w-[45px] border items-center text-center"
+                        placeholder="Qty."
+                      />
+                      <Button
+                        onClick={handleIncrement}
+                        className="hover:bg-blue-400 bg-wpiblue-50"
+                      >
+                        +
+                      </Button>
+                    </ButtonGroup>
                   </div>
                   <div className="flex justify-between">
                     <p>1 variation(s) 1000 item(s)</p>
@@ -326,10 +348,20 @@ export default function DetailProduct() {
                     <span>To be negotiated</span>
                   </div>
                   <div className="border-b flex justify-between items-center pt-2">
-                    <Typography variant="h4" className="font-bold">
+                    <Typography
+                      variant="h4"
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 800,
+                      }}
+                      className="font-bold"
+                    >
                       Total
                     </Typography>
-                    <span className="font-bold">$14,000.00</span>
+                    <span style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }} className="font-bold">$14,000.00</span>
                   </div>
                   <div className="w-full flex items-center justify-center">
                     <a

@@ -30,7 +30,11 @@ export default function MasterCatalog({
           variant="h4"
           color="blue-gray"
           className="text-xl whitespace-nowrap font-semibold"
-          style={{ fontSize: "19px" }}
+          style={{
+            fontFamily: "'M PLUS Rounded 1c', sans-serif",
+            fontWeight: 800,
+            fontSize: "19px",
+          }}
         >
           {productName}
         </Typography>
@@ -38,7 +42,11 @@ export default function MasterCatalog({
           variant="lead"
           color="black"
           className="font-bold whitespace-nowrap"
-          style={{ fontSize: "0.950rem" }}
+          style={{
+            fontFamily: "'M PLUS Rounded 1c', sans-serif",
+            fontWeight: 600,
+            fontSize: "0.950rem"
+          }}
         >
           {priceRange}
         </Typography>
@@ -46,7 +54,11 @@ export default function MasterCatalog({
           variant="lead"
           color="black"
           className="font-normal whitespace-nowrap"
-          style={{ fontSize: "0.950rem" }}
+          style={{
+            fontFamily: "'M PLUS Rounded 1c', sans-serif",
+            fontWeight: 500,
+            fontSize: "0.850rem"
+          }}
         >
           Min. order: {minOrder}
         </Typography>
