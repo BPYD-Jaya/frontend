@@ -158,7 +158,7 @@ export default function MasterFilterCard() {
           </Typography>
         </AccordionHeader>
         <AccordionBody>
-          <List>
+        <List>
           <ListItem className="p-0">
               <label
                 htmlFor="vertical-list-mineral"
