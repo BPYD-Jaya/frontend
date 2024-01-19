@@ -48,25 +48,29 @@ export default function DashboardPage() {
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
-        <div className="gap-6  grid 2xl:grid-cols-3 md:grid-cols-2 justify-center">
+        <div className="gap-6  grid 2xl:grid-cols-4 md:grid-cols-2 justify-center">
           <Card className="flex justify-center items-center md:w-auto w-96 h-32">
-            <Typography className="font-bold">Produk</Typography>
+            <Typography className="font-bold">All Product </Typography>
             <Typography>100</Typography>
           </Card>
           <Card className="flex justify-center items-center md:w-auto w-96 h-32">
-            <Typography className="font-bold">Produk</Typography>
+            <Typography className="font-bold">Horticultural Product</Typography>
             <Typography>100</Typography>
           </Card>
           <Card className="flex justify-center items-center md:w-auto w-96 h-32">
-            <Typography className="font-bold">Produk</Typography>
+            <Typography className="font-bold">Agriculture Product</Typography>
             <Typography>100</Typography>
           </Card>
           <Card className="flex justify-center items-center md:w-auto w-96 h-32">
-            <Typography className="font-bold">Produk</Typography>
+            <Typography className="font-bold">Aquaculture Product</Typography>
             <Typography>100</Typography>
           </Card>
           <Card className="flex justify-center items-center md:w-auto w-96 h-32">
-            <Typography className="font-bold">Produk</Typography>
+            <Typography className="font-bold">Category Product</Typography>
+            <Typography>100</Typography>
+          </Card>
+          <Card className="flex justify-center items-center md:w-auto w-96 h-32">
+            <Typography className="font-bold">Supplier</Typography>
             <Typography>100</Typography>
           </Card>
         </div>

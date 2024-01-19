@@ -248,13 +248,13 @@ export default function AdminAddProduct() {
           </div>
           <div className="col-span-12 flex justify-end items-center">
             <a
-              href="/adminproduk"
+              href="/admin-produk"
               className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
             >
               <Button className="bg-red-400 flex">Batal</Button>
             </a>
             <a
-              href="/adminproduk"
+              href="/admin-produk"
               className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
             >
               <Button className="bg-wpigreen-50 flex">Simpan</Button>
