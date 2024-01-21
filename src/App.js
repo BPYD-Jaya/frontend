@@ -65,7 +65,7 @@ export default function App() {
       <Route path="/master-tambah-provinsi" element={<PrivateRoute element={<AddMasterProvince />} />} />
       <Route path="/master-edit-produk" element={<PrivateRoute element={<EditMasterProduct />} />} />
       <Route path="/master-edit-kota" element={<PrivateRoute element={<EditMasterCity />} />} />
-      <Route path="/master-edit-provinsi" element={<PrivateRoute element={<EditMasterProvince />} />} />
+      <Route path="/master-edit-provinsi/:id" element={<PrivateRoute element={<EditMasterProvince />} />} />
       <Route path="/admin-edit-profil" element={<PrivateRoute element={<AdminEditProfile />} />} />
       <Route path="/admin-supplier" element={<PrivateRoute element={<Supplier />} />} />
       {/* <Route path="/master-blog" element={<MasterBlog />} /> */}
