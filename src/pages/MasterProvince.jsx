@@ -1,151 +1,186 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
+import Axios from "axios";
 
 export default function MasterProvince() {
-    const TABLE_HEAD = ["Nomor", "Nama Provinsi", "Aksi"];
-  
-    const TABLE_ROWS = [
-      {
-        id: 1,
-        provinceName: "Kalimantan Timur",
-      },
-      {
-        id: 2,
-        provinceName: "Sulawesi Selatan",
-      },
-    ];
-    const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [TABLE_ROWS, setTableRows] = useState([]);
+  const TABLE_HEAD = ["Nomor", "Nama Provinsi", "Aksi"];
+  const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
-    useEffect(() => {
-      const handleResize = () => {
-        setOpenSidebar(window.innerWidth >= 640);
-      };
-  
-      window.addEventListener("resize", handleResize);
-  
-      // Cleanup
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }, []);
-  
-    return (
-      <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-        {/* Sidebar */}
+  useEffect(() => {
+    const handleResize = () => {
+      setOpenSidebar(window.innerWidth >= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    Axios.get("https://backend.ptwpi.co.id/api/provinces", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        // Map the fetched data to match your TABLE_ROWS structure
+        const mappedData = response.data.map((item,index,id) => ({
+          id: item.id,
+          nomor: index + 1,
+          provinceName: item.province,
+        }));
+
+        // Update the TABLE_ROWS state with the mapped data
+        setTableRows(mappedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  const handleDelete = (id) => {
+    // Perform delete operation using Axios or any other method
+    Axios.delete(`https://backend.ptwpi.co.id/api/provinces/{id}`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization:`6|vCdL5odVKcX9mMvEcdjn1Q38C0fLnYFblgtT1XN9af007192`
+      },
+    })
+      .then((response) => {
+        // After successful deletion, update the state to trigger re-render
+        const updatedRows = TABLE_ROWS.filter((row) => row.id !== id);
+        setTableRows(updatedRows);
+      })
+      .catch((error) => {
+        console.error("Error deleting data:", error);
+      });
+  };
+
+  return (
+    <div className="bg-gray-100 h-full flex flex-col min-h-screen">
+      {/* Sidebar */}
+      <div
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
+          openSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <MasterSidebar />
+      </div>
+
+      {openSidebar && (
         <div
-          className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-            openSidebar ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <MasterSidebar />
-        </div>
-  
-        {openSidebar && (
-          <div
-            className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-            onClick={() => setOpenSidebar(false)}
-          ></div>
-        )}
-  
-        {/* Navbar */}
-        <MasterNavbarAdmin
-          openSidebar={openSidebar}
-          setOpenSidebar={setOpenSidebar}
-        />
-  
-        {/* Content Product */}
-        <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6  rounded-lg shadow-md ">
-            <Typography className="md:col-span-2 flex items-center">
-              Provinsi
-            </Typography>
-            <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
+          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
+          onClick={() => setOpenSidebar(false)}
+        ></div>
+      )}
+
+      {/* Navbar */}
+      <MasterNavbarAdmin
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
+
+      {/* Content Product */}
+      <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
+        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6  rounded-lg shadow-md ">
+          <Typography className="md:col-span-2 flex items-center">
+            Provinsi
+          </Typography>
+          <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
             <a href="/master-tambah-provinsi">
               <Button className="bg-wpigreen-50 flex gap-2 items-center">
                 <PlusCircleIcon className="h-[15px] w-auto" />
                 <p>Tambah Provinsi</p>
               </Button>
-              </a>
-            </div>
+            </a>
           </div>
-  
-          {/* Table */}
-          <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
+        </div>
+
+        {/* Table */}
+        <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
           <Card className="h-full w-full overflow-y-scroll rounded-md">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th
+                      key={head}
+                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                     >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TABLE_ROWS.map(({ id, provinceName}) => (
-                <tr key={id} className="even:bg-blue-gray-50/50">
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {provinceName}
-                    </Typography>
-                  </td>
-                <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {TABLE_ROWS.map(({ nomor, provinceName,id }) => (
+                  <tr key={nomor} className="even:bg-blue-gray-50/50">
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {nomor}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {provinceName}
+                      </Typography>
+                    </td>
+                    <td className="">
                       <div className="">
                         <a href="/master-edit-provinsi">
-                        <button
-                          type="button"
-                          className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
-                        >
-                          <div className="flex justify-center items-center gap-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                              />
-                            </svg>
-                          </div>
-                        </button>
+                          <button
+                            type="button"
+                            className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+                          >
+                            <div className="flex justify-center items-center gap-3">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                         </a>
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"
+                          onClick={() => handleDelete(id)}
                         >
                           <div className="flex justify-center items-center gap-3">
                             <svg
