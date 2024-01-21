@@ -12,19 +12,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 export default function ProductPage() {
   const catalogItems = [
     {
-      imageUrl: "./assets/product.png",
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg",
       productName: "Minyak Goreng Curah",
       priceRange: "$14.00 - $19.00",
       minOrder: "1000.0 liters",
     },
     {
-      imageUrl: "./assets/product.png",
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg",
       productName: "Tepung Terigu",
       priceRange: "$12.00 - $18.00",
       minOrder: "800.0 kilograms",
     },
     {
-      imageUrl: "./assets/product.png",
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg",
       productName: "Garam Enak",
       priceRange: "$12.00 - $18.00",
       minOrder: "1000.0 kilograms",
