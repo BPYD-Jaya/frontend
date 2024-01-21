@@ -10,6 +10,7 @@ import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function ProductPage() {
+  
   const catalogItems = [
     {
       imageUrl:
