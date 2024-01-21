@@ -5,6 +5,9 @@ import { FaArrowRight } from 'react-icons/fa';
 import MasterFooter from '../components/masterFooter';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 
 export default function MitraPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
