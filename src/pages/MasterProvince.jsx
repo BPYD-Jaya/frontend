@@ -6,13 +6,13 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import Axios from "axios";
 import Cookies from "js-cookie";
-
+import { useNavigate } from "react-router";
 
 export default function MasterProvince() {
   const [TABLE_ROWS, setTableRows] = useState([]);
   const TABLE_HEAD = ["Nomor", "Nama Provinsi", "Aksi"];
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,6 +52,9 @@ export default function MasterProvince() {
       });
   }, []);
 
+  const handleEdit = (id) => {
+    navigate(`/master-edit-provinsi/${id}`);
+  };
   const handleDelete = (id) => {
     try {
       const authToken = Cookies.get("authToken");
@@ -166,10 +169,11 @@ export default function MasterProvince() {
                     </td>
                     <td className="">
                       <div className="">
-                        <a href="/master-edit-provinsi">
+                      <a href={`/master-edit-provinsi/${id}`}>
                           <button
                             type="button"
                             className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+                            onClick={() => handleEdit(id)}
                           >
                             <div className="flex justify-center items-center gap-3">
                               <svg
