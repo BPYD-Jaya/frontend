@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,7 +8,7 @@ import {
   Button,
   Tooltip,
   Avatar,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 
 export default function MasterNews() {
   return (
@@ -19,10 +19,7 @@ export default function MasterNews() {
         color="transparent"
         className="m-0 rounded-none"
       >
-        <img
-          src="https://warungpangan.com/upload/img/f7ec7beff1317722e1df5a97055d23eb.jpg"
-          alt="ui/ux review check"
-        />
+        <img src="./assets/News-WPI.png" alt="ui/ux review check" />
       </CardHeader>
       <CardBody>
         <Typography variant="h4" color="blue-gray">

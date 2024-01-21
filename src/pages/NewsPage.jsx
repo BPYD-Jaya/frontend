@@ -125,13 +125,9 @@ export default function NewsPage() {
 
         {/* Content Image */}
         <div className="container mx-auto flex justify-center pb-16 px-8 my-6">
-          <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105 rounded-lg">
             <a href="/produk">
-              <img
-                src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-                alt=""
-                className="w-full"
-              />
+              <img src="./assets/banner.png" alt="" className="w-full" />
             </a>
           </div>
         </div>

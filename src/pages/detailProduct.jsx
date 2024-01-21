@@ -155,7 +155,21 @@ export default function DetailProduct() {
         {/* Breadcrumbs */}
 
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
-          <MasterBreadcrumbs />
+          <div className="flex gap-2">
+            <a
+              href="/blog"
+              className="text-wpigreen-50 hover:text-green-900 opacity-60"
+            >
+              Product
+            </a>
+            <div>/</div>
+            <a
+              href="#"
+              className="text-wpigreen-50 hover:text-green-900 font-bold"
+            >
+              *Nama produk*
+            </a>
+          </div>
         </div>
 
         {/* Catalog */}
@@ -223,59 +237,6 @@ export default function DetailProduct() {
                   </AccordionBody>
                 </Accordion>
               </>
-
-              {/* <Typography
-                variant="h4"
-                className="pt-8 mb-4 border-b-2 border-black"
-              >
-                Spesification
-              </Typography>
-              <div className="overflow-x-scroll">
-                <table className="w-full min-w-max table-auto text-left">
-                  <thead>
-                    <tr>
-                      {TABLE_HEAD.map((head) => (
-                        <th
-                          key={head}
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            {head}
-                          </Typography>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {TABLE_ROWS.map(({ item, value }, index) => (
-                      <tr key={item} className="even:bg-blue-gray-50/50">
-                        <td className="p-4 break-words">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal "
-                          >
-                            {item}
-                          </Typography>
-                        </td>
-                        <td className="p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {value}
-                          </Typography>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div> */}
             </div>
 
             {/* Card */}
@@ -358,10 +319,15 @@ export default function DetailProduct() {
                     >
                       Total
                     </Typography>
-                    <span style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 700,
-              }} className="font-bold">$14,000.00</span>
+                    <span
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      className="font-bold"
+                    >
+                      $14,000.00
+                    </span>
                   </div>
                   <div className="w-full flex items-center justify-center">
                     <a

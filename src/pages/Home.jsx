@@ -281,11 +281,7 @@ export default function Home() {
         <div className="container mx-auto flex justify-center pb-16 px-8">
           <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <a href="/produk">
-              <img
-                src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-                alt=""
-                className="w-full"
-              />
+              <img src="./assets/banner.png" alt="" className="w-full rounded-lg" />
             </a>
           </div>
         </div>

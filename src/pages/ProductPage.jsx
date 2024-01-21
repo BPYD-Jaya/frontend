@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import MasterFilterCard from '../components/masterFilterCard';
-import MasterCatalog from '../components/masterCatalog';
-import MasterFooter from '../components/masterFooter';
-import MasterPagination from '../components/masterPagination';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import MasterFilterCard from "../components/masterFilterCard";
+import MasterCatalog from "../components/masterCatalog";
+import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function ProductPage() {
   const catalogItems = [
     {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg',
-      productName: 'Minyak Goreng Curah',
-      priceRange: '$14.00 - $19.00',
-      minOrder: '1000.0 liters',
+      imageUrl: "./assets/product.png",
+      productName: "Minyak Goreng Curah",
+      priceRange: "$14.00 - $19.00",
+      minOrder: "1000.0 liters",
     },
     {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png',
-      productName: 'Tepung Terigu',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '800.0 kilograms',
+      imageUrl: "./assets/product.png",
+      productName: "Tepung Terigu",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "800.0 kilograms",
     },
     {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg',
-      productName: 'Garam Enak',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '1000.0 kilograms',
+      imageUrl: "./assets/product.png",
+      productName: "Garam Enak",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "1000.0 kilograms",
     },
   ];
 
@@ -42,10 +39,10 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -54,7 +51,7 @@ export default function ProductPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? 'fixed top-0 w-full z-50' : ''
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
         }`}
       >
         <MasterNavbar />
@@ -312,7 +309,7 @@ export default function ProductPage() {
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-                fontSize: '1.em',
+                fontSize: "1.em",
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -368,7 +365,7 @@ export default function ProductPage() {
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none w-full',
+                  className: "before:content-none after:content-none w-full",
                 }}
               />
               <Button className="hover:bg-green-400 bg-wpigreen-50">
