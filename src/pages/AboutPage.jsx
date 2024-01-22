@@ -34,7 +34,7 @@ export default function AboutPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
         }`}
       >
         <MasterNavbar />
@@ -48,9 +48,9 @@ export default function AboutPage() {
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
           <div className=" flex justify-center items-center text-white col-span-8 pt-2 ">
             <img
-              src="https://warungpangan.com/upload/settings/about_us_banner.png"
+              src="./assets/heroAbout.png"
               alt="jumbotron"
-              className="xl:h-[500px] md:h-[400px]"
+              className="xl:h-[500px] md:h-[400px] z-20"
             />
           </div>
           <div className=" col-span-4 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-start">

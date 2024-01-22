@@ -6,11 +6,27 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MasterNewsAdmin from "../components/masterNewsAdmin";
+import { useParams } from "react-router";
 
 export default function AdminNews() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [blogData, setBlogData] = useState([]);
+
+  const { id } = useParams();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://backend.ptwpi.co.id/api/blogs");
+        const data = await response.json();
+        setBlogData(data.blogs.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
@@ -60,22 +76,9 @@ export default function AdminNews() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
-          <MasterNewsAdmin />
+          {blogData.map((item, index) => (
+            <MasterNewsAdmin key={item.id} {...item} />
+          ))}
         </div>
       </div>
 
