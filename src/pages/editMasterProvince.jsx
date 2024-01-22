@@ -1,6 +1,6 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -17,9 +17,14 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import MasterCatalogAdmin from "../components/masterCatalogAdmin";
 import MasterAdminDetailImage from "../components/masterAdminDetailImage";
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function EditMasterProvince() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [provinceName, setProvinceName] = useState("");
+  const { id } = useParams();
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -28,11 +33,7 @@ export default function EditMasterProvince() {
     console.log(file);
   };
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*", // Specify accepted file types
     onDrop: handleFileUpload,
   });
@@ -50,6 +51,72 @@ export default function EditMasterProvince() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const authToken = Cookies.get("authToken");
+        if (!authToken) {
+          throw new Error("Access token not found in cookies");
+        }
+
+        const response = await Axios.get(
+          `https://backend.ptwpi.co.id/api/provinces/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
+
+        // Log the response for debugging
+        console.log("API response:", response);
+
+        // Update the state with the fetched province data
+        setProvinceName(response.data.province);
+      } catch (error) {
+        console.error("Error fetching province data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = {
+        province: provinceName,
+      };
+
+      const response = await Axios.put(
+        `https://backend.ptwpi.co.id/api/provinces/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("Province data successfully updated:", response.data);
+      navigate("/master-provinsi");
+    } catch (error) {
+      console.error("Error updating province data:", error.message);
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -77,9 +144,9 @@ export default function EditMasterProvince() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Edit Nama Provinsi
               </Typography>
@@ -95,21 +162,25 @@ export default function EditMasterProvince() {
                 size="lg"
                 placeholder="Nama Provinsi"
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                value={provinceName}
+                onChange={(e) => setProvinceName(e.target.value)}
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
-                </Button>
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button type="submit" className="bg-wpigreen-50 flex">Simpan</Button>
               </a>
             </div>
           </div>

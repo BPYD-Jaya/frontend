@@ -6,20 +6,11 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MasterNewsAdmin from "../components/masterNewsAdmin";
+import Axios from "axios";
 
 export default function MasterCity() {
-  const TABLE_HEAD = ["Nomor", "Nama Kota", "Aksi"];
-
-  const TABLE_ROWS = [
-    {
-      id: 1,
-      cityName: "Surakarta",
-    },
-    {
-      id: 2,
-      cityName: "Singkawang",
-    },
-  ];
+  const TABLE_HEAD = ["Nomor", "Nama Provinsi" ,"Nama Kota", "Aksi"];
+  const [TABLE_ROWS, setTableRows] = useState([]);
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {
@@ -33,6 +24,31 @@ export default function MasterCity() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    Axios.get("https://backend.ptwpi.co.id/api/provinces", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        // Map the fetched data to match your TABLE_ROWS structure
+        const mappedData = response.data.map((item,index,id) => ({
+          id: item.id,
+          nomor: index + 1,
+          provinceName: item.province,
+        }));
+
+        // Update the TABLE_ROWS state with the mapped data
+        setTableRows(mappedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
   return (
@@ -98,15 +114,24 @@ export default function MasterCity() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ id, cityName}) => (
-              <tr key={id} className="even:bg-blue-gray-50/50">
+            {TABLE_ROWS.map(({ id, cityName, provinceName, nomor}) => (
+              <tr key={nomor} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {id}
+                    {nomor}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {provinceName}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -118,7 +143,7 @@ export default function MasterCity() {
                     {cityName}
                   </Typography>
                 </td>
-                <td className="p-4">
+                <td className="">
                       <div className="">
                         <a href="/master-edit-kota">
                         <button
