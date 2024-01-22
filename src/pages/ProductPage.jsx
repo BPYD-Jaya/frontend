@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
-import MasterNavbar from "../components/masterNavbar";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Button, Input, Typography } from "@material-tailwind/react";
-import MasterFilterCard from "../components/masterFilterCard";
-import MasterCatalog from "../components/masterCatalog";
-import MasterFooter from "../components/masterFooter";
-import MasterPagination from "../components/masterPagination";
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useState, useEffect } from 'react';
+import MasterNavbar from '../components/masterNavbar';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import MasterFilterCard from '../components/masterFilterCard';
+import MasterCatalog from '../components/masterCatalog';
+import MasterFooter from '../components/masterFooter';
+import MasterPagination from '../components/masterPagination';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function ProductPage() {
+  
   const catalogItems = [
     {
       imageUrl:

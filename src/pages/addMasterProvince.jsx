@@ -10,6 +10,11 @@ import {
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
+
 // import { useDropzone } from "react-dropzone";
 // import { FaCloudArrowUp } from "react-icons/fa6";
 // import MasterCatalog from "../components/masterCatalog";
@@ -18,8 +23,45 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 // import MasterCatalogAdmin from "../components/masterCatalogAdmin";
 
 export default function AddMasterProvince() {
+  const [provinceName, setProvinceName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = {
+        province: provinceName,
+      };
+
+      const response = await Axios.post(
+        "https://backend.ptwpi.co.id/api/provinces",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("Data successfully submitted:", response.data);
+
+      // Redirect to /master-province after successful submission
+      navigate("/master-provinsi");
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,9 +102,9 @@ export default function AddMasterProvince() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Provinsi
               </Typography>
@@ -78,20 +120,25 @@ export default function AddMasterProvince() {
                 size="lg"
                 placeholder="Nama Provinsi"
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                onChange={(e) => setProvinceName(e.target.value)}
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button type="submit" className="bg-wpigreen-50 flex">
+                  Simpan
                 </Button>
               </a>
             </div>

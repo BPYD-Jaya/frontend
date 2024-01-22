@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import MasterSidebar from "../components/masterSidebar";
 import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterBarChart from "../components/masterBarChart";
+import { useAuth } from "../hooks/useAuth";
 
 export default function DashboardPage() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const { user, token } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,9 +28,8 @@ export default function DashboardPage() {
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
       <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <MasterSidebar />
       </div>

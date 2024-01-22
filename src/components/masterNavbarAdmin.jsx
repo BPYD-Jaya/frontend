@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { FaBell } from "react-icons/fa";
 import { Avatar, Badge, Button, Typography } from "@material-tailwind/react";
+import { useAuth } from '../hooks/useAuth';
+
 
 export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
+
+  const { logout } = useAuth();
+
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
     useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -18,6 +23,14 @@ export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
     // Menutup dropdown notifikasi jika terbuka
     setIsNotificationDropdownOpen(false);
   };
+
+  const handleLogout = () => {
+    // Call the logout function from the useAuth hook
+    logout();
+    // Redirect or perform any other action after logout, for example, navigate to the login page
+    window.location.href = '/login';
+  };
+
 
   return (
     <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex justify-between items-center px-8 h-[80px] shadow-sm gap-4 relative">
@@ -198,10 +211,11 @@ export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
                 </button>
               </a>
               <hr class="my-2 border-blue-gray-50" role="menuitem" />
-              <a href="/login">
+              <a href='/login'>
                 <button
                   role="menuitem"
-                  class="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  onClick={handleLogout}
                 >
                   <svg
                     width="16"
