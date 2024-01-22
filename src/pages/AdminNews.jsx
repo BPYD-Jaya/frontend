@@ -6,10 +6,13 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MasterNewsAdmin from "../components/masterNewsAdmin";
+import { useParams } from "react-router";
 
 export default function AdminNews() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [blogData, setBlogData] = useState([]);
+
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {

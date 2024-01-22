@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import { FaArrowRight } from 'react-icons/fa';
-import MasterFooter from '../components/masterFooter';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import { FaArrowRight } from "react-icons/fa";
+import MasterFooter from "../components/masterFooter";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function MitraPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -41,9 +41,9 @@ export default function MitraPage() {
         style={{ borderRadius: "0 0 50px 50px" }}
       >
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 ">
-          <div className=" flex justify-center  items-center text-white col-span-6 pl-0 pt-2 lg:pl-6">
+          <div className=" flex justify-start  items-center text-white col-span-6 pl-0 pt-2 lg:pl-6">
             <img
-              src="https://warungpangan.com/upload/settings/mitra_bisnis_banner.png"
+              src="./assets/heroMitra.png"
               alt="jumbotron"
               style={{ maxWidth: "100%", height: "auto" }}
             />
@@ -75,6 +75,13 @@ export default function MitraPage() {
                   </Button>
                 </a>
               </div>
+              <div className="md:pt-0 pt-4 flex justify-end">
+                <img
+                  src="./assets/brick.png"
+                  alt=""
+                  className=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -82,7 +89,7 @@ export default function MitraPage() {
 
       {/* Content */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto md:-translate-y-[2.5rem] lg:-translate-y-[8.3rem] xl:-translate-y-[7rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto md:-translate-y-[2.5rem] lg:-translate-y-[8.3rem] xl:-translate-y-[9rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="text-wpiblue-50">
             <Typography
               variant="h2"

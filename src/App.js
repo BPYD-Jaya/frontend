@@ -55,8 +55,8 @@ export default function App() {
       <Route path="/admin-edit-produk" element={<AdminEditProduct />} />
       <Route path="/admin-blog" element={<PrivateRoute element={<AdminNews />} />} />
       <Route path="/admin-tambah-blog" element={<PrivateRoute element={<AdminAddNews />} />} />
-      <Route path="/admin-detail-blog" element={<PrivateRoute element={<AdminDetailNews />} />} />
-      <Route path="/admin-edit-blog" element={<PrivateRoute element={<AdminEditNews />} />} />
+      <Route path="/admin-detail-blog/:id" element={<PrivateRoute element={<AdminDetailNews />} />} />
+      <Route path="/admin-edit-blog/:id" element={<PrivateRoute element={<AdminEditNews />} />} />
       <Route path="/master-produk" element={<PrivateRoute element={<MasterProduct />} />} />
       <Route path="/master-kota" element={<PrivateRoute element={<MasterCity />} />} />
       <Route path="/master-provinsi" element={<PrivateRoute element={<MasterProvince />} />} />

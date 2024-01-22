@@ -4,7 +4,7 @@ export default function MasterProductImage() {
   return (
     <div className="overflow-hidden">
       <img
-        src="https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg"
+        src="./assets/product.png"
         alt=""
         className="w-full rounded-md"
       />

@@ -19,6 +19,16 @@ export default function MasterCarousel() {
         alt="image3"
         className="h-full w-full "
       />
+      <img
+        src="./assets/carousel-4.png"
+        alt="image3"
+        className="h-full w-full "
+      />
+      <img
+        src="./assets/carousel-5.png"
+        alt="image3"
+        className="h-full w-full "
+      />
     </Carousel>
   );
 }

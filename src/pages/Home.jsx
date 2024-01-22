@@ -115,7 +115,7 @@ export default function Home() {
             </div>
             <div className=" h-[280px] md:h-[400px] lg:h-[33vw]  xl:h-full justify-center py-5 mt-4 lg:mt-0 md:py-0 items-center col-span-7 lg:-translate-x-4">
               <img
-                src="https://warungpangan.com/upload/settings/home_banner3.png"
+                src="./assets/hero.png"
                 alt="image1"
                 className="h-full w-full   "
                 style={{ width: "100%", height: "100%" }}
