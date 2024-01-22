@@ -10,33 +10,36 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 
-export default function MasterNewsAdmin() {
+export default function MasterNewsAdmin({
+  id,
+  title,
+  content,
+  link_image,
+  date,
+  writer,
+}) {
+  const formattedDate = new Date(date).toLocaleDateString();
+
   return (
     <Card className="max-w-[24rem] overflow-hidden">
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 rounded-none"
+        className="m-0 rounded-none flex justify-center"
       >
-        <img
-          src="https://warungpangan.com/upload/img/f7ec7beff1317722e1df5a97055d23eb.jpg"
-          alt="ui/ux review check"
-        />
+        <img src={link_image} alt={title} className="h-[200px] w-auto"/>
       </CardHeader>
       <CardBody>
         <Typography variant="h4" color="blue-gray">
-          Warung Pangan Indonesia
+          {writer}
         </Typography>
         <Typography variant="lead" color="gray" className="mt-3 font-normal">
-          Kamis (20/7/2023), PT Perusahaan Perdagangan Indonesia, member of ID
-          Food, bersama Paskomnas yang difasilitasi oleh Badan Pangan Nasional
-          melakukan Launching Food Hub "Kios Pangan ID FOOD" di Pasar Induk
-          Tanah Tinggi, Tangerang.
+          {content}
         </Typography>
       </CardBody>
-      <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center -space-x-3">
+      <CardFooter className="flex items-center justify-end">
+        {/* <div className="flex items-center -space-x-3">
           <Tooltip content="Natali Craig">
             <Avatar
               size="sm"
@@ -55,8 +58,8 @@ export default function MasterNewsAdmin() {
               className="border-2 border-white hover:z-10"
             />
           </Tooltip>
-        </div>
-        <Typography className="font-normal">January 10</Typography>
+        </div> */}
+        <Typography className="font-normal">{formattedDate}</Typography>
       </CardFooter>
       <CardFooter>
         <div className="flex justify-center items-center gap-2 w-full">
