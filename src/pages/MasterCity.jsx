@@ -42,7 +42,7 @@ const MasterCity = () => {
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     try {
       const authToken = Cookies.get("authToken");
   
@@ -51,26 +51,21 @@ const MasterCity = () => {
       }
   
       // Perform delete operation using Axios
-      axios.delete(`https://backend.ptwpi.co.id/api/cities/${id}`, {
+      await axios.delete(`https://backend.ptwpi.co.id/api/cities/${id}`, {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-      })
-        .then((response) => {
-          // After successful deletion, update the state to trigger re-render
-          const updatedRows = TABLE_ROWS.filter((row) => row.id !== id);
-          setTableRows(updatedRows);
-        })
-        .catch((error) => {
-          console.error("Error deleting data:", error);
-        });
+      });
+  
+      // After successful deletion, fetch updated city data
+      await onCity();
     } catch (error) {
-      console.error("Error getting authorization token:", error.message);
+      console.error("Error deleting data:", error);
     }
-  };
+  };  
 
   useEffect(() => {
     onCity();
@@ -78,18 +73,20 @@ const MasterCity = () => {
   }, []);
 
   useEffect(() => {
-    const updatedProvinsiAndCity = kota.map((city) => {
+    const updatedProvinsiAndCity = kota.map((city, index) => {
       const province = provinsi.find((prov) => prov.id === city.province_id);
-    
+  
       return {
-        nomor: city.id,
+        id: city.id,
+        nomor: index + 1,
         cityName: city.city,
         provinceName: province ? province.province : 'Provinsi tidak ditemukan',
       };
     });
-
+  
     setProvinsiAndCity(updatedProvinsiAndCity);
   }, [provinsi, kota]);
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -200,7 +197,7 @@ const MasterCity = () => {
                     </td>
                     <td className="">
                       <div className="">
-                        <a href={`/master-edit-kota/${data.nomor}`}>
+                        <a href={`/master-edit-kota/${data.id}`}>
                           <button
                             type="button"
                             className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
@@ -226,7 +223,7 @@ const MasterCity = () => {
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"
-                          onClick={() => handleDelete(data.nomor)}
+                          onClick={() => handleDelete(data.id)}
                         >
                           <div className="flex justify-center items-center gap-3">
                             <svg

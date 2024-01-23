@@ -13,6 +13,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export default function EditMasterCity() {
+  const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [city, setCity] = useState("");
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -51,22 +52,22 @@ export default function EditMasterCity() {
   }, [id]);
 
   const navigate = useNavigate();
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const authToken = Cookies.get("authToken");
-
+  
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
-
+  
       const formData = {
-        city: city,
-        province_id: parseInt(id),
+        city: city.city, // Only send the city name
+        province_id: parseInt(city.province_id),
       };
-
-      console.log (formData)
+  
       const response = await axios.put(
         `https://backend.ptwpi.co.id/api/cities/${id}`,
         formData,
@@ -76,13 +77,20 @@ export default function EditMasterCity() {
           },
         }
       );
-      
+  
       console.log("City data successfully updated:", response.data);
       navigate("/master-kota");
     } catch (error) {
-      console.error("Error updating city data:", error.message);
+      if (error.response && error.response.status === 422) {
+        // Handle validation errors in the frontend
+        console.error("Validation errors:", error.response.data.errors);
+        // Update state or show error messages to the user
+      } else {
+        console.error("Error updating city data:", error.message);
+      }
     }
-  };
+  };  
+
   useEffect(() => {
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
@@ -95,9 +103,6 @@ export default function EditMasterCity() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // console.log (city)
-  // console.log (id)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -132,7 +137,7 @@ export default function EditMasterCity() {
                 Edit Nama Kota
               </Typography>
             </div>
-            {/* <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="small" className="">
                 Provinsi
               </Typography>
@@ -146,10 +151,10 @@ export default function EditMasterCity() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                value={selectedProvince ? selectedProvince.name : ""}
+                value={city.province_id}
                 disabled
               />
-            </div> */}
+            </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
                 Nama Kota
