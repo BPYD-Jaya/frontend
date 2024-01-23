@@ -8,18 +8,88 @@ import {
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function EditMasterCity() {
+  const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedProvince, setSelectedProvince] = useState(null);
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    console.log(file);
-  };
-
+  const [city, setCity] = useState("");
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const {id} = useParams()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const authToken = Cookies.get("authToken");
+        if (!authToken) {
+          throw new Error("Access token not found in cookies");
+        }
+
+        const response = await axios.get(
+          `https://backend.ptwpi.co.id/api/cities/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
+
+        // Log the response for debugging
+        console.log("API response:", response);
+
+        // Update the state with the fetched province data
+        setCity(response.data);
+      } catch (error) {
+        console.error("Error fetching province data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const authToken = Cookies.get("authToken");
+  
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+  
+      const formData = {
+        city: city.city, // Only send the city name
+        province_id: parseInt(city.province_id),
+      };
+  
+      const response = await axios.put(
+        `https://backend.ptwpi.co.id/api/cities/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+  
+      console.log("City data successfully updated:", response.data);
+      navigate("/master-kota");
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        // Handle validation errors in the frontend
+        console.error("Validation errors:", error.response.data.errors);
+        // Update state or show error messages to the user
+      } else {
+        console.error("Error updating city data:", error.message);
+      }
+    }
+  };  
 
   useEffect(() => {
     const handleResize = () => {
@@ -81,7 +151,7 @@ export default function EditMasterCity() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                value={selectedProvince ? selectedProvince.name : ""}
+                value={city.province_id}
                 disabled
               />
             </div>
@@ -92,26 +162,27 @@ export default function EditMasterCity() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                name="city"
                 color="indigo"
                 size="lg"
                 placeholder="Nama Kota"
+                value={city.city}
+                onChange={(e) => setCity(e.target.value)}
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
+            <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
               <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
                  Batal
                 </Button>
               </a>
-              <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
+                <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
                  Simpan
                 </Button>
-              </a>
             </div>
           </div>
         </form>
