@@ -6,9 +6,32 @@ import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
 import MasterNews from "../components/masterNews";
 import MasterPagination from "../components/masterPagination";
+import { useNavigate, useParams } from "react-router";
 
 export default function NewsPage() {
+  const navigate = useNavigate();
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [blogData, setBlogData] = useState([]);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://backend.ptwpi.co.id/api/blogs");
+        const data = await response.json();
+        setBlogData(data.blogs.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigateToDetail = (id) => {
+    navigate(`/detail-blog/${id}`);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,43 +103,18 @@ export default function NewsPage() {
               News
             </Typography>
           </div>
-          <div className="container px-2 lg:px-0  mx-auto grid grid-cols-1 lg:grid-cols-3 justify-center items-center gap-6 lg:gap-x-4 lg:gap-y-12 ">
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
-            <a
-              href="/detail-blog"
-              className="py-1 flex justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            >
-              <MasterNews />
-            </a>
+          <div className="container mx-auto flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 text-start">
+              {blogData.map((item, index) => (
+                <div
+                  key={item.id}
+                  onClick={() => navigateToDetail(item.id)}
+                  className="cursor-pointer"
+                >
+                  <MasterNews {...item} />
+                </div>
+              ))}
+            </div>
           </div>
           <div className="flex lg:justify-center lg:pr-[435px]  items-center mt-6">
             <MasterPagination />

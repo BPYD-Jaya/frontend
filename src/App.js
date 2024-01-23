@@ -42,7 +42,7 @@ export default function App() {
       <Route path="/detail-produk" element={<DetailProduct />} />
       <Route path="/mitra" element={<MitraPage />} />
       <Route path="/blog" element={<NewsPage />} />
-      <Route path="/detail-blog" element={<DetailNews />} />
+      <Route path="/detail-blog/:id" element={<DetailNews />} />
       <Route path="/tentang" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

@@ -75,10 +75,12 @@ export default function AdminNews() {
             </a>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-          {blogData.map((item, index) => (
-            <MasterNewsAdmin key={item.id} {...item} />
-          ))}
+        <div className="bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8">
+            {blogData.map((item, index) => (
+              <MasterNewsAdmin key={item.id} {...item} />
+            ))}
+          </div>
         </div>
       </div>
 
