@@ -1,25 +1,59 @@
-import React from "react";
-import MasterSidebar from "../components/masterSidebar";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
+import Axios from "axios";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-// import { useDropzone } from "react-dropzone";
-// import { FaCloudArrowUp } from "react-icons/fa6";
-// import MasterCatalog from "../components/masterCatalog";
-// import { PlusCircleIcon } from "@heroicons/react/24/solid";
-// import { FaMagnifyingGlass } from "react-icons/fa6";
-// import MasterCatalogAdmin from "../components/masterCatalogAdmin";
+import MasterSidebar from "../components/masterSidebar";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AddMasterCity() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [cityName, setCityName] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [provinces, setProvinces] = useState([]); // Add state for storing provinces
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = {
+        city: cityName,
+        province: selectedProvince,
+      };
+
+      const response = await Axios.post(
+        "https://backend.ptwpi.co.id/api/cities",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("Data successfully submitted:", response.data);
+
+      // Redirect to /master-kota after successful submission
+      navigate("/master-kota");
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,38 +94,62 @@ export default function AddMasterCity() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Kota
               </Typography>
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
+                Pilih Provinsi
+              </Typography>
+              <select
+                value={selectedProvince}
+                onChange={(e) => setSelectedProvince(e.target.value)}
+                className="w-full p-2 mt-1 border rounded-lg"
+              >
+                <option value="" disabled>
+                  Pilih Provinsi
+                </option>
+                {provinces.map((province) => (
+                  <option key={province.id} value={province.name}>
+                    {province.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
                 Nama Kota
               </Typography>
             </div>
-            <div className=" md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
                 placeholder="Nama Kota"
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                onChange={(e) => setCityName(e.target.value)}
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
+              <a
+                href="/master-kota"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+              <a
+                href="/master-kota"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button type="submit" className="bg-wpigreen-50 flex">
+                  Simpan
                 </Button>
               </a>
             </div>
