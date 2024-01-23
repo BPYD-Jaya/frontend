@@ -170,7 +170,7 @@ export default function Home() {
                   fontWeight: 800,
                 }}
               >
-                Keunggulan Berbelanja di Aplikasi Warung Pangan
+                Keunggulan Berbelanja di Aplikasi Warung Pangan Indonesia
               </Typography>
             </div>
             <div className="flex  py-4 gap-3 md:gap-6">
@@ -261,7 +261,7 @@ export default function Home() {
                 fontWeight: 800,
               }}
             >
-              Cerita Mitra Warung Pangan
+              Cerita Mitra Warung Pangan Indonesia
             </Typography>
           </div>
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12">

@@ -3,28 +3,19 @@ import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterCatalogAdmin from "../components/masterCatalogAdmin";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
 
 export default function EditMasterCity() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedProvince, setSelectedProvince] = useState(null);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    // Handle the selected file as needed
     console.log(file);
   };
 
@@ -75,6 +66,24 @@ export default function EditMasterCity() {
               <Typography variant="h5" className="pb-10">
                 Edit Nama Kota
               </Typography>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Provinsi
+              </Typography>
+            </div>
+            <div className=" md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Provinsi"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                value={selectedProvince ? selectedProvince.name : ""}
+                disabled
+              />
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">

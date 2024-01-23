@@ -1,36 +1,15 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
+
 
 export default function AdminEditProfile() {
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileUpload = (acceptedFiles) => {
-    // Handle the selected file as needed
-    setSelectedFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
-  };
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {

@@ -3,9 +3,7 @@ import MasterSidebar from "../components/masterSidebar";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
 import Axios from "axios";
 
 export default function MasterCity() {
