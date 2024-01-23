@@ -80,7 +80,7 @@ export default function AdminAddProduct() {
         const response = await Axios.get(
           `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
         );
-    
+
         const filteredCities = response.data
           .filter((city) => city.province_id === selectedProvince)
           .map((item, index) => ({
@@ -88,7 +88,7 @@ export default function AdminAddProduct() {
             nomor: index + 1,
             cityName: item.city,
           }));
-    
+
         setCities(filteredCities);
       } catch (error) {
         console.error("Error fetching city data:", error);
@@ -324,7 +324,7 @@ export default function AdminAddProduct() {
                 <Option key={city.id} value={city.id}>
                   {city.cityName}
                 </Option>
-              ))}{" "}
+              ))}
             </Select>
           </div>
 
