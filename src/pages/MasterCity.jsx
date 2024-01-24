@@ -1,3 +1,4 @@
+// MasterCity.js
 import React, { useState, useEffect } from 'react';
 import MasterSidebar from '../components/masterSidebar';
 import { Button, Card, Typography } from '@material-tailwind/react';
@@ -5,7 +6,8 @@ import MasterFooterAdmin from '../components/masterFooterAdmin';
 import MasterNavbarAdmin from '../components/masterNavbarAdmin';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
+import MasterPagination from "../components/masterPagination";
 
 const MasterCity = () => {
   const [TABLE_ROWS, setTableRows] = useState([]);
@@ -14,17 +16,13 @@ const MasterCity = () => {
   const [provinsiAndCity, setProvinsiAndCity] = useState([]);
   const [provinsi, setProvinsi] = useState([]);
   const [kota, setKota] = useState([]);
+  const [sortDirection, setSortDirection] = useState({ column: null, direction: null });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20; // Adjust the number of items per page to 20
 
   const onProvinsi = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/provinces`
-      );
-      // const mappedData = response.data.map((item, index) => ({
-      //   id: item.id,
-      //   nomor: index + 1,
-      //   provinceName: item.province,
-      // }));
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/provinces`);
       setProvinsi(response.data);
     } catch (error) {
       console.log(error);
@@ -33,9 +31,7 @@ const MasterCity = () => {
 
   const onCity = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/cities`
-      );
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/cities`);
       setKota(response.data);
     } catch (error) {
       console.log(error);
@@ -44,28 +40,51 @@ const MasterCity = () => {
 
   const handleDelete = async (id) => {
     try {
-      const authToken = Cookies.get("authToken");
-  
+      const authToken = Cookies.get('authToken');
+
       if (!authToken) {
-        throw new Error("Access token not found in cookies");
+        throw new Error('Access token not found in cookies');
       }
-  
-      // Perform delete operation using Axios
+
       await axios.delete(`https://backend.ptwpi.co.id/api/cities/${id}`, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
           Authorization: `Bearer ${authToken}`,
         },
       });
-  
-      // After successful deletion, fetch updated city data
+
       await onCity();
     } catch (error) {
-      console.error("Error deleting data:", error);
+      console.error('Error deleting data:', error);
     }
-  };  
+  };
+
+  const sortByColumn = (column) => {
+    const direction = sortDirection.column === column && sortDirection.direction === 'asc' ? 'desc' : 'asc';
+    setSortDirection({ column, direction });
+
+    const sortedData = [...provinsiAndCity].sort((a, b) => {
+      if (column === 'Nomor') {
+        return direction === 'asc' ? a.nomor - b.nomor : b.nomor - a.nomor;
+      } else if (column === 'Nama Provinsi') {
+        return direction === 'asc' ? a.provinceName.localeCompare(b.provinceName) : b.provinceName.localeCompare(a.provinceName);
+      }
+      return 0;
+    });
+
+    setProvinsiAndCity(sortedData);
+  };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedData = provinsiAndCity.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   useEffect(() => {
     onCity();
@@ -75,7 +94,7 @@ const MasterCity = () => {
   useEffect(() => {
     const updatedProvinsiAndCity = kota.map((city, index) => {
       const province = provinsi.find((prov) => prov.id === city.province_id);
-  
+
       return {
         id: city.id,
         nomor: index + 1,
@@ -83,26 +102,22 @@ const MasterCity = () => {
         provinceName: province ? province.province : 'Provinsi tidak ditemukan',
       };
     });
-  
+
     setProvinsiAndCity(updatedProvinsiAndCity);
   }, [provinsi, kota]);
-  
 
   useEffect(() => {
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  // console.log(provinsiAndCity)
-  console.log(provinsi)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -123,17 +138,12 @@ const MasterCity = () => {
       )}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6  rounded-lg shadow-md ">
-          <Typography className="md:col-span-2 flex items-center">
-            Kota
-          </Typography>
-          <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
+        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+          <Typography className="md:col-span-2 flex items-center">Kota</Typography>
+          <div className="pr-6 md:col-span-2 flex md:justify-end items-center">
             <a href="/master-tambah-kota">
               <Button className="bg-wpigreen-50 flex gap-2 items-center">
                 <PlusCircleIcon className="h-[15px] w-auto" />
@@ -149,49 +159,45 @@ const MasterCity = () => {
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
-                  {TABLE_HEAD.map((head) => (
+                  {TABLE_HEAD.map((head, index) => (
                     <th
                       key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 cursor-pointer"
+                      onClick={() => sortByColumn(head)}
                     >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal leading-none opacity-70"
-                      >
-                        {head}
-                      </Typography>
+                      <div className="flex items-center">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal leading-none opacity-70"
+                        >
+                          {head}
+                        </Typography>
+                        {sortDirection.column === head && (
+                          <span className="ml-1">
+                            {sortDirection.direction === 'asc' ? '▲' : '▼'}
+                          </span>
+                        )}
+                      </div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {provinsiAndCity?.map((data) => (
+                {paginatedData?.map((data) => (
                   <tr key={data.nomor} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
+                      <Typography variant="small" color="blue-gray" className="font-normal">
                         {data.nomor}
                       </Typography>
                     </td>
                     <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
+                      <Typography variant="small" color="blue-gray" className="font-normal">
                         {data.provinceName}
                       </Typography>
                     </td>
                     <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
+                      <Typography variant="small" color="blue-gray" className="font-normal">
                         {data.cityName}
                       </Typography>
                     </td>
@@ -249,12 +255,15 @@ const MasterCity = () => {
               </tbody>
             </table>
           </Card>
+          <div className="mt-4">
+            <MasterPagination active={currentPage} onPageChange={paginate} totalItems={provinsiAndCity.length} />
+          </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="pt-10">
-        <MasterFooterAdmin />
+        {/* Footer */}
+        <div className="pt-10">
+          <MasterFooterAdmin />
+        </div>
       </div>
     </div>
   );
