@@ -7,9 +7,49 @@ import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import MasterCatalogAdmin from "../components/masterCatalogAdmin";
+import { useParams } from "react-router";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function AdminProduct() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [productData, setProductData] = useState([]);
+
+  const {id} = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://backend.ptwpi.co.id/api/products", {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
+          },
+        });
+    
+        if (response && response.data) {
+          const data = response.data;
+          setProductData(data);
+        } else {
+          console.error("Invalid response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
+    const handleResize = () => {
+      setOpenSidebar(window.innerWidth >= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,22 +119,10 @@ export default function AdminProduct() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
-          <MasterCatalogAdmin />
+          {productData.map((item, index) => (
+            <MasterCatalogAdmin key={item.id} {...item} />
+          ))}
+          
         </div>
       </div>
 

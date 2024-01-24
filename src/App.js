@@ -52,7 +52,7 @@ export default function App() {
       <Route path="/admin-produk" element={<PrivateRoute element={<AdminProduct />} />} />
       <Route path="/admin-tambah-produk" element={<PrivateRoute element={<AdminAddProduct />} />} />
       <Route path="/admin-detail-produk" element={<PrivateRoute element={<AdminDetailProduct />} />} />
-      <Route path="/admin-edit-produk" element={<AdminEditProduct />} />
+      <Route path="/admin-edit-produk/:id" element={<AdminEditProduct />} />
       <Route path="/admin-blog" element={<PrivateRoute element={<AdminNews />} />} />
       <Route path="/admin-tambah-blog" element={<PrivateRoute element={<AdminAddNews />} />} />
       <Route path="/admin-detail-blog/:id" element={<PrivateRoute element={<AdminDetailNews />} />} />
