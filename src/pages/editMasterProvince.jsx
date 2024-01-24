@@ -3,40 +3,18 @@ import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterCatalogAdmin from "../components/masterCatalogAdmin";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
 import Axios from "axios";
 import Cookies from "js-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function EditMasterProvince() {
-  const [selectedFile, setSelectedFile] = useState(null);
   const [provinceName, setProvinceName] = useState("");
   const { id } = useParams();
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    // Handle the selected file as needed
-    console.log(file);
-  };
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {

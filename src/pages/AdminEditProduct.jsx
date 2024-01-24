@@ -14,10 +14,16 @@ import {
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterAdminDetailImage from "../components/masterAdminDetailImage";
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function AdminEditProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [descriptionInputs, setDescriptionInputs] = useState(1);
+  const [provinces, setProvinces] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [cities, setCities] = useState([]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -40,10 +46,60 @@ export default function AdminEditProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    Axios.get("https://backend.ptwpi.co.id/api/provinces", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        // Map the fetched data to match your TABLE_ROWS structure
+        const mappedData = response.data.map((item, index) => ({
+          id: item.id,
+          nomor: index + 1,
+          provinceName: item.province,
+        }));
+
+        // Update the provinces state with the mapped data
+        setProvinces(mappedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch cities when the selected province changes
+    const fetchCities = async () => {
+      try {
+        const response = await Axios.get(
+          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
+        );
+
+        const filteredCities = response.data
+          .filter((city) => city.province_id === selectedProvince)
+          .map((item, index) => ({
+            id: item.id,
+            nomor: index + 1,
+            cityName: item.city,
+          }));
+
+        setCities(filteredCities);
+      } catch (error) {
+        console.error("Error fetching city data:", error);
+      }
+    };
+
+    if (selectedProvince !== null) {
+      fetchCities();
+    }
+  }, [selectedProvince]);
 
   const handleAddDescription = () => {
     setDescriptionInputs(descriptionInputs + 1);
-
   };
 
   return (
@@ -84,78 +140,99 @@ export default function AdminEditProduct() {
             Product Name
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Product Name" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Product Name"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Brand Name
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Brand Name" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Brand Name"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Company Name
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Minyak Goreng BPYD" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Minyak Goreng BPYD"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Price
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Price" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Price"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Stock
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Stock" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Stock"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Volume
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Volume" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Volume"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Address" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Address"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-start pb-4 ">
             Specification
@@ -165,20 +242,26 @@ export default function AdminEditProduct() {
               <div className=" w-full" key={index}>
                 <div className="pb-8">
                   <div className="pb-4">
-                    <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Item" />
+                    <Input
+                      color="indigo"
+                      size="lg"
+                      className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                      placeholder="Item"
+                    />
                   </div>
                   <div className="pb-4">
-                    <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Value" />
+                    <Input
+                      color="indigo"
+                      size="lg"
+                      className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                      placeholder="Value"
+                    />
                   </div>
                 </div>
               </div>
@@ -192,40 +275,55 @@ export default function AdminEditProduct() {
               Add Specification
             </Button>
           </div>{" "}
-
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Category Product" />
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-            City
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input City" />
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Category Product"
+            />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Province
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }} placeholder="Input Province" />
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              onChange={(value) => setSelectedProvince(value)}
+            >
+              {provinces.map((province) => (
+                <Option key={province.id} value={province.id}>
+                  {province.provinceName}
+                </Option>
+              ))}
+            </Select>
           </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
+            City
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+            >
+              {cities.map((city) => (
+                <Option key={city.id} value={city.id}>
+                  {city.cityName}
+                </Option>
+              ))}
+            </Select>
+          </div>{" "}
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Photo Product
           </div>
