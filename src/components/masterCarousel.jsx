@@ -1,9 +1,9 @@
-import React from 'react';
-import { Carousel } from '@material-tailwind/react';
+import React from "react";
+import { Carousel } from "@material-tailwind/react";
 
 export default function MasterCarousel() {
   return (
-    <Carousel className="rounded-xl container mx-auto">
+    <Carousel className="rounded-xl">
       <img
         src="./assets/carousel-1.png"
         alt="image1"

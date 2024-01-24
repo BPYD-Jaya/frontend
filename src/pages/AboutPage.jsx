@@ -42,15 +42,15 @@ export default function AboutPage() {
 
       {/* Jumbotron */}
       <div
-        className="bg-wpiblue-50 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
+        className="bg-gradient-to-b from-wpiblue-50 to-wpiblue-100 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
         style={{ borderRadius: "0 0 50px 50px" }}
       >
-        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
-          <div className=" flex justify-center items-center text-white col-span-8 pt-2 ">
+        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 pt-8 lg:pt-0">
+          <div className=" flex justify-center items-center text-white col-span-8 ">
             <img
               src="./assets/heroAbout.png"
               alt="jumbotron"
-              className="xl:h-[500px] md:h-[400px] z-20"
+              className="xl:h-[500px] md:h-[400px]"
             />
           </div>
           <div className=" col-span-4 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-start">
@@ -63,7 +63,7 @@ export default function AboutPage() {
 
       {/* Content 1 */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto lg:-translate-y-36 -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto lg:-translate-y-28 -translate-y-20 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="grid grid-cols-12">
             <div className="col-span-12 flex justify-center items-center gap-16">
               <img
@@ -85,7 +85,7 @@ export default function AboutPage() {
       </div>
 
       {/* Content 2 */}
-      <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-18 lg:-translate-y-14 ">
+      <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-20 lg:-translate-y-16 -translate-y-12">
         <div>
           <Typography
             variant="h3"
