@@ -18,7 +18,6 @@ export default function AddMasterCity() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   const navigate = useNavigate();
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,21 +30,20 @@ export default function AddMasterCity() {
 
       const formData = {
         city: cityName,
-        province: selectedProvince,
+        province_id: selectedProvince,
       };
 
       const response = await Axios.post(
-        "https://backend.ptwpi.co.id/api/cities",
+        "https://backend.ptwpi.co.id/api/cities/create",
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
 
+      console.log(formData)
       console.log("Data successfully submitted:", response.data);
 
       // Redirect to /master-kota after successful submission
@@ -54,6 +52,15 @@ export default function AddMasterCity() {
       console.error("Error submitting data:", error.message);
     }
   };
+
+  const getProvince = async () => {
+    const res = await Axios.get("https://backend.ptwpi.co.id/api/provinces")
+    setProvinces(res.data)
+  }
+
+  useEffect(() => {
+    getProvince();
+  },[])
 
   useEffect(() => {
     const handleResize = () => {
@@ -67,6 +74,10 @@ export default function AddMasterCity() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // console.log (provinces)
+  console.log (cityName)
+  console.log (selectedProvince)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -114,8 +125,8 @@ export default function AddMasterCity() {
                   Pilih Provinsi
                 </option>
                 {provinces.map((province) => (
-                  <option key={province.id} value={province.name}>
-                    {province.name}
+                  <option key={province.id} value={province.id}>
+                    {province.province}
                   </option>
                 ))}
               </select>
@@ -137,21 +148,16 @@ export default function AddMasterCity() {
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
+            <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
               <a
                 href="/master-kota"
                 className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
               >
                 <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a
-                href="/master-kota"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
-                <Button type="submit" className="bg-wpigreen-50 flex">
+                <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
                   Simpan
                 </Button>
-              </a>
             </div>
           </div>
         </form>

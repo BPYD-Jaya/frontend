@@ -1,52 +1,122 @@
-import React, {useState, useEffect} from "react";
-import MasterSidebar from "../components/masterSidebar";
-import { Button, Card, Typography } from "@material-tailwind/react";
-import MasterFooterAdmin from "../components/masterFooterAdmin";
-import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import Axios from "axios";
+// MasterCity.js
+import React, { useState, useEffect } from 'react';
+import MasterSidebar from '../components/masterSidebar';
+import { Button, Card, Typography } from '@material-tailwind/react';
+import MasterFooterAdmin from '../components/masterFooterAdmin';
+import MasterNavbarAdmin from '../components/masterNavbarAdmin';
+import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import MasterPagination from "../components/masterPagination";
 
-export default function MasterCity() {
-  const TABLE_HEAD = ["Nomor", "Nama Provinsi" ,"Nama Kota", "Aksi"];
+const MasterCity = () => {
   const [TABLE_ROWS, setTableRows] = useState([]);
+  const TABLE_HEAD = ['Nomor', 'Nama Provinsi', 'Nama Kota', 'Aksi'];
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [provinsiAndCity, setProvinsiAndCity] = useState([]);
+  const [provinsi, setProvinsi] = useState([]);
+  const [kota, setKota] = useState([]);
+  const [sortDirection, setSortDirection] = useState({ column: null, direction: null });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20; // Adjust the number of items per page to 20
+
+  const onProvinsi = async () => {
+    try {
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/provinces`);
+      setProvinsi(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onCity = async () => {
+    try {
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/cities`);
+      setKota(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const authToken = Cookies.get('authToken');
+
+      if (!authToken) {
+        throw new Error('Access token not found in cookies');
+      }
+
+      await axios.delete(`https://backend.ptwpi.co.id/api/cities/${id}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      await onCity();
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
+
+  const sortByColumn = (column) => {
+    const direction = sortDirection.column === column && sortDirection.direction === 'asc' ? 'desc' : 'asc';
+    setSortDirection({ column, direction });
+
+    const sortedData = [...provinsiAndCity].sort((a, b) => {
+      if (column === 'Nomor') {
+        return direction === 'asc' ? a.nomor - b.nomor : b.nomor - a.nomor;
+      } else if (column === 'Nama Provinsi') {
+        return direction === 'asc' ? a.provinceName.localeCompare(b.provinceName) : b.provinceName.localeCompare(a.provinceName);
+      }
+      return 0;
+    });
+
+    setProvinsiAndCity(sortedData);
+  };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedData = provinsiAndCity.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  useEffect(() => {
+    onCity();
+    onProvinsi();
+  }, []);
+
+  useEffect(() => {
+    const updatedProvinsiAndCity = kota.map((city, index) => {
+      const province = provinsi.find((prov) => prov.id === city.province_id);
+
+      return {
+        id: city.id,
+        nomor: index + 1,
+        cityName: city.city,
+        provinceName: province ? province.province : 'Provinsi tidak ditemukan',
+      };
+    });
+
+    setProvinsiAndCity(updatedProvinsiAndCity);
+  }, [provinsi, kota]);
 
   useEffect(() => {
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
-
-  useEffect(() => {
-    // Fetch data from the API using Axios
-    Axios.get("https://backend.ptwpi.co.id/api/provinces", {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        // Map the fetched data to match your TABLE_ROWS structure
-        const mappedData = response.data.map((item,index,id) => ({
-          id: item.id,
-          nomor: index + 1,
-          provinceName: item.province,
-        }));
-
-        // Update the TABLE_ROWS state with the mapped data
-        setTableRows(mappedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
   }, []);
 
   return (
@@ -54,7 +124,7 @@ export default function MasterCity() {
       {/* Sidebar */}
       <div
         className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
+          openSidebar ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <MasterSidebar />
@@ -68,120 +138,111 @@ export default function MasterCity() {
       )}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
-
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6  rounded-lg shadow-md ">
-          <Typography className="md:col-span-2 flex items-center">
-            Kota
-          </Typography>
-          <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
-          <a href="/master-tambah-kota">
-            <Button className="bg-wpigreen-50 flex gap-2 items-center">
-              <PlusCircleIcon className="h-[15px] w-auto" />
-              <p>Tambah Kota</p>
-            </Button>
+        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+          <Typography className="md:col-span-2 flex items-center">Kota</Typography>
+          <div className="pr-6 md:col-span-2 flex md:justify-end items-center">
+            <a href="/master-tambah-kota">
+              <Button className="bg-wpigreen-50 flex gap-2 items-center">
+                <PlusCircleIcon className="h-[15px] w-auto" />
+                <p>Tambah Kota</p>
+              </Button>
             </a>
           </div>
         </div>
 
         {/* Table */}
         <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
-        <Card className="h-full w-full overflow-y-scroll rounded-md">
-        <table className="w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {TABLE_ROWS.map(({ id, cityName, provinceName, nomor}) => (
-              <tr key={nomor} className="even:bg-blue-gray-50/50">
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {nomor}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {provinceName}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {cityName}
-                  </Typography>
-                </td>
-                <td className="">
-                      <div className="">
-                        <a href="/master-edit-kota">
-                        <button
-                          type="button"
-                          className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+          <Card className="h-full w-full overflow-y-scroll rounded-md">
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head, index) => (
+                    <th
+                      key={head}
+                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 cursor-pointer"
+                      onClick={() => sortByColumn(head)}
+                    >
+                      <div className="flex items-center">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal leading-none opacity-70"
                         >
-                          <div className="flex justify-center items-center gap-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                              />
-                            </svg>
-                          </div>
-                        </button>
+                          {head}
+                        </Typography>
+                        {sortDirection.column === head && (
+                          <span className="ml-1">
+                            {sortDirection.direction === 'asc' ? '▲' : '▼'}
+                          </span>
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData?.map((data) => (
+                  <tr key={data.nomor} className="even:bg-blue-gray-50/50">
+                    <td className="p-4">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {data.nomor}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {data.provinceName}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {data.cityName}
+                      </Typography>
+                    </td>
+                    <td className="">
+                      <div className="">
+                        <a href={`/master-edit-kota/${data.id}`}>
+                          <button
+                            type="button"
+                            className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+                          >
+                            <div className="flex justify-center items-center gap-3">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                         </a>
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"
+                          onClick={() => handleDelete(data.id)}
                         >
                           <div className="flex justify-center items-center gap-3">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
-                              stroke-width="1.5"
+                              strokeWidth="1.5"
                               stroke="currentColor"
-                              class="w-6 h-6"
+                              className="w-6 h-6"
                             >
                               <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
                               />
                             </svg>
@@ -194,13 +255,18 @@ export default function MasterCity() {
               </tbody>
             </table>
           </Card>
+          <div className="mt-4">
+            <MasterPagination active={currentPage} onPageChange={paginate} totalItems={provinsiAndCity.length} />
+          </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="pt-10">
-        <MasterFooterAdmin />
+        {/* Footer */}
+        <div className="pt-10">
+          <MasterFooterAdmin />
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default MasterCity;
