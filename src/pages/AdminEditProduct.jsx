@@ -20,54 +20,12 @@ export default function AdminEditProduct() {
   const [descriptionInputs, setDescriptionInputs] = useState(1);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [cities, setCities] = useState([]);
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-
-  useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products/" + id
-        );
-        setProductData(response.data);
-        setSelectedProvince(response.data.province_id);
-        console.log(response.data.province_id)
-      } catch (error) {
-        console.error("Error fetching product data:", error);
-      }
-    };
-
-    fetchProductData();
-  }, [id]);
-
-  console.log("selectedProvince", selectedProvince)
-  console.log("provinces", provinces)
-
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    // Handle the selected file as needed
-    console.log(file);
-  };
-
-  const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setOpenSidebar(window.innerWidth >= 640);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -95,6 +53,50 @@ export default function AdminEditProduct() {
   }, []);
 
   useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products/" + id
+        );
+        setProductData(response.data);
+        setSelectedProvince(response.data.province_id.toString());
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
+
+  useEffect(() => {
+    if (productData) {
+      setSelectedProvince(productData.province_id);
+      setSelectedCity(productData.city_id);
+    }
+  }, [productData]);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    console.log(file);
+  };
+
+  const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setOpenSidebar(window.innerWidth >= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     // Fetch cities when the selected province changes
     const fetchCities = async () => {
       try {
@@ -103,7 +105,7 @@ export default function AdminEditProduct() {
         );
 
         const filteredCities = response.data
-          .filter((city) => city.province_id === selectedProvince)
+          .filter((city) => city.province_id === Number(selectedProvince))
           .map((item, index) => ({
             id: item.id,
             nomor: index + 1,
@@ -119,7 +121,9 @@ export default function AdminEditProduct() {
     if (selectedProvince !== null) {
       fetchCities();
     }
-  }, [selectedProvince]);
+
+    console.log(cities);
+  }, [selectedProvince, provinces]);
 
   const handleAddDescription = () => {
     setDescriptionInputs(descriptionInputs + 1);
@@ -442,26 +446,48 @@ export default function AdminEditProduct() {
             Province
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
+            {/* <Select
               color="indigo"
               size="lg"
               outline="outline-1 focus:outline-1"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
               value={selectedProvince}
-              onChange={(value) => setSelectedProvince(value)}
+              onChange={(value) => {
+                setSelectedProvince(value);
+              }}
+            >
+              {provinces &&
+                provinces.map((province) => (
+                  <Option
+                    {...(province.id.toString() === selectedProvince && {
+                      defaultValue: true,
+                    })}
+                    key={province.id}
+                    value={province.id.toString()}
+                  >
+                    {province.provinceName}
+                  </Option>
+                ))}
+            </Select> */}
+            <select
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              value={selectedProvince}
+              onChange={(e) => {
+                setSelectedProvince(e.target.value);
+              }}
             >
               {provinces.map((province) => (
-                <Option key={province.id} value={province.id}>
+                <option key={province.id} value={province.id}>
                   {province.provinceName}
-                </Option>
+                </option>
               ))}
-            </Select>
+            </select>
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             City
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
+            {/* <Select
               color="indigo"
               size="lg"
               outline="outline-1 focus:outline-1"
@@ -472,7 +498,21 @@ export default function AdminEditProduct() {
                   {city.cityName}
                 </Option>
               ))}
-            </Select>
+            </Select> */}
+
+            <select
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              value={selectedCity}
+              onChange={(e) => {
+                setSelectedCity(e.target.value);
+              }}
+            >
+              {cities.map((city) => (
+                <option key={city.id} value={city.id}>
+                  {city.cityName}
+                </option>
+              ))}
+            </select>
           </div>{" "}
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
