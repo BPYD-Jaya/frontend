@@ -4,8 +4,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
   Input,
   Textarea,
   Typography,

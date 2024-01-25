@@ -1,62 +1,55 @@
+// MasterPagination.js
 import React from 'react';
-import { Button, IconButton } from '@material-tailwind/react';
-import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { Button } from '@material-tailwind/react';
 
-export function DefaultPagination() {
-  const [active, setActive] = React.useState(1);
+const MasterPagination = ({ active, onPageChange, totalItems }) => {
+  const totalPages = Math.ceil(totalItems / 20); // 20 items per page
 
-  const getItemProps = (index) => ({
-    variant: active === index ? 'filled' : 'text',
-    color: 'green',
-    onClick: () => setActive(index),
-  });
+  const renderPaginationItems = () => {
+    const items = [];
+    const displayPages = 5; // Number of pages to display
 
-  const next = () => {
-    if (active === 5) return;
+    let start = Math.max(1, active - Math.floor(displayPages / 2));
+    let end = Math.min(start + displayPages - 1, totalPages);
 
-    setActive(active + 1);
-  };
+    if (end - start + 1 < displayPages) {
+      start = Math.max(1, end - displayPages + 1);
+    }
 
-  const prev = () => {
-    if (active === 1) return;
+    for (let i = start; i <= end; i++) {
+      items.push(
+        <Button
+          key={i}
+          className={`mx-1 ${
+            i === active ? 'bg-wpigreen-50 text-white' : 'bg-white text-black-50'
+          }`}
+          onClick={() => onPageChange(i)}
+        >
+          {i}
+        </Button>
+      );
+    }
 
-    setActive(active - 1);
+    return items;
   };
 
   return (
-    <div className="flex items-center w-full translate-x-[0%] xl:translate-x-[60%]">
+    <div className="flex justify-center items-center space-x-2 overflow-x-auto">
       <Button
-        variant="text"
-        className="flex items-center text-s gap-2"
-        onClick={prev}
-        disabled={active === 1}
+        className={`mx-1 ${active === 1 ? 'hidden' : 'bg-white text-black-500'}`}
+        onClick={() => onPageChange(active - 1)}
       >
-        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        &#8249;
       </Button>
-      <div className="flex items-center ">
-        <IconButton {...getItemProps(1)}>1</IconButton>
-        <IconButton {...getItemProps(2)}>2</IconButton>
-        <IconButton {...getItemProps(3)}>3</IconButton>
-      </div>
+      {renderPaginationItems()}
       <Button
-        variant="text"
-        className="flex items-center text-s gap-2"
-        onClick={next}
-        disabled={active === 5}
+        className={`mx-1 ${active === totalPages ? 'hidden' : 'bg-white text-black-500'}`}
+        onClick={() => onPageChange(active + 1)}
       >
-        Next
-        <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        &#8250;
       </Button>
     </div>
   );
-}
+};
 
-export default function MasterPagination() {
-  return (
-    <div>
-      {/* Pages of content go here */}
-
-      <DefaultPagination />
-    </div>
-  );
-}
+export default MasterPagination;
