@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { Button, Card, Typography } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function Supplier() {
@@ -137,7 +134,7 @@ export default function Supplier() {
                     </td>
                     <td className="p-4">
                       <div className="">
-                        <a href="#">
+                        <a href="/admin-detail-supplier">
                           <button
                             type="button"
                             className="ml-2 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"

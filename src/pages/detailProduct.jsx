@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
 import MasterFooter from "../components/masterFooter";
-import MasterBreadcrumbs from "../components/masterBreadcrumbs";
 import MasterProductImage from "../components/masterProductImage";
 import {
   Typography,
   ButtonGroup,
   Button,
   Input,
-  Card,
   Accordion,
   AccordionHeader,
   AccordionBody,

@@ -12,7 +12,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 export default function ProductPage() {
-  const catalogItems = [
+  const initialCatalogItems = [
     {
       imageUrl: "./assets/product.png",
       productName: "Minyak Goreng Curah",
@@ -34,6 +34,11 @@ export default function ProductPage() {
   ];
 
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
+  const [filteredCatalogItems, setFilteredCatalogItems] = useState(
+    initialCatalogItems
+  );
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +52,14 @@ export default function ProductPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleSearch = () => {
+    const searchTerm = searchInput.toLowerCase();
+    const filtered = catalogItems.filter((item) =>
+      item.productName.toLowerCase().includes(searchTerm)
+    );
+    setFilteredCatalogItems(filtered);
+  };
 
   return (
     <div>
@@ -276,11 +289,14 @@ export default function ProductPage() {
               <input
                 type="text"
                 placeholder="Cari Produk"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
               />
               <button
                 type="button"
-                className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4 "
+                onClick={handleSearch}
+                className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4"
               >
                 <FaMagnifyingGlass />
               </button>
@@ -310,7 +326,7 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {catalogItems.map((item, index) => (
+              {filteredCatalogItems.map((item, index) => (
                 <MasterCatalog
                   key={index}
                   imageUrl={item.imageUrl}
