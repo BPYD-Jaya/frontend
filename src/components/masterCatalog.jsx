@@ -11,7 +11,9 @@ export default function MasterCatalog({
   imageUrl,
   productName,
   priceRange,
-  minOrder,
+  wa_link,
+  brand,
+  id
 }) {
   return (
     <Card className="lg:max-w-[250px] w-full overflow-hidden">
@@ -21,7 +23,7 @@ export default function MasterCatalog({
         color="transparent"
         className="object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <a href="/detail-produk">
+        <a href={`/detail-produk/${id}`}>
           <img className="rounded-md" src={imageUrl} alt={productName} />
         </a>
       </CardHeader>
@@ -33,6 +35,18 @@ export default function MasterCatalog({
           style={{
             fontFamily: "'M PLUS Rounded 1c', sans-serif",
             fontWeight: 800,
+            fontSize: "19px",
+          }}
+        >
+          {brand}
+        </Typography>
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="text-xl whitespace-nowrap"
+          style={{
+            fontFamily: "'M PLUS Rounded 1c', sans-serif",
+            fontWeight: 600,
             fontSize: "19px",
           }}
         >
@@ -50,7 +64,7 @@ export default function MasterCatalog({
         >
           {priceRange}
         </Typography>
-        <Typography
+        {/* <Typography
           variant="lead"
           color="black"
           className="font-normal whitespace-nowrap"
@@ -61,9 +75,9 @@ export default function MasterCatalog({
           }}
         >
           Min. order: {minOrder}
-        </Typography>
+        </Typography> */}
         <div className="flex items-center justify-center mb-2">
-          <MasterButtonWa />
+          <MasterButtonWa wa_link={wa_link} />
         </div>
       </CardBody>
     </Card>

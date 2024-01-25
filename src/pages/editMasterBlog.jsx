@@ -103,12 +103,12 @@ export default function EditMasterCity() {
             <div className="md:col-span-4 flex justify-end items-center pt-6">
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
-                 Batal
+                  Batal
                 </Button>
               </a>
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-wpigreen-50 flex">
-                 Simpan
+                  Simpan
                 </Button>
               </a>
             </div>
