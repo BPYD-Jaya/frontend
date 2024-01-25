@@ -41,6 +41,34 @@ export default function AdminEditNews() {
     fetchBlogData();
   }, []);
 
+  const handleTittleNews = (e) => {
+    setBlogData((prevData) => ({
+      ...prevData,
+      title: e.target.value,
+    }));
+  };
+
+  const handleWritterNews = (e) => {
+    setBlogData((prevData) => ({
+      ...prevData,
+      writer: e.target.value,
+    }));
+  };
+
+  const handleDateNews = (e) => {
+    setBlogData((prevData) => ({
+      ...prevData,
+      date: e.target.value,
+    }));
+  };
+
+  const handleContentNews = (e) => {
+    setBlogData((prevData) => ({
+      ...prevData,
+      content: e.target.value,
+    }));
+  };
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
@@ -112,6 +140,7 @@ export default function AdminEditNews() {
                       className: "before:content-none after:content-none",
                     }}
                     value={blogData.title}
+                    onChange={handleTittleNews}
                   />
                 </div>
 
@@ -130,6 +159,7 @@ export default function AdminEditNews() {
                       className: "before:content-none after:content-none",
                     }}
                     value={blogData.writer}
+                    onChange={handleWritterNews}
                   />
                 </div>
                 <div className="md:col-span-4">
@@ -147,6 +177,7 @@ export default function AdminEditNews() {
                       className: "before:content-none after:content-none",
                     }}
                     value={blogData.date}
+                    onChange={handleDateNews}
                   />
                 </div>
                 <div className="md:col-span-4">
@@ -162,7 +193,7 @@ export default function AdminEditNews() {
                       className: "before:content-none after:content-none",
                     }}
                     value={blogData.content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={handleContentNews}
                   ></Textarea>
                 </div>
                 <div className="md:col-span-4">
