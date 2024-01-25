@@ -38,13 +38,13 @@ export default function AdminProduct() {
     };
 
     fetchData();
-
+    
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
-
+    
     window.addEventListener("resize", handleResize);
-
+    
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);

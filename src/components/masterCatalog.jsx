@@ -6,13 +6,20 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import MasterButtonWa from "./masterButtonWa";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function MasterCatalog({
-  imageUrl,
-  productName,
-  priceRange,
-  minOrder,
+  id,
+  product_name,
+  price,
+  stock,
+  item_image
 }) {
+  const navigate = useNavigate();
+  const navigateToDetail = () => {
+    navigate(`/detail-produk/${id}`); 
+  };
   return (
     <Card className="lg:max-w-[250px] w-full overflow-hidden">
       <CardHeader
@@ -22,7 +29,7 @@ export default function MasterCatalog({
         className="object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
         <a href="/detail-produk">
-          <img className="rounded-md" src={imageUrl} alt={productName} />
+          <img className="rounded-md" src={item_image} alt={product_name} />
         </a>
       </CardHeader>
       <CardBody className="p-6">
@@ -36,7 +43,7 @@ export default function MasterCatalog({
             fontSize: "19px",
           }}
         >
-          {productName}
+          {product_name}
         </Typography>
         <Typography
           variant="lead"
@@ -48,7 +55,7 @@ export default function MasterCatalog({
             fontSize: "0.950rem"
           }}
         >
-          {priceRange}
+          {price}
         </Typography>
         <Typography
           variant="lead"
@@ -60,7 +67,7 @@ export default function MasterCatalog({
             fontSize: "0.850rem"
           }}
         >
-          Min. order: {minOrder}
+          Stock: {stock}
         </Typography>
         <div className="flex items-center justify-center mb-2">
           <MasterButtonWa />
