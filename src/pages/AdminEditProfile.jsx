@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 
-
 export default function AdminEditProfile() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,6 +21,42 @@ export default function AdminEditProfile() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    // Check if new password and confirm new password match
+    if (newPassword !== confirmNewPassword) {
+      // Handle password mismatch (show an error message, etc.)
+      console.error("Passwords do not match");
+      return;
+    }
+
+    // Make the API call to update the password
+    try {
+      const userId = 1; // replace with the actual user ID
+      const response = await fetch(`https://backend.ptwpi.co.id/api/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: newPassword,
+        }),
+      });
+
+      if (response.ok) {
+        // Password updated successfully
+        console.log("Password updated successfully");
+        // Add any additional logic or redirection here
+      } else {
+        // Handle API error (show an error message, etc.)
+        console.error("Failed to update password");
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -51,12 +84,12 @@ export default function AdminEditProfile() {
 
       {/* Content Profile Edit */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
-            <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+        <form onSubmit={handleFormSubmit}>
+          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
             <div className="md:col-span-4">
-                <Typography variant="h5" className="pb-5">
+              <Typography variant="h5" className="pb-5">
                 Edit Profile
-                </Typography>
+              </Typography>
             </div>
             <div className="md:col-span-4">
               <Typography variant="small">
@@ -82,6 +115,8 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 color="indigo"
                 size="lg"
                 placeholder="New Password"
@@ -98,6 +133,8 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
                 color="indigo"
                 size="lg"
                 placeholder="Confirm New Password"
@@ -107,22 +144,19 @@ export default function AdminEditProfile() {
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/dashboard" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
-              </a>
+            <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
               <a href="/dashboard" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+                <Button className="bg-red-400 flex">
+                  Batal
                 </Button>
               </a>
+              <Button type="submit" className="bg-wpigreen-50 flex">
+                Simpan
+              </Button>
             </div>
-            </div>
+          </div>
         </form>
       </div>
-
 
       {/* Footer */}
       <div className="pt-10">

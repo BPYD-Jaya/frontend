@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterCatalogAdmin from "../components/masterCatalogAdmin";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
+import Axios from "axios"; // Import Axios for API requests
 
 export default function EditMasterProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    photo: null,
+  });
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -27,15 +22,6 @@ export default function EditMasterProduct() {
     // Handle the selected file as needed
     console.log(file);
   };
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
 
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
@@ -51,6 +37,38 @@ export default function EditMasterProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Fetch data for the selected item when the component mounts
+  useEffect(() => {
+    // Assuming you have a way to get the selected item's ID (replace 'selectedItemId' with the actual ID)
+    const selectedItemId = "replace_with_actual_selected_item_id";
+  
+    Axios.get(`https://backend.ptwpi.co.id/api/categories/${selectedItemId}`)
+      .then((response) => {
+        console.log("Response Data:", response.data);
+  
+        const { name, photo } = response.data;
+  
+        // Update the formData state with the fetched data
+        setFormData({
+          name,
+          photo,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  // Update the formData state when the user makes changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -80,27 +98,30 @@ export default function EditMasterProduct() {
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Edit Kategori Produk
               </Typography>
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
-                Nama Kategori Produk
+                Kategori Produk
               </Typography>
             </div>
-            <div className=" md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Nama Produk"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
+              <div className=" md:col-span-4 rounded-lg">
+                <Input
+                  color="indigo"
+                  size="lg"
+                  placeholder="Nama Produk"
+                  className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
                 Foto Kategori Produk
