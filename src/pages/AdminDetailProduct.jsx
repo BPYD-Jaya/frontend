@@ -3,12 +3,29 @@ import MasterSidebar from "../components/masterSidebar";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
+import { useParams } from "react-router";
+import axios from "axios";
 
 export default function AdminDetailProduct() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [productData, setProductData] = useState(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products/" + id
+        );
+        setProductData(response.data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,6 +39,11 @@ export default function AdminDetailProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (!productData) {
+    // Return loading or error state while waiting for data
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -61,96 +83,98 @@ export default function AdminDetailProduct() {
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Minyak Goreng Curah
+            {productData.product_name}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             Brand Name
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Minyak Goreng BPYD
+            {productData.brand}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
             Company Name
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            PT BPYD JAYA
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Price
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            $14.00 - $19.00
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Stock
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">-</div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Volume
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            1000 Liters
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Address
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Cafe Bdim Mulawarman
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Description
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
-            modi dolorem aliquam qui, sequi vitae quis sunt maiores eos
-            perspiciatis voluptatem aliquid temporibus sed similique at culpa
-            commodi accusantium assumenda!
+            {productData.company_name}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             Category Product
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Agriculture
+            {productData.category_id}
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            City
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Storage Type
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Semarang
+            {productData.storage_type}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+            Packaging
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.packaging}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Price
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.price}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Stock
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.stock}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Satuan
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.volume}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             Province
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Jawa Tengah
+            {productData.province_id}
           </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Category Name
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            City
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            Foods and Beverages
+            {productData.city_id}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Address
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.address}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            Description
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.description}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
             Photo Product
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4">
-            <img
-              src="https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg"
-              alt=""
-              className="w-full md:w-auto h-auto md:h-[300px] border"
-            />
+            <img src={productData.item_image} alt="photo product" />
           </div>
         </div>
       </div>
