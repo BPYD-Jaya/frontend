@@ -1,4 +1,3 @@
-// MasterCity.js
 import React, { useState, useEffect } from 'react';
 import MasterSidebar from '../components/masterSidebar';
 import { Button, Card, Typography } from '@material-tailwind/react';
@@ -10,20 +9,23 @@ import Cookies from 'js-cookie';
 import MasterPagination from "../components/masterPagination";
 
 const MasterCity = () => {
-  const [TABLE_ROWS, setTableRows] = useState([]);
   const TABLE_HEAD = ['Nomor', 'Nama Provinsi', 'Nama Kota', 'Aksi'];
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [provinsiAndCity, setProvinsiAndCity] = useState([]);
   const [provinsi, setProvinsi] = useState([]);
   const [kota, setKota] = useState([]);
-  const [sortDirection, setSortDirection] = useState({ column: null, direction: null });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20; // Adjust the number of items per page to 20
+
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
 
   const onProvinsi = async () => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/provinces`);
-      setProvinsi(response.data);
+      setProvinsi(response.data.data);  // Make sure to set 'provinsi' with the data property
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +34,7 @@ const MasterCity = () => {
   const onCity = async () => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/cities`);
-      setKota(response.data);
+      setKota(response.data.data);  // Make sure to set 'kota' with the data property
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +43,6 @@ const MasterCity = () => {
   const handleDelete = async (id) => {
     try {
       const authToken = Cookies.get('authToken');
-
       if (!authToken) {
         throw new Error('Access token not found in cookies');
       }
@@ -61,30 +62,19 @@ const MasterCity = () => {
     }
   };
 
-  const sortByColumn = (column) => {
-    const direction = sortDirection.column === column && sortDirection.direction === 'asc' ? 'desc' : 'asc';
-    setSortDirection({ column, direction });
-
-    const sortedData = [...provinsiAndCity].sort((a, b) => {
-      if (column === 'Nomor') {
-        return direction === 'asc' ? a.nomor - b.nomor : b.nomor - a.nomor;
-      } else if (column === 'Nama Provinsi') {
-        return direction === 'asc' ? a.provinceName.localeCompare(b.provinceName) : b.provinceName.localeCompare(a.provinceName);
-      }
-      return 0;
-    });
-
-    setProvinsiAndCity(sortedData);
+  const fetchData = async (page) => {
+    try {
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/cities?page=${page}`);
+      setPaginationData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
+    fetchData(pageNumber);
   };
-
-  const paginatedData = provinsiAndCity.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   useEffect(() => {
     onCity();
@@ -92,18 +82,20 @@ const MasterCity = () => {
   }, []);
 
   useEffect(() => {
-    const updatedProvinsiAndCity = kota.map((city, index) => {
-      const province = provinsi.find((prov) => prov.id === city.province_id);
+    if (Array.isArray(kota) && Array.isArray(provinsi)) {
+      const updatedProvinsiAndCity = kota.map((city, index) => {
+        const province = provinsi.find((prov) => prov.id === city.province_id);
 
-      return {
-        id: city.id,
-        nomor: index + 1,
-        cityName: city.city,
-        provinceName: province ? province.province : 'Provinsi tidak ditemukan',
-      };
-    });
+        return {
+          id: city.id,
+          nomor: index + 1,
+          cityName: city.city,
+          provinceName: province ? province.province : 'Provinsi tidak ditemukan',
+        };
+      });
 
-    setProvinsiAndCity(updatedProvinsiAndCity);
+      setPaginationData(prevData => ({ ...prevData, data: updatedProvinsiAndCity }));
+    }
   }, [provinsi, kota]);
 
   useEffect(() => {
@@ -118,6 +110,11 @@ const MasterCity = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    // Initial data fetch on component mount
+    fetchData(currentPage);
+  }, [currentPage]);
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -163,7 +160,6 @@ const MasterCity = () => {
                     <th
                       key={head}
                       className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 cursor-pointer"
-                      onClick={() => sortByColumn(head)}
                     >
                       <div className="flex items-center">
                         <Typography
@@ -173,18 +169,13 @@ const MasterCity = () => {
                         >
                           {head}
                         </Typography>
-                        {sortDirection.column === head && (
-                          <span className="ml-1">
-                            {sortDirection.direction === 'asc' ? '▲' : '▼'}
-                          </span>
-                        )}
                       </div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {paginatedData?.map((data) => (
+                {paginationData.data.map((data) => (
                   <tr key={data.nomor} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
@@ -256,7 +247,11 @@ const MasterCity = () => {
             </table>
           </Card>
           <div className="mt-4">
-            <MasterPagination active={currentPage} onPageChange={paginate} totalItems={provinsiAndCity.length} />
+            <MasterPagination
+              active={paginationData.current_page}
+              onPageChange={paginate}
+              totalItems={paginationData.total}
+            />
           </div>
         </div>
 

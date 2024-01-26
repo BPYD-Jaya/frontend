@@ -62,7 +62,7 @@ export default function AddMasterProduct() {
       formData.append("category_image", selectedFile);
 
       const response = await Axios.post(
-        "https://backend.ptwpi.co.id/api/categories",
+        "https://backend.ptwpi.co.id/api/categories/create",
         formData,
         {
           headers: {
