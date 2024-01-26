@@ -12,7 +12,6 @@ const MasterCity = () => {
   const TABLE_HEAD = ['Nomor', 'Nama Provinsi', 'Nama Kota', 'Aksi'];
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [provinsi, setProvinsi] = useState([]);
-  const [kota, setKota] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   // New state to store pagination data
@@ -21,26 +20,18 @@ const MasterCity = () => {
     last_page: 1,
     data: [],
   });
-  console.log(paginationData)
+  console.log('paginationData',paginationData)
+  console.log('province', provinsi)
 
   const onProvinsi = async () => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/provinces`);
-      setProvinsi(response.data.data);  // Make sure to set 'provinsi' with the data property
+      setProvinsi(response.data);  // Make sure to set 'provinsi' with the data property
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onCity = async () => {
-    try {
-      const response = await axios.get(`https://backend.ptwpi.co.id/api/cities`);
-      // add province properties from province_id
-      setKota(response.data.data);  // Make sure to set 'kota' with the data property
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleDelete = async (id) => {
     try {
@@ -58,7 +49,6 @@ const MasterCity = () => {
         },
       });
 
-      await onCity();
     } catch (error) {
       console.error('Error deleting data:', error);
     }
@@ -79,26 +69,11 @@ const MasterCity = () => {
   };
 
   useEffect(() => {
-    onCity();
     onProvinsi();
   }, []);
 
   useEffect(() => {
-    if (Array.isArray(kota) && Array.isArray(provinsi)) {
-      const updatedProvinsiAndCity = kota.map((city, index) => {
-        const province = provinsi.find((prov) => prov.id === city.province_id);
-
-        return {
-          id: city.id,
-          nomor: index + 1,
-          cityName: city.city,
-          provinceName: province ? province.province : 'Provinsi tidak ditemukan',
-        };
-      });
-
-      setPaginationData(prevData => ({ ...prevData, data: updatedProvinsiAndCity }));
-    }
-  }, [provinsi, kota]);
+  }, [provinsi]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -117,6 +92,14 @@ const MasterCity = () => {
     // Initial data fetch on component mount
     fetchData(currentPage);
   }, [currentPage]);
+
+  const getProvinceName = (id) => {
+    const matchingProvince = provinsi.find(province => province.id === id);
+    // Access the 'province' property to get the name, if a matching province was found
+    const provinceName = matchingProvince ? matchingProvince.province : 'Province Not Found';
+
+    return provinceName
+  }
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -177,16 +160,16 @@ const MasterCity = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginationData.data.map((data) => (
+                {paginationData.data.map((data, idx) => (
                   <tr key={data.nomor} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {data.nomor}
+                        {idx + 1 +( paginationData.current_page * 10 - 10)}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {data.provinceName}
+                        {getProvinceName(data.province_id)}
                       </Typography>
                     </td>
                     <td className="p-4">
