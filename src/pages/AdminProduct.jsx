@@ -9,14 +9,15 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useParams } from "react-router";
 import axios from "axios";
 import Cookies from "js-cookie";
+import MasterPagination from "../components/masterPagination";
 
 export default function AdminProduct() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const { id } = useParams();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,9 +32,9 @@ export default function AdminProduct() {
         );
 
         if (response && response.data) {
-          const data = response.data;
-          setProductData(data);
-          setFilteredProducts(data);
+          const data = response.data.data;
+          setProductData(data.data);
+          setFilteredProducts(data.data);
         } else {
           console.error("Invalid response format:", response);
         }
@@ -55,6 +56,29 @@ export default function AdminProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handlePageChange = async (pageNumber) => {
+    try {
+      const response = await axios.get(
+        `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
+          },
+        }
+      );
+  
+      if (response && response.data && response.data.data) {
+        const newData = response.data.data.data;
+        setFilteredProducts(newData);
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
 
   const handleSearch = () => {
     const searchTerm = searchInput.toLowerCase();
@@ -127,7 +151,10 @@ export default function AdminProduct() {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
           {filteredProducts.map((item, index) => (
             <MasterCatalogAdmin key={item.id} {...item} />
-          ))}
+            ))}
+            <div className="col-span-3">
+            <MasterPagination onPageChange={handlePageChange} />
+            </div>
         </div>
       </div>
 
