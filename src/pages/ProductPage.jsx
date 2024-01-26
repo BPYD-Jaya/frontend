@@ -10,30 +10,41 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useParams, useNavigate } from "react-router";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function ProductPage() {
-  const catalogItems = [
-    {
-      imageUrl: "./assets/product.png",
-      productName: "Minyak Goreng Curah",
-      priceRange: "$14.00 - $19.00",
-      minOrder: "1000.0 liters",
-    },
-    {
-      imageUrl: "./assets/product.png",
-      productName: "Tepung Terigu",
-      priceRange: "$12.00 - $18.00",
-      minOrder: "800.0 kilograms",
-    },
-    {
-      imageUrl: "./assets/product.png",
-      productName: "Garam Enak",
-      priceRange: "$12.00 - $18.00",
-      minOrder: "1000.0 kilograms",
-    },
-  ];
+  const [catalogItems, setCatalogItems] = useState([]);
 
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("authToken")}`,
+            },
+          }
+        );
+
+        if (response && response.data) {
+          const data = response.data;
+          setCatalogItems(data);
+        } else {
+          console.error("Invalid response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,7 +148,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/all-categories.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/all-categories.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
@@ -162,7 +176,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/daging.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/daging.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
@@ -187,7 +204,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/horticultural.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/horticultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
@@ -212,7 +232,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/agricultural.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/agricultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
@@ -237,7 +260,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/ikan.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/ikan.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
@@ -262,7 +288,10 @@ export default function ProductPage() {
                   </Typography>
                 </div>
               </div> */}
-              <img src="./assets/mine.png" className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"/>
+              <img
+                src="./assets/mine.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
         </Swiper>
@@ -312,11 +341,8 @@ export default function ProductPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
               {catalogItems.map((item, index) => (
                 <MasterCatalog
-                  key={index}
-                  imageUrl={item.imageUrl}
-                  productName={item.productName}
-                  priceRange={item.priceRange}
-                  minOrder={item.minOrder}
+                  key={item.id}
+                  {...item}
                 />
               ))}
             </div>

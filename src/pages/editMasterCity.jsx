@@ -42,7 +42,8 @@ export default function EditMasterCity() {
         console.log("API response:", response);
 
         // Update the state with the fetched province data
-        setCity(response.data);
+        setSelectedProvince(response.data.province_id);
+        setCity(response.data.city);
       } catch (error) {
         console.error("Error fetching province data:", error.message);
       }
@@ -64,8 +65,8 @@ export default function EditMasterCity() {
       }
   
       const formData = {
-        city: city.city, // Only send the city name
-        province_id: parseInt(city.province_id),
+        city: city, //  send the city name
+        province_id: selectedProvince,
       };
   
       const response = await axios.put(
@@ -130,7 +131,7 @@ export default function EditMasterCity() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
           <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
@@ -151,7 +152,7 @@ export default function EditMasterCity() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                value={city.province_id}
+                value={selectedProvince}
                 disabled
               />
             </div>
@@ -166,7 +167,7 @@ export default function EditMasterCity() {
                 color="indigo"
                 size="lg"
                 placeholder="Nama Kota"
-                value={city.city}
+                value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
@@ -180,7 +181,7 @@ export default function EditMasterCity() {
                  Batal
                 </Button>
               </a>
-                <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
+                <Button type="submit" className="bg-wpigreen-50 flex">
                  Simpan
                 </Button>
             </div>

@@ -3,27 +3,49 @@ import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
   Textarea,
-  ButtonGroup,
   Select,
   Option,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
 import Axios from "axios";
-import Cookies from "js-cookie";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function AdminEditProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [descriptionInputs, setDescriptionInputs] = useState(1);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [cities, setCities] = useState([]);
+  const [productData, setProductData] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products/" + id
+        );
+        setProductData(response.data);
+        setSelectedProvince(response.data.province_id);
+        console.log(response.data.province_id)
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
+
+  console.log("selectedProvince", selectedProvince)
+  console.log("provinces", provinces)
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -46,6 +68,7 @@ export default function AdminEditProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   useEffect(() => {
     // Fetch data from the API using Axios
     Axios.get("https://backend.ptwpi.co.id/api/provinces", {
@@ -102,6 +125,137 @@ export default function AdminEditProduct() {
     setDescriptionInputs(descriptionInputs + 1);
   };
 
+  if (!productData) {
+    // Return loading state or redirect to a loading page
+    return <p>Loading...</p>;
+  }
+
+  const handleSubmit = async () => {
+    try {
+      // Prepare the data to be sent to the backend
+      const formData = new FormData();
+      formData.append("product_name", productData.product_name);
+      formData.append("brand", productData.brand);
+      formData.append("company_name", productData.company_name);
+      formData.append("category_id", productData.category_id);
+      formData.append("storage_type", productData.storage_type);
+      formData.append("packaging", productData.packaging);
+      formData.append("price", productData.price);
+      formData.append("stock", productData.stock);
+      formData.append("volume", productData.volume);
+      formData.append("province_id", productData.province_id);
+      formData.append("city_id", productData.city_id);
+      formData.append("address", productData.address);
+      formData.append("description", productData.description);
+
+      // Add the selected file to the form data
+      if (selectedFile) {
+        formData.append("product_image", selectedFile);
+      }
+
+      // Make the API call to update the product
+      const response = await Axios.put(
+        `https://backend.ptwpi.co.id/api/products/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Check the response and handle accordingly
+      if (response.status === 200) {
+        // Product updated successfully
+        console.log("Product updated successfully");
+        // Redirect to the product list page or any other page as needed
+        navigate("/admin-produk");
+      } else {
+        // Handle error
+        console.error("Error updating product:", response.data);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+
+  const handleNameChange = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      product_name: e.target.value,
+    }));
+  };
+
+  const handleBrandChange = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      brand: e.target.value,
+    }));
+  };
+
+  const handleCompanyNameChange = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      company_name: e.target.value,
+    }));
+  };
+
+  const handleCategoryChange = (value) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      category_id: value,
+    }));
+  };
+
+  const handleStorageChange = (value) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      storage_type: value,
+    }));
+  };
+
+  const handlePackaging = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      packaging: e.target.value,
+    }));
+  };
+
+  const handlePrice = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      price: e.target.value,
+    }));
+  };
+
+  const handleStock = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      stock: e.target.value,
+    }));
+  };
+
+  const handleVolume = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      volume: e.target.value,
+    }));
+  };
+
+  const handleAddress = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      address: e.target.value,
+    }));
+  };
+
+  const handleDescription = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      description: e.target.value,
+    }));
+  };
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -148,6 +302,8 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Product Name"
+              value={productData.product_name}
+              onChange={handleNameChange}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
@@ -162,6 +318,8 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Brand Name"
+              value={productData.brand}
+              onChange={handleBrandChange}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
@@ -175,7 +333,60 @@ export default function AdminEditProduct() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              placeholder="Input Minyak Goreng BPYD"
+              placeholder="Input Company Name"
+              value={productData.company_name}
+              onChange={handleCompanyNameChange}
+            />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Category Product
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              value={productData.category_id.toString()}
+              onChange={handleCategoryChange}
+            >
+              <Option value="1">1</Option>
+              <Option value="2">2</Option>
+              <Option value="3">3</Option>
+              <Option value="4">4</Option>
+              <Option value="5">5</Option>
+            </Select>
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Storage Type
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              value={productData.storage_type}
+              onChange={handleStorageChange}
+            >
+              <Option value="Dry">Dry</Option>
+              <Option value="Frozen">Frozen</Option>
+            </Select>
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Packaging
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Input
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              placeholder="Input Packaging"
+              value={productData.packaging}
+              onChange={handlePackaging}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
@@ -183,6 +394,7 @@ export default function AdminEditProduct() {
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
             <Input
+              type="number"
               color="indigo"
               size="lg"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
@@ -190,6 +402,8 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Price"
+              value={productData.price}
+              onChange={handlePrice}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
@@ -197,17 +411,19 @@ export default function AdminEditProduct() {
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
             <Input
+              type="number"
               color="indigo"
               size="lg"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              placeholder="Input Stock"
+              value={productData.stock}
+              onChange={handleStock}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-            Volume
+            Satuan
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
             <Input
@@ -217,21 +433,75 @@ export default function AdminEditProduct() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              placeholder="Input Volume"
+              placeholder="Input Satuan"
+              value={productData.volume}
+              onChange={handleVolume}
             />
           </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
+            Province
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              value={selectedProvince}
+              onChange={(value) => setSelectedProvince(value)}
+            >
+              {provinces.map((province) => (
+                <Option key={province.id} value={province.id}>
+                  {province.provinceName}
+                </Option>
+              ))}
+            </Select>
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
+            City
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Select
+              color="indigo"
+              size="lg"
+              outline="outline-1 focus:outline-1"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+            >
+              {cities.map((city) => (
+                <Option key={city.id} value={city.id}>
+                  {city.cityName}
+                </Option>
+              ))}
+            </Select>
+          </div>{" "}
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input
+            <Textarea
               color="indigo"
               size="lg"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              placeholder="Input Address"
+              value={productData.address}
+              onChange={handleAddress}
+            />
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Description
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+            <Textarea
+              color="indigo"
+              size="lg"
+              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              value={productData.description}
+              onChange={handleDescription}
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-start pb-4 ">
@@ -275,62 +545,13 @@ export default function AdminEditProduct() {
               Add Specification
             </Button>
           </div>{" "}
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-            Category Product
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Input
-              color="indigo"
-              size="lg"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-              placeholder="Input Category Product"
-            />
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-            Province
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              onChange={(value) => setSelectedProvince(value)}
-            >
-              {provinces.map((province) => (
-                <Option key={province.id} value={province.id}>
-                  {province.provinceName}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-            City
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-            >
-              {cities.map((city) => (
-                <Option key={city.id} value={city.id}>
-                  {city.cityName}
-                </Option>
-              ))}
-            </Select>
-          </div>{" "}
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Photo Product
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8">
             <img
-              src="https://mitrawarungpangan.bgrlogistics.id/upload/314b8961ed526933bec7c95a57549f6a.jpg"
-              alt=""
+              src={productData.item_image}
+              alt="product image"
               className="w-full md:w-auto h-auto md:h-[300px] border"
             />
             <div className="flex items-center mt-2">
@@ -361,7 +582,9 @@ export default function AdminEditProduct() {
               href="/admin-produk"
               className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
             >
-              <Button className="bg-wpigreen-50 flex">Simpan</Button>
+              <Button onClick={handleSubmit} className="bg-wpigreen-50 flex">
+                Simpan
+              </Button>
             </a>
           </div>
         </div>

@@ -12,7 +12,7 @@ import DashboardPage from "./pages/Dashboard";
 import DetailProduct from "./pages/detailProduct";
 import AdminNews from "./pages/AdminNews";
 import MasterProduct from "./pages/MasterProduct";
-import MasterBlog from "./pages/MasterBlog";
+// import MasterBlog from "./pages/MasterBlog";
 import MasterCity from "./pages/MasterCity";
 import MasterProvince from "./pages/MasterProvince";
 import AdminProduct from "./pages/AdminProduct";
@@ -22,17 +22,18 @@ import AdminEditNews from "./pages/AdminEditNews";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminEditProduct from "./pages/AdminEditProduct";
 import AddMasterProduct from "./pages/addMasterProduct";
-import AddMasterBlog from "./pages/addMasterBlog";
+// import AddMasterBlog from "./pages/addMasterBlog";
 import AddMasterCity from "./pages/addMasterCity";
 import AddMasterProvince from "./pages/addMasterProvince";
 import EditMasterProduct from "./pages/editMasterProduct";
-import EditMasterBlog from "./pages/editMasterBlog";
+// import EditMasterBlog from "./pages/editMasterBlog";
 import EditMasterCity from "./pages/editMasterCity";
 import EditMasterProvince from "./pages/editMasterProvince";
 import AdminEditProfile from "./pages/AdminEditProfile";
 import AdminAddNews from "./pages/AdminAddNews";
 import Supplier from "./pages/Supplier";
 import PrivateRoute from "./services/PrivateRoute";
+import DetailSupplier from "./pages/DetailSupplier";
 
 export default function App() {
   return (
@@ -51,8 +52,8 @@ export default function App() {
       <Route path="/dashboard/*" element={<PrivateRoute element={<DashboardPage />} />} />
       <Route path="/admin-produk" element={<PrivateRoute element={<AdminProduct />} />} />
       <Route path="/admin-tambah-produk" element={<PrivateRoute element={<AdminAddProduct />} />} />
-      <Route path="/admin-detail-produk" element={<PrivateRoute element={<AdminDetailProduct />} />} />
-      <Route path="/admin-edit-produk" element={<AdminEditProduct />} />
+      <Route path="/admin-detail-produk/:id" element={<PrivateRoute element={<AdminDetailProduct />} />} />
+      <Route path="/admin-edit-produk/:id" element={<AdminEditProduct />} />
       <Route path="/admin-blog" element={<PrivateRoute element={<AdminNews />} />} />
       <Route path="/admin-tambah-blog" element={<PrivateRoute element={<AdminAddNews />} />} />
       <Route path="/admin-detail-blog/:id" element={<PrivateRoute element={<AdminDetailNews />} />} />
@@ -63,11 +64,12 @@ export default function App() {
       <Route path="/master-tambah-produk" element={<PrivateRoute element={<AddMasterProduct />} />} />
       <Route path="/master-tambah-kota" element={<PrivateRoute element={<AddMasterCity />} />} />
       <Route path="/master-tambah-provinsi" element={<PrivateRoute element={<AddMasterProvince />} />} />
-      <Route path="/master-edit-produk" element={<PrivateRoute element={<EditMasterProduct />} />} />
+      <Route path="/master-edit-produk/:id" element={<PrivateRoute element={<EditMasterProduct />} />} />
       <Route path="/master-edit-kota/:id" element={<PrivateRoute element={<EditMasterCity />} />} />
       <Route path="/master-edit-provinsi/:id" element={<PrivateRoute element={<EditMasterProvince />} />} />
       <Route path="/admin-edit-profil" element={<PrivateRoute element={<AdminEditProfile />} />} />
       <Route path="/admin-supplier" element={<PrivateRoute element={<Supplier />} />} />
+      <Route path="/admin-detail-supplier" element={<PrivateRoute element={<DetailSupplier />} />} />
       {/* <Route path="/master-blog" element={<MasterBlog />} /> */}
       {/* <Route path="/master-tambah-blog" element={<AddMasterBlog />} /> */}
       {/* <Route path="/master-edit-blog" element={<EditMasterBlog />} /> */}

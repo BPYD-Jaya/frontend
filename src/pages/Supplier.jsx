@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { Button, Card, Typography } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function Supplier() {
   const TABLE_HEAD = ["Nomor", "Nama Supplier", "Aksi"];
-
-  const TABLE_ROWS = [
-    {
-      id: 1,
-      provinceName: "PT BPYD JAYA",
-    },
-    {
-      id: 2,
-      provinceName: "PT BPJS",
-    },
-  ];
+  const [tableRows, setTableRows] = useState([]); // Initialize as an empty array
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {
@@ -34,6 +21,20 @@ export default function Supplier() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchSupplierData = async () => {
+      try {
+        const response = await fetch("https://backend.ptwpi.co.id/api/supplier");
+        const data = await response.json();
+        setTableRows(data || []); // Ensure that data is an array, otherwise, use an empty array
+      } catch (error) {
+        console.error("Error fetching supplier data:", error);
+      }
+    };
+
+    fetchSupplierData();
   }, []);
 
   return (
@@ -66,15 +67,6 @@ export default function Supplier() {
           <Typography className="col-span-2 flex items-center">
             Daftar Supplier
           </Typography>
-          {/* <div className=" pr-6 col-span-2 flex justify-end items-center ">
-            <a href="/admintambahproduk">
-              <Button className="bg-wpigreen-50 flex gap-2 items-center">
-                <PlusCircleIcon className="h-[15px] w-auto" />
-                <p>Tambah Produk</p>
-              </Button>
-            </a>
-          </div> */}
-          {/* <div className="col-span-2"></div> */}
           <div className="col-span-4">
             <div className="flex justify-center items-center w-full pr-6 mb-4">
               <input
@@ -94,50 +86,50 @@ export default function Supplier() {
 
         {/* Table */}
         <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
-          <Card className="h-full w-full overflow-y-scroll rounded-md">
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+        <Card className="h-full w-full overflow-y-scroll rounded-md">
+          <table className="w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th
+                    key={head}
+                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                  >
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
                     >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal leading-none opacity-70"
-                      >
-                        {head}
-                      </Typography>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {TABLE_ROWS.map(({ id, provinceName }) => (
-                  <tr key={id} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {id}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {provinceName}
-                      </Typography>
-                    </td>
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows.map(({ id, supplierName }) => (
+                <tr key={id} className="even:bg-blue-gray-50/50">
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {id}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {supplierName}
+                    </Typography>
+                  </td>
                     <td className="p-4">
                       <div className="">
-                        <a href="#">
+                        <a href="/admin-detail-supplier">
                           <button
                             type="button"
                             className="ml-2 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"
@@ -149,7 +141,7 @@ export default function Supplier() {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-6 h-6"
+                                className="w-6 h-6"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -176,7 +168,7 @@ export default function Supplier() {
                               viewBox="0 0 24 24"
                               stroke-width="1.5"
                               stroke="currentColor"
-                              class="w-6 h-6"
+                              className="w-6 h-6"
                             >
                               <path
                                 stroke-linecap="round"

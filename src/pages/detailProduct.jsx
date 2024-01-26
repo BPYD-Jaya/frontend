@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
 import MasterFooter from "../components/masterFooter";
-import MasterBreadcrumbs from "../components/masterBreadcrumbs";
 import MasterProductImage from "../components/masterProductImage";
 import {
   Typography,
   ButtonGroup,
   Button,
   Input,
-  Card,
   Accordion,
   AccordionHeader,
   AccordionBody,
@@ -336,7 +334,7 @@ export default function DetailProduct() {
                     >
                       <Button
                         type="button"
-                        className="ml-0 mb-[-10px] mt-4 bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 w-full rounded-md"
+                        className="ml-0 mb-[-10px] mt-4 bg-gradient-to-r from-wpigreen-100 to-wpigreen-200 text-white font-bold text-2xl py-2 px-4 h-12 w-full rounded-md"
                       >
                         <div className="flex justify-center items-center gap-3">
                           <img
