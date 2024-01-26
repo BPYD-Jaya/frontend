@@ -14,10 +14,10 @@ import { FaCloudArrowUp } from "react-icons/fa6";
 import Axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
-
+const { object } = require("prop-types");
 export default function AdminAddProduct() {
   const [selectedFile, setSelectedFile] = useState("");
-  const [additional_info, setAdditionalInfo] = useState([])
+  const [additional_info, setAdditionalInfo] = useState([]);
   const [descriptionInputs, setDescriptionInputs] = useState(1);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -27,36 +27,46 @@ export default function AdminAddProduct() {
   const [formData, setFormData] = useState({
     product_name: "",
     brand: "",
-    company: "",
     price: "",
     stock: "",
     volume: "",
     address: "",
+    item_image: "",
+    description: "",
     category_id: "",
     province_id: "",
     city_id: "",
-    item_image: null,
-    description: null,
-    company_category: null,
-    company_whatsapp_number: null,
-    storage_type:null,
-    packaging: null,
-    additional_info: [{ item: "", value: "" }],
+    company: "",
+    company_category: "",
+    company_whatsapp_number: "",
+    storage_type: "",
+    packaging: "",
+    additional_info: [],
   });
 
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
-    // Handle the selected file as needed
     setSelectedFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
   };
 
   const handleAdditionalInfoChange = (index, key, value) => {
     const updatedAdditionalInfo = [...formData.additional_info];
-    updatedAdditionalInfo[index][key] = value;
+  
+    if (!updatedAdditionalInfo[index]) {
+      updatedAdditionalInfo[index] = {};
+    }
+  
+    // Map inputs with placeholder "item" to index 0 and "value" to index 1
+    if (key === "item") {
+      updatedAdditionalInfo[index][key] = value;
+    } else if (key === "desc") {
+      updatedAdditionalInfo[index][key] = value;
+    }
+  
     setFormData({ ...formData, additional_info: updatedAdditionalInfo });
   };
+  
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +80,29 @@ export default function AdminAddProduct() {
 
       const response = await Axios.post(
         "https://backend.ptwpi.co.id/api/products",
-        formData,
+        {
+          brand: formData.brand,
+          product_name: formData.product_name,
+          price: formData.price,
+          stock: formData.stock,
+          volume: formData.volume,
+          category_id: formData.category_id,
+          description: formData.description,
+          province_id: formData.province_id,
+          city_id: formData.city_id,
+          address: formData.address,
+          company_name: formData.company,
+          company_category: formData.company_category,
+          company_whatsapp_number: formData.company_whatsapp_number,
+          item_image: formData.item_image,
+          storage_type: formData.storage_type,
+          packaging: formData.packaging,
+          additional_info: formData.additional_info.map((info) => ({
+            item: Object.keys(info)[0], // Assuming the first key represents the item
+            desc: Object.values(info)[0], // Assuming the value corresponds to the item
+          
+          })),
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +122,7 @@ export default function AdminAddProduct() {
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*", // Specify accepted file types
+    accept: "image/*",
     onDrop: handleFileUpload,
   });
 
@@ -103,76 +135,79 @@ export default function AdminAddProduct() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const authToken = Cookies.get("authToken");
+
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const categoriesResponse = Axios.get(
+        "https://backend.ptwpi.co.id/api/categories"
+      );
+      const provincesResponse = Axios.get(
+        "https://backend.ptwpi.co.id/api/provinces"
+      );
+
+      const [categoriesData, provincesData] = await Promise.all([
+        categoriesResponse,
+        provincesResponse,
+      ]);
+
+      const mappedCategories = categoriesData.data.map((category) => ({
+        id: category.id,
+        categoryName: category.category,
+      }));
+
+      setCategories(mappedCategories);
+
+      const mappedProvinces = provincesData.data.map((item, index) => ({
+        id: item.id,
+        nomor: index + 1,
+        provinceName: item.province,
+      }));
+
+      setProvinces(mappedProvinces);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    Axios.get("https://backend.ptwpi.co.id/api/categories")
-      .then((response) => {
-        const mappedCategories = response.data.map((category) => ({
-          id: category.id,
-          categoryName: category.category,
-        }));
-        setCategories(mappedCategories); // set categories state
-      })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-      });
+    fetchData();
   }, []);
 
   useEffect(() => {
-    // Fetch data from the API using Axios
-    Axios.get("https://backend.ptwpi.co.id/api/provinces", {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        // Map the fetched data to match your TABLE_ROWS structure
-        const mappedData = response.data.map((item, index) => ({
-          id: item.id,
-          nomor: index + 1,
-          provinceName: item.province,
-        }));
-
-        // Update the provinces state with the mapped data
-        setProvinces(mappedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Fetch cities when the selected province changes
     const fetchCities = async () => {
       try {
-        const response = await Axios.get(
-          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
-        );
+        if (selectedProvince !== "") {
+          console.log("Selected Province ID:", selectedProvince);
+          const response = await Axios.get(
+            `https://backend.ptwpi.co.id/api/cities/province/${selectedProvince}`
+          );
 
-        const filteredCities = response.data
-          .filter((city) => city.province_id === selectedProvince)
-          .map((item, index) => ({
+          const filteredCities = response.data.map((item) => ({
             id: item.id,
-            nomor: index + 1,
             cityName: item.city,
+            province_id: item.province_id,
           }));
 
-        setCities(filteredCities);
+          setCities(filteredCities);
+        } else {
+          setCities([]);
+        }
       } catch (error) {
         console.error("Error fetching city data:", error);
       }
     };
 
-    if (selectedProvince !== null) {
-      fetchCities();
-    }
+    fetchCities();
   }, [selectedProvince]);
 
   const handleAddDescription = () => {
@@ -270,6 +305,63 @@ export default function AdminAddProduct() {
               />
             </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Company Category
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Minyak Goreng BPYD"
+                value={formData.company_category}
+                onChange={(e) =>
+                  setFormData({ ...formData, company_category: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Company Whatsapp Number
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Minyak Goreng BPYD"
+                value={formData.company_whatsapp_number}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    company_whatsapp_number: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Address
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Address"
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Price
             </div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
@@ -324,7 +416,7 @@ export default function AdminAddProduct() {
               />
             </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Address
+              Storage Type
             </div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
@@ -334,10 +426,67 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Address"
-                value={formData.address}
+                placeholder="Input Minyak Goreng BPYD"
+                value={formData.storage_type}
                 onChange={(e) =>
-                  setFormData({ ...formData, address: e.target.value })
+                  setFormData({ ...formData, storage_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Packaging
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Minyak Goreng BPYD"
+                value={formData.packaging}
+                onChange={(e) =>
+                  setFormData({ ...formData, packaging: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Category Product
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Select
+                color="indigo"
+                size="lg"
+                outline="outline-1 focus:outline-1"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                // value={formData.category_id}
+                onChange={(value) =>
+                  setFormData({ ...formData, category_id: value })
+                }
+              >
+                {categories.map((category) => (
+                  <Option key={category.id} value={category.id}>
+                    {category.categoryName}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+              Description
+            </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Minyak Goreng BPYD"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
                 }
               />
             </div>
@@ -357,7 +506,7 @@ export default function AdminAddProduct() {
                           className: "before:content-none after:content-none",
                         }}
                         placeholder="Item"
-                        value={index.item}
+                        value={formData.additional_info[index]?.item}
                         onChange={(e) =>
                           handleAdditionalInfoChange(
                             index,
@@ -376,11 +525,11 @@ export default function AdminAddProduct() {
                           className: "before:content-none after:content-none",
                         }}
                         placeholder="Value"
-                        value={index.value}
+                        value={formData.additional_info[index]?.desc}
                         onChange={(e) =>
                           handleAdditionalInfoChange(
                             index,
-                            "value",
+                            "desc",
                             e.target.value
                           )
                         }
@@ -398,25 +547,6 @@ export default function AdminAddProduct() {
                 Add Specification
               </Button>
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Category Product
-            </div>
-            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Select
-                color="indigo"
-                size="lg"
-                outline="outline-1 focus:outline-1"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                value={formData.category_id}
-                onChange={(value) => setFormData({ ...formData, category_id: value })}
-              >
-                {categories.map((category) => (
-                  <Option key={category.id} value={category.id}>
-                    {category.categoryName}
-                  </Option>
-                ))}
-              </Select>
-            </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               Province
             </div>
@@ -426,8 +556,8 @@ export default function AdminAddProduct() {
                 size="lg"
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                value={formData.province_id}
-                onChange={(value) => setFormData({ ...formData, province_id: value })}
+                value={selectedProvince}
+                onChange={(value) => setSelectedProvince(value)}
               >
                 {provinces.map((province) => (
                   <Option key={province.id} value={province.id}>
@@ -436,7 +566,6 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               City
             </div>
@@ -446,8 +575,6 @@ export default function AdminAddProduct() {
                 size="lg"
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                value={formData.city_id}
-                onChange={(value) => setFormData({ ...formData, category_id: value })}
               >
                 {cities.map((city) => (
                   <Option key={city.id} value={city.id}>
