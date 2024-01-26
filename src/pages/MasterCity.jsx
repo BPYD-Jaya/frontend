@@ -21,6 +21,7 @@ const MasterCity = () => {
     last_page: 1,
     data: [],
   });
+  console.log(paginationData)
 
   const onProvinsi = async () => {
     try {
@@ -34,6 +35,8 @@ const MasterCity = () => {
   const onCity = async () => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/cities`);
+      // add province properties from province_id == provinsi id
+
       setKota(response.data.data);  // Make sure to set 'kota' with the data property
     } catch (error) {
       console.log(error);
@@ -65,7 +68,22 @@ const MasterCity = () => {
   const fetchData = async (page) => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/cities?page=${page}`);
-      setPaginationData(response.data);
+      const cities = response.data.data;
+
+      // Petakan setiap city dengan nama provinsi
+      const citiesWithProvince = cities.map(city => {
+        // Cari provinsi berdasarkan province_id dari city
+        const province = provinsi.find(prov => prov.id === cities.province_id);
+        // Tambahkan nama provinsi ke objek city
+        return { ...city, provinceName: province ? provinsi.province : 'Provinsi Tidak Ditemukan' };
+      });
+
+      // Update state PaginationData dengan city yang sudah dipetakan dengan nama provinsinya
+      setPaginationData({
+        ...response.data,  // Copy data respons lainnya (seperti pagination info)
+        data: citiesWithProvince  // Gunakan city yang sudah dipetakan
+      });
+
     } catch (error) {
       console.log(error);
     }
@@ -120,9 +138,8 @@ const MasterCity = () => {
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         <MasterSidebar />
       </div>
@@ -189,7 +206,7 @@ const MasterCity = () => {
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {data.cityName}
+                        {data.city}
                       </Typography>
                     </td>
                     <td className="">
