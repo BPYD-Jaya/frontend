@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@material-tailwind/react';
 
 const MasterPagination = ({ active, onPageChange, totalItems }) => {
-  const itemsPerPage = 10; // Change this to the desired number of items per page
+  const itemsPerPage = 12; // Change this to the desired number of items per page
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   // Responsive maxVisiblePages based on screen width
   const maxVisiblePages = window.innerWidth >= 640 ? 8 : 5;

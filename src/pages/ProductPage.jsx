@@ -81,7 +81,7 @@ export default function ProductPage() {
       };
 
       const res = await axios.get(url, options);
-      setPaginationData(res.data.data); // Assuming this sets the fetched data appropriately
+      setPaginationData(res.data.data);
     } catch (error) {
       console.error('Failed to fetch products:', error.message);
     }
@@ -108,7 +108,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     if (filteredProduct.category_id) {
-      fetchData(filteredProduct.category_id); // Fetch products filtered by category ID
+      fetchData(filteredProduct.category_id);
     }
   }, [filteredProduct.category_id]);
 
@@ -117,7 +117,6 @@ export default function ProductPage() {
   };
 
   const handleFilter = (filters) => {
-    // Use the filters to fetch or filter products
     fetchData(filters);
   };
 
@@ -214,7 +213,7 @@ export default function ProductPage() {
                   src={cat.image_url}
                   className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
                   alt={cat.category}
-                  onClick={() => handleCategoryClick(cat.id)} // Use the actual attribute that holds the category ID
+                  onClick={() => handleCategoryClick(cat.id)}
                 />
               </a>
             </SwiperSlide>

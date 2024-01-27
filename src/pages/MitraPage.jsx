@@ -8,7 +8,9 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import { useDropzone } from "react-dropzone";
 import { FaArrowRight } from "react-icons/fa";
+import { FaCloudArrowUp } from "react-icons/fa6";
 import MasterFooter from "../components/masterFooter";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,6 +25,8 @@ export default function MitraPage() {
   const [city, setCity] = useState('');
   const [provinceData, setProvinceData] = useState([]);
   const [cityData, setCityData] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     company_name: '',
@@ -34,14 +38,13 @@ export default function MitraPage() {
     brand_name: '',
     stock: '',
     volume: '',
-    category_id: null,
-    province_id: null,
-    city_id: null,
-    price: null,
+    category_id: '',
+    province_id: '',
+    city_id: '',
+    price: '',
     description: '',
     item_image: null,
-  })
-  const [category, setCategory] = useState([])
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,118 +53,122 @@ export default function MitraPage() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    fetchProvince();
+    fetchCategory();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (province) fetchCity();
+    else {
+      setCity('');
+      setCityData([]);
+    }
+  }, [province]);
 
   const fetchProvince = async () => {
     try {
-      const res = await axios.get(
-        "https://backend.ptwpi.co.id/api/provinces"
-      );
-      setProvinceData(res.data);
+      const { data } = await axios.get("https://backend.ptwpi.co.id/api/provinces");
+      setProvinceData(data);
     } catch (error) {
       console.error(error.message);
     }
-  }
-
-  useEffect(() => {
-    fetchProvince();
-  }, )
-
-  useEffect(() => {
-    if(!province) {
-      setCityData([])
-      setCity('')
-      return
-    }
-  }, [])
+  };
 
   const fetchCity = async () => {
     try {
-      const res = await axios.get(
-        `https://backend.ptwpi.co.id/api/province/${province}`
-      );
-      const data = res.data;
-      setCityData(data)
-      setCity(data.length > 0 ? data[0].id : '')
+      const { data } = await axios.get(`https://backend.ptwpi.co.id/api/cities/province/${province}`);
+      setCityData(data);
+      setCity(data.length > 0 ? data[0].id : '');
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 
   const fetchCategory = async () => {
     try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/categories')
-      setCategory(res.data)
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
-
-  useEffect(() => {
-    fetchCity()
-  }, [])
-
-  const handleProvinceChange = (e) => {
-    if(e.target && e.target.value) {
-      setProvince(e.target.value)
-      setCity('')
-    }
-  }
-
-  const handleCityChange = (e) => {
-    if(e.target && e.target.value) {
-      setCity(e.target.value)
-    }
-  }
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    // Handle the selected file as needed
-    console.log(file);
-  };
-
-  const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      })
-  }
-
-  useEffect(() => {
-    fetchCategory()
-  }, [])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        "https://backend.ptwpi.co.id/api/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(res.data);
+      const { data } = await axios.get("https://backend.ptwpi.co.id/api/categories");
+      setCategoryData(data);
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 
-  console.log(formData)
+  const handleFileUpload = (acceptedFiles) => {
+    // Ambil file pertama dari array acceptedFiles
+    const file = acceptedFiles[0];
+    setSelectedFile(file); // Set state selectedFile dengan file yang dipilih
+    // Opsi tambahan: Update formData state jika diperlukan
+    setFormData({ ...formData, item_image: file });
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: "image/*",
+    onDrop: handleFileUpload,
+  });
+
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Membuat instance FormData baru
+    const formDataToSend = new FormData();
+
+    // Menambahkan setiap item dari state formData ke formDataToSend secara individual
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("company_name", formData.company_name);
+    formDataToSend.append("company_email", formData.company_email);
+    formDataToSend.append("company_whatsapp_number", formData.company_phone);
+    formDataToSend.append("company_category", formData.company_category);
+    formDataToSend.append("address", formData.company_address);
+    formDataToSend.append("product_name", formData.product_name);
+    formDataToSend.append("brand", formData.brand_name);
+    formDataToSend.append("stock", formData.stock);
+    formDataToSend.append("volume", formData.volume);
+    formDataToSend.append("category_id", formData.category_id);
+    formDataToSend.append("province_id", formData.province_id);
+    formDataToSend.append("city_id", formData.city_id);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("description", formData.description);
+
+    // Menambahkan file ke formData hanya jika file telah dipilih
+    if (selectedFile) {
+      formDataToSend.append('item_image', selectedFile, selectedFile.name);
+    }
+    for (let [key, value] of formDataToSend.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    console.log(formDataToSend); // Log formDataToSend untuk memastikan data yang dikirim benar
+
+    console.log(formData); // Log formData untuk memastikan data yang dikirim benar (opsional
+
+    // Mengirim formDataToSend ke server menggunakan axios
+    try {
+      const response = await axios.post("https://backend.ptwpi.co.id/api/supplier/create", formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response.data); // Log response dari server
+
+      // Handle setelah submit berhasil, misalnya membersihkan form atau memberikan notifikasi ke pengguna
+    } catch (error) {
+      console.error(error.message);
+      // Handle jika terjadi error, misalnya memberikan pesan error ke pengguna
+    }
+  };
+
   return (
     <div>
       {/* Navbar */}
       <div
-        className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
-        }`}
+        className={`bg-wpiblue-50 ${isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+          }`}
       >
         <MasterNavbar />
       </div>
@@ -308,8 +315,8 @@ export default function MitraPage() {
                 Formulir Pendaftaran Supplier
               </Typography>
             </div>
-            <div className=" flex justify-center items-center xl:w-1/2 w-full">
-              <form className=" py-6 mb-2 w-full px-4">
+            <div className="flex justify-center items-center xl:w-1/2 w-full">
+              <form className="py-6 mb-2 w-full px-4" onSubmit={handleSubmit}>
                 <div className="flex flex-col p-4 mb-2 border border-b-4">
                   <Typography className="font-bold text-center">PIC</Typography>
                   <Typography className="font-normal">Name</Typography>
@@ -317,7 +324,7 @@ export default function MitraPage() {
                     type="text"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     size="sm"
                     placeholder="Enter your name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -329,17 +336,15 @@ export default function MitraPage() {
                 </div>
 
                 <div className="flex flex-col p-4 mb-2 border border-b-4">
-                  <Typography className="font-bold text-center">
-                    Company
-                  </Typography>
+                  <Typography className="font-bold text-center">Company</Typography>
                   <Typography className="font-normal">Company Name</Typography>
                   <Input
                     type="text"
                     name="company_name"
                     value={formData.company_name}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter company name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -348,12 +353,12 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Company Email</Typography>
                   <Input
-                    type="text"
+                    type="email"
                     name="company_email"
                     value={formData.company_email}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({ ...formData, company_email: e.target.value })}
                     size="sm"
-                    placeholder="Enter your email"
+                    placeholder="Enter company email"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -364,28 +369,26 @@ export default function MitraPage() {
                     Company Phone Number
                   </Typography>
                   <Input
+                    type="text"
                     name="company_phone"
                     value={formData.company_phone}
-                    onChange={handleChange}
-                    type="number"
+                    onChange={(e) => setFormData({ ...formData, company_phone: e.target.value })}
                     size="sm"
-                    placeholder="Enter your number"
+                    placeholder="Enter company phone number"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
                         "before:content-none after:content-none w-full",
                     }}
                   />
-                  <Typography className="font-normal">
-                    Category Company
-                  </Typography>
+                  <Typography className="font-normal">Category Company</Typography>
                   <Input
+                    type="text"
                     name="company_category"
                     value={formData.company_category}
-                    onChange={handleChange}
-                    type="text"
+                    onChange={(e) => setFormData({ ...formData, company_category: e.target.value })}
                     size="sm"
-                    placeholder="Enter your number"
+                    placeholder="Enter category"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -393,20 +396,41 @@ export default function MitraPage() {
                     }}
                   />
                   <Typography className="font-normal">Province</Typography>
-                  <Select onChange={handleProvinceChange} label="Pilih Provinsi" name="province" id="province" value="province">
-                    {provinceData.map(item => (
-                      <Option key={item.id} value={item.id}>{item.province}</Option>
+                  <Select
+                    onChange={(value) => { setProvince(value); setFormData({ ...formData, province_id: value, city_id: '' }); }}
+                    label="Pilih Provinsi"
+                    name="province"
+                    id="province"
+                    value="province"
+                  >
+                    {provinceData.map((item) => (
+                      <Option key={item.id} value={item.id}>
+                        {item.province}
+                      </Option>
                     ))}
                   </Select>
                   <Typography className="font-normal">City</Typography>
-                  <Select onChange={handleCityChange} label="Pilih Kota" name="city" id="city" value="city"  disabled={!province}>
-                    {cityData.map(item => (
-                      <Option key={item.id} value={item.id}>{item.city}</Option>
+                  <Select
+                    onChange={(value) => { setCity(value); setFormData({ ...formData, city_id: value }); }}
+                    label="Pilih Kota"
+                    name="city"
+                    id="city"
+                    value="city"
+                    disabled={!province}
+                  >
+                    {cityData.map((item) => (
+                      <Option key={item.id} value={item.id}>
+                        {item.city}
+                      </Option>
                     ))}
                   </Select>
                   <Typography className="font-normal">Address</Typography>
                   <Textarea
+                    name="company_address"
+                    value={formData.company_address}
+                    onChange={(e) => setFormData({ ...formData, company_address: e.target.value })}
                     size="sm"
+                    placeholder="Enter address"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -416,13 +440,14 @@ export default function MitraPage() {
                 </div>
 
                 <div className="flex flex-col p-4 border border-b-4">
-                  <Typography className="font-bold text-center">
-                    Product
-                  </Typography>
+                  <Typography className="font-bold text-center">Product</Typography>
                   <Typography className="font-normal">Product Name</Typography>
                   <Input
+                    name="product_name"
+                    value={formData.product_name}
+                    onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter product name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -431,8 +456,11 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Brand Name</Typography>
                   <Input
+                    name="brand_name"
+                    value={formData.brand_name}
+                    onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter brand name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -442,8 +470,11 @@ export default function MitraPage() {
                   <Typography className="font-normal">Stock</Typography>
                   <Input
                     type="number"
+                    name="stock"
+                    value={formData.stock}
+                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter stock amount"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -452,8 +483,11 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Volume</Typography>
                   <Input
+                    name="volume"
+                    value={formData.volume}
+                    onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter volume"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -463,8 +497,11 @@ export default function MitraPage() {
                   <Typography className="font-normal">Price</Typography>
                   <Input
                     type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     size="sm"
-                    placeholder="Enter your name"
+                    placeholder="Enter price"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -472,62 +509,63 @@ export default function MitraPage() {
                     }}
                   />
                   <Typography className="font-normal">Category</Typography>
-                  <Select label="Pilih Kategori" name="category_id" id="category_id" value="category_id">
-                    {category.map(item => (
-                      <Option key={item.id} value={item.id}>{item.category}</Option>
+                  <Select
+                    onChange={(value) => { setCategory(value); setFormData({ ...formData, category_id: value }); }}
+                    name="category_id"
+                    value={categoryData.category_id}
+                    className="w-full"
+                    size="sm"
+                    label="Select product category"
+                  >
+                    {/* Populate product categories here */}
+                    {categoryData.map((cat) => (
+                      <Option key={cat.id} value={cat.id}>
+                        {cat.category}
+                      </Option>
                     ))}
                   </Select>
                   <Typography className="font-normal">Description</Typography>
                   <Textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     size="sm"
-                    className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
-                    }}
+                    placeholder="Enter product description"
+                    className="w-full"
                   />
 
-                  <div className="flex items-center border border-gray-400 p-2 md:p-0 rounded-lg gap-2">
-                    <Button
-                      variant="sm"
-                      className="bg-wpiblue-50 relative overflow-hidden"
-                    >
-                      Select Image
-                      <input
-                        type="file"
-                        className="absolute inset-0 opacity-0 cursor-pointer top-0 left-0 h-full w-full"
-                        onChange={handleFileUpload}
-                      />
-                    </Button>
-                    <Typography className="md:pl-4">
-                      {selectedFile ? `${selectedFile.name}` : "No File Chosen"}
-                    </Typography>
+                  <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
+                    Photo Product
+                  </div>
+                  <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Drop the files here ...</p>
+                    ) : (
+                      <div className="text-center flex flex-col items-center">
+                        <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
+                        <p className="mt-2">
+                          {selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 <Button
+                  type="submit"
                   className="hover:text-green-100 bg-wpigreen-50 mt-6"
                   fullWidth
                 >
                   GABUNG SEKARANG
                 </Button>
-                {/* <Typography
-                  color="gray"
-                  className="mt-4 text-center font-normal"
-                >
-                  Already have an account?{" "}
-                  <a
-                    href="/login"
-                    className="font-medium text-gray-900 hover:text-blue-600"
-                  >
-                    Sign In
-                  </a>
-                </Typography> */}
               </form>
             </div>
           </div>
         </div>
       </div>
+
+
 
       {/* Content Image */}
       <div className="container mx-auto flex justify-center pb-16 md:px-0 px-4">
