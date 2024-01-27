@@ -1,33 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MasterSidebar from "../components/masterSidebar";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import Axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function EditMasterProduct(props) {
   const { id } = useParams();
-
-  const [formState, setFormState] = useState({
-    name: "",
-    photo: null,
-  });
+  const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileUpload = (e) => {
+    // Ambil file pertama dari array acceptedFiles
     const file = e.target.files[0];
     setSelectedFile(file);
-    setFormState((prevFormState) => ({
-      ...prevFormState,
-      photo: file,
-    }));
+    console.log(file) // Set state selectedFile dengan file yang dipilih
+    // Opsi tambahan: Update formData state jika diperlukan
+    setFormData({ ...formData, item_image: file });
   };
 
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -44,6 +37,8 @@ export default function EditMasterProduct(props) {
     };
   }, []);
 
+  const [category, setCategory] = useState("");
+  const [categoryImage, setCategoryImage] = useState(null);
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
@@ -56,12 +51,10 @@ export default function EditMasterProduct(props) {
           `https://backend.ptwpi.co.id/api/categories/${id}`
         );
 
-        const { category: name, category_image: photo } = response.data;
+        console.log("API response:", response);
 
-        setFormState({
-          name,
-          photo,
-        });
+        setCategory(response.data.category);
+        setCategoryImage(response.data.category_image);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -70,45 +63,58 @@ export default function EditMasterProduct(props) {
     fetchCategoryData();
   }, [id]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const [formData, setFormData] = useState({
+    category: "",
+    category_image: "",
+  });
 
-    setFormState((prevFormState) => ({
-      ...prevFormState,
-      [name]: value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { category, value } = e.target;
+
+  //   setFormState((prevFormState) => ({
+  //     ...prevFormState,
+  //     [category]: value,
+  //   }));
+  //   setFormData({ ...formData, category: value });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
+  
+      const formDataToSend = new FormData();
+      formDataToSend.append("category", category);
 
-      const formData = new FormData();
-      formData.append("name", formState.name);
-      formData.append("photo", formState.photo);
+      if (selectedFile) {
+      formDataToSend.append("category_image", selectedFile, selectedFile.name); // Append the selected file here
+      }
 
-      await Axios.put(
-        `https://backend.ptwpi.co.id/api/categories/${id}`,
-        formData,
+      const response = await Axios.post(
+        `https://backend.ptwpi.co.id/api/categories/${id}?_method=PUT`,
+        formDataToSend,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
             "Content-Type": "multipart/form-data",
           },
         }
       );
-
+  
+      console.log("Category data successfully updated:", response.data);
+  
       // Redirect to the desired page after successful submission
-      props.history.push("/master-produk");
+      navigate("/master-produk");
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
+  
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -157,9 +163,9 @@ export default function EditMasterProduct(props) {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                name="name"
-                value={formState.name}
-                onChange={handleChange}
+                
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               />
             </div>
             <div className="md:col-span-4">
@@ -169,7 +175,7 @@ export default function EditMasterProduct(props) {
             </div>
             <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
               <div className="sm:ml-0 md:-ml-2">
-                <img alt="" src={formState.photo} />
+                <img alt="" src={categoryImage} />
               </div>
               <div className="md:flex pt-4 pl-4 md:pl-4 pb-6">
                 <div className="md:flex  justify-center items-center">
@@ -187,18 +193,24 @@ export default function EditMasterProduct(props) {
                     />
                   </Button>
                   <Typography className="pl-1 md:pl-4">
-                    {selectedFile ? selectedFile.name : "No File Chosen"}
+                    {selectedFile
+                      ? `File: ${selectedFile.name}`
+                      : "No File Chosen"}
                   </Typography>
                 </div>
               </div>
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                  Batal
-                </Button>
+              <a
+                href="/master-produk"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+              <a
+                href="/master-produk"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
                 <Button type="submit" className="bg-wpigreen-50 flex">
                   Simpan
                 </Button>

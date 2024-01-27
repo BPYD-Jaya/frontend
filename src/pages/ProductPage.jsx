@@ -41,10 +41,37 @@ export default function ProductPage() {
     setCurrentPage(pageNumber)
     fetchData(pageNumber)
   }
-  
-  const fetchData = async (categoryId, page) => {
+
+  const fetchData = async (filters, page = currentPage) => {
     try {
-      const url = `https://backend.ptwpi.co.id/api/products?category_id=${categoryId || ""}&page=${page || currentPage}`;
+      let url = 'https://backend.ptwpi.co.id/api/products';
+      const params = new URLSearchParams();
+
+      // Check if filters is an object and has properties
+      if (typeof filters === 'object' && filters !== null && Object.keys(filters).length > 0) {
+        // Handle categories as an array
+        if (Array.isArray(filters.categories)) {
+          filters.categories.forEach(category => {
+            params.append('category_id', parseInt(category, 10));
+          });
+        }
+
+        // Append other filters
+        if (filters.provinsi) params.append('province_id', parseInt(filters.provinsi, 10));
+        if (filters.kota) params.append('city_id', parseInt(filters.kota, 10));
+        if (filters.terendah !== undefined) params.append('min_price', parseInt(filters.terendah, 10));
+        if (filters.tertinggi !== undefined) params.append('max_price', parseInt(filters.tertinggi, 10));
+      } else if (typeof filters === 'number') {
+        // If filters is a number, it's assumed to be a category_id
+        params.append('category_id', filters);
+      }
+
+      // Handle pagination
+      params.append('page', page);
+
+      // Construct the final URL with all parameters
+      url += `?${params.toString()}`;
+
       const options = {
         headers: {
           'Content-Type': 'application/json',
@@ -52,12 +79,14 @@ export default function ProductPage() {
           'Access-Control-Allow-Origin': '*',
         }
       };
+
       const res = await axios.get(url, options);
       setPaginationData(res.data.data);
     } catch (error) {
-      console.error(error.message);
+      console.error('Failed to fetch products:', error.message);
     }
   };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,12 +108,16 @@ export default function ProductPage() {
 
   useEffect(() => {
     if (filteredProduct.category_id) {
-      fetchData(filteredProduct.category_id); // Fetch products filtered by category ID
+      fetchData(filteredProduct.category_id);
     }
   }, [filteredProduct.category_id]);
 
   const handleCategoryClick = (categoryId) => {
     setFilteredProduct({ category_id: categoryId });
+  };
+
+  const handleFilter = (filters) => {
+    fetchData(filters);
   };
 
   const handleSubmitNotification = async (e) => {
@@ -170,7 +203,6 @@ export default function ProductPage() {
               <img
                 src="./assets/all-categories.png"
                 className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
-                // onClick={() => handleResetClick()} // Reset to show all products
               />
             </a>
           </SwiperSlide>
@@ -181,7 +213,7 @@ export default function ProductPage() {
                   src={cat.image_url}
                   className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
                   alt={cat.category}
-                  onClick={() => handleCategoryClick(cat.id)} // Use the actual attribute that holds the category ID
+                  onClick={() => handleCategoryClick(cat.id)}
                 />
               </a>
             </SwiperSlide>
@@ -226,7 +258,7 @@ export default function ProductPage() {
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
           <div className="md:col-span-1 md:ml-7 px-8 md:px-0">
             <div>
-              <MasterFilterCard />
+              <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
           <div className="md:col-span-2 ">

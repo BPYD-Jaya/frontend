@@ -234,7 +234,7 @@ const MasterCity = () => {
               </tbody>
             </table>
           </Card>
-          <div className="mt-4">
+          <div className="mt-4 flex">
             <MasterPagination
               active={paginationData.current_page}
               onPageChange={paginate}

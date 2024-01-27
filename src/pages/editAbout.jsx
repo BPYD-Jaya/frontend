@@ -213,9 +213,11 @@ export default function EditAbout() {
                         </div>
                         
                         <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
+                            <a href="/dashboard">
                             <Button className="bg-red-400 flex">
                                 Batal
                             </Button>
+                            </a>
                             <Button onClick={handleSubmit} className="bg-wpigreen-50 flex">
                                 Simpan
                             </Button>
