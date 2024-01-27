@@ -111,7 +111,6 @@ export default function AdminAddProduct() {
       if (formData.additional_info.length) {
         formData.additional_info.forEach((info, index) => {
           formDataToSend.append(`additional_info[${index}][item]`, info.item || '');
-          formDataToSend.append(`additional_info[${index}][desc]`, info.desc || '');
         });
       }
 

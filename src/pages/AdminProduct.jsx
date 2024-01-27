@@ -18,39 +18,38 @@ export default function AdminProduct() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { id } = useParams();
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "https://backend.ptwpi.co.id/api/products",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
+          },
+        }
+      );
+
+      if (response && response.data) {
+        const data = response.data.data;
+        setProductData(data.data);
+        setFilteredProducts(data.data);
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("authToken")}`,
-            },
-          }
-        );
-
-        if (response && response.data) {
-          const data = response.data.data;
-          setProductData(data.data);
-          setFilteredProducts(data.data);
-        } else {
-          console.error("Invalid response format:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
-    
+
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
-    
+
     window.addEventListener("resize", handleResize);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -67,7 +66,7 @@ export default function AdminProduct() {
           },
         }
       );
-  
+
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
         setFilteredProducts(newData);
@@ -78,22 +77,31 @@ export default function AdminProduct() {
       console.error("Error fetching data:", error);
     }
   };
-  
 
-  const handleSearch = () => {
-    const searchTerm = searchInput.toLowerCase();
-    const filtered = productData.filter((product) => {
-      // Check if the product_name is defined before using toLowerCase
-      const productName = product.product_name ? product.product_name.toLowerCase() : "";
-  
-      return productName.includes(searchTerm);
-    });
-    setFilteredProducts(filtered);
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `https://backend.ptwpi.co.id/api/products?search=${searchInput}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
+          },
+        }
+      );
+
+      if (response && response.data && response.data.data) {
+        const newData = response.data.data.data;
+        setFilteredProducts(newData);
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
-  
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-      {/* Sidebar */}
       <div
         className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
@@ -109,13 +117,11 @@ export default function AdminProduct() {
         ></div>
       )}
 
-      {/* Navbar */}
       <MasterNavbarAdmin
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Product */}
       <div className="h-full ml-6 md:ml-80 pt-10 mr-0 font-m-plus-rounded">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">
@@ -149,26 +155,29 @@ export default function AdminProduct() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-         {filteredProducts.map(item => {
-                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
-                console.log(price)
-                return (
-                <MasterCatalogAdmin
-                  id={item.id}
-                  imageUrl={item.link_image}
-                  brand={item.brand}
-                  productName={item.product_name}
-                  priceRange={price}
-                  wa_link={item.wa_link}
-                />
-              )})}
-            <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
+          {filteredProducts.map((item) => {
+            let price = new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(item.price);
+            console.log(price);
+            return (
+              <MasterCatalogAdmin
+                id={item.id}
+                imageUrl={item.link_image}
+                brand={item.brand}
+                productName={item.product_name}
+                priceRange={price}
+                wa_link={item.wa_link}
+              />
+            );
+          })}
+          <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
             <MasterPagination onPageChange={handlePageChange} />
-            </div>
+          </div>
         </div>
       </div>
 
-      {/* Footer */}
       <div className="pt-10">
         <MasterFooterAdmin />
       </div>

@@ -8,6 +8,7 @@ import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
+
 export default function MasterProduct() {
   const [categories, setCategories] = useState([]);
   const [counter, setCounter] = useState(1);
