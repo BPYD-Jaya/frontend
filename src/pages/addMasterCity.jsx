@@ -1,25 +1,92 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-// import { useDropzone } from "react-dropzone";
-// import { FaCloudArrowUp } from "react-icons/fa6";
-// import MasterCatalog from "../components/masterCatalog";
-// import { PlusCircleIcon } from "@heroicons/react/24/solid";
-// import { FaMagnifyingGlass } from "react-icons/fa6";
-// import MasterCatalogAdmin from "../components/masterCatalogAdmin";
 
-export default function AddMasterCity() {
-  const [selectedFile, setSelectedFile] = useState(null);
+export default function EditMasterCity() {
+  const [city, setCity] = useState({ city: "", province_id: "" });
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const authToken = Cookies.get("authToken");
+        if (!authToken) {
+          throw new Error("Access token not found in cookies");
+        }
+
+        const response = await axios.get(
+          `https://backend.ptwpi.co.id/api/cities/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
+
+        console.log("API response:", response);
+        setCity({
+          city: response.data.city,
+          province_id: response.data.province_id // Pastikan ini diset dengan benar
+        });
+      } catch (error) {
+        console.error("Error fetching city data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = {
+        city: city.city,
+        province_id: city.province_id
+      };
+
+      console.log("Form Data:", formData);
+
+      const response = await axios.put(
+        `https://backend.ptwpi.co.id/api/cities/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("City data successfully updated:", response.data);
+      navigate("/master-kota");
+    } catch (error) {
+      console.error("Error updating city data:", error.response ? error.response.data : error.message);
+    }
+  };
+
+  const handleCityChange = (e) => {
+    setCity((prevCity) => ({ ...prevCity, city: e.target.value }));
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +95,6 @@ export default function AddMasterCity() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -36,73 +102,42 @@ export default function AddMasterCity() {
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-      {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <MasterSidebar />
-      </div>
-
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
-
-      {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
-
-      {/* Content Product */}
+      {/* Rest of your component code */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
-          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
-              <Typography variant="h5" className="pb-10">
-                Tambah Kota
-              </Typography>
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Nama Kota
-              </Typography>
-            </div>
-            <div className=" md:col-span-4 rounded-lg">
-              <Input
-                color="indigo"
-                size="lg"
-                placeholder="Nama Kota"
-                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
-              </a>
-              <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
-                </Button>
-              </a>
-            </div>
+        <form onSubmit={handleFormSubmit}>
+          {/* Rest of your form code */}
+          <div className="md:col-span-4 rounded-lg">
+            <Input
+              name="city"
+              color="indigo"
+              size="lg"
+              placeholder="Nama Kota"
+              value={city.city}
+              onChange={handleCityChange}
+              className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
           </div>
+          <div className="md:col-span-4 rounded-lg">
+          <Input
+            name="province_id"
+            color="indigo"
+            size="lg"
+            placeholder="ID Provinsi"
+            value={city.province_id}
+            readOnly // Membuat input tidak dapat diedit
+            className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+        </div>
+          {/* Rest of your form code */}
         </form>
       </div>
-
-      {/* Footer */}
-      <div className="pt-10">
-        <MasterFooterAdmin />
-      </div>
+      {/* Rest of your component code */}
     </div>
   );
 }

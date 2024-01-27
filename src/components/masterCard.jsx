@@ -10,12 +10,9 @@ import {
 
 export default function MasterCard() {
   return (
-    <Card className="w-96">
+    <Card className="w-full">
       <CardHeader color="blue-gray" className="relative h-auto">
-        <img
-          src="https://warungpangan.com/upload/img/5be1e2e75c4f7f54e04a8e7bced4039f.jpg"
-          alt="card-image"
-        />
+        <img src="./assets/Mitra-WPI.png" alt="card-image" />
       </CardHeader>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">

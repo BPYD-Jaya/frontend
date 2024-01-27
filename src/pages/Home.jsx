@@ -3,6 +3,9 @@ import MasterNavbar from "../components/masterNavbar";
 import MasterCarousel from "../components/masterCarousel";
 import {
   Button,
+  Card,
+  CardBody,
+  CardHeader,
   Input,
   Typography,
   typography,
@@ -47,16 +50,16 @@ export default function Home() {
       {/* Jumbotron */}
       <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1050px] h-[810px]">
         <div
-          className="bg-wpiblue-50 flex flex-col px-4 xl:px-36 xl:h-[600px] md:h-[950px] lg:h-[550px] h-[750px]"
+          className="bg-wpiblue-50 flex flex-col xl:h-[600px] md:h-[950px] lg:h-[550px] h-[750px]"
           style={{ borderRadius: "0 0 50px 50px" }}
         >
-          <div className="container mx-auto flex flex-col lg:flex-row lg:h-[500px]">
-            <div className="flex justify-center items-center text-white col-span-5 pl-0 pt-5 md:pt-8 lg:pt-0 lg:pl-6 ">
+          <div className="container mx-auto flex flex-col lg:flex-row justify-between lg:h-[500px]">
+            <div className="flex justify-center items-center text-white pl-4 pt-5 md:pt-8 lg:pt-0 lg:pl-10">
               <div className="">
                 <div className="">
                   <Typography
                     variant="h3"
-                    className="mb-4 text-center lg:text-left text-xl whitespace-no-wrap  md:text-[2rem] md:!leading-10 leading-7"
+                    className="mb-4 text-center lg:text-left text-xl whitespace-no-wrap md:text-[2rem] md:!leading-10 leading-7"
                   >
                     SATU APLIKASI UNTUK
                     <br /> SEMUA KEBUTUHAN WARUNG
@@ -99,12 +102,12 @@ export default function Home() {
                     pendanaan
                   </Typography>
                   <div className="flex justify-center xl:justify-start md:justify-start">
-                    <a href="/login">
+                    <a href="/mitra">
                       <Button
                         className="hover:text-green-100 bg-wpigreen-50 "
                         size="lg"
                       >
-                        <div className="flex items-center">
+                        <div className="flex items-center lg:text-2xl">
                           GABUNG SEKARANG <FaArrowRight className="ml-2" />
                         </div>
                       </Button>
@@ -113,9 +116,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className=" h-[280px] md:h-[400px] lg:h-[33vw]  xl:h-full justify-center py-5 mt-4 lg:mt-0 md:py-0 items-center col-span-7 lg:-translate-x-4">
+            <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
               <img
-                src="https://warungpangan.com/upload/settings/home_banner3.png"
+                src="./assets/hero.png"
                 alt="image1"
                 className="h-full w-full   "
                 style={{ width: "100%", height: "100%" }}
@@ -125,13 +128,13 @@ export default function Home() {
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7.5vw] md:-translate-y-32 -translate-y-24 xl:px-12 px-2 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-2 ">
+        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7.5vw] md:-translate-y-32 -translate-y-24 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
           <MasterCarousel />
         </div>
 
         {/* Content 1 */}
         <div
-          className="bg-white lg:-translate-y-16
+          className="lg:-translate-y-16 px-4 md:px-0
         "
         >
           <div className="container mx-auto text-center xl:mb-16 mb-12 ">
@@ -145,22 +148,85 @@ export default function Home() {
               Kenapa Harus Warung Pangan Indonesia
             </Typography>
           </div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12">
-            <div className="flex justify-center items-center">
-              <MasterCard />
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12 h-full">
+            <div className="flex justify-center items-center h-full">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="https://img.freepik.com/free-vector/tiny-male-female-characters-standing-near-arrow-down-showing-percentage-decrease-financial-reduction-flat-vector-illustration-low-rate-special-offer-loan-discount-price-concept_74855-22568.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=ais"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray" className="mb-2">
+                    Harga Terjangkau untuk Pasar Indonesia dan Internasional
+                  </Typography>
+                  <Typography className="text-justify">
+                    WPI berkomitmen untuk menyediakan komoditas pangan dengan
+                    harga yang terjangkau di pasar Indonesia. Selain itu,
+                    melalui standarisasi dan perizinan yang relevan, WPI
+                    memastikan bahwa produknya dapat bersaing dengan harga yang
+                    kompetitif di pasar internasional, membuka peluang ekspor
+                    yang menjanjikan
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
-            <div className="flex justify-center items-center">
-              <MasterCard />
+            <div className="flex justify-center items-center h-full">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="https://img.freepik.com/free-vector/people-analyzing-growth-charts-illustrated_23-2148865274.jpg?size=626&ext=jpg&ga=GA1.1.361051616.1622625034&semt=sph"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray" className="mb-2">
+                    Digitalisasi untuk Percepatan Forecasting
+                  </Typography>
+                  <Typography className="text-justify">
+                    Dengan misi digitalisasi untuk percepatan forecasting supply
+                    dan demand komoditi pangan, WPI menonjol sebagai perusahaan
+                    yang proaktif dan inovatif. Hal ini memberikan keuntungan
+                    tambahan bagi pelanggan dengan memastikan ketersediaan stok
+                    yang optimal dan respons yang cepat terhadap perubahan pasar
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
-            <div className="flex justify-center items-center">
-              <MasterCard />
+            <div className="flex justify-center items-center h-full">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="https://img.freepik.com/free-vector/business-team-brainstorm-idea-lightbulb-from-jigsaw-working-team-collaboration-enterprise-cooperation-colleagues-mutual-assistance-concept-pinkish-coral-bluevector-isolated-illustration_335657-1651.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=sph"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray" className="mb-2">
+                    Kolaborasi Kekuatan Tim yang Sinergis
+                  </Typography>
+                  <Typography className="text-justify">
+                    Warung Pangan Indonesia (WPI) membanggakan kolaborasi tim
+                    yang kuat dan sinergis, mencakup kegiatan Supply Chain
+                    Management, Trading, Finance Scheme, dan Business Networking
+                    yang didukung oleh Teknologi Informasi yang tepat guna. Ini
+                    memberikan jaminan bahwa WPI memiliki fondasi yang kokoh
+                    untuk mengelola secara efektif dan efisien rantai
+                    pasok pangan
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </div>
 
         {/* Content 2 */}
-        <div className="container mx-auto grid xl:grid-cols-12 grid-cols-1 gap-6 px-4 lg:px-10 pt-6 lg:pt-0">
-          <div className="lg:col-span-7 col-span-1 flex flex-col justify-start">
+        <div className="container mx-auto grid xl:grid-cols-12 grid-cols-1 gap-6 lg:px-0 px-4 pt-6 lg:pt-0 ">
+          <div className="lg:col-span-7 col-span-1 flex flex-col justify-start items-start">
             <div className="pb-5 lg:pb-0">
               <Typography
                 variant="h3"
@@ -170,11 +236,11 @@ export default function Home() {
                   fontWeight: 800,
                 }}
               >
-                Keunggulan Berbelanja di Aplikasi Warung Pangan
+                Keunggulan Berbelanja di Warung Pangan Indonesia
               </Typography>
             </div>
-            <div className="flex  py-4 gap-3 md:gap-6">
-              <span className="text-[3rem] lg:text-6xl flex   md:h-full   ">
+            <div className="flex py-8 gap-3 md:gap-6">
+              <span className="text-[3rem] lg:text-6xl flex md:h-full">
                 <FcApproval />
               </span>
               <div>
@@ -189,9 +255,8 @@ export default function Home() {
                   <b>Pasokan Produk Berkualitas</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Banyak produk yang ditawarkan terutama produk-produk BUMN
-                  kluster pangan (ID Food) dengan kualitas terjamin dengan harga
-                  yang kompetitif dan pengiriman barang yang tepat waktu.
+                  Banyak produk yang ditawarkan dengan kualitas terjamin dengan
+                  harga yang kompetitif dan pengiriman barang yang tepat waktu.
                 </p>
               </div>
             </div>
@@ -211,13 +276,12 @@ export default function Home() {
                   <b>Digitalisasi Warung</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Solusi lengkap bagi pemilik warung mengelola bisnis mereka,
-                  yang mencakup pencatatan transaksi, manajemen inventori, dan
-                  pemesanan via aplikasi
+                  Solusi lengkap bagi pemilik bisnis, yang mencakup pencatatan
+                  transaksi, manajemen inventori, dan pemesanan via aplikasi
                 </p>
               </div>
             </div>
-            <div className="flex  py-4 gap-3 md:gap-6">
+            <div className="flex py-4 gap-3 md:gap-6">
               <span className="text-[3rem] lg:text-6xl flex   md:h-full   ">
                 <FcCustomerSupport />
               </span>
@@ -254,37 +318,111 @@ export default function Home() {
         <div className="container mx-auto mb-6">
           <div className="my-10">
             <Typography
-              className="xl:ml-14 lg:ml-4 md:ml-4 ml-6 flex justify-start"
+              className="xl:ml-2 lg:ml-4 md:ml-2 ml-6 flex justify-start"
               variant="h3"
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
               }}
             >
-              Cerita Mitra Warung Pangan
+              Cerita Mitra Warung Pangan Indonesia
             </Typography>
           </div>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12">
-            <div className="flex justify-center items-center">
-              <MasterCard />
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12 h-full">
+            <div className="flex justify-center items-center h-full px-4 md:px-0">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="./assets/mitra-1.png"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray">
+                    Farhan Dwicahyo
+                  </Typography>
+                  <Typography className="mb-2 text-sm font-medium">
+                    PT BPYD JAYA
+                  </Typography>
+                  <Typography className="text-justify">
+                    WPI telah berhasil menyajikan beragam jenis komoditas dengan
+                    harga yang terjangkau, sambil konsisten menjaga tingkat
+                    kualitas yang unggul. Kesuksesan ini mencerminkan komitmen
+                    yang kuat dari WPI untuk terus memberikan layanan yang tidak
+                    hanya berkualitas tinggi tetapi juga terjangkau kepada
+                    pelanggan setianya. Dalam upaya untuk memenuhi kebutuhan
+                    konsumen dengan cara yang optimal, WPI secara terus-menerus
+                    berusaha meningkatkan dan menyempurnakan portofolio
+                    produknya agar dapat memberikan pengalaman belanja yang
+                    memuaskan dan terpercaya.
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
-            <div className="flex justify-center items-center">
-              <MasterCard />
+            <div className="flex justify-center items-center h-full">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="./assets/mitra-3.png"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray">
+                    Muhammad Rafli Akbar
+                  </Typography>
+                  <Typography className="mb-2 text-sm font-medium">
+                    OPPIUM AGGENCY
+                  </Typography>
+                  <Typography className="text-justify">
+                    WPI sukses menyediakan beragam komoditas dengan harga yang
+                    terjangkau, sambil tetap mempertahankan standar kualitas
+                    yang tinggi. Prestasi ini mencerminkan tekad WPI untuk
+                    memberikan layanan berkualitas tinggi yang terjangkau kepada
+                    pelanggannya.
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
-            <div className="flex justify-center items-center">
-              <MasterCard />
+            <div className="flex justify-center items-center h-full">
+              <Card className="w-full h-full">
+                <CardHeader color="blue-gray" className="relative h-[200px]">
+                  <img
+                    src="./assets/mitra-2.png"
+                    alt="card-image"
+                    className="w-full h-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray">
+                    Naufal Randika Parikesit
+                  </Typography>
+                  <Typography className="mb-2 text-sm font-medium">
+                    PT FAJAR ISLAM
+                  </Typography>
+                  <Typography className="text-justify">
+                    WPI telah berhasil menawarkan berbagai jenis komoditas
+                    dengan harga yang terjangkau, sekaligus mempertahankan
+                    tingkat kualitas yang unggul. Keberhasilan ini mencerminkan
+                    komitmen WPI dalam menyediakan layanan yang berkualitas
+                    tinggi dan terjangkau kepada para pelanggannya.
+                  </Typography>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </div>
 
         {/* Content Image */}
-        <div className="container mx-auto flex justify-center pb-16 px-8">
+        <div className="container mx-auto flex justify-center pb-16 py-4">
           <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <a href="/produk">
               <img
-                src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
+                src="./assets/banner.png"
                 alt=""
-                className="w-full"
+                className="w-full rounded-lg"
               />
             </a>
           </div>

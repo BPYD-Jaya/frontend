@@ -1,37 +1,18 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  Typography,
-  Input,
-  Textarea,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import axios from "axios"
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminEditProfile() {
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileUpload = (acceptedFiles) => {
-    // Handle the selected file as needed
-    setSelectedFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
-  };
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [data, setData] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +26,61 @@ export default function AdminEditProfile() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get('https://backend.ptwpi.co.id/api/user', {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        });
+
+        setData(res.data)
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+
+
+
+  
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Check if new password and confirm new password match
+    if (newPassword !== confirmNewPassword) {
+      // Handle password mismatch (show an error message, etc.)
+      alert("Passwords do not match");
+      return;
+    }
+
+    // Make the API call to update the password
+    try {
+      const response = await axios.put(`https://backend.ptwpi.co.id/api/users/${data.id}`, 
+      {
+        password: newPassword,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get('authToken')}`,
+        },
+      });
+
+        // Password updated successfully
+        console.log("Password updated successfully");
+        alert("Password updated successfully");
+        // Add any additional logic or redirection here
+        navigate("/dashboard");
+    } catch (error) {
+      console.error("Error updating password:", error.message);
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -72,21 +108,21 @@ export default function AdminEditProfile() {
 
       {/* Content Profile Edit */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
-            <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+        <form onSubmit={handleFormSubmit}>
+          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
             <div className="md:col-span-4">
-                <Typography variant="h5" className="pb-5">
+              <Typography variant="h5" className="pb-5">
                 Edit Profile
-                </Typography>
+              </Typography>
             </div>
             <div className="md:col-span-4">
               <Typography variant="small">
                 Email
               </Typography>
             </div>
-            <div className=" md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input 
-                disabled
+                defaultValue={data.email}  // Use the email state as the value
                 color="indigo"
                 size="lg"
                 placeholder="Email"
@@ -94,6 +130,7 @@ export default function AdminEditProfile() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                disabled
               />
             </div>
             <div className="md:col-span-4">
@@ -103,6 +140,9 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 color="indigo"
                 size="lg"
                 placeholder="New Password"
@@ -119,6 +159,9 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                type="password"
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
                 color="indigo"
                 size="lg"
                 placeholder="Confirm New Password"
@@ -128,22 +171,19 @@ export default function AdminEditProfile() {
                 }}
               />
             </div>
-            <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/dashboard" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
-              </a>
+            <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
               <a href="/dashboard" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+                <Button className="bg-red-400 flex">
+                  Batal
                 </Button>
               </a>
+              <Button type="submit" className="bg-wpigreen-50 flex">
+                Simpan
+              </Button>
             </div>
-            </div>
+          </div>
         </form>
       </div>
-
 
       {/* Footer */}
       <div className="pt-10">

@@ -5,11 +5,14 @@ import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import Axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router";
 
 export default function MasterProvince() {
   const [TABLE_ROWS, setTableRows] = useState([]);
   const TABLE_HEAD = ["Nomor", "Nama Provinsi", "Aksi"];
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,26 +52,38 @@ export default function MasterProvince() {
       });
   }, []);
 
-  const handleDelete = (id) => {
-    // Perform delete operation using Axios or any other method
-    Axios.delete(`https://backend.ptwpi.co.id/api/provinces/{id}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization:`6|vCdL5odVKcX9mMvEcdjn1Q38C0fLnYFblgtT1XN9af007192`
-      },
-    })
-      .then((response) => {
-        // After successful deletion, update the state to trigger re-render
-        const updatedRows = TABLE_ROWS.filter((row) => row.id !== id);
-        setTableRows(updatedRows);
-      })
-      .catch((error) => {
-        console.error("Error deleting data:", error);
-      });
+  const handleEdit = (id) => {
+    navigate(`/master-edit-provinsi/${id}`);
   };
-
+  const handleDelete = (id) => {
+    try {
+      const authToken = Cookies.get("authToken");
+  
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+  
+      // Perform delete operation using Axios
+      Axios.delete(`https://backend.ptwpi.co.id/api/provinces/${id}`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+        .then((response) => {
+          // After successful deletion, update the state to trigger re-render
+          const updatedRows = TABLE_ROWS.filter((row) => row.id !== id);
+          setTableRows(updatedRows);
+        })
+        .catch((error) => {
+          console.error("Error deleting data:", error);
+        });
+    } catch (error) {
+      console.error("Error getting authorization token:", error.message);
+    }
+  };
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -154,10 +169,11 @@ export default function MasterProvince() {
                     </td>
                     <td className="">
                       <div className="">
-                        <a href="/master-edit-provinsi">
+                      <a href={`/master-edit-provinsi/${id}`}>
                           <button
                             type="button"
                             className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+                            onClick={() => handleEdit(id)}
                           >
                             <div className="flex justify-center items-center gap-3">
                               <svg

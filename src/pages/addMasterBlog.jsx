@@ -3,19 +3,11 @@ import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-// import { useDropzone } from "react-dropzone";
-// import { FaCloudArrowUp } from "react-icons/fa6";
-// import MasterCatalog from "../components/masterCatalog";
-// import { PlusCircleIcon } from "@heroicons/react/24/solid";
-// import { FaMagnifyingGlass } from "react-icons/fa6";
-// import MasterCatalogAdmin from "../components/masterCatalogAdmin";
 
 export default function AddMasterBlog() {
   const [selectedFile, setSelectedFile] = useState(null);

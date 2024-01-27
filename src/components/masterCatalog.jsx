@@ -76,7 +76,7 @@ export default function MasterCatalog({
         >
           Min. order: {minOrder}
         </Typography> */}
-        <div className="flex items-center justify-center mb-2">
+        <div className="flex items-center justify-center mb-2 pt-4">
           <MasterButtonWa wa_link={wa_link} />
         </div>
       </CardBody>

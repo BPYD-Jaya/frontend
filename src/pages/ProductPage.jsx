@@ -14,40 +14,52 @@ import axios from "axios"
 
 export default function ProductPage() {
   
-  const catalogItems = [
-    {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg',
-      productName: 'Minyak Goreng Curah',
-      priceRange: '$14.00 - $19.00',
-      minOrder: '1000.0 liters',
-    },
-    {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png',
-      productName: 'Tepung Terigu',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '800.0 kilograms',
-    },
-    {
-      imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg',
-      productName: 'Garam Enak',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '1000.0 kilograms',
-    },
-  ];
+  // const catalogItems = [
+  //   {
+  //     imageUrl:
+  //       'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg',
+  //     productName: 'Minyak Goreng Curah',
+  //     priceRange: '$14.00 - $19.00',
+  //     minOrder: '1000.0 liters',
+  //   },
+  //   {
+  //     imageUrl:
+  //       'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png',
+  //     productName: 'Tepung Terigu',
+  //     priceRange: '$12.00 - $18.00',
+  //     minOrder: '800.0 kilograms',
+  //   },
+  //   {
+  //     imageUrl:
+  //       'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg',
+  //     productName: 'Garam Enak',
+  //     priceRange: '$12.00 - $18.00',
+  //     minOrder: '1000.0 kilograms',
+  //   },
+  // ];
 
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
   const [product, setProduct] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
 
-  const fetchData = async () => {
+  })
+
+  const fetchData = async (page) => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/products')
-      setProduct(res.data.data.data)
+      const res = await axios.get(`https://backend.ptwpi.co.id/api/products?page=${page}`)
+      setPaginationData(res.data.data)
     } catch (error) {
       console.error(error.message)
     }
+  }
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    fetchData(pageNumber)
   }
 
   useEffect(() => {
@@ -64,9 +76,11 @@ export default function ProductPage() {
   }, []);
 
   useEffect(() => {
-    fetchData()
-  }, [])
-  console.log(product)
+    fetchData(currentPage)
+  }, [currentPage])
+
+  console.log(paginationData)
+
   return (
     <div>
       {/* Navbar */}
@@ -136,7 +150,7 @@ export default function ProductPage() {
         >
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 w-full flex items-center pl-2 justify-start">
                   <img
                     src="assets/semua-kategori.png"
@@ -155,12 +169,16 @@ export default function ProductPage() {
                     Semua Kategori
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/all-categories.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/mineral.png"
@@ -179,12 +197,16 @@ export default function ProductPage() {
                     Mineral
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/daging.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/coal.png"
@@ -203,12 +225,16 @@ export default function ProductPage() {
                     Batubara
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/horticultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/corn.png"
@@ -227,12 +253,16 @@ export default function ProductPage() {
                     Horticurtular
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/agricultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/agriculture.png"
@@ -251,12 +281,16 @@ export default function ProductPage() {
                     Agriculture
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/ikan.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/aquaculture.png"
@@ -275,7 +309,11 @@ export default function ProductPage() {
                     Aquaculture
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/mine.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           {/* <SwiperSlide>
@@ -347,7 +385,7 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {product.map(item => {
+              {paginationData.data.map((item, idx) => {
                 let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
                 console.log(price)
                 return (
@@ -364,7 +402,11 @@ export default function ProductPage() {
           </div>
         </div>
         <div className="flex justify-center items-center   mt-6">
-          <MasterPagination />
+          <MasterPagination
+            active={paginationData.current_page}
+            onPageChange={paginate}
+            totalItems={paginationData.total}
+          />
         </div>
       </div>
 

@@ -128,20 +128,20 @@ export default function MasterSidebar() {
                   Category Product
                 </ListItem>
               </a>
-              <a href="/master-kota">
-                <ListItem>
-                  <ListItemPrefix>
-                    <CircleStackIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  City
-                </ListItem>
-              </a>
               <a href="/master-provinsi">
                 <ListItem>
                   <ListItemPrefix>
                     <CircleStackIcon className="h-5 w-5" />
                   </ListItemPrefix>
                   Province
+                </ListItem>
+              </a>
+              <a href="/master-kota">
+                <ListItem>
+                  <ListItemPrefix>
+                    <CircleStackIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  City
                 </ListItem>
               </a>
             </List>

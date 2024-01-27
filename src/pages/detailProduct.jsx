@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
 import MasterFooter from "../components/masterFooter";
-import MasterBreadcrumbs from "../components/masterBreadcrumbs";
 import MasterProductImage from "../components/masterProductImage";
 import {
   Typography,
   ButtonGroup,
   Button,
   Input,
-  Card,
   Accordion,
   AccordionHeader,
   AccordionBody,
@@ -45,60 +43,10 @@ export default function DetailProduct() {
 
   const TABLE_HEAD = ["Item ", "Value"];
 
-  const TABLE_ROWS = [
-    {
-      item: "Place of Origin",
-      value: "Japan",
-    },
-    {
-      item: "Brand Name",
-      value: "Yamanaka Inc.",
-    },
-    {
-      item: "Model Number",
-      value: "P-004692",
-    },
-    {
-      item: "Storage Type",
-      value: "Frozen",
-    },
-    {
-      item: "Style",
-      value: "FROZEN",
-    },
-    {
-      item: "Spesification",
-      value: "-",
-    },
-    {
-      item: "Shelf Life",
-      value: "Including production date 2 years",
-    },
-    {
-      item: "Manufacturer",
-      value: "YAMANAKA Inc.",
-    },
-    {
-      item: "Ingredients",
-      value: "Scallop",
-    },
-    {
-      item: "Content",
-      value: "L 21-25pc/kg. M 25-30pc/kg. S 31-35pc/kg",
-    },
-    {
-      item: "Address",
-      value: "Harajuku, Japan",
-    },
-    {
-      item: "Instruction for use",
-      value: "Natural decompression recomendation",
-    },
-  ];
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/products/' + id)
+      const res = await axios.get('https://backend.ptwpi.co.id/api/products/' + id)
       setProduct(res.data.data)
       setPrice(res.data.data.price)
     } catch (error) {
@@ -186,7 +134,21 @@ export default function DetailProduct() {
         {/* Breadcrumbs */}
 
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
-          <MasterBreadcrumbs />
+          <div className="flex gap-2">
+            <a
+              href="/blog"
+              className="text-wpigreen-50 hover:text-green-900 opacity-60"
+            >
+              Product
+            </a>
+            <div>/</div>
+            <a
+              href="#"
+              className="text-wpigreen-50 hover:text-green-900 font-bold"
+            >
+              *Nama produk*
+            </a>
+          </div>
         </div>
 
         {/* Catalog */}
@@ -352,59 +314,6 @@ export default function DetailProduct() {
                   </AccordionBody>
                 </Accordion>
               </>
-
-              {/* <Typography
-                variant="h4"
-                className="pt-8 mb-4 border-b-2 border-black"
-              >
-                Spesification
-              </Typography>
-              <div className="overflow-x-scroll">
-                <table className="w-full min-w-max table-auto text-left">
-                  <thead>
-                    <tr>
-                      {TABLE_HEAD.map((head) => (
-                        <th
-                          key={head}
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            {head}
-                          </Typography>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {TABLE_ROWS.map(({ item, value }, index) => (
-                      <tr key={item} className="even:bg-blue-gray-50/50">
-                        <td className="p-4 break-words">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal "
-                          >
-                            {item}
-                          </Typography>
-                        </td>
-                        <td className="p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {value}
-                          </Typography>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div> */}
             </div>
 
             {/* Card */}
@@ -499,7 +408,7 @@ export default function DetailProduct() {
                     >
                       <Button
                         type="button"
-                        className="ml-0 mb-[-10px] mt-4 bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 w-full rounded-md"
+                        className="ml-0 mb-[-10px] mt-4 bg-gradient-to-r from-wpigreen-100 to-wpigreen-200 text-white font-bold text-2xl py-2 px-4 h-12 w-full rounded-md"
                       >
                         <div className="flex justify-center items-center gap-3">
                           <img

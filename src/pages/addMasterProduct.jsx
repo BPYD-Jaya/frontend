@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { useDropzone } from "react-dropzone";
 import { FaCloudArrowUp } from "react-icons/fa6";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterCatalogAdmin from "../components/masterCatalogAdmin";
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AddMasterProduct() {
+  const [categoryName, setCategoryName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
-    // Handle the selected file as needed
     setSelectedFile(acceptedFiles[0]);
     console.log(acceptedFiles[0]);
   };
@@ -31,9 +28,10 @@ export default function AddMasterProduct() {
     getInputProps,
     isDragActive,
   } = useDropzone({
-    accept: "image/*", // Specify accepted file types
+    accept: "image/*",
     onDrop: handleFileUpload,
   });
+
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {
@@ -43,11 +41,44 @@ export default function AddMasterProduct() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = new FormData();
+      formData.append("category", categoryName);
+      formData.append("category_image", selectedFile);
+
+      const response = await Axios.post(
+        "https://backend.ptwpi.co.id/api/categories/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("Category successfully added:", response.data);
+
+      navigate("/master-produk");
+    } catch (error) {
+      console.error("Error adding category:", error.message);
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -75,9 +106,9 @@ export default function AddMasterProduct() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Kategori Produk
               </Typography>
@@ -93,6 +124,7 @@ export default function AddMasterProduct() {
                 size="lg"
                 placeholder="Nama Produk"
                 className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                onChange={(e) => setCategoryName(e.target.value)}
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -122,14 +154,14 @@ export default function AddMasterProduct() {
               )}
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-             <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+              <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
-                 Batal
+                  Batal
                 </Button>
               </a>
               <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+                <Button type="submit" className="bg-wpigreen-50 flex">
+                  Simpan
                 </Button>
               </a>
             </div>

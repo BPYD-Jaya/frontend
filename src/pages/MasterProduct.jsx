@@ -1,42 +1,55 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 import MasterSidebar from "../components/masterSidebar";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
 
 export default function MasterProduct() {
+  const [categories, setCategories] = useState([]);
+  const [counter, setCounter] = useState(1);
   const TABLE_HEAD = ["Nomor", "Kategori Produk", "Kategori Foto", "Aksi"];
 
-  const TABLE_ROWS = [
-    {
-      id: 1,
-      categoryProduct: "Batubara",
-      categoryProductPhoto: "assets/coal.png",
-    },
-    {
-      id: 2,
-      categoryProduct: "Horticultural",
-      categoryProductPhoto: "assets/corn.png",
-    },
-    {
-      id: 3,
-      categoryProduct: "Agriculture",
-      categoryProductPhoto: "assets/agriculture.png",
-    },
-    {
-      id: 4,
-      categoryProduct: "Aquaculture",
-      categoryProductPhoto: "assets/aquaculture.png",
-    },
-    {
-      id: 5,
-      categoryProduct: "Mineral",
-      categoryProductPhoto: "assets/mineral.png",
-    },
-  ];
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("https://backend.ptwpi.co.id/api/categories");
+      setCategories(response.data);
+      setCounter(1); // Reset counter to 1 when fetching new categories
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const authToken = Cookies.get('authToken');
+
+      if (!authToken) {
+        throw new Error('Access token not found in cookies');
+      }
+
+      await axios.delete(`https://backend.ptwpi.co.id/api/categories/${id}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      await fetchCategories();
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
+
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {
@@ -54,8 +67,8 @@ export default function MasterProduct() {
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-      {/* Sidebar */}
-      <div
+       {/* Sidebar */}
+       <div
         className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -78,94 +91,95 @@ export default function MasterProduct() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6  rounded-lg shadow-md ">
+        <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
           <Typography className="md:col-span-2 flex items-center">
             Kategori Produk
           </Typography>
           <div className=" pr-6 md:col-span-2 flex md:justify-end items-center ">
-          <a href="/master-tambah-produk">
-            <Button className="bg-wpigreen-50 flex gap-2 items-center">
-              <PlusCircleIcon className="h-[15px] w-auto" />
-              <p>Tambah Kategori Produk</p>
-            </Button>
-            </a>
+            <Link to="/master-tambah-produk">
+              <Button className="bg-wpigreen-50 flex gap-2 items-center">
+                <PlusCircleIcon className="h-[15px] w-auto" />
+                <p>Tambah Kategori Produk</p>
+              </Button>
+            </Link>
           </div>
         </div>
 
         {/* Table */}
         <div className="bg-white mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 rounded-lg shadow-md">
-        <Card className="h-full w-full overflow-y-scroll rounded-md">
-        <table className="w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {TABLE_ROWS.map(({ id, categoryProduct, categoryProductPhoto}) => (
-              <tr key={id} className="even:bg-blue-gray-50/50">
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {id}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {categoryProduct}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <img src={categoryProductPhoto} alt={categoryProduct} className="h-10 w-10" />
-                </td>
-                <td className="p-4">
+          <Card className="h-full w-full overflow-y-scroll rounded-md">
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th
+                      key={head}
+                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {categories.map(({ id, category, category_image, image_url }, index) => (
+                  <tr key={id} className="even:bg-blue-gray-50/50">
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {index + 1}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {category}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <img src={image_url} alt={category} className="h-10 w-10" />
+                    </td>
+                    <td className="p-4">
                       <div className="">
-                        <a href="/master-edit-produk">
-                        <button
-                          type="button"
-                          className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
-                        >
-                          <div className="flex justify-center items-center gap-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                              />
-                            </svg>
-                          </div>
-                        </button>
-                        </a>
+                        <Link to={`/master-edit-produk/${id}`}>
+                          <button
+                            type="button"
+                            className="ml-2 mb-[-10px] bg-orange-500 text-white font-bold px-4 h-10 rounded-md"
+                          >
+                            <div className="flex justify-center items-center gap-3">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                        </Link>
                         <button
                           type="button"
                           className="ml-2 mb-[-10px] bg-red-500 text-white font-bold px-4 h-10 rounded-md"
+                          onClick={() => handleDelete(id)}
                         >
                           <div className="flex justify-center items-center gap-3">
                             <svg
@@ -174,7 +188,7 @@ export default function MasterProduct() {
                               viewBox="0 0 24 24"
                               stroke-width="1.5"
                               stroke="currentColor"
-                              class="w-6 h-6"
+                              className="w-6 h-6"
                             >
                               <path
                                 stroke-linecap="round"

@@ -4,8 +4,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
   Input,
   Textarea,
   Typography,
@@ -34,7 +32,7 @@ export default function AboutPage() {
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
         }`}
       >
         <MasterNavbar />
@@ -42,13 +40,13 @@ export default function AboutPage() {
 
       {/* Jumbotron */}
       <div
-        className="bg-wpiblue-50 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
+        className="bg-gradient-to-b from-wpiblue-50 to-wpiblue-100 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
         style={{ borderRadius: "0 0 50px 50px" }}
       >
-        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4">
-          <div className=" flex justify-center items-center text-white col-span-8 pt-2 ">
+        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 pt-8 lg:pt-0">
+          <div className=" flex justify-center items-center text-white col-span-8 ">
             <img
-              src="https://warungpangan.com/upload/settings/about_us_banner.png"
+              src="./assets/heroAbout.png"
               alt="jumbotron"
               className="xl:h-[500px] md:h-[400px]"
             />
@@ -63,7 +61,7 @@ export default function AboutPage() {
 
       {/* Content 1 */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto lg:-translate-y-36 -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto lg:-translate-y-28 -translate-y-20 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="grid grid-cols-12">
             <div className="col-span-12 flex justify-center items-center gap-16">
               <img
@@ -85,7 +83,7 @@ export default function AboutPage() {
       </div>
 
       {/* Content 2 */}
-      <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-18 lg:-translate-y-14 ">
+      <div className="container mx-auto xl:px-0 px-4 xl:mb-0 xl:-translate-y-20 lg:-translate-y-16 -translate-y-12">
         <div>
           <Typography
             variant="h3"
@@ -567,56 +565,52 @@ export default function AboutPage() {
 
       {/* Content Image */}
       <div className="container mx-auto flex justify-center pb-16 px-8">
-        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
+        <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105 rounded-lg">
           <a href="/produk">
-            <img
-              src="https://warungpangan.com/upload/settings/mb_banner_bottom.png"
-              alt=""
-              className="w-full"
-            />
+            <img src="./assets/banner.png" alt="" className="w-full" />
           </a>
         </div>
       </div>
 
       {/* Form Email */}
       <div className="bg-blue-50 lg:px-28 px-0 h-[50px]">
-          <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
-            <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
-              <Typography
-                variant="h4"
-                style={{
-                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                  fontWeight: 700,
-                }}
-              >
-                Masukkan alamat email Anda untuk mendapatkan informasi menarik
-                dari kami!
-              </Typography>
-            </div>
-            <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
-              <div className="flex gap-2 w-full">
-                <Input
-                  size="lg"
-                  placeholder="Email address"
-                  className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none w-full",
-                  }}
-                />
-                <Button className="hover:bg-green-400 bg-wpigreen-50">
-                  Submit
-                </Button>
-              </div>
-            </div>
+        <div className="bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 -translate-y-10">
+          <div className="col-span-6 text-center flex items-center justify-center lg:justify-start px-auto md:px-0 xl:px-2">
+            <Typography
+              variant="h4"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }}
+            >
+              Masukkan alamat email Anda untuk mendapatkan informasi menarik
+              dari kami!
+            </Typography>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="bg-blue-50">
-          <div className="container mx-auto pt-40 lg:pt-18">
-            <MasterFooter />
+          <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
+            <div className="flex gap-2 w-full">
+              <Input
+                size="lg"
+                placeholder="Email address"
+                className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: "before:content-none after:content-none w-full",
+                }}
+              />
+              <Button className="hover:bg-green-400 bg-wpigreen-50">
+                Submit
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="bg-blue-50">
+        <div className="container mx-auto pt-40 lg:pt-18">
+          <MasterFooter />
+        </div>
+      </div>
+    </div>
   );
 }

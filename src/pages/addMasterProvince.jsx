@@ -3,50 +3,53 @@ import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import Axios from "axios";
-// import { useDropzone } from "react-dropzone";
-// import { FaCloudArrowUp } from "react-icons/fa6";
-// import MasterCatalog from "../components/masterCatalog";
-// import { PlusCircleIcon } from "@heroicons/react/24/solid";
-// import { FaMagnifyingGlass } from "react-icons/fa6";
-// import MasterCatalogAdmin from "../components/masterCatalogAdmin";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AddMasterProvince() {
   const [provinceName, setProvinceName] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
-  const handleFormSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a data object with the form values
-    const formData = {
-      province: provinceName,
-      // Add other form fields as needed
-    };
+    try {
+      const authToken = Cookies.get("authToken");
 
-    Axios.post("https://backend.ptwpi.co.id/api/provinces", formData, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        // Handle success (you may redirect or perform other actions)
-        console.log("Data successfully submitted:", response.data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error submitting data:", error);
-      });
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = {
+        province: provinceName,
+      };
+
+      const response = await Axios.post(
+        "https://backend.ptwpi.co.id/api/provinces",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("Data successfully submitted:", response.data);
+
+      // Redirect to /master-province after successful submission
+      navigate("/master-provinsi");
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+    }
   };
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export default function AddMasterProvince() {
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Provinsi
               </Typography>
@@ -113,14 +116,18 @@ export default function AddMasterProvince() {
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-            <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+              <a
+                href="/master-provinsi"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
                 <Button type="submit" className="bg-wpigreen-50 flex">
-                 Simpan
+                  Simpan
                 </Button>
               </a>
             </div>

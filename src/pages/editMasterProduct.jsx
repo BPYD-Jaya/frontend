@@ -1,41 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import MasterSidebar from "../components/masterSidebar";
-import { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   Typography,
   Input,
-  Textarea,
 } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { useDropzone } from "react-dropzone";
-import { FaCloudArrowUp } from "react-icons/fa6";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import MasterCatalogAdmin from "../components/masterCatalogAdmin";
-import MasterAdminDetailImage from "../components/masterAdminDetailImage";
+import Axios from "axios";
+import Cookies from "js-cookie";
 
-export default function EditMasterProduct() {
+export default function EditMasterProduct(props) {
+  const { id } = useParams();
+
+  const [formState, setFormState] = useState({
+    name: "",
+    photo: null,
+  });
+
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    // Handle the selected file as needed
-    console.log(file);
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      photo: file,
+    }));
   };
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
 
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
@@ -46,11 +39,76 @@ export default function EditMasterProduct() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const authToken = Cookies.get("authToken");
+        if (!authToken) {
+          throw new Error("Access token not found in cookies");
+        }
+
+        const response = await Axios.get(
+          `https://backend.ptwpi.co.id/api/categories/${id}`
+        );
+
+        const { category: name, category_image: photo } = response.data;
+
+        setFormState({
+          name,
+          photo,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchCategoryData();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const authToken = Cookies.get("authToken");
+      if (!authToken) {
+        throw new Error("Access token not found in cookies");
+      }
+
+      const formData = new FormData();
+      formData.append("name", formState.name);
+      formData.append("photo", formState.photo);
+
+      await Axios.put(
+        `https://backend.ptwpi.co.id/api/categories/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Redirect to the desired page after successful submission
+      props.history.push("/master-produk");
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -78,19 +136,19 @@ export default function EditMasterProduct() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Edit Kategori Produk
               </Typography>
             </div>
-            <div className="md:col-span-4">
+            <div className="md:col-span-4 rounded-lg">
               <Typography variant="small" className="">
-                Nama Kategori Produk
+                Kategori Produk
               </Typography>
             </div>
-            <div className=" md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input
                 color="indigo"
                 size="lg"
@@ -99,6 +157,9 @@ export default function EditMasterProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                name="name"
+                value={formState.name}
+                onChange={handleChange}
               />
             </div>
             <div className="md:col-span-4">
@@ -108,9 +169,7 @@ export default function EditMasterProduct() {
             </div>
             <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
               <div className="sm:ml-0 md:-ml-2">
-                <img alt="" src="assets/aquaculture.png">
-
-                </img>
+                <img alt="" src={formState.photo} />
               </div>
               <div className="md:flex pt-4 pl-4 md:pl-4 pb-6">
                 <div className="md:flex  justify-center items-center">
@@ -121,7 +180,6 @@ export default function EditMasterProduct() {
                     <span>
                       <Typography variant="small">Ganti Gambar</Typography>
                     </span>
-
                     <input
                       type="file"
                       className="absolute inset-0 opacity-0 cursor-pointer top-0 left-0 h-full w-full"
@@ -137,12 +195,12 @@ export default function EditMasterProduct() {
             <div className="md:col-span-4 flex justify-end items-center pt-6">
               <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">
-                 Batal
+                  Batal
                 </Button>
               </a>
               <a href="/master-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                 Simpan
+                <Button type="submit" className="bg-wpigreen-50 flex">
+                  Simpan
                 </Button>
               </a>
             </div>
