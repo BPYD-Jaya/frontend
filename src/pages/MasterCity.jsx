@@ -22,10 +22,13 @@ const MasterCity = () => {
   });
   console.log('paginationData',paginationData)
   console.log('province', provinsi)
+  console.log('paginationData',paginationData)
+  console.log('province', provinsi)
 
   const onProvinsi = async () => {
     try {
       const response = await axios.get(`https://backend.ptwpi.co.id/api/provinces`);
+      setProvinsi(response.data);  // Make sure to set 'provinsi' with the data property
       setProvinsi(response.data);  // Make sure to set 'provinsi' with the data property
     } catch (error) {
       console.log(error);
@@ -39,7 +42,7 @@ const MasterCity = () => {
       if (!authToken) {
         throw new Error('Access token not found in cookies');
       }
-
+  
       await axios.delete(`https://backend.ptwpi.co.id/api/cities/${id}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -48,11 +51,15 @@ const MasterCity = () => {
           Authorization: `Bearer ${authToken}`,
         },
       });
-
+  
+      // Setelah data terhapus, panggil fetchData untuk meretrieve data terbaru
+      fetchData(currentPage);
+  
     } catch (error) {
       console.error('Error deleting data:', error);
     }
   };
+  
 
   const fetchData = async (page) => {
     try {
@@ -74,6 +81,7 @@ const MasterCity = () => {
 
   useEffect(() => {
   }, [provinsi]);
+  }, [provinsi]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -92,6 +100,14 @@ const MasterCity = () => {
     // Initial data fetch on component mount
     fetchData(currentPage);
   }, [currentPage]);
+
+  const getProvinceName = (id) => {
+    const matchingProvince = provinsi.find(province => province.id === id);
+    // Access the 'province' property to get the name, if a matching province was found
+    const provinceName = matchingProvince ? matchingProvince.province : 'Province Not Found';
+
+    return provinceName
+  }
 
   const getProvinceName = (id) => {
     const matchingProvince = provinsi.find(province => province.id === id);
@@ -161,19 +177,23 @@ const MasterCity = () => {
               </thead>
               <tbody>
                 {paginationData.data.map((data, idx) => (
+                {paginationData.data.map((data, idx) => (
                   <tr key={data.nomor} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
+                        {idx + 1 +( paginationData.current_page * 10 - 10)}
                         {idx + 1 +( paginationData.current_page * 10 - 10)}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
                         {getProvinceName(data.province_id)}
+                        {getProvinceName(data.province_id)}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
+                        {data.city}
                         {data.city}
                       </Typography>
                     </td>

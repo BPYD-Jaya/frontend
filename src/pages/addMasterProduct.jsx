@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 export default function AddMasterProduct() {
   const [categoryName, setCategoryName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {

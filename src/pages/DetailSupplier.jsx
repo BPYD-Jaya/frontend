@@ -6,6 +6,7 @@ import MasterSidebar from "../components/masterSidebar";
 
 export default function DetailSupplier() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [supplierData, setSupplierData] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,27 +21,26 @@ export default function DetailSupplier() {
     };
   }, []);
 
-  const supplierData = {
-    id: 2,
-    name: "Rafli",
-    company_whatsapp_number: "08123456789",
-    company_email: "diffuser@email.com",
-    company_name: "Rafli Diffuser",
-    company_category: "Elektronik",
-    brand: "Baygon",
-    product_name: "Diffuser",
-    price: "100.000",
-    stock: 100,
-    volume: "Kilogram",
-    category_id: 1,
-    address: "Royal Arcadia",
-    item_image: "product-1705971347.png",
-    description: "Diffuser Terbaik",
-    province_id: 1,
-    city_id: 1,
-    created_at: "2024-01-23T00:55:48.000000Z",
-    updated_at: "2024-01-23T00:55:48.000000Z",
-  };
+  useEffect(() => {
+    const fetchSupplierData = async () => {
+      try {
+        const response = await fetch("https://backend.ptwpi.co.id/public/api/supplier");
+        const data = await response.json();
+
+        // Check if the response contains the expected structure
+        if (data && data.data && data.data[0]) {
+          setSupplierData(data.data[0]);
+        } else {
+          console.error("Invalid response format from the API");
+        }
+      } catch (error) {
+        console.error("Error fetching supplier data:", error);
+      }
+    };
+
+    fetchSupplierData();
+  }, []);
+
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -66,7 +66,7 @@ export default function DetailSupplier() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content */}
+       {/* Content */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md">
           <div className="col-span-4">
@@ -76,26 +76,90 @@ export default function DetailSupplier() {
           </div>
 
           <div className="col-span-4 md:col-span-3 mb-5">
-            <Card className="p-6">
-              <Typography className="text-lg font-semibold mb-4">
-                {supplierData.company_name}
-              </Typography>
+            {supplierData && (
+              <Card className="p-6">
+                <Typography className="text-lg font-semibold mb-4">
+                  {supplierData.company_name}
+                </Typography>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Typography className="text-gray-700">Alamat:</Typography>
-                  <Typography>{supplierData.address}</Typography>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Typography className="text-gray-700">Alamat:</Typography>
+                    <Typography>{supplierData.address}</Typography>
+                  </div>
+                  <div>
+                    <Typography className="text-gray-700">Telepon:</Typography>
+                    <Typography>{supplierData.company_whatsapp_number}</Typography>
+                  </div>
+                  <div>
+                    <Typography className="text-gray-700">Email:</Typography>
+                    <Typography>{supplierData.company_email}</Typography>
+                  </div>
                 </div>
-                <div>
-                  <Typography className="text-gray-700">Telepon:</Typography>
-                  <Typography>{supplierData.company_whatsapp_number}</Typography>
+
+                {/* Additional Fields */}
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Kategori:</Typography>
+                  <Typography>{supplierData.company_category}</Typography>
                 </div>
-                <div>
-                  <Typography className="text-gray-700">Email:</Typography>
-                  <Typography>{supplierData.company_email}</Typography>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Harga:</Typography>
+                  <Typography>{supplierData.price}</Typography>
                 </div>
-              </div>
-            </Card>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Stok:</Typography>
+                  <Typography>{supplierData.stock}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Volume:</Typography>
+                  <Typography>{supplierData.volume}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Deskripsi:</Typography>
+                  <Typography>{supplierData.description}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Kota:</Typography>
+                  <Typography>{supplierData.city}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Provinsi:</Typography>
+                  <Typography>{supplierData.province}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Kategori:</Typography>
+                  <Typography>{supplierData.category}</Typography>
+                </div>
+
+                {/* Additional Fields */}
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Item Image:</Typography>
+                  <Typography>{supplierData.item_image}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Category ID:</Typography>
+                  <Typography>{supplierData.category_id}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">Province ID:</Typography>
+                  <Typography>{supplierData.province_id}</Typography>
+                </div>
+
+                <div className="mt-4">
+                  <Typography className="text-gray-700">City ID:</Typography>
+                  <Typography>{supplierData.city_id}</Typography>
+                </div>
+              </Card>
+            )}
           </div>
         </div>
       </div>
