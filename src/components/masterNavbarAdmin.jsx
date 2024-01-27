@@ -38,7 +38,7 @@ export default function MasterNavbarAdmin({ setOpenSidebar, openSidebar }) {
 
   const fetchNotification = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/notification/email', {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/notification/email', {
         headers: {
           Authorization: `Bearer ${Cookies.get('authToken')}`
         }

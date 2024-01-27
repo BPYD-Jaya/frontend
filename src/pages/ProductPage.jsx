@@ -11,9 +11,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import axios from "axios";
+import { useParams } from "react-router";
 
 
 export default function ProductPage() {
+  const {pageNumber,id} = useParams();
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
   const [product, setProduct] = useState([])
   const [category, setCategory] = useState([])
@@ -149,6 +151,13 @@ console.log(product);
       };
       const res = await axios.get(url, options);
       setProduct(res.data.data.data);
+      const searchData = res.data.data.data;
+    
+    setProductData(searchData); // Update product data with search results
+    setPaginationData({
+      ...paginationData,
+      data: searchData, // Update pagination data with search results
+    });
     } catch (error) {
       console.error(error.message);
     }
@@ -161,18 +170,15 @@ console.log(product);
       const response = await axios.get(
         `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
         {
-          // headers: {
-          //   Authorization: `Bearer ${Cookies.get("authToken")}`,
-          // },
         }
       );
 
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
-        setFilteredProducts(newData);
+        setProduct(newData);
         setPaginationData({
           ...paginationData,
-          current_page: pageNumber, // Update the current page number
+          current_page: pageNumber,
         });
       } else {
         console.error("Invalid response format:", response);
@@ -181,7 +187,7 @@ console.log(product);
       console.error("Error fetching data:", error);
     }
   };
-
+  
   
   return (
     <div>
