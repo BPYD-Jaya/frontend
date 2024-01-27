@@ -152,7 +152,7 @@ export default function AdminProduct() {
           {filteredProducts.map((item, index) => (
             <MasterCatalogAdmin key={item.id} {...item} />
             ))}
-            <div className="col-span-3">
+            <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
             <MasterPagination onPageChange={handlePageChange} />
             </div>
         </div>
