@@ -28,20 +28,36 @@ export default function ProductPage() {
     }
   }
 
-  const fetchData = async (categoryId) => {
+  const fetchData = async (filters) => {
     try {
-      const url = `https://backend.ptwpi.co.id/api/products?category_id=${categoryId || ''}`;
-      const options = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Access-Control-Allow-Origin': '*',
+      let url = 'https://backend.ptwpi.co.id/api/products';
+
+      if (typeof filters === 'object' && filters !== null) {
+        const params = new URLSearchParams();
+
+        // Handle categories as an array
+        if (Array.isArray(filters.categories)) {
+          filters.categories.forEach(category => {
+            params.append('category_id', parseInt(category, 10));
+          });
         }
-      };
-      const res = await axios.get(url, options);
+
+        if (filters.provinsi) params.append('province_id', parseInt(filters.provinsi, 10));
+        if (filters.kota) params.append('city_id', parseInt(filters.kota, 10));
+        if (filters.terendah !== undefined) params.append('min_price', parseInt(filters.terendah, 10));
+        if (filters.tertinggi !== undefined) params.append('max_price', parseInt(filters.tertinggi, 10));
+
+        url += `?${params.toString()}`;
+      } else if (typeof filters === 'number') {
+        // If filters is a number, it's assumed to be a category_id
+        url += `?category_id=${filters}`;
+      }
+
+      const res = await axios.get(url);
+      console.log(filters)
       setProduct(res.data.data.data);
     } catch (error) {
-      console.error(error.message);
+      console.error('Failed to fetch products:', error.message);
     }
   };
 
@@ -72,6 +88,12 @@ export default function ProductPage() {
   const handleCategoryClick = (categoryId) => {
     setFilteredProduct({ category_id: categoryId });
   };
+
+  const handleFilter = (filters) => {
+    // Use the filters to fetch or filter products
+    fetchData(filters);
+  };
+
   return (
     <div>
       {/* Navbar */}
@@ -198,7 +220,7 @@ export default function ProductPage() {
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
           <div className="md:col-span-1 md:ml-7 px-8 md:px-0">
             <div>
-              <MasterFilterCard />
+              <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
           <div className="md:col-span-2 ">
