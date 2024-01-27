@@ -3,18 +3,16 @@ import React from 'react';
 import { Button } from '@material-tailwind/react';
 
 const MasterPagination = ({ active, onPageChange, totalItems }) => {
-  const totalPages = Math.ceil(totalItems / 20); // 20 items per page
+  const itemsPerPage = 5; // Change this to the desired number of items per page
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  // Responsive maxVisiblePages based on screen width
+  const maxVisiblePages = window.innerWidth >= 640 ? 8 : 5;
 
   const renderPaginationItems = () => {
     const items = [];
-    const displayPages = 5; // Number of pages to display
-
-    let start = Math.max(1, active - Math.floor(displayPages / 2));
-    let end = Math.min(start + displayPages - 1, totalPages);
-
-    if (end - start + 1 < displayPages) {
-      start = Math.max(1, end - displayPages + 1);
-    }
+    let start = Math.max(1, Math.min(active - Math.floor(maxVisiblePages / 2), totalPages - maxVisiblePages + 1));
+    let end = Math.min(start + maxVisiblePages - 1, totalPages);
 
     for (let i = start; i <= end; i++) {
       items.push(
@@ -34,19 +32,19 @@ const MasterPagination = ({ active, onPageChange, totalItems }) => {
   };
 
   return (
-    <div className="flex justify-center items-center space-x-2 overflow-x-auto">
+    <div className="flex items-center gap-4">
       <Button
         className={`mx-1 ${active === 1 ? 'hidden' : 'bg-white text-black-500'}`}
         onClick={() => onPageChange(active - 1)}
       >
-        &#8249;
+        &#8249; Previous
       </Button>
       {renderPaginationItems()}
       <Button
         className={`mx-1 ${active === totalPages ? 'hidden' : 'bg-white text-black-500'}`}
         onClick={() => onPageChange(active + 1)}
       >
-        &#8250;
+        Next &#8250;
       </Button>
     </div>
   );

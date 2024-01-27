@@ -69,7 +69,7 @@ export default function DetailSupplier() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content */}
+       {/* Content */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">

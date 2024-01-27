@@ -34,13 +34,14 @@ import AdminAddNews from "./pages/AdminAddNews";
 import Supplier from "./pages/Supplier";
 import PrivateRoute from "./services/PrivateRoute";
 import DetailSupplier from "./pages/DetailSupplier";
+import EditAbout from "./pages/editAbout";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/produk" element={<ProductPage />} />
-      <Route path="/detail-produk" element={<DetailProduct />} />
+      <Route path="/detail-produk/:id" element={<DetailProduct />} />
       <Route path="/mitra" element={<MitraPage />} />
       <Route path="/blog" element={<NewsPage />} />
       <Route path="/detail-blog/:id" element={<DetailNews />} />
@@ -70,6 +71,7 @@ export default function App() {
       <Route path="/admin-edit-profil" element={<PrivateRoute element={<AdminEditProfile />} />} />
       <Route path="/admin-supplier" element={<PrivateRoute element={<Supplier />} />} />
       <Route path="/admin-detail-supplier/:id" element={<PrivateRoute element={<DetailSupplier />} />} />
+      <Route path="/admin-edit-perusahaan" element={<PrivateRoute element={<EditAbout />} />} />
       {/* <Route path="/master-blog" element={<MasterBlog />} /> */}
       {/* <Route path="/master-tambah-blog" element={<AddMasterBlog />} /> */}
       {/* <Route path="/master-edit-blog" element={<EditMasterBlog />} /> */}

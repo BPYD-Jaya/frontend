@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 export default function AddMasterProduct() {
   const [categoryName, setCategoryName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
@@ -62,7 +61,7 @@ export default function AddMasterProduct() {
       formData.append("category_image", selectedFile);
 
       const response = await Axios.post(
-        "https://backend.ptwpi.co.id/api/categories",
+        "https://backend.ptwpi.co.id/api/categories/create",
         formData,
         {
           headers: {

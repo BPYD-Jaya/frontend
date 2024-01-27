@@ -5,96 +5,137 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
-
-const chartConfig = {
-  type: "bar",
-  height: 400,
-  series: [
-    {
-      name: "Supplier",
-      data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-    },
-  ],
-  options: {
-    chart: {
-      toolbar: {
-        show: false,
-      },
-    },
-    title: {
-      show: "",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    colors: ["#0E57A6"],
-    plotOptions: {
-      bar: {
-        columnWidth: "50%",
-        borderRadius: 2,
-      },
-    },
-    xaxis: {
-      axisTicks: {
-        show: false,
-      },
-      axisBorder: {
-        show: false,
-      },
-      labels: {
-        style: {
-          colors: "#616161",
-          fontSize: "12px",
-          fontFamily: "inherit",
-          fontWeight: 400,
-        },
-      },
-      categories: [
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: "#616161",
-          fontSize: "12px",
-          fontFamily: "inherit",
-          fontWeight: 400,
-        },
-      },
-    },
-    grid: {
-      show: true,
-      borderColor: "#dddddd",
-      strokeDashArray: 5,
-      xaxis: {
-        lines: {
-          show: true,
-        },
-      },
-      padding: {
-        top: 5,
-        right: 20,
-      },
-    },
-    fill: {
-      opacity: 0.8,
-    },
-    tooltip: {
-      theme: "dark",
-    },
-  },
-};
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth"
+import { FaRegSquareCaretLeft } from "react-icons/fa6";
+import Cookies from "js-cookie";
 
 export default function MasterBarChart() {
+  const [result, setResult] = useState([])
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://127.0.0.1:8000/api/dashboard', {
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('authToken')}`
+        }
+      })
+      setResult(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const chartConfig = {
+    type: "bar",
+    height: 200,
+    
+    series: [
+      {
+        name: "Supplier",
+        data: [
+          result[6]?.VALUE ?? 0,
+          result[7]?.VALUE ?? 0,
+          result[8]?.VALUE ?? 0,
+          result[9]?.VALUE ?? 0,
+          result[10]?.VALUE ?? 0,
+          result[11]?.VALUE ?? 0,
+          result[12]?.VALUE ?? 0,
+          result[13]?.VALUE ?? 0,
+          result[14]?.VALUE ?? 0,
+          result[15]?.VALUE ?? 0,
+          result[16]?.VALUE ?? 0,
+          result[17]?.VALUE ?? 0,
+        ],
+      },
+    ],
+    options: {
+      chart: {
+        toolbar: {
+          show: false,
+        },
+      },
+      title: {
+        show: "",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      colors: ["#0E57A6"],
+      plotOptions: {
+        bar: {
+          columnWidth: "50%",
+          borderRadius: 2,
+        },
+      },
+      xaxis: {
+        axisTicks: {
+          show: false,
+        },
+        axisBorder: {
+          show: false,
+        },
+        labels: {
+          style: {
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+          },
+        },
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+          },
+        },
+      },
+      grid: {
+        show: true,
+        borderColor: "#dddddd",
+        strokeDashArray: 5,
+        xaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        padding: {
+          top: 5,
+          right: 20,
+        },
+      },
+      fill: {
+        opacity: 0.8,
+      },
+      tooltip: {
+        theme: "dark",
+      },
+    },
+  };
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <Card>
       <CardHeader

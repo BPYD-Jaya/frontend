@@ -12,13 +12,10 @@ import Cookies from "js-cookie";
 
 export default function MasterCatalogAdmin({
   id,
-  brand,
-  product_name,
-  price,
+  imageUrl,
+  productName,
+  priceRange,
   stock,
-  volume,
-  address,
-  item_image,
   description,
   category_id,
   province_id,
@@ -71,8 +68,8 @@ export default function MasterCatalogAdmin({
       >
         <img
           className="rounded-md"
-          src={item_image}
-          alt={product_name}
+          src={imageUrl}
+          alt={productName}
           // alt="ui/ux review check"
         />
       </CardHeader>
@@ -82,7 +79,7 @@ export default function MasterCatalogAdmin({
           color="blue-gray"
           className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
         >
-          {product_name}
+          {productName}
         </Typography>
         <Typography
           variant="lead"
@@ -90,7 +87,7 @@ export default function MasterCatalogAdmin({
           className="font-bold xl:whitespace-nowrap"
           style={{ fontSize: "0.950rem" }}
         >
-          {price}
+          {priceRange}
         </Typography>
         <div className="flex items-center justify-between mb-4 gap-2">
           <Typography
