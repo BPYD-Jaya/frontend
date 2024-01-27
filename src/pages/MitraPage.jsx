@@ -14,10 +14,34 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import axios from "axios"
 
 export default function MitraPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [province, setProvince] = useState('');
+  const [city, setCity] = useState('');
+  const [provinceData, setProvinceData] = useState([]);
+  const [cityData, setCityData] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    company_name: '',
+    company_email: '',
+    company_phone: '',
+    company_category: '',
+    company_address: '',
+    product_name: '',
+    brand_name: '',
+    stock: '',
+    volume: '',
+    category_id: null,
+    province_id: null,
+    city_id: null,
+    price: null,
+    description: '',
+    item_image: null,
+  })
+  const [category, setCategory] = useState([])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,12 +56,105 @@ export default function MitraPage() {
     };
   }, []);
 
+  const fetchProvince = async () => {
+    try {
+      const res = await axios.get(
+        "https://backend.ptwpi.co.id/api/provinces"
+      );
+      setProvinceData(res.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchProvince();
+  }, )
+
+  useEffect(() => {
+    if(!province) {
+      setCityData([])
+      setCity('')
+      return
+    }
+  }, [])
+
+  const fetchCity = async () => {
+    try {
+      const res = await axios.get(
+        `https://backend.ptwpi.co.id/api/province/${province}`
+      );
+      const data = res.data;
+      setCityData(data)
+      setCity(data.length > 0 ? data[0].id : '')
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  const fetchCategory = async () => {
+    try {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/categories')
+      setCategory(res.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchCity()
+  }, [])
+
+  const handleProvinceChange = (e) => {
+    if(e.target && e.target.value) {
+      setProvince(e.target.value)
+      setCity('')
+    }
+  }
+
+  const handleCityChange = (e) => {
+    if(e.target && e.target.value) {
+      setCity(e.target.value)
+    }
+  }
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
     // Handle the selected file as needed
     console.log(file);
   };
+
+  const handleChange = (e) => {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      })
+  }
+
+  useEffect(() => {
+    fetchCategory()
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "https://backend.ptwpi.co.id/api/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  console.log(formData)
   return (
     <div>
       {/* Navbar */}
@@ -197,18 +314,12 @@ export default function MitraPage() {
                   <Typography className="font-bold text-center">PIC</Typography>
                   <Typography className="font-normal">Name</Typography>
                   <Input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     size="sm"
                     placeholder="Enter your name"
-                    className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
-                    }}
-                  />
-                  <Typography className="font-normal">Email</Typography>
-                  <Input
-                    size="sm"
-                    placeholder="Enter your email"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className:
@@ -223,6 +334,10 @@ export default function MitraPage() {
                   </Typography>
                   <Typography className="font-normal">Company Name</Typography>
                   <Input
+                    type="text"
+                    name="company_name"
+                    value={formData.company_name}
+                    onChange={handleChange}
                     size="sm"
                     placeholder="Enter your name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -233,6 +348,10 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Company Email</Typography>
                   <Input
+                    type="text"
+                    name="company_email"
+                    value={formData.company_email}
+                    onChange={handleChange}
                     size="sm"
                     placeholder="Enter your email"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -245,6 +364,9 @@ export default function MitraPage() {
                     Company Phone Number
                   </Typography>
                   <Input
+                    name="company_phone"
+                    value={formData.company_phone}
+                    onChange={handleChange}
                     type="number"
                     size="sm"
                     placeholder="Enter your number"
@@ -257,28 +379,30 @@ export default function MitraPage() {
                   <Typography className="font-normal">
                     Category Company
                   </Typography>
-                  <Select>
-                    <Option>Material Tailwind HTML</Option>
-                    <Option>Material Tailwind React</Option>
-                    <Option>Material Tailwind Vue</Option>
-                    <Option>Material Tailwind Angular</Option>
-                    <Option>Material Tailwind Svelte</Option>
-                  </Select>
+                  <Input
+                    name="company_category"
+                    value={formData.company_category}
+                    onChange={handleChange}
+                    type="text"
+                    size="sm"
+                    placeholder="Enter your number"
+                    className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className:
+                        "before:content-none after:content-none w-full",
+                    }}
+                  />
                   <Typography className="font-normal">Province</Typography>
-                  <Select>
-                    <Option>Material Tailwind HTML</Option>
-                    <Option>Material Tailwind React</Option>
-                    <Option>Material Tailwind Vue</Option>
-                    <Option>Material Tailwind Angular</Option>
-                    <Option>Material Tailwind Svelte</Option>
+                  <Select onChange={handleProvinceChange} label="Pilih Provinsi" name="province" id="province" value="province">
+                    {provinceData.map(item => (
+                      <Option key={item.id} value={item.id}>{item.province}</Option>
+                    ))}
                   </Select>
                   <Typography className="font-normal">City</Typography>
-                  <Select>
-                    <Option>Material Tailwind HTML</Option>
-                    <Option>Material Tailwind React</Option>
-                    <Option>Material Tailwind Vue</Option>
-                    <Option>Material Tailwind Angular</Option>
-                    <Option>Material Tailwind Svelte</Option>
+                  <Select onChange={handleCityChange} label="Pilih Kota" name="city" id="city" value="city"  disabled={!province}>
+                    {cityData.map(item => (
+                      <Option key={item.id} value={item.id}>{item.city}</Option>
+                    ))}
                   </Select>
                   <Typography className="font-normal">Address</Typography>
                   <Textarea
@@ -347,6 +471,12 @@ export default function MitraPage() {
                         "before:content-none after:content-none w-full",
                     }}
                   />
+                  <Typography className="font-normal">Category</Typography>
+                  <Select label="Pilih Kategori" name="category_id" id="category_id" value="category_id">
+                    {category.map(item => (
+                      <Option key={item.id} value={item.id}>{item.category}</Option>
+                    ))}
+                  </Select>
                   <Typography className="font-normal">Description</Typography>
                   <Textarea
                     size="sm"

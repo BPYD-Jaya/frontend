@@ -15,8 +15,16 @@ import axios from "axios"
 export default function ProductPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
   const [product, setProduct] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+
+  })
   const [category, setCategory] = useState([])
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
+  const [email, setEmail] = useState("")
 
 
   const fetchCategory = async () => {
@@ -28,13 +36,19 @@ export default function ProductPage() {
     }
   }
 
-  const fetchData = async (filters) => {
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    fetchData(pageNumber)
+  }
+
+  const fetchData = async (filters, page = currentPage) => {
     try {
       let url = 'https://backend.ptwpi.co.id/api/products';
+      const params = new URLSearchParams();
 
-      if (typeof filters === 'object' && filters !== null) {
-        const params = new URLSearchParams();
-
+      // Check if filters is an object and has properties
+      if (typeof filters === 'object' && filters !== null && Object.keys(filters).length > 0) {
         // Handle categories as an array
         if (Array.isArray(filters.categories)) {
           filters.categories.forEach(category => {
@@ -42,24 +56,37 @@ export default function ProductPage() {
           });
         }
 
+        // Append other filters
         if (filters.provinsi) params.append('province_id', parseInt(filters.provinsi, 10));
         if (filters.kota) params.append('city_id', parseInt(filters.kota, 10));
         if (filters.terendah !== undefined) params.append('min_price', parseInt(filters.terendah, 10));
         if (filters.tertinggi !== undefined) params.append('max_price', parseInt(filters.tertinggi, 10));
-
-        url += `?${params.toString()}`;
       } else if (typeof filters === 'number') {
         // If filters is a number, it's assumed to be a category_id
-        url += `?category_id=${filters}`;
+        params.append('category_id', filters);
       }
 
-      const res = await axios.get(url);
-      console.log(filters)
-      setProduct(res.data.data.data);
+      // Handle pagination
+      params.append('page', page);
+
+      // Construct the final URL with all parameters
+      url += `?${params.toString()}`;
+
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Access-Control-Allow-Origin': '*',
+        }
+      };
+
+      const res = await axios.get(url, options);
+      setPaginationData(res.data.data); // Assuming this sets the fetched data appropriately
     } catch (error) {
       console.error('Failed to fetch products:', error.message);
     }
   };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +102,7 @@ export default function ProductPage() {
   }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchData(filteredProduct.category_id, currentPage);
     fetchCategory();
   }, [])
 
@@ -93,6 +120,18 @@ export default function ProductPage() {
     // Use the filters to fetch or filter products
     fetchData(filters);
   };
+
+  const handleSubmitNotification = async (e) => {
+    e.preventDefault();
+    const data = {
+      email: email
+    }
+    try {
+      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   return (
     <div>
@@ -225,7 +264,7 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {product.map(item => {
+              {paginationData.data.map((item, idx) => {
                 let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
                 return (
                   <MasterCatalog
@@ -242,7 +281,11 @@ export default function ProductPage() {
           </div>
         </div>
         <div className="flex justify-center items-center   mt-6">
-          <MasterPagination />
+          <MasterPagination
+            active={paginationData.current_page}
+            onPageChange={paginate}
+            totalItems={paginationData.total}
+          />
         </div>
       </div>
 
@@ -264,6 +307,9 @@ export default function ProductPage() {
           <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
             <div className="flex gap-2 w-full">
               <Input
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 size="lg"
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -271,7 +317,7 @@ export default function ProductPage() {
                   className: 'before:content-none after:content-none w-full',
                 }}
               />
-              <Button className="hover:bg-green-400 bg-wpigreen-50">
+              <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
                 Submit
               </Button>
             </div>
