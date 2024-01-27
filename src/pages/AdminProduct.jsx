@@ -12,12 +12,19 @@ import Cookies from "js-cookie";
 import MasterPagination from "../components/masterPagination";
 
 export default function AdminProduct() {
+  const { id } = useParams();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,19 +51,34 @@ export default function AdminProduct() {
     };
 
     fetchData();
-    
+
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
-    
+
     window.addEventListener("resize", handleResize);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [currentPage]);
 
+  useEffect(() => {
+    // Function to filter products based on searchInput
+    const filterProducts = () => {
+      const searchTerm = searchInput.toLowerCase();
+      const filtered = productData.filter((product) => {
+        const productName = product.product_name ? product.product_name.toLowerCase() : "";
+        return productName.includes(searchTerm);
+      });
+      setFilteredProducts(filtered);
+    };
+  
+    // Call filterProducts function whenever searchInput or productData changes
+    filterProducts();
+  }, [searchInput, productData]); // Include searchInput and productData as dependencies
+  
   const handlePageChange = async (pageNumber) => {
     try {
       const response = await axios.get(
@@ -67,10 +89,46 @@ export default function AdminProduct() {
           },
         }
       );
-  
+
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
         setFilteredProducts(newData);
+        setPaginationData({
+          ...paginationData,
+          current_page: pageNumber,
+        });
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        "https://backend.ptwpi.co.id/api/products",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
+          },
+        }
+      );
+  
+      if (response && response.data && response.data.data) {
+        const allProducts = response.data.data;
+        const searchTerm = searchInput.toLowerCase();
+  
+        // Filter products based on search term
+        const filtered = allProducts.filter((product) => {
+          const productName = product.product_name ? product.product_name.toLowerCase() : "";
+          return productName.includes(searchTerm);
+        });
+  
+        // Update filtered products and pagination data
+        setFilteredProducts(filtered);
+        
       } else {
         console.error("Invalid response format:", response);
       }
@@ -80,17 +138,6 @@ export default function AdminProduct() {
   };
   
 
-  const handleSearch = () => {
-    const searchTerm = searchInput.toLowerCase();
-    const filtered = productData.filter((product) => {
-      // Check if the product_name is defined before using toLowerCase
-      const productName = product.product_name ? product.product_name.toLowerCase() : "";
-  
-      return productName.includes(searchTerm);
-    });
-    setFilteredProducts(filtered);
-  };
-  
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -149,22 +196,31 @@ export default function AdminProduct() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-         {filteredProducts.map(item => {
-                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
-                console.log(price)
-                return (
-                <MasterCatalogAdmin
-                  id={item.id}
-                  imageUrl={item.link_image}
-                  brand={item.brand}
-                  productName={item.product_name}
-                  priceRange={price}
-                  wa_link={item.wa_link}
-                />
-              )})}
-            <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
-            <MasterPagination onPageChange={handlePageChange} />
-            </div>
+          {filteredProducts.map((item) => {
+            let price = new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(item.price);
+            console.log(price);
+            return (
+              <MasterCatalogAdmin
+                key={item.id} // Add key prop for each item
+                id={item.id}
+                imageUrl={item.link_image}
+                brand={item.brand}
+                productName={item.product_name}
+                priceRange={price}
+                wa_link={item.wa_link}
+              />
+            );
+          })}
+          <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
+            <MasterPagination
+              active={paginationData.current_page}
+              onPageChange={handlePageChange}
+              totalItems={productData.length} // Pass the total number of items for pagination
+            />
+          </div>
         </div>
       </div>
 

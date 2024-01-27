@@ -1,54 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import MasterFilterCard from '../components/masterFilterCard';
-import MasterCatalog from '../components/masterCatalog';
-import MasterFooter from '../components/masterFooter';
-import MasterPagination from '../components/masterPagination';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import MasterFilterCard from "../components/masterFilterCard";
+import MasterCatalog from "../components/masterCatalog";
+import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import axios from "axios";
+
 
 export default function ProductPage() {
-  
   const catalogItems = [
     {
       imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg',
-      productName: 'Minyak Goreng Curah',
-      priceRange: '$14.00 - $19.00',
-      minOrder: '1000.0 liters',
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg",
+      productName: "Minyak Goreng Curah",
+      priceRange: "$14.00 - $19.00",
+      minOrder: "1000.0 liters",
     },
     {
       imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png',
-      productName: 'Tepung Terigu',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '800.0 kilograms',
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png",
+      productName: "Tepung Terigu",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "800.0 kilograms",
     },
     {
       imageUrl:
-        'https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg',
-      productName: 'Garam Enak',
-      priceRange: '$12.00 - $18.00',
-      minOrder: '1000.0 kilograms',
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg",
+      productName: "Garam Enak",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "1000.0 kilograms",
     },
   ];
 
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchData = async () => {
-    try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/products')
-      setProduct(res.data.data.data)
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
+  console.log("paginationData", paginationData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products",
+          {
+           
+          }
+        );
+
+        if (response && response.data) {
+          const data = response.data.data;
+          setProductData(data.data);
+          setFilteredProducts(data.data);
+        } else {
+          console.error("Invalid response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+}, []);
+console.log(product);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,23 +85,59 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-  console.log(product)
+ 
+
+  const handlePageChange = async (pageNumber) => {
+    try {
+      const response = await axios.get(
+        `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
+        {
+          // headers: {
+          //   Authorization: `Bearer ${Cookies.get("authToken")}`,
+          // },
+        }
+      );
+
+      if (response && response.data && response.data.data) {
+        const newData = response.data.data.data;
+        setFilteredProducts(newData);
+        setPaginationData({
+          ...paginationData,
+          current_page: pageNumber, // Update the current page number
+        });
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleSearch = () => {
+    const searchTerm = searchInput.toLowerCase();
+    const filtered = productData.filter((product) => {
+      // Check if the product_name is defined before using toLowerCase
+      const productName = product.product_name
+        ? product.product_name.toLowerCase()
+        : "";
+
+      return productName.includes(searchTerm);
+    });
+    setFilteredProducts(filtered);
+  };
   return (
     <div>
       {/* Navbar */}
       <div
         className={`bg-wpiblue-50 ${
-          isNavbarFixed ? 'fixed top-0 w-full z-50' : ''
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
         }`}
       >
         <MasterNavbar />
@@ -337,10 +402,13 @@ export default function ProductPage() {
               <input
                 type="text"
                 placeholder="Cari Produk"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
               />
               <button
                 type="button"
+                onClick={handleSearch}
                 className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4 "
               >
                 <FaMagnifyingGlass />
@@ -354,7 +422,7 @@ export default function ProductPage() {
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-                fontSize: '1.em',
+                fontSize: "1.em",
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -371,24 +439,32 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {product.map(item => {
-                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
-                console.log(price)
+              {filteredProducts.map((item) => {
+                let price = new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(item.price);
+                console.log(price);
                 return (
-                <MasterCatalog
-                  id={item.id}
-                  imageUrl={item.link_image}
-                  brand={item.brand}
-                  productName={item.product_name}
-                  priceRange={price}
-                  wa_link={item.wa_link}
-                />
-              )})}
+                  <MasterCatalog
+                    id={item.id}
+                    imageUrl={item.link_image}
+                    brand={item.brand}
+                    productName={item.product_name}
+                    priceRange={price}
+                    wa_link={item.wa_link}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center   mt-6">
-          <MasterPagination />
+        <div className="flex justify-center 2lg:justify-start 2xl:pl-[443px] xl:justify-start xl:pl-[385px] lg:justify-start lg:pl-[323px] items-center   mt-6">
+          <MasterPagination
+            active={paginationData.current_page}
+            onPageChange={handlePageChange}
+            totalItems={productData.length} // Pass the total number of items for pagination
+          />
         </div>
       </div>
 
@@ -414,7 +490,7 @@ export default function ProductPage() {
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none w-full',
+                  className: "before:content-none after:content-none w-full",
                 }}
               />
               <Button className="hover:bg-green-400 bg-wpigreen-50">
