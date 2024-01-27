@@ -57,7 +57,7 @@ export default function MasterNewsAdmin({
   const truncatedContent = content.split(" ").slice(0, 20).join(" ") + "...";
 
   return (
-    <Card className="max-w-[24rem] overflow-hidden">
+    <Card className="max-w-[24rem] overflow-hidden ">
       <CardHeader
         floated={false}
         shadow={false}

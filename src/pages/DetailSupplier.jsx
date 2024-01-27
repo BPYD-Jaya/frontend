@@ -3,17 +3,29 @@ import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterSidebar from "../components/masterSidebar";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function DetailSupplier() {
-  const supplierData = {
-    id: 1,
-    supplierName: "PT BPYD JAYA",
-    address: "Jl. Contoh No. 123",
-    phone: "08123456789",
-    email: "info@bpydjaya.com",
-  };
-
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [productData, setProductData] = useState(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/supplier/" + id
+        );
+        setProductData(response.data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +39,11 @@ export default function DetailSupplier() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (!productData) {
+    // Return loading or error state while waiting for data
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -54,34 +71,123 @@ export default function DetailSupplier() {
 
       {/* Content */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md">
-          <div className="col-span-4">
-            <Typography className="text-3xl font-semibold">
-              Detail Supplier
-            </Typography>
+        <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
+          <Typography className="col-span-2 flex items-center">
+            Detail Supplier
+          </Typography>
+        </div>
+
+        {/* Detail Product */}
+        <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Name</Typography>
+            <span>:</span>
           </div>
-
-          <div className="col-span-4 md:col-span-3 mb-5">
-            <Card className="p-6">
-              <Typography className="text-lg font-semibold mb-4">
-                {supplierData.supplierName}
-              </Typography>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Typography className="text-gray-700">Alamat:</Typography>
-                  <Typography>{supplierData.address}</Typography>
-                </div>
-                <div>
-                  <Typography className="text-gray-700">Telepon:</Typography>
-                  <Typography>{supplierData.phone}</Typography>
-                </div>
-                <div>
-                  <Typography className="text-gray-700">Email:</Typography>
-                  <Typography>{supplierData.email}</Typography>
-                </div>
-              </div>
-            </Card>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_name}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Email</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_whatsapp_number}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Phone Number</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">1</div>
+          <div className="text-red-500 col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Category Company</Typography>
+            <span>:</span>
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Province</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.province}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>City</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.city}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Address</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.address}
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Product Name</Typography>
+            <span>:</span>
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Brand Name</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Stock</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.stock}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Volume</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.volume}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Price</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.price}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Description</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.description}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Image Product</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.item_image}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Name PIC</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.name}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Email PIC</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_email}
           </div>
         </div>
       </div>
