@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import {
-  Button,
-  Card,
-  Checkbox,
-  Typography,
-  Input,
-  Textarea,
-  ButtonGroup,
-  Select,
-  Option,
-} from "@material-tailwind/react";
+import { Button, Typography, Input, Textarea } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import MasterCatalog from "../components/masterCatalog";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import MasterNewsAdmin from "../components/masterNewsAdmin";
 import axios from "axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function AdminEditNews() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [blogData, setBlogData] = useState(null);
-  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  // const [accessToken, setAccessToken] = useState("");
 
   const { id } = useParams();
 
@@ -41,6 +30,14 @@ export default function AdminEditNews() {
     fetchBlogData();
   }, []);
 
+  // useEffect(() => {
+  //   // Misalnya, dapatkan token akses dari penyimpanan lokal
+  //   const token = localStorage.getItem("accessToken");
+  //   if (token) {
+  //     setAccessToken(token);
+  //   }
+  // }, []);
+
   const handleTittleNews = (e) => {
     setBlogData((prevData) => ({
       ...prevData,
@@ -52,13 +49,6 @@ export default function AdminEditNews() {
     setBlogData((prevData) => ({
       ...prevData,
       writer: e.target.value,
-    }));
-  };
-
-  const handleDateNews = (e) => {
-    setBlogData((prevData) => ({
-      ...prevData,
-      date: e.target.value,
     }));
   };
 
@@ -90,6 +80,46 @@ export default function AdminEditNews() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("title", blogData.title);
+      formData.append("writer", blogData.writer);
+      formData.append("content", blogData.content);
+      if (selectedFile) {
+        formData.append("blog_image", selectedFile);
+      }
+
+      // console.log("Data yang dikirim ke server:", Object.fromEntries(formData));
+
+
+      await axios.post(
+        `https://backend.ptwpi.co.id/api/blogs/update/${id}?_method=PATCH`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        }
+      );
+
+      // Menampilkan notifikasi
+      alert("Blog data updated successfully!");
+
+      // Mengarahkan ke halaman admin-blog setelah berhasil memperbarui data
+      navigate("/admin-blog");
+    } catch (error) {
+      console.error("Error updating blog data:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    // Mengarahkan ke halaman admin-blog saat tombol "Batal" ditekan
+    navigate("/admin-blog");
+  };
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -164,24 +194,6 @@ export default function AdminEditNews() {
                 </div>
                 <div className="md:col-span-4">
                   <Typography variant="small" className="">
-                    Tanggal Berita
-                  </Typography>
-                </div>
-                <div className=" md:col-span-4 rounded-lg">
-                  <input
-                    type="date"
-                    size="lg"
-                    placeholder="Masukan Tanggal Berita"
-                    className=" !border-blue-gray-200 focus:!border-blue-900 border w-full px-2 py-2 rounded-md"
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    value={blogData.date}
-                    onChange={handleDateNews}
-                  />
-                </div>
-                <div className="md:col-span-4">
-                  <Typography variant="small" className="">
                     Isi berita
                   </Typography>
                 </div>
@@ -205,9 +217,9 @@ export default function AdminEditNews() {
                   <div className="px-2 md:px-4 pt-2">
                     <div className="overflow-hidden w-full max-w-[500px] md:w-full h-auto">
                       <img
-                        src={blogData.blog_image}
+                        src={blogData.link_image}
                         alt=""
-                        className="w-full h-auto mx-auto"
+                        className="w-full h-auto"
                       />
                     </div>{" "}
                   </div>
@@ -236,18 +248,15 @@ export default function AdminEditNews() {
                   </div>
                 </div>
                 <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-                  <a
-                    href="/admin-blog"
-                    className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+                  <Button className="bg-red-400 flex" onClick={handleCancel}>
+                    Batal
+                  </Button>
+                  <Button
+                    className="bg-wpigreen-50 flex"
+                    onClick={handleSubmit}
                   >
-                    <Button className="bg-red-400 flex">Batal</Button>
-                  </a>
-                  <a
-                    href="/admin-blog"
-                    className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-                  >
-                    <Button className="bg-wpigreen-50 flex">Simpan</Button>
-                  </a>
+                    Simpan
+                  </Button>
                 </div>
               </>
             )}

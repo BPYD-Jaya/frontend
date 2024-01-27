@@ -18,8 +18,12 @@ export default function MasterNewsAdmin({
   date,
   writer,
 }) {
-  const navigate = useNavigate(); // Correct hook usage
-  const formattedDate = new Date(date).toLocaleDateString();
+  const navigate = useNavigate();
+  const formattedDate = new Date(date).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  });
 
   const navigateToDetail = () => {
     navigate(`/admin-detail-blog/${id}`); // Use navigate instead of history.push

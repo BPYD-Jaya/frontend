@@ -129,11 +129,12 @@ export default function DetailNews() {
                 {blogData.title}
               </Typography>
               <span className="">
-                Dibuat oleh {blogData.writer} / {blogData.date}
+                Dibuat oleh {blogData.writer} /{" "}
+                {new Date(blogData.created_at).toLocaleString()}
               </span>
             </div>
             <div className="xl:px-0 px-4 mb-52">
-              <img src={blogData.blog_image} alt="" className="rounded-lg" />
+              <img src={blogData.link_image} alt="" className="rounded-lg" />
               <div className="py-6">
                 <Typography
                   variant="lead"

@@ -445,7 +445,7 @@ export default function AdminEditProduct() {
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             Province
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+          <div className="col-span-12 lg:col-span-9 pb-8 ">
             {/* <Select
               color="indigo"
               size="lg"
@@ -470,7 +470,7 @@ export default function AdminEditProduct() {
                 ))}
             </Select> */}
             <select
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedProvince}
               onChange={(e) => {
                 setSelectedProvince(e.target.value);
@@ -486,7 +486,7 @@ export default function AdminEditProduct() {
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
             City
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+          <div className="col-span-12 lg:col-span-9 pb-8 ">
             {/* <Select
               color="indigo"
               size="lg"
@@ -501,7 +501,7 @@ export default function AdminEditProduct() {
             </Select> */}
 
             <select
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+              className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedCity}
               onChange={(e) => {
                 setSelectedCity(e.target.value);
