@@ -39,10 +39,10 @@ export default function ProductPage() {
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
-    fetchData(pageNumber)
+    fetchData({category_id: filteredProduct.category_id}, pageNumber)
   }
 
-  const fetchData = async (filters, page = currentPage) => {
+  const fetchData = async (filters, page) => {
     try {
       let url = 'https://backend.ptwpi.co.id/api/products';
       const params = new URLSearchParams();
