@@ -149,9 +149,19 @@ export default function AdminProduct() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 bg-white w-auto mr-6 mb-6 pt-6 pb-6 pr-6 pl-6 justify-center items-center rounded-lg shadow-md">
-          {filteredProducts.map((item, index) => (
-            <MasterCatalogAdmin key={item.id} {...item} />
-            ))}
+         {filteredProducts.map(item => {
+                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
+                console.log(price)
+                return (
+                <MasterCatalogAdmin
+                  id={item.id}
+                  imageUrl={item.link_image}
+                  brand={item.brand}
+                  productName={item.product_name}
+                  priceRange={price}
+                  wa_link={item.wa_link}
+                />
+              )})}
             <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
             <MasterPagination onPageChange={handlePageChange} />
             </div>

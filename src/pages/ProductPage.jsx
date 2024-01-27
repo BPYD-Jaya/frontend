@@ -136,7 +136,7 @@ export default function ProductPage() {
         >
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 w-full flex items-center pl-2 justify-start">
                   <img
                     src="assets/semua-kategori.png"
@@ -155,12 +155,16 @@ export default function ProductPage() {
                     Semua Kategori
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/all-categories.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/mineral.png"
@@ -179,12 +183,16 @@ export default function ProductPage() {
                     Mineral
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/daging.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/coal.png"
@@ -203,12 +211,16 @@ export default function ProductPage() {
                     Batubara
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/horticultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/corn.png"
@@ -227,12 +239,16 @@ export default function ProductPage() {
                     Horticurtular
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/agricultural.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/agriculture.png"
@@ -251,12 +267,16 @@ export default function ProductPage() {
                     Agriculture
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/ikan.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a href="#">
-              <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
+              {/* <div className="bg-gradient-to-t w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0  from-wpigreen-50 to-wpiblue-50 rounded-lg py-3 px-2 flex items-center justify-center overflow-hidden text-center">
                 <div className="col-span-1 flex items-center pl-2 justify-start">
                   <img
                     src="assets/aquaculture.png"
@@ -275,7 +295,11 @@ export default function ProductPage() {
                     Aquaculture
                   </Typography>
                 </div>
-              </div>
+              </div> */}
+              <img
+                src="./assets/mine.png"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+              />
             </a>
           </SwiperSlide>
           {/* <SwiperSlide>

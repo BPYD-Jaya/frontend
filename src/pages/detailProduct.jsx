@@ -43,60 +43,10 @@ export default function DetailProduct() {
 
   const TABLE_HEAD = ["Item ", "Value"];
 
-  const TABLE_ROWS = [
-    {
-      item: "Place of Origin",
-      value: "Japan",
-    },
-    {
-      item: "Brand Name",
-      value: "Yamanaka Inc.",
-    },
-    {
-      item: "Model Number",
-      value: "P-004692",
-    },
-    {
-      item: "Storage Type",
-      value: "Frozen",
-    },
-    {
-      item: "Style",
-      value: "FROZEN",
-    },
-    {
-      item: "Spesification",
-      value: "-",
-    },
-    {
-      item: "Shelf Life",
-      value: "Including production date 2 years",
-    },
-    {
-      item: "Manufacturer",
-      value: "YAMANAKA Inc.",
-    },
-    {
-      item: "Ingredients",
-      value: "Scallop",
-    },
-    {
-      item: "Content",
-      value: "L 21-25pc/kg. M 25-30pc/kg. S 31-35pc/kg",
-    },
-    {
-      item: "Address",
-      value: "Harajuku, Japan",
-    },
-    {
-      item: "Instruction for use",
-      value: "Natural decompression recomendation",
-    },
-  ];
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/products/' + id)
+      const res = await axios.get('https://backend.ptwpi.co.id/api/products/' + id)
       setProduct(res.data.data)
     } catch (error) {
       console.error(error.message)
