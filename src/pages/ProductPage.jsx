@@ -30,7 +30,7 @@ export default function ProductPage() {
 
   const fetchData = async (categoryId) => {
     try {
-      const url = `https://backend.ptwpi.co.id/api/products/?category_id=${categoryId || ''}`;
+      const url = `https://backend.ptwpi.co.id/api/products?category_id=${categoryId || ''}`;
       const options = {
         headers: {
           'Content-Type': 'application/json',
@@ -139,11 +139,10 @@ export default function ProductPage() {
           }}
         >
           <SwiperSlide>
-            <a href="#">
+            <a href="/produk">
               <img
                 src="./assets/all-categories.png"
                 className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
-                onClick={() => handleCategoryClick(null)} // Reset to show all products
               />
             </a>
           </SwiperSlide>
