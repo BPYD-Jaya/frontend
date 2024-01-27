@@ -102,7 +102,7 @@ export default function Home() {
                     pendanaan
                   </Typography>
                   <div className="flex justify-center xl:justify-start md:justify-start">
-                    <a href="/login">
+                    <a href="/mitra">
                       <Button
                         className="hover:text-green-100 bg-wpigreen-50 "
                         size="lg"
@@ -153,7 +153,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="https://img.freepik.com/free-vector/tiny-male-female-characters-standing-near-arrow-down-showing-percentage-decrease-financial-reduction-flat-vector-illustration-low-rate-special-offer-loan-discount-price-concept_74855-22568.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=ais"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -177,7 +177,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="https://img.freepik.com/free-vector/people-analyzing-growth-charts-illustrated_23-2148865274.jpg?size=626&ext=jpg&ga=GA1.1.361051616.1622625034&semt=sph"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -200,7 +200,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="https://img.freepik.com/free-vector/business-team-brainstorm-idea-lightbulb-from-jigsaw-working-team-collaboration-enterprise-cooperation-colleagues-mutual-assistance-concept-pinkish-coral-bluevector-isolated-illustration_335657-1651.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=sph"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -239,7 +239,7 @@ export default function Home() {
                 Keunggulan Berbelanja di Warung Pangan Indonesia
               </Typography>
             </div>
-            <div className="flex py-4 gap-3 md:gap-6">
+            <div className="flex py-8 gap-3 md:gap-6">
               <span className="text-[3rem] lg:text-6xl flex md:h-full">
                 <FcApproval />
               </span>
@@ -255,9 +255,8 @@ export default function Home() {
                   <b>Pasokan Produk Berkualitas</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Banyak produk yang ditawarkan terutama produk-produk BUMN
-                  kluster pangan (ID Food) dengan kualitas terjamin dengan harga
-                  yang kompetitif dan pengiriman barang yang tepat waktu.
+                  Banyak produk yang ditawarkan dengan kualitas terjamin dengan
+                  harga yang kompetitif dan pengiriman barang yang tepat waktu.
                 </p>
               </div>
             </div>
@@ -277,9 +276,8 @@ export default function Home() {
                   <b>Digitalisasi Warung</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Solusi lengkap bagi pemilik warung mengelola bisnis mereka,
-                  yang mencakup pencatatan transaksi, manajemen inventori, dan
-                  pemesanan via aplikasi
+                  Solusi lengkap bagi pemilik bisnis, yang mencakup pencatatan
+                  transaksi, manajemen inventori, dan pemesanan via aplikasi
                 </p>
               </div>
             </div>
@@ -335,7 +333,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="./assets/mitra-1.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -366,7 +364,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="./assets/mitra-3.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -392,7 +390,7 @@ export default function Home() {
               <Card className="w-full h-full">
                 <CardHeader color="blue-gray" className="relative h-[200px]">
                   <img
-                    src="./assets/Mitra-WPI.png"
+                    src="./assets/mitra-2.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
@@ -402,7 +400,7 @@ export default function Home() {
                     Naufal Randika Parikesit
                   </Typography>
                   <Typography className="mb-2 text-sm font-medium">
-                    YUDISTIRA
+                    PT FAJAR ISLAM
                   </Typography>
                   <Typography className="text-justify">
                     WPI telah berhasil menawarkan berbagai jenis komoditas

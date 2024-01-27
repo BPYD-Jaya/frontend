@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
-import {
-  Button,
-  Input,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
-import { FaCloudArrowUp } from "react-icons/fa6";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminAddNews() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
 
-  const handleFileUpload = (acceptedFiles) => {
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
     // Handle the selected file as needed
-    setSelectedFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
+    console.log(file);
   };
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*", // Specify accepted file types
-    onDrop: handleFileUpload,
-  });
 
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
@@ -39,6 +32,60 @@ export default function AdminAddNews() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const [formData, setFormData] = useState({
+    category_id: 1,
+    title: "",
+    writer: "",
+    date: "",
+    content: "",
+    blog_image: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataToSend = {
+      blog_category_id: formData.category_id,
+      title: formData.title,
+      writer: formData.writer,
+      content: formData.content,
+    };
+console.log(FormData);
+
+
+    if (selectedFile) {
+      formDataToSend.blog_image = selectedFile;
+    }
+
+    console.log("Data yang dikirim ke server:", formDataToSend);
+
+    await axios.post(`https://backend.ptwpi.co.id/api/blogs`, formDataToSend, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${Cookies.get("authToken")}`,
+      },
+    });
+
+    // Menampilkan notifikasi
+    alert("Blog data added successfully!");
+
+    // Mengarahkan ke halaman admin-blog setelah berhasil memperbarui data
+    navigate("/admin-blog");
+  };
+
+  const handleCancel = () => {
+    // Mengarahkan ke halaman admin-blog saat tombol "Batal" ditekan
+    navigate("/admin-blog");
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -67,11 +114,30 @@ export default function AdminAddNews() {
       {/* Content Product */}
       <div className="flex-grow h-full ml-5 md:ml-80 pt-10 mr-5 md:mr-0">
         <form>
-          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg ">
+          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg">
             <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Tambah Berita
               </Typography>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Kategori Blog
+              </Typography>
+            </div>
+            <div className=" md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Nama Penulis"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                name="writer"
+                value={formData.category_id}
+                onChange={handleChange}
+              />
             </div>
             <div className="md:col-span-4">
               <Typography variant="small" className="">
@@ -87,6 +153,9 @@ export default function AdminAddNews() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
               />
             </div>
             <div className="md:col-span-4">
@@ -103,22 +172,9 @@ export default function AdminAddNews() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-              />
-            </div>
-            <div className="md:col-span-4">
-              <Typography variant="small" className="">
-                Tanggal Berita
-              </Typography>
-            </div>
-            <div className=" md:col-span-4 rounded-lg">
-              <Input
-                type="datetime-local"
-                size="lg"
-                placeholder="Masukan Tanggal Berita"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
+                name="writer"
+                value={formData.writer}
+                onChange={handleChange}
               />
             </div>
             <div className="md:col-span-4">
@@ -129,11 +185,13 @@ export default function AdminAddNews() {
             <div className="md:col-span-4">
               <Textarea
                 color="indigo"
-                // placeholder="Deskripsi Produk"
                 className=" md:col-span-4 w-full rounded-lg !border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
               ></Textarea>
             </div>
             <div className="md:col-span-4">
@@ -141,37 +199,45 @@ export default function AdminAddNews() {
                 Upload Gambar
               </Typography>
             </div>
-            <div
-              className="md:col-span-4 border border-gray-400 w-full rounded-lg  h-[150px] flex justify-center items-center"
-              {...getRootProps()}
-            >
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <div className="text-center flex flex-col items-center">
-                  <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
-                  <p className="mt-2">
-                    {selectedFile
-                      ? `File: ${selectedFile.name}`
-                      : "Drag and drop file here or click to select file"}
-                  </p>
+            <div className="md:col-span-4  rounded-lg border b-2 border-gray-400">
+              <div className="px-2 md:px-4 pt-2">
+                <div className="overflow-hidden w-full max-w-[500px] md:w-full h-auto">
+                  <img
+                    src={formData.blog_image} // Mengubah link_image menjadi formData.blog_image
+                    alt=""
+                    className="w-full h-auto"
+                  />
+                </div>{" "}
+              </div>
+              <div className="md:flex pt-4 pl-2 md:pl-4 pb-6">
+                <div className="md:flex  justify-center items-center">
+                  <Button
+                    color=""
+                    className="bg-wpiblue-50 relative overflow-hidden"
+                  >
+                    <span>
+                      <Typography variant="small">Pilih Gambar</Typography>
+                    </span>
+
+                    <input
+                      type="file"
+                      className="absolute inset-0 opacity-0 cursor-pointer top-0 left-0 h-full w-full"
+                      onChange={handleFileUpload}
+                    />
+                  </Button>
+                  <Typography className="md:pl-4">
+                    {selectedFile ? `${selectedFile.name}` : "No File Chosen"}
+                  </Typography>
                 </div>
-              )}
+              </div>
             </div>
             <div className="md:col-span-4 flex gap-2 justify-end items-center pt-6">
-              <a
-                href="/admin-blog"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
-                <Button className="bg-red-400 flex">Batal</Button>
-              </a>
-              <a
-                href="/admin-blog"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
-                <Button className="bg-wpigreen-50 flex">Simpan</Button>
-              </a>
+              <Button className="bg-red-400 flex" onClick={handleCancel}>
+                Batal
+              </Button>
+              <Button className="bg-wpigreen-50 flex" onClick={handleSubmit}>
+                Simpan
+              </Button>
             </div>
           </div>
         </form>

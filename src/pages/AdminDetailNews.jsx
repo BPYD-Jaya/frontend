@@ -61,12 +61,12 @@ export default function AdminDetailNews() {
                 {blogData.title}
               </Typography>
               <span className="">
-                Dibuat oleh {blogData.writer} /{" "}
-                {new Date(blogData.date).toLocaleString()}
+                Dibuat oleh {blogData.writer} {" "}
+                {new Date(blogData.created_at).toLocaleString()}
               </span>
               <div className=" mb-52 md:col-span-2">
                 <img
-                  src={`https://backend.ptwpi.co.id/storage/${blogData.blog_image}`}
+                  src={blogData.link_image}
                   alt=""
                   className="rounded-lg"
                 />
