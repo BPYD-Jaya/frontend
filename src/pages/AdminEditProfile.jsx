@@ -6,6 +6,7 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 
 export default function AdminEditProfile() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
+  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
@@ -22,6 +23,28 @@ export default function AdminEditProfile() {
     };
   }, []);
 
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      try {
+        const userId = 1; // replace with the actual user ID
+        const response = await fetch(`https://backend.ptwpi.co.id/api/users/${userId}`);
+        const userData = await response.json();
+  
+        if (response.ok) {
+          // Set email in state
+          setEmail(userData.user.email);
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,6 +64,7 @@ export default function AdminEditProfile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          email: email, // Include email in the request
           password: newPassword,
         }),
       });
@@ -96,9 +120,9 @@ export default function AdminEditProfile() {
                 Email
               </Typography>
             </div>
-            <div className=" md:col-span-4 rounded-lg">
+            <div className="md:col-span-4 rounded-lg">
               <Input 
-                disabled
+                value={email}  // Use the email state as the value
                 color="indigo"
                 size="lg"
                 placeholder="Email"
@@ -106,6 +130,7 @@ export default function AdminEditProfile() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                disabled
               />
             </div>
             <div className="md:col-span-4">

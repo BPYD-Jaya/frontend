@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
 import {
-  Avatar,
-  Breadcrumbs,
   Button,
   Input,
   Typography,
 } from "@material-tailwind/react";
 import { FaRegNewspaper } from "react-icons/fa6";
-import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
-import MasterNews from "../components/masterNews";
-import MasterBreadcrumbs from "../components/masterBreadcrumbs";
 import axios from "axios";
 import { useParams } from "react-router";
 

@@ -53,6 +53,7 @@ export default function AdminDetailNews() {
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
+        
         {/* Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
           {blogData && (
