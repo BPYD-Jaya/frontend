@@ -5,14 +5,6 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterSidebar from "../components/masterSidebar";
 
 export default function DetailSupplier() {
-  const supplierData = {
-    id: 1,
-    supplierName: "PT BPYD JAYA",
-    address: "Jl. Contoh No. 123",
-    phone: "08123456789",
-    email: "info@bpydjaya.com",
-  };
-
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
 
   useEffect(() => {
@@ -27,6 +19,28 @@ export default function DetailSupplier() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const supplierData = {
+    id: 2,
+    name: "Rafli",
+    company_whatsapp_number: "08123456789",
+    company_email: "diffuser@email.com",
+    company_name: "Rafli Diffuser",
+    company_category: "Elektronik",
+    brand: "Baygon",
+    product_name: "Diffuser",
+    price: "100.000",
+    stock: 100,
+    volume: "Kilogram",
+    category_id: 1,
+    address: "Royal Arcadia",
+    item_image: "product-1705971347.png",
+    description: "Diffuser Terbaik",
+    province_id: 1,
+    city_id: 1,
+    created_at: "2024-01-23T00:55:48.000000Z",
+    updated_at: "2024-01-23T00:55:48.000000Z",
+  };
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -64,7 +78,7 @@ export default function DetailSupplier() {
           <div className="col-span-4 md:col-span-3 mb-5">
             <Card className="p-6">
               <Typography className="text-lg font-semibold mb-4">
-                {supplierData.supplierName}
+                {supplierData.company_name}
               </Typography>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -74,11 +88,11 @@ export default function DetailSupplier() {
                 </div>
                 <div>
                   <Typography className="text-gray-700">Telepon:</Typography>
-                  <Typography>{supplierData.phone}</Typography>
+                  <Typography>{supplierData.company_whatsapp_number}</Typography>
                 </div>
                 <div>
                   <Typography className="text-gray-700">Email:</Typography>
-                  <Typography>{supplierData.email}</Typography>
+                  <Typography>{supplierData.company_email}</Typography>
                 </div>
               </div>
             </Card>

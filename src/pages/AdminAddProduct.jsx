@@ -15,6 +15,7 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 const { object } = require("prop-types");
+
 export default function AdminAddProduct() {
   const [selectedFile, setSelectedFile] = useState("");
   const [additional_info, setAdditionalInfo] = useState([]);
@@ -47,77 +48,96 @@ export default function AdminAddProduct() {
   const navigate = useNavigate();
 
   const handleFileUpload = (acceptedFiles) => {
-    setSelectedFile(acceptedFiles[0]);
+    // Ambil file pertama dari array acceptedFiles
+    const file = acceptedFiles[0];
+    setSelectedFile(file); // Set state selectedFile dengan file yang dipilih
+    // Opsi tambahan: Update formData state jika diperlukan
+    setFormData({ ...formData, item_image: file });
   };
 
   const handleAdditionalInfoChange = (index, key, value) => {
     const updatedAdditionalInfo = [...formData.additional_info];
-  
+
     if (!updatedAdditionalInfo[index]) {
       updatedAdditionalInfo[index] = {};
     }
-  
+
     // Map inputs with placeholder "item" to index 0 and "value" to index 1
     if (key === "item") {
       updatedAdditionalInfo[index][key] = value;
     } else if (key === "desc") {
       updatedAdditionalInfo[index][key] = value;
     }
-  
+
     setFormData({ ...formData, additional_info: updatedAdditionalInfo });
   };
-  
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const authToken = Cookies.get("authToken");
-
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
 
+      // Initialize FormData
+      const formDataToSend = new FormData();
+
+      // Append text fields to FormData
+      formDataToSend.append('brand', formData.brand);
+      formDataToSend.append('product_name', formData.product_name);
+      formDataToSend.append('price', formData.price);
+      formDataToSend.append('stock', formData.stock);
+      formDataToSend.append('volume', formData.volume);
+      formDataToSend.append('category_id', formData.category_id);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('province_id', formData.province_id);
+      formDataToSend.append('city_id', formData.city_id);
+      formDataToSend.append('address', formData.address);
+      formDataToSend.append('company_name', formData.company);
+      formDataToSend.append('company_category', formData.company_category);
+      formDataToSend.append('company_whatsapp_number', formData.company_whatsapp_number);
+      formDataToSend.append('storage_type', formData.storage_type);
+      formDataToSend.append('packaging', formData.packaging);
+
+      // Append file to FormData
+      if (selectedFile) { // Make sure selectedFile is a File object
+        formDataToSend.append('item_image', selectedFile, selectedFile.name);
+      }
+
+      // Append additional_info array if necessary
+      if (formData.additional_info.length) {
+        formData.additional_info.forEach((info, index) => {
+          formDataToSend.append(`additional_info[${index}][item]`, info.item || '');
+          formDataToSend.append(`additional_info[${index}][desc]`, info.desc || '');
+        });
+      }
+
+      // Log formData for debugging
+      console.log("formData", formData);
+
+      // Axios POST request with FormData
       const response = await Axios.post(
         "https://backend.ptwpi.co.id/api/products",
-        {
-          brand: formData.brand,
-          product_name: formData.product_name,
-          price: formData.price,
-          stock: formData.stock,
-          volume: formData.volume,
-          category_id: formData.category_id,
-          description: formData.description,
-          province_id: formData.province_id,
-          city_id: formData.city_id,
-          address: formData.address,
-          company_name: formData.company,
-          company_category: formData.company_category,
-          company_whatsapp_number: formData.company_whatsapp_number,
-          item_image: formData.item_image,
-          storage_type: formData.storage_type,
-          packaging: formData.packaging,
-          additional_info: formData.additional_info.map((info) => ({
-            item: Object.keys(info)[0], // Assuming the first key represents the item
-            desc: Object.values(info)[0], // Assuming the value corresponds to the item
-          
-          })),
-        },
+        formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            Accept: "*/*",
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
 
+      // Log response from the server
+      console.log("response", response);
       console.log("Data successfully submitted:", response.data);
 
-      // Redirect to /master-province after successful submission
-      // navigate("/admin-produk");
+      // Redirect after successful submission
+      navigate("/admin-produk");
     } catch (error) {
-      console.error("Error submitting data:", error.message);
+      console.error("Error submitting data:", error.response ? error.response.data : error);
     }
   };
 
@@ -219,9 +239,8 @@ export default function AdminAddProduct() {
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <MasterSidebar />
       </div>
@@ -375,7 +394,7 @@ export default function AdminAddProduct() {
                 placeholder="Input Price"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, price: e.target.value })
+                  setFormData({ ...formData, price: parseFloat(e.target.value) })
                 }
               />
             </div>
@@ -393,7 +412,7 @@ export default function AdminAddProduct() {
                 placeholder="Input Stock"
                 value={formData.stock}
                 onChange={(e) =>
-                  setFormData({ ...formData, stock: e.target.value })
+                  setFormData({ ...formData, stock: parseInt(e.target.value) })
                 }
               />
             </div>
@@ -557,7 +576,10 @@ export default function AdminAddProduct() {
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
                 value={selectedProvince}
-                onChange={(value) => setSelectedProvince(value)}
+                onChange={(value) => {
+                  setSelectedProvince(value);
+                  setFormData({ ...formData, province_id: value });
+                }}
               >
                 {provinces.map((province) => (
                   <Option key={province.id} value={province.id}>
@@ -575,6 +597,9 @@ export default function AdminAddProduct() {
                 size="lg"
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                onChange={(value) =>
+                  setFormData({ ...formData, city_id: value })
+                }
               >
                 {cities.map((city) => (
                   <Option key={city.id} value={city.id}>
@@ -587,10 +612,7 @@ export default function AdminAddProduct() {
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               Photo Product
             </div>
-            <div
-              className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
-              {...getRootProps()}
-            >
+            <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
               <input {...getInputProps()} />
               {isDragActive ? (
                 <p>Drop the files here ...</p>
@@ -598,9 +620,7 @@ export default function AdminAddProduct() {
                 <div className="text-center flex flex-col items-center">
                   <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
                   <p className="mt-2">
-                    {selectedFile
-                      ? `File: ${selectedFile.name}`
-                      : "Drag and drop file here or click to select file"}
+                    {selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}
                   </p>
                 </div>
               )}
