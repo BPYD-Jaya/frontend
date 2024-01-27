@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import MasterFilterCard from '../components/masterFilterCard';
-import MasterCatalog from '../components/masterCatalog';
-import MasterFooter from '../components/masterFooter';
-import MasterPagination from '../components/masterPagination';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import MasterFilterCard from "../components/masterFilterCard";
+import MasterCatalog from "../components/masterCatalog";
+import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import axios from "axios";
+
 
 export default function ProductPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -27,6 +28,69 @@ export default function ProductPage() {
       console.error(error.message)
     }
   }
+  const catalogItems = [
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg",
+      productName: "Minyak Goreng Curah",
+      priceRange: "$14.00 - $19.00",
+      minOrder: "1000.0 liters",
+    },
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png",
+      productName: "Tepung Terigu",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "800.0 kilograms",
+    },
+    {
+      imageUrl:
+        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg",
+      productName: "Garam Enak",
+      priceRange: "$12.00 - $18.00",
+      minOrder: "1000.0 kilograms",
+    },
+  ];
+
+ 
+  const [productData, setProductData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
+  console.log("paginationData", paginationData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products",
+          {
+           
+          }
+        );
+
+        if (response && response.data) {
+          const data = response.data.data;
+          setProductData(data.data);
+          setFilteredProducts(data.data);
+        } else {
+          console.error("Invalid response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+}, []);
+console.log(product);
 
   const fetchData = async (categoryId) => {
     try {
@@ -51,10 +115,10 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -90,6 +154,35 @@ export default function ProductPage() {
     }
   };
 
+ 
+
+  const handlePageChange = async (pageNumber) => {
+    try {
+      const response = await axios.get(
+        `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
+        {
+          // headers: {
+          //   Authorization: `Bearer ${Cookies.get("authToken")}`,
+          // },
+        }
+      );
+
+      if (response && response.data && response.data.data) {
+        const newData = response.data.data.data;
+        setFilteredProducts(newData);
+        setPaginationData({
+          ...paginationData,
+          current_page: pageNumber, // Update the current page number
+        });
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  
   return (
     <div>
       {/* Navbar */}
@@ -204,7 +297,7 @@ export default function ProductPage() {
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-                fontSize: '1.em',
+                fontSize: "1.em",
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -237,8 +330,12 @@ export default function ProductPage() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center   mt-6">
-          <MasterPagination />
+        <div className="flex justify-center 2lg:justify-start 2xl:pl-[443px] xl:justify-start xl:pl-[385px] lg:justify-start lg:pl-[323px] items-center   mt-6">
+          <MasterPagination
+            active={paginationData.current_page}
+            onPageChange={handlePageChange}
+            totalItems={productData.length} // Pass the total number of items for pagination
+          />
         </div>
       </div>
 
@@ -264,7 +361,7 @@ export default function ProductPage() {
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none w-full',
+                  className: "before:content-none after:content-none w-full",
                 }}
               />
               <Button className="hover:bg-green-400 bg-wpigreen-50">

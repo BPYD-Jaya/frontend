@@ -12,22 +12,31 @@ import Cookies from "js-cookie";
 import MasterPagination from "../components/masterPagination";
 
 export default function AdminProduct() {
+  const { id } = useParams();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://backend.ptwpi.co.id/api/products",
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("authToken")}`,
-          },
-        }
-      );
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("authToken")}`,
+            },
+          }
+        );
 
       if (response && response.data) {
         const data = response.data.data;
@@ -44,18 +53,36 @@ export default function AdminProduct() {
   useEffect(() => {
     fetchData();
 
+
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
 
+
     window.addEventListener("resize", handleResize);
+
 
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [currentPage]);
 
+  useEffect(() => {
+    // Function to filter products based on searchInput
+    const filterProducts = () => {
+      const searchTerm = searchInput.toLowerCase();
+      const filtered = productData.filter((product) => {
+        const productName = product.product_name ? product.product_name.toLowerCase() : "";
+        return productName.includes(searchTerm);
+      });
+      setFilteredProducts(filtered);
+    };
+  
+    // Call filterProducts function whenever searchInput or productData changes
+    filterProducts();
+  }, [searchInput, productData]); // Include searchInput and productData as dependencies
+  
   const handlePageChange = async (pageNumber) => {
     try {
       const response = await axios.get(
@@ -70,6 +97,10 @@ export default function AdminProduct() {
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
         setFilteredProducts(newData);
+        setPaginationData({
+          ...paginationData,
+          current_page: pageNumber,
+        });
       } else {
         console.error("Invalid response format:", response);
       }
@@ -81,17 +112,27 @@ export default function AdminProduct() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/products?search=${searchInput}`,
+        "https://backend.ptwpi.co.id/api/products",
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("authToken")}`,
           },
         }
       );
-
+  
       if (response && response.data && response.data.data) {
-        const newData = response.data.data.data;
-        setFilteredProducts(newData);
+        const allProducts = response.data.data;
+        const searchTerm = searchInput.toLowerCase();
+  
+        // Filter products based on search term
+        const filtered = allProducts.filter((product) => {
+          const productName = product.product_name ? product.product_name.toLowerCase() : "";
+          return productName.includes(searchTerm);
+        });
+  
+        // Update filtered products and pagination data
+        setFilteredProducts(filtered);
+        
       } else {
         console.error("Invalid response format:", response);
       }
@@ -99,6 +140,7 @@ export default function AdminProduct() {
       console.error("Error fetching data:", error);
     }
   };
+  
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -163,6 +205,7 @@ export default function AdminProduct() {
             console.log(price);
             return (
               <MasterCatalogAdmin
+                key={item.id} // Add key prop for each item
                 id={item.id}
                 imageUrl={item.link_image}
                 brand={item.brand}
@@ -173,7 +216,11 @@ export default function AdminProduct() {
             );
           })}
           <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
-            <MasterPagination onPageChange={handlePageChange} />
+            <MasterPagination
+              active={paginationData.current_page}
+              onPageChange={handlePageChange}
+              totalItems={productData.length} // Pass the total number of items for pagination
+            />
           </div>
         </div>
       </div>
