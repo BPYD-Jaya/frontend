@@ -11,8 +11,10 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
-function Icon({ id, open }) {
+function Icon({ id, open }, priceInRupiah) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +37,9 @@ function Icon({ id, open }) {
 
 export default function DetailProduct() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const { id } = useParams()
+  const [product, setProduct] = useState({})
+  
 
   const TABLE_HEAD = ["Item ", "Value"];
 
@@ -89,6 +94,17 @@ export default function DetailProduct() {
     },
   ];
 
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://127.0.0.1:8000/api/products/' + id)
+      setProduct(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+  const priceInRupiah = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(product.price)
+  // console.log(product)
+  const [price, setPrice] = useState(0)
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -101,11 +117,13 @@ export default function DetailProduct() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  console.log(product)
 
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
+    handlePriceChange(newQuantity)
   };
 
   const handleIncrement = () => {
@@ -124,6 +142,12 @@ export default function DetailProduct() {
 
   const [isCardSticky, setIsCardSticky] = useState(false);
 
+  const handlePriceChange = (newQuantity) => {
+    if(newQuantity > 1) {
+      setPrice(product.price * newQuantity)
+    }
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -137,6 +161,14 @@ export default function DetailProduct() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  
+
+  // console.log(product)
 
   return (
     <div>
@@ -175,14 +207,14 @@ export default function DetailProduct() {
           <div className="grid grid-cols-1 xl:grid-cols-12 mb-16 gap-2 lg:gap-6">
             <div className="col-span-1 lg:col-span-8">
               <div className="border rounded-md">
-                <MasterProductImage />
+                <MasterProductImage image_url={product.link_image} />
               </div>
 
               <>
                 <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                   <AccordionHeader onClick={() => handleOpen(1)}>
                     <Typography variant="h4" className="">
-                      Spesification
+                      Specification
                     </Typography>
                   </AccordionHeader>
                   <AccordionBody>
@@ -207,15 +239,14 @@ export default function DetailProduct() {
                           </tr>
                         </thead>
                         <tbody>
-                          {TABLE_ROWS.map(({ item, value }, index) => (
-                            <tr key={item} className="even:bg-blue-gray-50/50">
+                            <tr className="even:bg-blue-gray-50/50">
                               <td className="p-4 break-words">
                                 <Typography
                                   variant="small"
                                   color="blue-gray"
                                   className="font-normal "
                                 >
-                                  {item}
+                                  Place of Origin
                                 </Typography>
                               </td>
                               <td className="p-4">
@@ -224,11 +255,10 @@ export default function DetailProduct() {
                                   color="blue-gray"
                                   className="font-normal"
                                 >
-                                  {value}
+                                  
                                 </Typography>
                               </td>
                             </tr>
-                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -256,11 +286,11 @@ export default function DetailProduct() {
                       }}
                       className="font-bold"
                     >
-                      Minyak Goreng Curah
+                      {product.brand}
                     </Typography>
                   </div>
                   <div className="border-b py-4">
-                    <p>Minimum order quantity: 1000 liters</p>
+                    <p>{product.product_name}</p>
                     <Typography
                       variant="h2"
                       style={{
@@ -269,7 +299,7 @@ export default function DetailProduct() {
                       }}
                       className="font-bold"
                     >
-                      $14.00 - $19.00
+                      {new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(product.price)}
                     </Typography>
                   </div>
                   <div className="border-b">
@@ -298,10 +328,10 @@ export default function DetailProduct() {
                       </Button>
                     </ButtonGroup>
                   </div>
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <p>1 variation(s) 1000 item(s)</p>
                     <span>$14,000.00</span>
-                  </div>
+                  </div> */}
                   <div className="flex justify-between">
                     <p>Shipping fee</p>
                     <span>To be negotiated</span>
@@ -317,15 +347,10 @@ export default function DetailProduct() {
                     >
                       Total
                     </Typography>
-                    <span
-                      style={{
-                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                        fontWeight: 700,
-                      }}
-                      className="font-bold"
-                    >
-                      $14,000.00
-                    </span>
+                    <span style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 700,
+              }} className="font-bold">{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(price)}</span>
                   </div>
                   <div className="w-full flex items-center justify-center">
                     <a

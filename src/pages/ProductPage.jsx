@@ -1,23 +1,31 @@
-import React, { useState, useEffect } from "react";
-import MasterNavbar from "../components/masterNavbar";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Button, Input, Typography } from "@material-tailwind/react";
-import MasterFilterCard from "../components/masterFilterCard";
-import MasterCatalog from "../components/masterCatalog";
-import MasterFooter from "../components/masterFooter";
-import MasterPagination from "../components/masterPagination";
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { useParams, useNavigate } from "react-router";
-import axios from "axios";
-import Cookies from "js-cookie";
+import React, { useState, useEffect } from 'react';
+import MasterNavbar from '../components/masterNavbar';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import MasterFilterCard from '../components/masterFilterCard';
+import MasterCatalog from '../components/masterCatalog';
+import MasterFooter from '../components/masterFooter';
+import MasterPagination from '../components/masterPagination';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import axios from "axios"
 
 export default function ProductPage() {
   const [catalogItems, setCatalogItems] = useState([]);
 
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [product, setProduct] = useState([])
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://127.0.0.1:8000/api/products')
+      setProduct(res.data.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   const { id } = useParams();
   useEffect(() => {
@@ -59,6 +67,10 @@ export default function ProductPage() {
     };
   }, []);
 
+  useEffect(() => {
+    fetchData()
+  }, [])
+  console.log(product)
   return (
     <div>
       {/* Navbar */}
@@ -339,12 +351,19 @@ export default function ProductPage() {
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {catalogItems.map((item, index) => (
+              {product.map(item => {
+                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
+                console.log(price)
+                return (
                 <MasterCatalog
-                  key={item.id}
-                  {...item}
+                  id={item.id}
+                  imageUrl={item.link_image}
+                  brand={item.brand}
+                  productName={item.product_name}
+                  priceRange={price}
+                  wa_link={item.wa_link}
                 />
-              ))}
+              )})}
             </div>
           </div>
         </div>

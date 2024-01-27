@@ -28,6 +28,7 @@ import {
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { FaAddressBook } from "react-icons/fa";
 
 export default function MasterSidebar() {
   const [open, setOpen] = React.useState(0);
@@ -79,6 +80,16 @@ export default function MasterSidebar() {
                 <FaPeopleGroup className="h-5 w-5" />
               </ListItemPrefix>
               Supplier
+            </ListItem>
+          </Accordion>
+        </a>
+        <a href="/admin-edit-perusahaan">
+          <Accordion>
+            <ListItem>
+              <ListItemPrefix>
+                <FaAddressBook className="h-5 w-5" />
+              </ListItemPrefix>
+              About
             </ListItem>
           </Accordion>
         </a>

@@ -10,11 +10,12 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 export default function MasterCatalog({
-  id,
-  product_name,
-  price,
-  stock,
-  item_image
+  imageUrl,
+  productName,
+  priceRange,
+  wa_link,
+  brand,
+  id
 }) {
   const navigate = useNavigate();
   const navigateToDetail = () => {
@@ -28,8 +29,8 @@ export default function MasterCatalog({
         color="transparent"
         className="object-cover transform scale-100 hover:scale-110 transition-transform duration-300 ease-in-out"
       >
-        <a href="/detail-produk">
-          <img className="rounded-md" src={item_image} alt={product_name} />
+        <a href={`/detail-produk/${id}`}>
+          <img className="rounded-md" src={imageUrl} alt={productName} />
         </a>
       </CardHeader>
       <CardBody className="p-6">
@@ -43,7 +44,19 @@ export default function MasterCatalog({
             fontSize: "19px",
           }}
         >
-          {product_name}
+          {brand}
+        </Typography>
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="text-xl whitespace-nowrap"
+          style={{
+            fontFamily: "'M PLUS Rounded 1c', sans-serif",
+            fontWeight: 600,
+            fontSize: "19px",
+          }}
+        >
+          {productName}
         </Typography>
         <Typography
           variant="lead"
@@ -57,7 +70,7 @@ export default function MasterCatalog({
         >
           {price}
         </Typography>
-        <Typography
+        {/* <Typography
           variant="lead"
           color="black"
           className="font-normal whitespace-nowrap"
@@ -67,10 +80,10 @@ export default function MasterCatalog({
             fontSize: "0.850rem"
           }}
         >
-          Stock: {stock}
-        </Typography>
+          Min. order: {minOrder}
+        </Typography> */}
         <div className="flex items-center justify-center mb-2">
-          <MasterButtonWa />
+          <MasterButtonWa wa_link={wa_link} />
         </div>
       </CardBody>
     </Card>
