@@ -6,8 +6,6 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import MasterButtonWa from "./masterButtonWa";
-import axios from "axios";
-import { useNavigate } from "react-router";
 
 export default function MasterCatalog({
   imageUrl,
@@ -17,10 +15,6 @@ export default function MasterCatalog({
   brand,
   id
 }) {
-  const navigate = useNavigate();
-  const navigateToDetail = () => {
-    navigate(`/detail-produk/${id}`); 
-  };
   return (
     <Card className="lg:max-w-[250px] w-full overflow-hidden">
       <CardHeader
@@ -68,7 +62,7 @@ export default function MasterCatalog({
             fontSize: "0.950rem"
           }}
         >
-          {price}
+          {priceRange}
         </Typography>
         {/* <Typography
           variant="lead"
