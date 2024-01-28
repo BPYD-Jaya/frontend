@@ -16,6 +16,8 @@ export default function MasterCatalogAdmin({
   productName,
   priceRange,
   stock,
+  brand,
+  volume,
   description,
   category_id,
   province_id,
@@ -73,6 +75,13 @@ export default function MasterCatalogAdmin({
         />
       </CardHeader>
       <CardBody className="">
+      <Typography
+          variant="h4"
+          color="blue-gray"
+          className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
+        >
+          {brand}
+        </Typography>
         <Typography
           variant="h4"
           color="blue-gray"
@@ -94,7 +103,7 @@ export default function MasterCatalogAdmin({
             color="gray"
             className="font-normal xl:whitespace-nowrap text-xs"
           >
-            Stock: {stock}
+          Stock: {stock} {volume}
           </Typography>
         </div>
         <div className="grid grid-cols-1 gap-4 w-full mt-4">

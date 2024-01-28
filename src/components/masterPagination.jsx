@@ -1,13 +1,25 @@
-// MasterPagination.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@material-tailwind/react';
 
-const MasterPagination = ({ active, onPageChange, totalItems }) => {
-  const itemsPerPage = 5; // Change this to the desired number of items per page
+const MasterPagination = ({ active, onPageChange, totalItems, itemsOnPage }) => {
+  const itemsPerPage = itemsOnPage; // Change this to the desired number of items per page
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
   // Responsive maxVisiblePages based on screen width
-  const maxVisiblePages = window.innerWidth >= 640 ? 8 : 5;
+
+  const [maxVisiblePages, setMaxVisiblePages] = useState(getMaxVisiblePages());
+
+  function getMaxVisiblePages() {
+    return window.innerWidth >= 640 ? 8 : 3;
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setMaxVisiblePages(getMaxVisiblePages());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const renderPaginationItems = () => {
     const items = [];
@@ -18,9 +30,7 @@ const MasterPagination = ({ active, onPageChange, totalItems }) => {
       items.push(
         <Button
           key={i}
-          className={`mx-1 ${
-            i === active ? 'bg-wpigreen-50 text-white' : 'bg-white text-black-50'
-          }`}
+          className={`mx-1 ${i === active ? 'bg-wpigreen-50 text-white' : 'bg-white text-black-50'}`}
           onClick={() => onPageChange(i)}
         >
           {i}
@@ -32,7 +42,7 @@ const MasterPagination = ({ active, onPageChange, totalItems }) => {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-4">
       <Button
         className={`mx-1 ${active === 1 ? 'hidden' : 'bg-white text-black-500'}`}
         onClick={() => onPageChange(active - 1)}

@@ -19,9 +19,11 @@ import {
 } from "react-icons/fc";
 import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
+import axios from "axios"
 
 export default function Home() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +37,18 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleSubmitNotification = (e) => {
+    e.preventDefault();
+    const data = {
+      email: email
+    }
+    try {
+      const res = axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+    } catch (error) {
+      console.error("Error submitting notification:", error);
+    }
+  }
 
   return (
     <div>
@@ -446,6 +460,9 @@ export default function Home() {
             <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
               <div className="flex gap-2 w-full">
                 <Input
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   size="lg"
                   placeholder="Email address"
                   className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -453,7 +470,7 @@ export default function Home() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button className="hover:bg-green-400 bg-wpigreen-50">
+                <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
                   Submit
                 </Button>
               </div>

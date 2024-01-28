@@ -180,7 +180,6 @@ const MasterCity = () => {
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
                         {data.city}
-                        {data.city}
                       </Typography>
                     </td>
                     <td className="">
@@ -235,7 +234,7 @@ const MasterCity = () => {
               </tbody>
             </table>
           </Card>
-          <div className="mt-4">
+          <div className="mt-4 flex">
             <MasterPagination
               active={paginationData.current_page}
               onPageChange={paginate}
