@@ -10,9 +10,23 @@ import {
 } from "@material-tailwind/react";
 import { TbMessage2Heart } from "react-icons/tb";
 import MasterFooter from "../components/masterFooter";
+import axios from "axios"
 
 export default function AboutPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
+  const [formData, setFormData] = useState({
+    nama: "",
+    email: "",
+    no_hp: "",
+    perihal: "",
+    pertanyaan: "",
+  })
+  const [email, setEmail] = useState("")
+  const [result, setResult] = useState({})
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +41,41 @@ export default function AboutPage() {
     };
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
+      setResult(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const handleFormSubmit = () => {
+    try {
+      const wa_link = result?.[0]?.wa_link + "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
+
+      window.open(wa_link, "_blank")
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const handleSubmitNotification = async (e) => {
+    e.preventDefault();
+    const data = {
+      email: email
+    }
+    try {
+      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
   return (
     <div>
       {/* Navbar */}
@@ -450,6 +499,9 @@ export default function AboutPage() {
                     Nama Lengkap
                   </Typography>
                   <Input
+                    name="nama"
+                    value={formData.nama}
+                    onChange={handleChange}
                     type="text"
                     size="lg"
                     placeholder="Masukan nama lengkap"
@@ -466,6 +518,9 @@ export default function AboutPage() {
                     No Handphone
                   </Typography>
                   <Input
+                    name="no_hp"
+                    value={formData.no_hp}
+                    onChange={handleChange}
                     type="text"
                     size="lg"
                     placeholder="Masukan nomor handphone "
@@ -482,6 +537,9 @@ export default function AboutPage() {
                     Email
                   </Typography>
                   <Input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     type="email"
                     size="lg"
                     placeholder="Masukan email"
@@ -498,6 +556,9 @@ export default function AboutPage() {
                     Perihal
                   </Typography>
                   <Input
+                    name="perihal"
+                    value={formData.perihal}
+                    onChange={handleChange}
                     type="text"
                     size="lg"
                     placeholder="Perihal"
@@ -514,11 +575,14 @@ export default function AboutPage() {
                     Pertanyaan
                   </Typography>
                   <Textarea
+                    name="pertanyaan"
+                    value={formData.pertanyaan}
+                    onChange={handleChange}
                     class="h-full  w-full rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 text-sm font-normal text-blue-gray-700  "
                     placeholder=""
                   ></Textarea>
                 </div>
-                <Button
+                <Button onClick={handleFormSubmit}
                   className="hover:text-green-100 bg-wpigreen-50 mt-2"
                   fullWidth
                 >
@@ -557,6 +621,9 @@ export default function AboutPage() {
           <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
             <div className="flex gap-2 w-full">
               <Input
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 size="lg"
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -564,7 +631,7 @@ export default function AboutPage() {
                   className: "before:content-none after:content-none w-full",
                 }}
               />
-              <Button className="hover:bg-green-400 bg-wpigreen-50">
+              <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
                 Submit
               </Button>
             </div>

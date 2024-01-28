@@ -6,7 +6,7 @@ import {
   Typography,
   Select,
   Option,
-  Textarea,
+  Textarea
 } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
@@ -18,7 +18,7 @@ import { useNavigate } from "react-router";
 const { object } = require("prop-types");
 
 export default function AdminAddProduct() {
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [additional_info, setAdditionalInfo] = useState([]);
   const [descriptionInputs, setDescriptionInputs] = useState(1);
   const [provinces, setProvinces] = useState([]);
@@ -76,16 +76,16 @@ export default function AdminAddProduct() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
-
+  
       // Initialize FormData
       const formDataToSend = new FormData();
-
+  
       // Append text fields to FormData
       formDataToSend.append('brand', formData.brand);
       formDataToSend.append('product_name', formData.product_name);
@@ -102,22 +102,20 @@ export default function AdminAddProduct() {
       formDataToSend.append('company_whatsapp_number', formData.company_whatsapp_number);
       formDataToSend.append('storage_type', formData.storage_type);
       formDataToSend.append('packaging', formData.packaging);
-
+  
       // Append file to FormData
       if (selectedFile) { // Make sure selectedFile is a File object
         formDataToSend.append('item_image', selectedFile, selectedFile.name);
       }
-
+  
       // Append additional_info array if necessary
-      if (formData.additional_info.length) {
-        formData.additional_info.forEach((info, index) => {
-          formDataToSend.append(`additional_info[${index}][item]`, info.item || '');
-        });
-      }
-
-      // Log formData for debugging
-      console.log("formData", formData);
-
+      formData.additional_info.forEach((info, index) => {
+        formDataToSend.append(`additional_info[${index}][${info.item}]`, info.desc || '');
+      });
+  
+      // Log formDataToSend for debugging
+      console.log("formDataToSend", formDataToSend);
+  
       // Axios POST request with FormData
       const response = await Axios.post(
         "https://backend.ptwpi.co.id/api/products",
@@ -129,17 +127,19 @@ export default function AdminAddProduct() {
           },
         }
       );
-
+  
       // Log response from the server
       console.log("response", response);
       console.log("Data successfully submitted:", response.data);
-
+  
       // Redirect after successful submission
       navigate("/admin-produk");
     } catch (error) {
       console.error("Error submitting data:", error.response ? error.response.data : error);
     }
   };
+  
+  
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
@@ -234,6 +234,8 @@ export default function AdminAddProduct() {
     setAdditionalInfo([...additional_info, { item: "", value: "" }]);
     setDescriptionInputs(descriptionInputs + 1);
   };
+
+  // console.log(formData)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -394,7 +396,7 @@ export default function AdminAddProduct() {
                 placeholder="Input Price"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, price: parseFloat(e.target.value) })
+                  setFormData({ ...formData, price: parseFloat(e.target.value) || '' })
                 }
               />
             </div>
@@ -412,7 +414,7 @@ export default function AdminAddProduct() {
                 placeholder="Input Stock"
                 value={formData.stock}
                 onChange={(e) =>
-                  setFormData({ ...formData, stock: parseInt(e.target.value) })
+                  setFormData({ ...formData, stock: parseInt(e.target.value) || '' })
                 }
               />
             </div>

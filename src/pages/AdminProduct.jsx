@@ -63,7 +63,7 @@ export default function AdminProduct() {
     last_page: 1,
     data: [],
   });
-  console.log("paginationData", paginationData);
+
   
   const handlePageChange = async (pageNumber) => {
     try {
@@ -110,6 +110,7 @@ export default function AdminProduct() {
       console.error("Error fetching data:", error);
     }
   };
+
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -171,7 +172,7 @@ export default function AdminProduct() {
               style: "currency",
               currency: "IDR",
             }).format(item.price);
-            console.log(price);
+            // console.log(price);
             return (
               <MasterCatalogAdmin
                 id={item.id}
@@ -180,11 +181,16 @@ export default function AdminProduct() {
                 productName={item.product_name}
                 priceRange={price}
                 wa_link={item.wa_link}
+                stock={item.stock}
+                volume={item.volume}
               />
             );
           })}
           <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
-            <MasterPagination onPageChange={handlePageChange} />
+            <MasterPagination
+              onPageChange={handlePageChange}
+              itemsOnPage={paginationData.per_page}
+              />
           </div>
         </div>
       </div>

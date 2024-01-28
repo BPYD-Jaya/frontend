@@ -1,31 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { useParams } from "react-router";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDetailProduct() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState(null);
-  const authToken = Cookies.get("authToken");
-
+  const navigate = useNavigate();
   const { id } = useParams();
+
+  const TABLE_HEAD = ["Item ", "Value"];
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products/" + id,
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`, // Include the token in the request headers
-            },
-          }
-        );
-        console.log(response);
+        const response = await axios.get("https://backend.ptwpi.co.id/api/products/" + id);
         setProductData(response.data.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -34,6 +27,8 @@ export default function AdminDetailProduct() {
 
     fetchProductData();
   }, []);
+
+  console.log(productData);
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,149 +50,180 @@ export default function AdminDetailProduct() {
     return <p>Loading...</p>;
   }
 
+  const additionalInfo = productData.additional_info || [];
+
+  const handleRedirect = () => {
+    navigate("/admin-edit-produk/" + id);
+  }
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
-          <Typography className="col-span-2 flex items-center">
-            Detail Product
-          </Typography>
+          <Typography className="col-span-2 flex items-center">Detail Product</Typography>
         </div>
 
         {/* Detail Product */}
-        <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
-          {productData && (
-            <>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Product Name
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.product_name}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Brand Name
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.brand}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-                Company Name
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.company_name}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Category Product
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.category_id}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-                Storage Type
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.storage_type}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-                Packaging
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.packaging}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Price
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.price}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Stock
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.stock}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Satuan
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.volume}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Province
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.province_id}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                City
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.city_id}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Address
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.address}
-              </div>
-              {/* <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Spesification
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.additional_info}
-              </div> */}
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-                Description
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-                {productData.description}
-              </div>
-              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-                Photo Product
-                <span>:</span>
-              </div>
-              <div className="col-span-12 lg:col-span-9 pb-4">
-                <img src={productData.item_image} alt="photo product" />
-              </div>
-            </>
-          )}
+        <div className="overflow-x-scroll rounded-xl">
+          <table className="w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography variant="small" color="blue-gray" className="font-normal leading-none opacity-70">
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Company Name
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.company_name}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Company Category
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.company_category}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Company WA Number
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.company_whatsapp_number}
+                  </Typography>
+                </td>
+              </tr>
+              
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Place of Origin
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.city}, {productData.province}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Description
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.description}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Category
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.category}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Stock
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.stock} {productData.volume}
+                  </Typography>
+                </td>
+              </tr>
+              {additionalInfo.map((info, index) => {
+                const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
+                const value = info[key]; // Get the value associated with the key
+
+                return (
+                  <tr className="even:bg-blue-gray-50/50" key={index}>
+                    <td className="p-4 break-words">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {key}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {value}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              })}
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Address
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {productData.address}
+                  </Typography>
+                </td>
+              </tr>
+              <tr className="even:bg-blue-gray-50/50">
+                <td className="p-4 break-words">
+                  <Typography variant="small" color="blue-gray" className="font-normal ">
+                    Photo
+                  </Typography>
+                </td>
+                <td className="p-4">
+                <div className="w-30 h-30">
+                  <img src={productData.link_image} alt="" />
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+          <div className="col-span-12 justify-center items-center">
+            <Button onClick={handleRedirect} className="bg-orange-400 justify-center">
+              Edit
+            </Button>
+          </div>
       </div>
 
       {/* Footer */}

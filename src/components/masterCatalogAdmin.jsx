@@ -17,6 +17,7 @@ export default function MasterCatalogAdmin({
   priceRange,
   stock,
   brand,
+  volume,
   description,
   category_id,
   province_id,
@@ -102,7 +103,7 @@ export default function MasterCatalogAdmin({
             color="gray"
             className="font-normal xl:whitespace-nowrap text-xs"
           >
-            Stock: {stock}
+          Stock: {stock} {volume}
           </Typography>
         </div>
         <div className="grid grid-cols-1 gap-4 w-full mt-4">

@@ -3,12 +3,16 @@ import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import axios from "axios"
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminEditProfile() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [email, setEmail] = useState("");
+  const [data, setData] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,16 +31,13 @@ export default function AdminEditProfile() {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
-        const userId = 1; // replace with the actual user ID
-        const response = await fetch(`https://backend.ptwpi.co.id/api/users/${userId}`);
-        const userData = await response.json();
-  
-        if (response.ok) {
-          // Set email in state
-          setEmail(userData.user.email);
-        } else {
-          console.error("Failed to fetch user data");
-        }
+        const res = await axios.get('https://backend.ptwpi.co.id/api/user', {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        });
+
+        setData(res.data)
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -44,41 +45,40 @@ export default function AdminEditProfile() {
   
     fetchUserData();
   }, []);
+
+
+
   
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
 
     // Check if new password and confirm new password match
     if (newPassword !== confirmNewPassword) {
       // Handle password mismatch (show an error message, etc.)
-      console.error("Passwords do not match");
+      alert("Passwords do not match");
       return;
     }
 
     // Make the API call to update the password
     try {
-      const userId = 1; // replace with the actual user ID
-      const response = await fetch(`https://backend.ptwpi.co.id/api/users/${userId}`, {
-        method: "PUT",
+      const response = await axios.put(`https://backend.ptwpi.co.id/api/users/${data.id}`, 
+      {
+        password: newPassword,
+      },
+      {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get('authToken')}`,
         },
-        body: JSON.stringify({
-          email: email, // Include email in the request
-          password: newPassword,
-        }),
       });
 
-      if (response.ok) {
         // Password updated successfully
         console.log("Password updated successfully");
+        alert("Password updated successfully");
         // Add any additional logic or redirection here
-      } else {
-        // Handle API error (show an error message, etc.)
-        console.error("Failed to update password");
-      }
+        navigate("/dashboard");
     } catch (error) {
-      console.error("Error updating password:", error);
+      console.error("Error updating password:", error.message);
     }
   };
 
@@ -122,7 +122,7 @@ export default function AdminEditProfile() {
             </div>
             <div className="md:col-span-4 rounded-lg">
               <Input 
-                value={email}  // Use the email state as the value
+                defaultValue={data.email}  // Use the email state as the value
                 color="indigo"
                 size="lg"
                 placeholder="Email"
@@ -140,6 +140,7 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 color="indigo"
@@ -158,6 +159,7 @@ export default function AdminEditProfile() {
             </div>
             <div className=" md:col-span-4 rounded-lg">
               <Input
+                type="password"
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}
                 color="indigo"

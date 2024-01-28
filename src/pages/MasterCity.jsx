@@ -180,7 +180,6 @@ const MasterCity = () => {
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
                         {data.city}
-                        
                       </Typography>
                     </td>
                     <td className="">
@@ -240,6 +239,7 @@ const MasterCity = () => {
               active={paginationData.current_page}
               onPageChange={paginate}
               totalItems={paginationData.total}
+              itemsOnPage={paginationData.per_page}
             />
           </div>
         </div>
