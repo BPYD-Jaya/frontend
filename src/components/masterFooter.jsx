@@ -249,7 +249,7 @@ export default function MasterFooter() {
               }}
             >
               {" "}
-              Warung Pangan Indonesia{" "}
+              BPYD JAYA{" "}
             </strong>{" "}
             all rights reserved
           </p>
