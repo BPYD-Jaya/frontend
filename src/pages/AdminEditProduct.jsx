@@ -389,7 +389,7 @@ export default function AdminEditProduct() {
               className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedCategory}
               onChange={(e) => {
-                setSelectedProvince(e.target.value);
+                setSelectedCategory(e.target.value);
               }}
             >
               {categories.map((category) => (
