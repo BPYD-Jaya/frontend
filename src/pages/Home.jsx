@@ -19,7 +19,7 @@ import {
 } from "react-icons/fc";
 import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
-import axios from "axios"
+import axios from "axios";
 
 export default function Home() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -41,14 +41,17 @@ export default function Home() {
   const handleSubmitNotification = (e) => {
     e.preventDefault();
     const data = {
-      email: email
-    }
+      email: email,
+    };
     try {
-      const res = axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+      const res = axios.post(
+        "https://backend.ptwpi.co.id/api/customer/send",
+        data
+      );
     } catch (error) {
       console.error("Error submitting notification:", error);
     }
-  }
+  };
 
   return (
     <div>
@@ -71,12 +74,9 @@ export default function Home() {
             <div className="flex justify-center items-center text-white pl-4 pt-5 md:pt-8 lg:pt-0 lg:pl-10">
               <div className="">
                 <div className="">
-                  <Typography
-                    variant="h3"
-                    className="mb-4 text-center lg:text-left text-xl whitespace-no-wrap md:text-[2rem] md:!leading-10 leading-7"
-                  >
-                    SATU APLIKASI UNTUK
-                    <br /> SEMUA KEBUTUHAN WARUNG
+                  <Typography className="mb-4 text-center lg:text-left font-bold text-xl whitespace-no-wrap md:text-[2rem] md:!leading-10 leading-7">
+                    HUB KOMODITI BERKUALITAS
+                    <br /> UNTUK PERDAGANGAN DOMESTIK & INTERNASIONAL
                   </Typography>
                 </div>
                 <div className="">
@@ -87,33 +87,31 @@ export default function Home() {
                     <span className="mr-4 text-3xl">
                       <FcOk />
                     </span>
-                    Belanja, pencatatan dan penjualan stok bisa semua
+                    Ada Barang Langsung Bayar
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Harga menguntungkan
+                    <FcOk className="mr-4" size={30} /> Terhubung Langsung dengan Buyer dan Supplier
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Diskon dan promo tiap
-                    bulan
+                    <FcOk className="mr-4" size={30} /> Penanganan Logistik Profesional
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Gratis pengiriman
+                    <FcOk className="mr-4" size={30} /> Akses Perdagangan Internasional yang Kuat
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Beragam pilihan
-                    pendanaan
+                    <FcOk className="mr-4" size={30} /> Dimudahkan dengan Basis Teknologi
                   </Typography>
                   <div className="flex justify-center xl:justify-start md:justify-start">
                     <a href="/mitra">
@@ -130,7 +128,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
+            <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full xl:w-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
               <img
                 src="./assets/hero.png"
                 alt="image1"
@@ -142,7 +140,7 @@ export default function Home() {
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7.5vw] md:-translate-y-32 -translate-y-24 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
+        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7vw] md:-translate-y-32 -translate-y-24 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
           <MasterCarousel />
         </div>
 
@@ -470,7 +468,10 @@ export default function Home() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
+                <Button
+                  onClick={handleSubmitNotification}
+                  className="hover:bg-green-400 bg-wpigreen-50"
+                >
                   Submit
                 </Button>
               </div>
