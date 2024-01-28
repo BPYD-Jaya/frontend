@@ -78,14 +78,14 @@ export default function MasterCatalogAdmin({
       <Typography
           variant="h4"
           color="blue-gray"
-          className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
+          className=" 2xl:text-xl lg:text-lg text-sm   font-semibold"
         >
           {brand}
         </Typography>
         <Typography
           variant="h4"
           color="blue-gray"
-          className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
+          className=" 2xl:text-xl lg:text-lg text-sm  font-semibold"
         >
           {productName}
         </Typography>
