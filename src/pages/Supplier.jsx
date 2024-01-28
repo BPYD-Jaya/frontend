@@ -171,7 +171,7 @@ export default function Supplier() {
             </td>
             <td className="p-4">
               <div className="">
-                <a href="/admin-detail-supplier">
+                <a href={`/admin-detail-supplier/${id}`}>
                   <button
                     type="button"
                     className="ml-2 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"

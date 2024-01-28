@@ -70,7 +70,7 @@ export default function App() {
       <Route path="/master-edit-provinsi/:id" element={<PrivateRoute element={<EditMasterProvince />} />} />
       <Route path="/admin-edit-profil" element={<PrivateRoute element={<AdminEditProfile />} />} />
       <Route path="/admin-supplier" element={<PrivateRoute element={<Supplier />} />} />
-      <Route path="/admin-detail-supplier" element={<PrivateRoute element={<DetailSupplier />} />} />
+      <Route path="/admin-detail-supplier/:id" element={<PrivateRoute element={<DetailSupplier />} />} />
       <Route path="/admin-edit-perusahaan" element={<PrivateRoute element={<EditAbout />} />} />
       {/* <Route path="/master-blog" element={<MasterBlog />} /> */}
       {/* <Route path="/master-tambah-blog" element={<AddMasterBlog />} /> */}

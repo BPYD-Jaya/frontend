@@ -63,7 +63,7 @@ export default function AdminProduct() {
     last_page: 1,
     data: [],
   });
-  // console.log("paginationData", paginationData);
+
   
   const handlePageChange = async (pageNumber) => {
     try {
@@ -110,6 +110,7 @@ export default function AdminProduct() {
       console.error("Error fetching data:", error);
     }
   };
+
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -186,7 +187,10 @@ export default function AdminProduct() {
             );
           })}
           <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
-            <MasterPagination  onPageChange={handlePageChange} />
+            <MasterPagination
+              onPageChange={handlePageChange}
+              itemsOnPage={paginationData.per_page}
+              />
           </div>
         </div>
       </div>
