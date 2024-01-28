@@ -6,6 +6,7 @@ import {
   Typography,
   Select,
   Option,
+  Textarea,
 } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
@@ -495,7 +496,7 @@ export default function AdminAddProduct() {
               Description
             </div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Input
+              <Textarea
                 color="indigo"
                 size="lg"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"

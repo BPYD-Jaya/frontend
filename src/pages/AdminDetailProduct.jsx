@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import MasterSidebar from "../components/masterSidebar";
-import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { useParams } from "react-router";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function AdminDetailProduct() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState(null);
+  const authToken = Cookies.get("authToken");
 
   const { id } = useParams();
 
@@ -16,16 +18,22 @@ export default function AdminDetailProduct() {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products/" + id
+          "https://backend.ptwpi.co.id/api/products/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Include the token in the request headers
+            },
+          }
         );
-        setProductData(response.data);
+        console.log(response);
+        setProductData(response.data.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
     };
 
     fetchProductData();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +47,8 @@ export default function AdminDetailProduct() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  console.log(productData);
 
   if (!productData) {
     // Return loading or error state while waiting for data
@@ -78,104 +88,115 @@ export default function AdminDetailProduct() {
 
         {/* Detail Product */}
         <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Product Name
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.product_name}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Brand Name
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.brand}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Company Name
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.company_name}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Category Product
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.category_id}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Storage Type
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.storage_type}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Packaging
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.packaging}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Price
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.price}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Stock
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.stock}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Satuan
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.volume}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Province
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.province_id}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            City
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.city_id}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Address
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.address}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
-            Description
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.description}
-          </div>
-          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
-            Photo Product
-            <span>:</span>
-          </div>
-          <div className="col-span-12 lg:col-span-9 pb-4">
-            <img src={productData.item_image} alt="photo product" />
-          </div>
+          {productData && (
+            <>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Product Name
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.product_name}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Brand Name
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.brand}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+                Company Name
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.company_name}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Category Product
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.category_id}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+                Storage Type
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.storage_type}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+                Packaging
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.packaging}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Price
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.price}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Stock
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.stock}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Satuan
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.volume}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Province
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.province_id}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                City
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.city_id}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Address
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.address}
+              </div>
+              {/* <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Spesification
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.additional_info}
+              </div> */}
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+                Description
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+                {productData.description}
+              </div>
+              <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4">
+                Photo Product
+                <span>:</span>
+              </div>
+              <div className="col-span-12 lg:col-span-9 pb-4">
+                <img src={productData.item_image} alt="photo product" />
+              </div>
+            </>
+          )}
         </div>
       </div>
 

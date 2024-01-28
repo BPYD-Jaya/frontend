@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterSidebar from "../components/masterSidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function DetailSupplier() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [productData, setProductData] = useState(null);
+  const authToken = Cookies.get("authToken");
 
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchProductData = async () => {
+    const fetchSupplierData = async () => {
       try {
         const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/supplier/" + id
+          "https://backend.ptwpi.co.id/api/supplier/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Include the token in the request headers
+            },
+          }
         );
-        setProductData(response.data);
+        console.log(response)
+        setProductData(response.data.data[0]);
       } catch (error) {
-        console.error("Error fetching product data:", error);
+        console.error("Error fetching Supplier data:", error);
       }
     };
 
-    fetchProductData();
-  }, [id]);
+    fetchSupplierData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +47,8 @@ export default function DetailSupplier() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  console.log(productData)
 
   if (!productData) {
     // Return loading or error state while waiting for data
@@ -69,7 +79,7 @@ export default function DetailSupplier() {
         setOpenSidebar={setOpenSidebar}
       />
 
-       {/* Content */}
+      {/* Content */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
           <Typography className="col-span-2 flex items-center">
