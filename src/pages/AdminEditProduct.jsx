@@ -22,10 +22,31 @@ export default function AdminEditProduct() {
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [formData, setFormData] = useState({
+    product_name: "",
+    brand: "",
+    price: "",
+    stock: "",
+    volume: "",
+    address: "",
+    item_image: "",
+    description: "",
+    category_id: "",
+    province_id: "",
+    city_id: "",
+    company: "",
+    company_category: "",
+    company_whatsapp_number: "",
+    storage_type: "",
+    packaging: "",
+    additional_info: [],
+  });
+  const [additional_info, setAdditionalInfo] = useState([])
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -53,13 +74,32 @@ export default function AdminEditProduct() {
   }, []);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await Axios.get(
+          "https://backend.ptwpi.co.id/api/categories"
+        );
+
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching category data:", error);
+      }
+    }
+
+    fetchCategories();
+  }, [])
+
+  useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(
           "https://backend.ptwpi.co.id/api/products/" + id
         );
-        setProductData(response.data);
-        setSelectedProvince(response.data.province_id.toString());
+        setProductData(response.data.data);
+        setFormData({
+          additional_info: response.data.data.additional_info,
+        })
+        setSelectedProvince(response.data.data.province_id.toString());
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
@@ -72,8 +112,25 @@ export default function AdminEditProduct() {
     if (productData) {
       setSelectedProvince(productData.province_id);
       setSelectedCity(productData.city_id);
+      setSelectedCategory(productData.category_id);
     }
   }, [productData]);
+
+  const handleAdditionalInfoChange = (index, key, value) => {
+    const updatedAdditionalInfo = [...formData.additional_info];
+  
+    // If the index doesn't exist in the array, initialize it with an empty object
+    if (!updatedAdditionalInfo[index]) {
+      updatedAdditionalInfo[index] = {};
+    }
+  
+    // Update the specified key with the new value
+    updatedAdditionalInfo[index][key] = value;
+  
+    // Update the formData state with the modified additional_info array
+    setProductData(formData => ({ ...formData, additional_info: updatedAdditionalInfo }));
+  };  
+  
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -96,6 +153,8 @@ export default function AdminEditProduct() {
     };
   }, []);
 
+  // console.log(categories)
+
   useEffect(() => {
     // Fetch cities when the selected province changes
     const fetchCities = async () => {
@@ -104,7 +163,7 @@ export default function AdminEditProduct() {
           `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
         );
 
-        const filteredCities = response.data
+        const filteredCities = response.data.data
           .filter((city) => city.province_id === Number(selectedProvince))
           .map((item, index) => ({
             id: item.id,
@@ -122,66 +181,74 @@ export default function AdminEditProduct() {
       fetchCities();
     }
 
-    console.log(cities);
+    // console.log(cities);
   }, [selectedProvince, provinces]);
 
-  const handleAddDescription = () => {
+  const handleAddSpesification = () => {
+    setFormData({
+      ...formData,
+      additional_info: [...formData.additional_info, { item: "", desc: "" }],
+    });
     setDescriptionInputs(descriptionInputs + 1);
   };
+  
 
   if (!productData) {
     // Return loading state or redirect to a loading page
     return <p>Loading...</p>;
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      // Prepare the data to be sent to the backend
-      const formData = new FormData();
-      formData.append("product_name", productData.product_name);
-      formData.append("brand", productData.brand);
-      formData.append("company_name", productData.company_name);
-      formData.append("category_id", productData.category_id);
-      formData.append("storage_type", productData.storage_type);
-      formData.append("packaging", productData.packaging);
-      formData.append("price", productData.price);
-      formData.append("stock", productData.stock);
-      formData.append("volume", productData.volume);
-      formData.append("province_id", productData.province_id);
-      formData.append("city_id", productData.city_id);
-      formData.append("address", productData.address);
-      formData.append("description", productData.description);
+      const formDataObject = new FormData();
+  
+      formDataObject.append("product_name", productData.product_name);
+      formDataObject.append("brand", productData.brand);
+      formDataObject.append("price", productData.price);
+      formDataObject.append("stock", productData.stock);
+      formDataObject.append("volume", productData.volume);
+      formDataObject.append("address", productData.address);
+      formDataObject.append("description", productData.description);
+      formDataObject.append("category_id", parseInt(selectedCategory));
+      formDataObject.append("province_id", parseInt(selectedProvince));
+      formDataObject.append("city_id", parseInt(selectedCity));
+      formDataObject.append("company", productData.company);
+      formDataObject.append("company_category", productData.company_category);
 
+  
       // Add the selected file to the form data
       if (selectedFile) {
-        formData.append("product_image", selectedFile);
+        formDataObject.append("product_image", selectedFile);
       }
 
-      // Make the API call to update the product
-      const response = await Axios.put(
-        `https://backend.ptwpi.co.id/api/products/${id}`,
-        formData,
+      productData.additional_info.forEach((info, index) => {
+
+        if (info.item || info.desc) {
+          formDataObject.append(`additional_info[${index}][${info.item}]`, info.desc);
+        } else {
+          formDataObject.append(`additional_info[${index}][${Object.keys(info)}]`, Object.values(info));
+        }
+      })
+
+  
+      const response = await Axios.post(
+        `https://backend.ptwpi.co.id/api/products/${id}?_method=PUT`,
+        formDataObject,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
       );
-
-      // Check the response and handle accordingly
-      if (response.status === 200) {
-        // Product updated successfully
-        console.log("Product updated successfully");
-        // Redirect to the product list page or any other page as needed
-        navigate("/admin-produk");
-      } else {
-        // Handle error
-        console.error("Error updating product:", response.data);
-      }
+  
+      console.log("Success:", response);
+      navigate("/admin-produk");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
-  };
+  };  
+  
 
   const handleNameChange = (e) => {
     setProductData((prevData) => ({
@@ -260,7 +327,9 @@ export default function AdminEditProduct() {
     }));
   };
 
-  return (
+  
+
+  return (  
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
       <div
@@ -345,21 +414,23 @@ export default function AdminEditProduct() {
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              value={productData.category_id.toString()}
-              onChange={handleCategoryChange}
+          <div className="col-span-12 lg:col-span-9 pb-8">
+            <select
+              className="border border-gray-400 rounded-md w-full py-3 px-2"
+              value={selectedCategory}
+              onChange={(e) => {
+                setProductData((prevData) => ({
+                  ...prevData,
+                  category_id: e.target.value,
+                }));
+                setSelectedCategory(e.target.value)}}
             >
-              <Option value="1">1</Option>
-              <Option value="2">2</Option>
-              <Option value="3">3</Option>
-              <Option value="4">4</Option>
-              <Option value="5">5</Option>
-            </Select>
+              {categories.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.category}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Storage Type
@@ -446,35 +517,17 @@ export default function AdminEditProduct() {
             Province
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 ">
-            {/* <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              value={selectedProvince}
-              onChange={(value) => {
-                setSelectedProvince(value);
-              }}
-            >
-              {provinces &&
-                provinces.map((province) => (
-                  <Option
-                    {...(province.id.toString() === selectedProvince && {
-                      defaultValue: true,
-                    })}
-                    key={province.id}
-                    value={province.id.toString()}
-                  >
-                    {province.provinceName}
-                  </Option>
-                ))}
-            </Select> */}
             <select
               className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedProvince}
-              onChange={(e) => {
-                setSelectedProvince(e.target.value);
-              }}
+              onChange={
+                (e) => {
+                  setProductData((prevData) => ({
+                    ...prevData,
+                    province_id: e.target.value,
+                  }));
+                  setSelectedProvince(e.target.value)}
+              }
             >
               {provinces.map((province) => (
                 <option key={province.id} value={province.id}>
@@ -504,8 +557,11 @@ export default function AdminEditProduct() {
               className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedCity}
               onChange={(e) => {
-                setSelectedCity(e.target.value);
-              }}
+                setProductData((prevData) => ({
+                  ...prevData,
+                  city_id: e.target.value,
+                }));
+                setSelectedCity(e.target.value)}}
             >
               {cities.map((city) => (
                 <option key={city.id} value={city.id}>
@@ -548,38 +604,52 @@ export default function AdminEditProduct() {
             Specification
           </div>
           <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
-            {[...Array(descriptionInputs)].map((_, index) => (
-              <div className=" w-full" key={index}>
-                <div className="pb-8">
-                  <div className="pb-4">
-                    <Input
-                      color="indigo"
-                      size="lg"
-                      className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                      placeholder="Item"
-                    />
-                  </div>
-                  <div className="pb-4">
-                    <Input
-                      color="indigo"
-                      size="lg"
-                      className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                      placeholder="Value"
-                    />
-                  </div>
+            
+          {formData.additional_info.map((info, index) => {
+          return (
+            <div className="w-full" key={index}>
+              <div className="pb-8">
+                <div className="pb-4">
+                  <Input
+                    color="indigo"
+                    size="lg"
+                    className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    placeholder="Item"
+                    defaultValue={Object.keys(info) ? Object.keys(info)[0] : ""}
+                    onChange={(e) =>
+                      handleAdditionalInfoChange(index, "item", e.target.value)
+                    }
+                    value={info.item}
+                  />
+                </div>
+                <div className="pb-4">
+                  <Input
+                    color="indigo"
+                    size="lg"
+                    className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    placeholder="Value"
+                    defaultValue={Object.values(info)[0]}
+                    onChange={(e) =>
+                      handleAdditionalInfoChange(index, "desc", e.target.value)
+                    }
+                    value={info.desc}
+                  />
                 </div>
               </div>
-            ))}
+            </div>
+          )})}
+
+
           </div>
           <div className="col-span-12 flex justify-center lg:justify-end items-center pb-8">
             <Button
-              onClick={handleAddDescription}
+              onClick={handleAddSpesification}
               className="bg-blue-500 text-white"
             >
               Add Specification
@@ -590,7 +660,7 @@ export default function AdminEditProduct() {
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8">
             <img
-              src={productData.item_image}
+              src={productData.link_image}
               alt="product image"
               className="w-full md:w-auto h-auto md:h-[300px] border"
             />

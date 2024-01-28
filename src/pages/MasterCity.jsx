@@ -239,6 +239,7 @@ const MasterCity = () => {
               active={paginationData.current_page}
               onPageChange={paginate}
               totalItems={paginationData.total}
+              itemsOnPage={paginationData.per_page}
             />
           </div>
         </div>
