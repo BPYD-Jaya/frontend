@@ -148,18 +148,17 @@ export default function DetailProduct() {
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
           <div className="flex gap-2">
             <a
-              href="/blog"
+              href="/produk"
               className="text-wpigreen-50 hover:text-green-900 opacity-60"
             >
               Product
             </a>
             <div>/</div>
-            <a
-              href="#"
+            <p
               className="text-wpigreen-50 hover:text-green-900 font-bold"
             >
-              *Nama produk*
-            </a>
+              {product.product_name}
+            </p>
           </div>
         </div>
 
@@ -365,29 +364,32 @@ export default function DetailProduct() {
                   </div>
                   <div className="border-b">
                     <p className="py-4">Quantity</p>
-                    <ButtonGroup size="md" className=" justify-start pb-4">
-                      <Button
-                        onClick={handleDecrement}
-                        className="hover:bg-blue-400 bg-wpiblue-50"
-                      >
-                        -
-                      </Button>
-                      <input
-                        type="number"
-                        value={quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(parseInt(e.target.value))
-                        }
-                        className="w-[45px] max-w-[45px] border items-center text-center"
-                        placeholder="Qty."
-                      />
-                      <Button
-                        onClick={handleIncrement}
-                        className="hover:bg-blue-400 bg-wpiblue-50"
-                      >
-                        +
-                      </Button>
-                    </ButtonGroup>
+                    <div className="flex flex-row">
+                      <ButtonGroup size="md" className=" justify-start pb-4">
+                        <Button
+                          onClick={handleDecrement}
+                          className="hover:bg-blue-400 bg-wpiblue-50"
+                        >
+                          -
+                        </Button>
+                        <input
+                          type="number"
+                          value={quantity}
+                          onChange={(e) =>
+                            handleQuantityChange(parseInt(e.target.value))
+                          }
+                          className="w-[45px] max-w-[45px] border items-center text-center"
+                          placeholder="Qty."
+                        />
+                        <Button
+                          onClick={handleIncrement}
+                          className="hover:bg-blue-400 bg-wpiblue-50"
+                        >
+                          +
+                        </Button>
+                      </ButtonGroup>
+                        <p className="ml-2 py-1 text-xl">{product.volume}</p>
+                    </div>
                   </div>
                   {/* <div className="flex justify-between">
                     <p>1 variation(s) 1000 item(s)</p>

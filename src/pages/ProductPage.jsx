@@ -25,7 +25,7 @@ export default function ProductPage() {
   const [category, setCategory] = useState([])
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
   const [email, setEmail] = useState("")
-
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchCategory = async () => {
     try {
@@ -39,7 +39,7 @@ export default function ProductPage() {
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
-    fetchData(pageNumber)
+    fetchData({category_id: filteredProduct.category_id}, pageNumber)
   }
 
   const fetchData = async (filters, page = currentPage) => {
@@ -64,6 +64,10 @@ export default function ProductPage() {
       } else if (typeof filters === 'number') {
         // If filters is a number, it's assumed to be a category_id
         params.append('category_id', filters);
+      }
+
+      if (searchQuery) {
+        params.append('search', searchQuery);
       }
 
       // Handle pagination
@@ -131,6 +135,8 @@ export default function ProductPage() {
       console.error(error.message)
     }
   }
+  
+  // console.log(filters)
 
   return (
     <div>
@@ -229,10 +235,13 @@ export default function ProductPage() {
               <input
                 type="text"
                 placeholder="Cari Produk"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
               />
               <button
                 type="button"
+                onClick={() => fetchData({ search: searchQuery })}
                 className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4 "
               >
                 <FaMagnifyingGlass />
@@ -284,6 +293,7 @@ export default function ProductPage() {
             active={paginationData.current_page}
             onPageChange={paginate}
             totalItems={paginationData.total}
+            itemsOnPage={paginationData.per_page}
           />
         </div>
       </div>

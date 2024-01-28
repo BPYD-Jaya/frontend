@@ -22,6 +22,7 @@ export default function AboutPage() {
     pertanyaan: "",
   })
   const [email, setEmail] = useState("")
+  const [result, setResult] = useState({})
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -40,9 +41,18 @@ export default function AboutPage() {
     };
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
+      setResult(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   const handleFormSubmit = () => {
     try {
-      const wa_link = "https://wa.me/628111806159?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
+      const wa_link = result?.[0]?.wa_link + "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
 
       window.open(wa_link, "_blank")
     } catch (error) {
@@ -62,7 +72,10 @@ export default function AboutPage() {
     }
   }
 
-  console.log(formData)
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
   return (
     <div>
       {/* Navbar */}
