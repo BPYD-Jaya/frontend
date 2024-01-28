@@ -1,7 +1,17 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import React from "react";
+import axios from "axios"
 
 export default function MasterNotifEmail() {
+  const [email, setEmail] = React.useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', email)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
   return (
     <div className=" bg-white grid grid-cols-1 lg:grid-cols-12 border rounded-lg shadow-lg py-8 px-4 mx-8 lg:mx-0">
       <div className=" col-span-6 text-center flex items-center justify-center lg:justify-start">
@@ -10,6 +20,9 @@ export default function MasterNotifEmail() {
       <div className=" col-span-6">
         <div className="flex gap-2">
           <Input
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             size="lg"
             placeholder="Email address"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "

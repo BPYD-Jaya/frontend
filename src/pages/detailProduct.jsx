@@ -39,7 +39,7 @@ export default function DetailProduct() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
   const { id } = useParams()
   const [product, setProduct] = useState({})
-  
+  const [email, setEmail] = useState("")
 
   const TABLE_HEAD = ["Item ", "Value"];
 
@@ -48,13 +48,12 @@ export default function DetailProduct() {
     try {
       const res = await axios.get('https://backend.ptwpi.co.id/api/products/' + id)
       setProduct(res.data.data)
+      setPrice(res.data.data.price)
     } catch (error) {
       console.error(error.message)
     }
   }
-  const priceInRupiah = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(product.price)
-  // console.log(product)
-  const [price, setPrice] = useState(0)
+  
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -67,7 +66,7 @@ export default function DetailProduct() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  console.log(product)
+  // console.log(product)
 
   const [quantity, setQuantity] = useState(1);
 
@@ -92,10 +91,11 @@ export default function DetailProduct() {
 
   const [isCardSticky, setIsCardSticky] = useState(false);
 
+  const [price, setPrice] = useState(0)
+
   const handlePriceChange = (newQuantity) => {
-    if(newQuantity > 1) {
-      setPrice(product.price * newQuantity)
-    }
+    
+    setPrice(product.price * newQuantity)
   }
 
   useEffect(() => {
@@ -117,8 +117,19 @@ export default function DetailProduct() {
   }, [])
 
   
+  const additionalInfo = product.additional_info || []
 
-  // console.log(product)
+  const handleSubmitNotification = async (e) => {
+    e.preventDefault()
+    const data = {
+      email: email,
+    }
+    try {
+      const res = await axios.post('https://backend.ptwpi.co.id/api/notifications', data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   return (
     <div>
@@ -205,7 +216,107 @@ export default function DetailProduct() {
                                   color="blue-gray"
                                   className="font-normal"
                                 >
-                                  
+                                  {product.city}, {product.province}
+                                </Typography>
+                              </td>
+                            </tr>
+                            <tr className="even:bg-blue-gray-50/50">
+                              <td className="p-4 break-words">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal "
+                                >
+                                  Description
+                                </Typography>
+                              </td>
+                              <td className="p-4">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {product.description}
+                                </Typography>
+                              </td>
+                            </tr>
+                            <tr className="even:bg-blue-gray-50/50">
+                              <td className="p-4 break-words">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal "
+                                >
+                                  Category
+                                </Typography>
+                              </td>
+                              <td className="p-4">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {product.category}
+                                </Typography>
+                              </td>
+                            </tr>
+                            <tr className="even:bg-blue-gray-50/50">
+                              <td className="p-4 break-words">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal "
+                                >
+                                  Stock
+                                </Typography>
+                              </td>
+                              <td className="p-4">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {product.stock} {product.volume}
+                                </Typography>
+                              </td>
+                            </tr>
+                            {additionalInfo.map((info, index) => {
+                              const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
+                              const value = info[key]; // Get the value associated with the key
+
+                              return (
+                                <tr className="even:bg-blue-gray-50/50" key={index}>
+                                  <td className="p-4 break-words">
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                      {key}
+                                    </Typography>
+                                  </td>
+                                  <td className="p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                      {value}
+                                    </Typography>
+                                  </td>
+                                </tr>
+                              )
+                            })
+                          } 
+                            <tr className="even:bg-blue-gray-50/50">
+                              <td className="p-4 break-words">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal "
+                                >
+                                  Address
+                                </Typography>
+                              </td>
+                              <td className="p-4">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {product.address}
                                 </Typography>
                               </td>
                             </tr>
@@ -304,7 +415,7 @@ export default function DetailProduct() {
                   </div>
                   <div className="w-full flex items-center justify-center">
                     <a
-                      href="http://wa.me/6285710116209?text=mau beli ini dong"
+                      href={product.wa_link}
                       className="w-full"
                     >
                       <Button
@@ -346,6 +457,9 @@ export default function DetailProduct() {
             <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
               <div className="flex gap-2 w-full">
                 <Input
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   size="lg"
                   placeholder="Email address"
                   className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -353,7 +467,7 @@ export default function DetailProduct() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button className="hover:bg-green-400 bg-wpigreen-50">
+                <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
                   Submit
                 </Button>
               </div>

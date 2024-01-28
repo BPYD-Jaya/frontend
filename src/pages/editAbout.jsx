@@ -17,7 +17,7 @@ export default function EditAbout() {
     const [formData, setFormData] = useState({})
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
+            const res = await axios.get('https://backend.ptpwpi.co.id/api/about/1')
             setResult(res.data.data)
         } catch (error) {
             console.error(error.message)

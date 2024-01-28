@@ -15,88 +15,65 @@ import { useParams } from "react-router";
 
 
 export default function ProductPage() {
-  const {pageNumber,id} = useParams();
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
   const [product, setProduct] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+
+  })
   const [category, setCategory] = useState([])
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [email, setEmail] = useState("")
+
 
   const fetchCategory = async () => {
     try {
       const res = await axios.get('https://backend.ptwpi.co.id/api/categories')
       setCategory(res.data)
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   }
-  const catalogItems = [
-    {
-      imageUrl:
-        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/314b8961ed526933bec7c95a57549f6a.jpg",
-      productName: "Minyak Goreng Curah",
-      priceRange: "$14.00 - $19.00",
-      minOrder: "1000.0 liters",
-    },
-    {
-      imageUrl:
-        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/88d6ccdf1da66d1504e2154e80b17aa8.png",
-      productName: "Tepung Terigu",
-      priceRange: "$12.00 - $18.00",
-      minOrder: "800.0 kilograms",
-    },
-    {
-      imageUrl:
-        "https://mitrawarungpangan.bgrlogistics.id/upload/thumbs/512/61daa548d50a8a73156bd1d20015af82.jpeg",
-      productName: "Garam Enak",
-      priceRange: "$12.00 - $18.00",
-      minOrder: "1000.0 kilograms",
-    },
-  ];
 
- 
-  const [productData, setProductData] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  // New state to store pagination data
-  const [paginationData, setPaginationData] = useState({
-    current_page: 1,
-    last_page: 1,
-    data: [],
-  });
-  console.log("paginationData", paginationData);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    fetchData({category_id: filteredProduct.category_id}, pageNumber)
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products",
-          {
-           
-          }
-        );
-
-        if (response && response.data) {
-          const data = response.data.data;
-          setProductData(data.data);
-          setFilteredProducts(data.data);
-        } else {
-          console.error("Invalid response format:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-}, []);
-console.log(product);
-
-  const fetchData = async (categoryId) => {
+  const fetchData = async (filters, page) => {
     try {
-      const url = `https://backend.ptwpi.co.id/api/products?category_id=${categoryId || ''}`;
+      let url = 'https://backend.ptwpi.co.id/api/products';
+      const params = new URLSearchParams();
+
+      // Check if filters is an object and has properties
+      if (typeof filters === 'object' && filters !== null && Object.keys(filters).length > 0) {
+        // Handle categories as an array
+        if (Array.isArray(filters.categories)) {
+          filters.categories.forEach(category => {
+            params.append('category_id', parseInt(category, 10));
+          });
+        }
+
+        // Append other filters
+        if (filters.provinsi) params.append('province_id', parseInt(filters.provinsi, 10));
+        if (filters.kota) params.append('city_id', parseInt(filters.kota, 10));
+        if (filters.terendah !== undefined) params.append('min_price', parseInt(filters.terendah, 10));
+        if (filters.tertinggi !== undefined) params.append('max_price', parseInt(filters.tertinggi, 10));
+      } else if (typeof filters === 'number') {
+        // If filters is a number, it's assumed to be a category_id
+        params.append('category_id', filters);
+      }
+
+      // Handle pagination
+      params.append('page', page);
+
+      // Construct the final URL with all parameters
+      url += `?${params.toString()}`;
+
       const options = {
         headers: {
           'Content-Type': 'application/json',
@@ -104,12 +81,14 @@ console.log(product);
           'Access-Control-Allow-Origin': '*',
         }
       };
+
       const res = await axios.get(url, options);
-      setProduct(res.data.data.data);
+      setPaginationData(res.data.data);
     } catch (error) {
-      console.error(error.message);
+      console.error('Failed to fetch products:', error.message);
     }
   };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,13 +104,13 @@ console.log(product);
   }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchData(filteredProduct.category_id, currentPage);
     fetchCategory();
   }, [])
 
   useEffect(() => {
     if (filteredProduct.category_id) {
-      fetchData(filteredProduct.category_id); // Fetch products filtered by category ID
+      fetchData(filteredProduct.category_id);
     }
   }, [filteredProduct.category_id]);
 
@@ -139,56 +118,22 @@ console.log(product);
     setFilteredProduct({ category_id: categoryId });
   };
 
-  const handleSearch = async () => {
-    try {
-      const url = `https://backend.ptwpi.co.id/api/products?search=${searchKeyword}`;
-      const options = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Access-Control-Allow-Origin': '*',
-        }
-      };
-      const res = await axios.get(url, options);
-      setProduct(res.data.data.data);
-      const searchData = res.data.data.data;
-    
-    setProductData(searchData); // Update product data with search results
-    setPaginationData({
-      ...paginationData,
-      data: searchData, // Update pagination data with search results
-    });
-    } catch (error) {
-      console.error(error.message);
-    }
+  const handleFilter = (filters) => {
+    fetchData(filters);
   };
 
- 
-
-  const handlePageChange = async (pageNumber) => {
-    try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
-        {
-        }
-      );
-
-      if (response && response.data && response.data.data) {
-        const newData = response.data.data.data;
-        setProduct(newData);
-        setPaginationData({
-          ...paginationData,
-          current_page: pageNumber,
-        });
-      } else {
-        console.error("Invalid response format:", response);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const handleSubmitNotification = async (e) => {
+    e.preventDefault();
+    const data = {
+      email: email
     }
-  };
-  
-  
+    try {
+      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   return (
     <div>
       {/* Navbar */}
@@ -257,8 +202,7 @@ console.log(product);
         >
           <SwiperSlide>
             <a href="/produk">
-              <img 
-                alt=''
+              <img
                 src="./assets/all-categories.png"
                 className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
               />
@@ -266,12 +210,14 @@ console.log(product);
           </SwiperSlide>
           {category.map((cat, index) => (
             <SwiperSlide key={index}>
+              <a href="#">
                 <img
                   src={cat.image_url}
                   className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
                   alt={cat.category}
-                  onClick={() => handleCategoryClick(cat.id)} // Use the actual attribute that holds the category ID
+                  onClick={() => handleCategoryClick(cat.id)}
                 />
+              </a>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -315,12 +261,12 @@ console.log(product);
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
           <div className="md:col-span-1 md:ml-7 px-8 md:px-0">
             <div>
-              <MasterFilterCard />
+              <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
           <div className="md:col-span-2 ">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {product.map(item => {
+              {paginationData.data.map((item, idx) => {
                 let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
                 return (
                   <MasterCatalog
@@ -336,11 +282,11 @@ console.log(product);
             </div>
           </div>
         </div>
-        <div className="flex justify-center 2lg:justify-start 2xl:pl-[443px] xl:justify-start xl:pl-[385px] lg:justify-start lg:pl-[323px] items-center   mt-6">
+        <div className="flex justify-center items-center   mt-6">
           <MasterPagination
             active={paginationData.current_page}
-            onPageChange={handlePageChange}
-            totalItems={productData.length} // Pass the total number of items for pagination
+            onPageChange={paginate}
+            totalItems={paginationData.total}
           />
         </div>
       </div>
@@ -363,6 +309,9 @@ console.log(product);
           <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
             <div className="flex gap-2 w-full">
               <Input
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 size="lg"
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -370,7 +319,7 @@ console.log(product);
                   className: "before:content-none after:content-none w-full",
                 }}
               />
-              <Button className="hover:bg-green-400 bg-wpigreen-50">
+              <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
                 Submit
               </Button>
             </div>

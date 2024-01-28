@@ -2,22 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@material-tailwind/react';
 
 const MasterPagination = ({ active, onPageChange, totalItems }) => {
-  const itemsPerPage = 5;
+  const itemsPerPage = 12; // Change this to the desired number of items per page
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const [maxVisiblePages, setMaxVisiblePages] = useState(getMaxVisiblePages());
-
-  function getMaxVisiblePages() {
-    return window.innerWidth >= 640 ? 8 : 3;
-  }
-
-  useEffect(() => {
-    function handleResize() {
-      setMaxVisiblePages(getMaxVisiblePages());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Responsive maxVisiblePages based on screen width
+  const maxVisiblePages = window.innerWidth >= 640 ? 8 : 5;
 
   const renderPaginationItems = () => {
     const items = [];
