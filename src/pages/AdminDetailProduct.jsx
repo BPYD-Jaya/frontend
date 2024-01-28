@@ -193,7 +193,7 @@ export default function AdminDetailProduct() {
                 <span>:</span>
               </div>
               <div className="col-span-12 lg:col-span-9 pb-4">
-                <img src={productData.item_image} alt="photo product" />
+                <img src={productData.link_image} alt="photo product" />
               </div>
             </>
           )}
