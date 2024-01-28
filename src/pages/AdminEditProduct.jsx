@@ -25,7 +25,7 @@ export default function AdminEditProduct() {
   const [cities, setCities] = useState([]);
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, page } = useParams();
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -52,14 +52,40 @@ export default function AdminEditProduct() {
       });
   }, []);
 
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    Axios.get("https://backend.ptwpi.co.id/api/categories", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        // Map the fetched data to match your TABLE_ROWS structure
+        const mappedCategories = response.data.map((category) => ({
+          id: category.id,
+          categoryName: category.category,
+        }));
+
+        // Update the provinces state with the mapped data
+        setCategories(mappedCategories);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products/" + id
+          `https://backend.ptwpi.co.id/api/products/${id}`
         );
-        setProductData(response.data);
-        setSelectedProvince(response.data.province_id.toString());
+        setProductData(response.data.data);
+        console.log(response.data.data);
+        // setSelectedProvince(response.data.province_id.toString());
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
@@ -70,6 +96,7 @@ export default function AdminEditProduct() {
 
   useEffect(() => {
     if (productData) {
+      setSelectedCategory(productData.category_id);
       setSelectedProvince(productData.province_id);
       setSelectedCity(productData.city_id);
     }
@@ -98,13 +125,16 @@ export default function AdminEditProduct() {
 
   useEffect(() => {
     // Fetch cities when the selected province changes
-    const fetchCities = async () => {
+    const fetchCities = async (pageNumber = 1) => {
       try {
         const response = await Axios.get(
-          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
+          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}&page=${pageNumber}`
         );
 
-        const filteredCities = response.data
+        const cityPageData = response.data;
+
+        // Map cities from the current page
+        const currentPageCities = cityPageData.data
           .filter((city) => city.province_id === Number(selectedProvince))
           .map((item, index) => ({
             id: item.id,
@@ -112,17 +142,25 @@ export default function AdminEditProduct() {
             cityName: item.city,
           }));
 
-        setCities(filteredCities);
+        // Add cities from the current page to the list
+        setCities((prevCities) => [...prevCities, ...currentPageCities]);
+
+        // If there are more pages, fetch the next page
+        if (cityPageData.next_page_url !== null) {
+          const nextPageNumber = pageNumber + 1;
+          fetchCities(nextPageNumber);
+        } else {
+        }
       } catch (error) {
         console.error("Error fetching city data:", error);
       }
     };
 
     if (selectedProvince !== null) {
+      // Clear cities when the selected province changes
+      setCities([]);
       fetchCities();
     }
-
-    console.log(cities);
   }, [selectedProvince, provinces]);
 
   const handleAddDescription = () => {
@@ -345,21 +383,21 @@ export default function AdminEditProduct() {
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-            <Select
-              color="indigo"
+          <div className="col-span-12 lg:col-span-9 pb-8">
+            <select
               size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              value={productData.category_id.toString()}
-              onChange={handleCategoryChange}
+              className="border border-gray-400 rounded-md w-full py-3 px-2"
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedProvince(e.target.value);
+              }}
             >
-              <Option value="1">1</Option>
-              <Option value="2">2</Option>
-              <Option value="3">3</Option>
-              <Option value="4">4</Option>
-              <Option value="5">5</Option>
-            </Select>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.categoryName}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Storage Type
@@ -471,6 +509,7 @@ export default function AdminEditProduct() {
             </Select> */}
             <select
               className="border border-gray-400 rounded-md w-full py-3 px-2"
+              size="lg"
               value={selectedProvince}
               onChange={(e) => {
                 setSelectedProvince(e.target.value);
@@ -502,6 +541,7 @@ export default function AdminEditProduct() {
 
             <select
               className="border border-gray-400 rounded-md w-full py-3 px-2"
+              size="lg"
               value={selectedCity}
               onChange={(e) => {
                 setSelectedCity(e.target.value);
