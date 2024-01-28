@@ -14,6 +14,7 @@ import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function AdminEditProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -66,7 +67,7 @@ export default function AdminEditProduct() {
     };
 
     fetchProductData();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (productData) {
@@ -159,11 +160,12 @@ export default function AdminEditProduct() {
 
       // Make the API call to update the product
       const response = await Axios.put(
-        `https://backend.ptwpi.co.id/api/products/${id}`,
+        `https://backend.ptwpi.co.id/api/products/${id}?_method=PATCH`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${Cookies.get("authToken")}`,
           },
         }
       );
@@ -306,7 +308,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Product Name"
-              value={productData.product_name}
+              value={productData.data.product_name}
               onChange={handleNameChange}
             />
           </div>
@@ -322,7 +324,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Brand Name"
-              value={productData.brand}
+              value={productData.data.brand}
               onChange={handleBrandChange}
             />
           </div>
@@ -338,7 +340,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Company Name"
-              value={productData.company_name}
+              value={productData.data.company_name}
               onChange={handleCompanyNameChange}
             />
           </div>
@@ -351,7 +353,11 @@ export default function AdminEditProduct() {
               size="lg"
               outline="outline-1 focus:outline-1"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              value={productData.category_id.toString()}
+              value={
+                productData.data.category_id
+                  ? productData.data.category_id.toString()
+                  : ""
+              }
               onChange={handleCategoryChange}
             >
               <Option value="1">1</Option>
@@ -370,7 +376,7 @@ export default function AdminEditProduct() {
               size="lg"
               outline="outline-1 focus:outline-1"
               className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-              value={productData.storage_type}
+              value={productData.data.storage_type}
               onChange={handleStorageChange}
             >
               <Option value="Dry">Dry</Option>
@@ -389,7 +395,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Packaging"
-              value={productData.packaging}
+              value={productData.data.packaging}
               onChange={handlePackaging}
             />
           </div>
@@ -406,7 +412,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Price"
-              value={productData.price}
+              value={productData.data.price}
               onChange={handlePrice}
             />
           </div>
@@ -422,7 +428,7 @@ export default function AdminEditProduct() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              value={productData.stock}
+              value={productData.data.stock}
               onChange={handleStock}
             />
           </div>
@@ -438,7 +444,7 @@ export default function AdminEditProduct() {
                 className: "before:content-none after:content-none",
               }}
               placeholder="Input Satuan"
-              value={productData.volume}
+              value={productData.data.volume}
               onChange={handleVolume}
             />
           </div>
@@ -525,7 +531,7 @@ export default function AdminEditProduct() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              value={productData.address}
+              value={productData.data.address}
               onChange={handleAddress}
             />
           </div>
@@ -540,7 +546,7 @@ export default function AdminEditProduct() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              value={productData.description}
+              value={productData.data.description}
               onChange={handleDescription}
             />
           </div>
@@ -590,7 +596,7 @@ export default function AdminEditProduct() {
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8">
             <img
-              src={productData.item_image}
+              src={productData.data.item_image}
               alt="product image"
               className="w-full md:w-auto h-auto md:h-[300px] border"
             />
@@ -611,21 +617,16 @@ export default function AdminEditProduct() {
               </Typography>
             </div>
           </div>
-          <div className="col-span-12 flex justify-end items-center">
+          <div className="col-span-12 flex justify-end items-center gap-2">
             <a
               href="/admin-produk"
               className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
             >
               <Button className="bg-red-400 flex">Batal</Button>
             </a>
-            <a
-              href="/admin-produk"
-              className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-            >
-              <Button onClick={handleSubmit} className="bg-wpigreen-50 flex">
-                Simpan
-              </Button>
-            </a>
+            <Button onClick={handleSubmit} className="bg-wpigreen-50 flex">
+              Simpan
+            </Button>
           </div>
         </div>
       </div>

@@ -1,12 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterSidebar from "../components/masterSidebar";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function DetailSupplier() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [supplierData, setSupplierData] = useState(null);
+  const [productData, setProductData] = useState(null);
+  const authToken = Cookies.get("authToken");
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchSupplierData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/supplier/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Include the token in the request headers
+            },
+          }
+        );
+        console.log(response)
+        setProductData(response.data.data[0]);
+      } catch (error) {
+        console.error("Error fetching Supplier data:", error);
+      }
+    };
+
+    fetchSupplierData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,26 +48,12 @@ export default function DetailSupplier() {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchSupplierData = async () => {
-      try {
-        const response = await fetch("https://backend.ptwpi.co.id/public/api/supplier");
-        const data = await response.json();
+  console.log(productData)
 
-        // Check if the response contains the expected structure
-        if (data && data.data && data.data[0]) {
-          setSupplierData(data.data[0]);
-        } else {
-          console.error("Invalid response format from the API");
-        }
-      } catch (error) {
-        console.error("Error fetching supplier data:", error);
-      }
-    };
-
-    fetchSupplierData();
-  }, []);
-
+  if (!productData) {
+    // Return loading or error state while waiting for data
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -66,100 +79,125 @@ export default function DetailSupplier() {
         setOpenSidebar={setOpenSidebar}
       />
 
-       {/* Content */}
+      {/* Content */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
-        <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md">
-          <div className="col-span-4">
-            <Typography className="text-3xl font-semibold">
-              Detail Supplier
-            </Typography>
+        <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
+          <Typography className="col-span-2 flex items-center">
+            Detail Supplier
+          </Typography>
+        </div>
+
+        {/* Detail Product */}
+        <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Name</Typography>
+            <span>:</span>
           </div>
-
-          <div className="col-span-4 md:col-span-3 mb-5">
-            {supplierData && (
-              <Card className="p-6">
-                <Typography className="text-lg font-semibold mb-4">
-                  {supplierData.company_name}
-                </Typography>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Typography className="text-gray-700">Alamat:</Typography>
-                    <Typography>{supplierData.address}</Typography>
-                  </div>
-                  <div>
-                    <Typography className="text-gray-700">Telepon:</Typography>
-                    <Typography>{supplierData.company_whatsapp_number}</Typography>
-                  </div>
-                  <div>
-                    <Typography className="text-gray-700">Email:</Typography>
-                    <Typography>{supplierData.company_email}</Typography>
-                  </div>
-                </div>
-
-                {/* Additional Fields */}
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Kategori:</Typography>
-                  <Typography>{supplierData.company_category}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Harga:</Typography>
-                  <Typography>{supplierData.price}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Stok:</Typography>
-                  <Typography>{supplierData.stock}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Volume:</Typography>
-                  <Typography>{supplierData.volume}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Deskripsi:</Typography>
-                  <Typography>{supplierData.description}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Kota:</Typography>
-                  <Typography>{supplierData.city}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Provinsi:</Typography>
-                  <Typography>{supplierData.province}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Kategori:</Typography>
-                  <Typography>{supplierData.category}</Typography>
-                </div>
-
-                {/* Additional Fields */}
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Item Image:</Typography>
-                  <Typography>{supplierData.item_image}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Category ID:</Typography>
-                  <Typography>{supplierData.category_id}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">Province ID:</Typography>
-                  <Typography>{supplierData.province_id}</Typography>
-                </div>
-
-                <div className="mt-4">
-                  <Typography className="text-gray-700">City ID:</Typography>
-                  <Typography>{supplierData.city_id}</Typography>
-                </div>
-              </Card>
-            )}
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_name}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Email</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_whatsapp_number}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Company Phone Number</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">1</div>
+          <div className="text-red-500 col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Category Company</Typography>
+            <span>:</span>
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Province</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.province}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>City</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.city}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Address</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.address}
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Product Name</Typography>
+            <span>:</span>
+          </div>
+          <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Brand Name</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_category}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Stock</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.stock}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Volume</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.volume}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Price</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.price}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Description</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.description}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Image Product</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.item_image}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Name PIC</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.name}
+          </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
+            <Typography>Email PIC</Typography>
+            <span>:</span>
+          </div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
+            {productData.company_email}
           </div>
         </div>
       </div>

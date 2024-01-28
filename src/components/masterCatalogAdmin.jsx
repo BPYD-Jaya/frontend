@@ -27,7 +27,6 @@ export default function MasterCatalogAdmin({
   storage_type,
   packaging,
   additional_info,
-  
 }) {
   const navigate = useNavigate();
   const navigateToDetail = () => {
@@ -85,7 +84,7 @@ export default function MasterCatalogAdmin({
         <Typography
           variant="h4"
           color="blue-gray"
-          className=" 2xl:text-xl lg:text-lg text-sm xl:whitespace-nowrap font-semibold"
+          className=" 2xl:text-xl lg:text-lg text-sm  font-semibold"
         >
           {productName}
         </Typography>
@@ -103,14 +102,14 @@ export default function MasterCatalogAdmin({
             color="gray"
             className="font-normal xl:whitespace-nowrap text-xs"
           >
-           Stock: {stock}
+            Stock: {stock}
           </Typography>
         </div>
         <div className="grid grid-cols-1 gap-4 w-full mt-4">
           <button
             type="button"
             className="bg-wpiblue-50 text-white font-bold h-10 rounded-md w-full"
-            onClick={navigateToDetail}
+            onClick={() => navigateToDetail(id)}
           >
             <div className="flex justify-center items-center gap-3">
               <svg
