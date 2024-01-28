@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-import MasterNavbar from "../components/masterNavbar";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Button, Input, Typography } from "@material-tailwind/react";
-import MasterFilterCard from "../components/masterFilterCard";
-import MasterCatalog from "../components/masterCatalog";
-import MasterFooter from "../components/masterFooter";
-import MasterPagination from "../components/masterPagination";
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import axios from "axios";
-import { useParams } from "react-router";
-
+import React, { useState, useEffect } from 'react';
+import MasterNavbar from '../components/masterNavbar';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import MasterFilterCard from '../components/masterFilterCard';
+import MasterCatalog from '../components/masterCatalog';
+import MasterFooter from '../components/masterFooter';
+import MasterPagination from '../components/masterPagination';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import axios from "axios"
 
 export default function ProductPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -27,14 +25,14 @@ export default function ProductPage() {
   const [category, setCategory] = useState([])
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
   const [email, setEmail] = useState("")
-
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchCategory = async () => {
     try {
       const res = await axios.get('https://backend.ptwpi.co.id/api/categories')
       setCategory(res.data)
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message)
     }
   }
 
@@ -44,7 +42,7 @@ export default function ProductPage() {
     fetchData({category_id: filteredProduct.category_id}, pageNumber)
   }
 
-  const fetchData = async (filters, page) => {
+  const fetchData = async (filters, page = currentPage) => {
     try {
       let url = 'https://backend.ptwpi.co.id/api/products';
       const params = new URLSearchParams();
@@ -66,6 +64,10 @@ export default function ProductPage() {
       } else if (typeof filters === 'number') {
         // If filters is a number, it's assumed to be a category_id
         params.append('category_id', filters);
+      }
+
+      if (searchQuery) {
+        params.append('search', searchQuery);
       }
 
       // Handle pagination
@@ -96,10 +98,10 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -225,31 +227,33 @@ export default function ProductPage() {
 
       {/* Content */}
       <div className="container mx-auto pb-[80px]">
+        <div className="md:col-span-2 px-6 pt-4 lg:pt-0 md:px-0">
           <div className="container mx-auto grid grid-cols-1 pb-4 md:w-[80%] lg:w-full">
             <div className="flex justify-center items-center md:ml-[0px] lg:ml-[460px] lg:mr-[30px]">
-            <input
+              <input
                 type="text"
                 placeholder="Cari Produk"
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
               />
               <button
                 type="button"
-                onClick={handleSearch}
+                onClick={() => fetchData({ search: searchQuery })}
                 className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4 "
               >
                 <FaMagnifyingGlass />
               </button>
             </div>
           </div>
+        </div>
         <div>
           <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3">
             <Typography
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-                fontSize: "1.em",
+                fontSize: '1.em',
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -287,6 +291,7 @@ export default function ProductPage() {
             active={paginationData.current_page}
             onPageChange={paginate}
             totalItems={paginationData.total}
+            itemsOnPage={paginationData.per_page}
           />
         </div>
       </div>
@@ -316,7 +321,7 @@ export default function ProductPage() {
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: "before:content-none after:content-none w-full",
+                  className: 'before:content-none after:content-none w-full',
                 }}
               />
               <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">

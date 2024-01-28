@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import image from "../../src/assets/logo-wpi.png";
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa6";
+import axios from "axios"
 const LINKS = [
   {
     title: "Product",
@@ -19,6 +20,22 @@ const LINKS = [
 const currentYear = new Date().getFullYear();
 
 export default function MasterFooter() {
+  const [about, setAbout] = useState({})
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
+      setAbout(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
   return (
     <footer className="relative w-full pb-10  px-4 xl:px-0">
       <div className="logo flex items-center gap-4 pb-4">
@@ -35,8 +52,7 @@ export default function MasterFooter() {
               fontSize: "0.950rem",
             }}
           >
-            GRAHA PPI, Jl. Abdul Muis No.8, Jakarta Pusat, DKI Jakarta, 10160,
-            Indonesia <br /> warungpangan@ptppi.co.id
+            {about?.[0]?.address} <br /> {about?.[0]?.email_company}
             <br />
             <strong
               style={{
@@ -55,7 +71,7 @@ export default function MasterFooter() {
                 fontSize: "0.950rem",
               }}
             >
-              (+62) 21 69066
+              {about?.[0]?.phone_company}
             </p>
           </p>
 
@@ -189,7 +205,7 @@ export default function MasterFooter() {
         <div className="flex items-center gap-4  px-2">
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
             <a
-              href="https://wa.me/NOMOR_WHATSAPP"
+              href={about?.[0]?.wa_link}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -198,7 +214,7 @@ export default function MasterFooter() {
           </span>
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
             <a
-              href="https://www.instagram.com/NAMA_INSTAGRAM"
+              href={about?.[0]?.ig_link}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -207,7 +223,7 @@ export default function MasterFooter() {
           </span>
           <span className="text-xl text-white p-2 rounded-full bg-blue-500">
             <a
-              href="https://www.facebook.com/NAMA_FACEBOOK"
+              href={about?.[0]?.fb_link}
               target="_blank"
               rel="noopener noreferrer"
             >

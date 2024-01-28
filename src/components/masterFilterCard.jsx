@@ -235,4 +235,4 @@ export default function MasterFilterCard({ onFilter }) {
 
 const AccordionIcon = ({ open }) => (
   <FaAngleDown className={`h-5 w-5 transform ${open ? 'rotate-180' : ''} transition-transform`} />
-);
+)
