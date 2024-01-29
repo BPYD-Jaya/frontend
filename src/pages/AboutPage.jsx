@@ -181,46 +181,45 @@ export default function AboutPage() {
         </div>
 
         {/* Produk dan Layanan */}
-<div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-8">
-  <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center items-center gap-6">
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/mine.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/ikan.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/daging.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/horticultural.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/agricultural.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-  </div>
-</div>
-
+        <div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-8">
+          <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center items-center gap-6">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/mine.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/ikan.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/horticultural.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/agricultural.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/daging.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Visi dan Misi */}
         <div className="grid w-full   grid-cols-1 xl:grid-cols-6 gap-2 xl:gap-8 mt-12">
