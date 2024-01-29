@@ -76,10 +76,12 @@ export default function DashboardPage() {
         <div className="gap-6  grid 2xl:grid-cols-4 md:grid-cols-2 justify-center">
           {data.map(item => {
             if (item.kolom === "All Products" || 
-            item.kolom === "Horticultural Product" || 
+            item.kolom === "Mineral Product" ||
+            item.kolom === "Horticulture Product" || 
             item.kolom === "Agriculture Product" || 
+            item.kolom === "Meat Product" || 
             item.kolom === "Aquaculture Product" || 
-            item.kolom === "Category Product" || 
+            item.kolom === "Product Category" || 
             item.kolom === "Supplier") {
               return (
                 <Card className="flex justify-center items-center md:w-auto w-96 h-32">

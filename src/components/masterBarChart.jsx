@@ -35,8 +35,6 @@ export default function MasterBarChart() {
       {
         name: "Supplier",
         data: [
-          result[6]?.VALUE ?? 0,
-          result[7]?.VALUE ?? 0,
           result[8]?.VALUE ?? 0,
           result[9]?.VALUE ?? 0,
           result[10]?.VALUE ?? 0,
@@ -47,6 +45,8 @@ export default function MasterBarChart() {
           result[15]?.VALUE ?? 0,
           result[16]?.VALUE ?? 0,
           result[17]?.VALUE ?? 0,
+          result[18]?.VALUE ?? 0,
+          result[19]?.VALUE ?? 0,
         ],
       },
     ],

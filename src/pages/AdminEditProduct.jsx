@@ -213,11 +213,14 @@ export default function AdminEditProduct() {
       formDataObject.append("city_id", parseInt(selectedCity));
       formDataObject.append("company", productData.company);
       formDataObject.append("company_category", productData.company_category);
-
+      formDataObject.append("company_name", productData.company_name);
+      formDataObject.append("company_whatsapp_number", productData.company_whatsapp_number);
+      formDataObject.append("storage_type", productData.storage_type);
+      formDataObject.append("packaging", productData.packaging);
   
       // Add the selected file to the form data
       if (selectedFile) {
-        formDataObject.append("product_image", selectedFile);
+        formDataObject.append("item_image", selectedFile);
       }
 
       productData.additional_info.forEach((info, index) => {
@@ -331,6 +334,8 @@ export default function AdminEditProduct() {
       description: e.target.value,
     }));
   };
+
+  console.log(productData)
 
   return (  
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
