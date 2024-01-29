@@ -19,7 +19,7 @@ export default function MasterCarousel() {
         alt="image3"
         className="h-full w-full "
       />
-      <img
+      {/* <img
         src="./assets/carousel-4.png"
         alt="image3"
         className="h-full w-full "
@@ -28,7 +28,7 @@ export default function MasterCarousel() {
         src="./assets/carousel-5.png"
         alt="image3"
         className="h-full w-full "
-      />
+      /> */}
     </Carousel>
   );
 }

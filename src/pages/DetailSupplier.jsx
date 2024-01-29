@@ -26,7 +26,7 @@ export default function DetailSupplier() {
           }
         );
         console.log(response)
-        setProductData(response.data.data[0]);
+        setProductData(response.data.data);
       } catch (error) {
         console.error("Error fetching Supplier data:", error);
       }
@@ -48,7 +48,6 @@ export default function DetailSupplier() {
     };
   }, []);
 
-  console.log(productData)
 
   if (!productData) {
     // Return loading or error state while waiting for data
@@ -101,19 +100,19 @@ export default function DetailSupplier() {
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.company_whatsapp_number}
+            {productData.company_email}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Company Phone Number</Typography>
             <span>:</span>
           </div>
-          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">1</div>
+          <div className="col-span-12 lg:col-span-9 pb-4 font-bold">{productData.company_whatsapp_number}</div>
           <div className="text-red-500 col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Category Company</Typography>
             <span>:</span>
           </div>
           <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.category}
+            {productData.company_category}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Province</Typography>
@@ -141,14 +140,14 @@ export default function DetailSupplier() {
             <span>:</span>
           </div>
           <div className="text-red-500 col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.company_category}
+            {productData.product_name}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Brand Name</Typography>
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.company_category}
+            {productData.brand}
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Stock</Typography>
@@ -183,7 +182,7 @@ export default function DetailSupplier() {
             <span>:</span>
           </div>
           <div className="col-span-12 lg:col-span-9 pb-4 font-bold">
-            {productData.item_image}
+            <img src={productData.link_image} />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-4 ">
             <Typography>Name PIC</Typography>

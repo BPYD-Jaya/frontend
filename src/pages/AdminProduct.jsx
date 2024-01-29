@@ -18,31 +18,33 @@ export default function AdminProduct() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { id } = useParams();
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://backend.ptwpi.co.id/api/products",
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("authToken")}`,
-          },
-        }
-      );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/products",
+          {
+           
+          }
+        );
 
-      if (response && response.data) {
-        const data = response.data.data;
-        setProductData(data.data);
-        setFilteredProducts(data.data);
-      } else {
-        console.error("Invalid response format:", response);
+        if (response && response.data) {
+          const data = response.data.data;
+          setProductData(data.data);
+          setFilteredProducts(data.data);
+        } else {
+          console.error("Invalid response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+    };
+
+    fetchData();
+}, []);
 
   useEffect(() => {
-    fetchData();
+    
 
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
@@ -63,19 +65,18 @@ export default function AdminProduct() {
     last_page: 1,
     data: [],
   });
-  // console.log("paginationData", paginationData);
-  
+  console.log("paginationData", paginationData);
+
   const handlePageChange = async (pageNumber) => {
     try {
       const response = await axios.get(
         `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
-        {
-        }
+        {}
       );
 
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
-        filteredProducts(newData);
+        setFilteredProducts(newData);
         setPaginationData({
           ...paginationData,
           current_page: pageNumber,
@@ -87,7 +88,6 @@ export default function AdminProduct() {
       console.error("Error fetching data:", error);
     }
   };
-
 
   const handleSearch = async () => {
     try {
@@ -171,7 +171,7 @@ export default function AdminProduct() {
               style: "currency",
               currency: "IDR",
             }).format(item.price);
-            // console.log(price);
+            console.log(price);
             return (
               <MasterCatalogAdmin
                 id={item.id}
@@ -180,13 +180,15 @@ export default function AdminProduct() {
                 productName={item.product_name}
                 priceRange={price}
                 wa_link={item.wa_link}
-                stock={item.stock}
-                volume={item.volume}
               />
             );
           })}
           <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
-            <MasterPagination  onPageChange={handlePageChange} />
+            <MasterPagination
+              active={paginationData.current_page}
+              onPageChange={handlePageChange}
+              totalItems={productData.length} // Pass the total number of items for pagination
+            />{" "}
           </div>
         </div>
       </div>

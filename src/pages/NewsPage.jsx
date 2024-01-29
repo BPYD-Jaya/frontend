@@ -58,6 +58,8 @@ export default function NewsPage() {
           ...paginationData,
           current_page: pageNumber,
         });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         console.error("Invalid response format:", response);
       }
@@ -158,6 +160,7 @@ export default function NewsPage() {
               active={paginationData.current_page}
               onPageChange={handlePageChange}
               totalItems={blogData.length} // Pass the total number of items for pagination
+              itemsPerPage={paginationData.per_page} // Pass the number of items per page
             />{" "}
           </div>
         </div>

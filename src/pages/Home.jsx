@@ -19,7 +19,7 @@ import {
 } from "react-icons/fc";
 import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
-import axios from "axios"
+import axios from "axios";
 
 export default function Home() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -41,14 +41,17 @@ export default function Home() {
   const handleSubmitNotification = (e) => {
     e.preventDefault();
     const data = {
-      email: email
-    }
+      email: email,
+    };
     try {
-      const res = axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+      const res = axios.post(
+        "https://backend.ptwpi.co.id/api/customer/send",
+        data
+      );
     } catch (error) {
       console.error("Error submitting notification:", error);
     }
-  }
+  };
 
   return (
     <div>
@@ -62,7 +65,7 @@ export default function Home() {
       </div>
 
       {/* Jumbotron */}
-      <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1050px] h-[810px]">
+      <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1050px] h-[850px]">
         <div
           className="bg-wpiblue-50 flex flex-col xl:h-[600px] md:h-[950px] lg:h-[550px] h-[750px]"
           style={{ borderRadius: "0 0 50px 50px" }}
@@ -71,12 +74,9 @@ export default function Home() {
             <div className="flex justify-center items-center text-white pl-4 pt-5 md:pt-8 lg:pt-0 lg:pl-10">
               <div className="">
                 <div className="">
-                  <Typography
-                    variant="h3"
-                    className="mb-4 text-center lg:text-left text-xl whitespace-no-wrap md:text-[2rem] md:!leading-10 leading-7"
-                  >
-                    SATU APLIKASI UNTUK
-                    <br /> SEMUA KEBUTUHAN WARUNG
+                  <Typography className="mb-4 text-center lg:text-left font-bold text-xl whitespace-no-wrap md:text-[2rem] md:!leading-10 leading-7">
+                    HUB KOMODITI BERKUALITAS
+                    <br /> UNTUK PERDAGANGAN DOMESTIK & INTERNASIONAL
                   </Typography>
                 </div>
                 <div className="">
@@ -87,33 +87,35 @@ export default function Home() {
                     <span className="mr-4 text-3xl">
                       <FcOk />
                     </span>
-                    Belanja, pencatatan dan penjualan stok bisa semua
+                    Ada Barang Langsung Bayar
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Harga menguntungkan
+                    <FcOk className="mr-4" size={30} /> Terhubung Langsung
+                    dengan Buyer dan Supplier
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Diskon dan promo tiap
-                    bulan
+                    <FcOk className="mr-4" size={30} /> Penanganan Logistik
+                    Profesional
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Gratis pengiriman
+                    <FcOk className="mr-4" size={30} /> Akses Perdagangan
+                    Internasional yang Kuat
                   </Typography>
                   <Typography
                     variant="h5"
                     className="mb-4 text-base lg:text-xl flex items-start"
                   >
-                    <FcOk className="mr-4" size={30} /> Beragam pilihan
-                    pendanaan
+                    <FcOk className="mr-4" size={30} /> Dimudahkan dengan Basis
+                    Teknologi
                   </Typography>
                   <div className="flex justify-center xl:justify-start md:justify-start">
                     <a href="/mitra">
@@ -130,7 +132,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
+            <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full xl:w-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
               <img
                 src="./assets/hero.png"
                 alt="image1"
@@ -142,7 +144,7 @@ export default function Home() {
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7.5vw] md:-translate-y-32 -translate-y-24 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
+        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7vw] md:-translate-y-32 -translate-y-11 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
           <MasterCarousel />
         </div>
 
@@ -151,7 +153,7 @@ export default function Home() {
           className="lg:-translate-y-16 px-4 md:px-0
         "
         >
-          <div className="container mx-auto text-center xl:mb-16 mb-12 ">
+          <div className="container mx-auto text-center xl:mb-10 mb-12 ">
             <Typography
               variant="h3"
               style={{
@@ -165,72 +167,95 @@ export default function Home() {
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12 h-full">
             <div className="flex justify-center items-center h-full">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div
+                  color="blue-gray"
+                  className="relative h-[200px] shadow-lg rounded-lg"
+                >
                   <img
-                    src="https://img.freepik.com/free-vector/tiny-male-female-characters-standing-near-arrow-down-showing-percentage-decrease-financial-reduction-flat-vector-illustration-low-rate-special-offer-loan-discount-price-concept_74855-22568.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=ais"
+                    src="./assets/image-wpi-1.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray" className="mb-2">
-                    Harga Terjangkau untuk Pasar Indonesia dan Internasional
+                    Jaringan Kuat dari Hulu hingga Hilir di Domestik dan Luar
+                    Negeri
                   </Typography>
                   <Typography className="text-justify">
-                    WPI berkomitmen untuk menyediakan komoditas pangan dengan
-                    harga yang terjangkau di pasar Indonesia. Selain itu,
-                    melalui standarisasi dan perizinan yang relevan, WPI
-                    memastikan bahwa produknya dapat bersaing dengan harga yang
-                    kompetitif di pasar internasional, membuka peluang ekspor
-                    yang menjanjikan
+                    WPI berkomitmen untuk menyediakan komoditas- komoditas
+                    perdagangan yang terbaik dengan harga yang kompetitif. Untuk
+                    itu WPI sangat menjaga hubungan dengan mitra dihulu yang
+                    menjadi supplier terbaik. Tidak hanya itu saja perdagangan
+                    ditingkat hilir juga sangat diperhatikan agar kestabilan
+                    harga menjadi seimbang. Sehingga supplier dan buyer
+                    mendapatkan keekonomian yang saling menguntungkan.
+                    <br /> Jaringan kerja ditingkat nasional terus dikembangkan
+                    hingga minimal di tingkat kecamatan dan juga membangun
+                    kerjasama bisnis yang difokuskan kepada China dan India.
                   </Typography>
                 </CardBody>
               </Card>
             </div>
             <div className="flex justify-center items-center h-full">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div
+                  color="blue-gray"
+                  className="relative h-[200px] shadow-lg rounded-lg"
+                >
                   <img
-                    src="https://img.freepik.com/free-vector/people-analyzing-growth-charts-illustrated_23-2148865274.jpg?size=626&ext=jpg&ga=GA1.1.361051616.1622625034&semt=sph"
+                    src="./assets/image-wpi-2.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray" className="mb-2">
-                    Digitalisasi untuk Percepatan Forecasting
+                    Kemitraan Logistik Rantai Pasok Dingin yang Mumpuni di
+                    Bidangnya
                   </Typography>
                   <Typography className="text-justify">
-                    Dengan misi digitalisasi untuk percepatan forecasting supply
-                    dan demand komoditi pangan, WPI menonjol sebagai perusahaan
-                    yang proaktif dan inovatif. Hal ini memberikan keuntungan
-                    tambahan bagi pelanggan dengan memastikan ketersediaan stok
-                    yang optimal dan respons yang cepat terhadap perubahan pasar
+                    Didukung oleh kemitraan logistic provider berkelas
+                    Internasional yang bergerak dibidang perishable dan non
+                    perishable yang terintegrasi, saat ini WPI yakin dalam hal
+                    memberikan solusi terbaik kepada para mitranya dalam
+                    melakukan kegiatan resourcing, supply, dan distribution.
+                    <br />
+                    Pemilih kemitraan yang selektif, dengan kriteria - kriteria
+                    diantaranya adalah dukungan teknologi cold chain serta rekam
+                    jejak dan pengalaman kerja menjadi perhatian bagi WPI
+                    sehingga dapat mencapai visi dan misi perusahaan
                   </Typography>
                 </CardBody>
               </Card>
             </div>
             <div className="flex justify-center items-center h-full">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div
+                  color="blue-gray"
+                  className="relative h-[200px] shadow-lg rounded-lg"
+                >
                   <img
-                    src="https://img.freepik.com/free-vector/business-team-brainstorm-idea-lightbulb-from-jigsaw-working-team-collaboration-enterprise-cooperation-colleagues-mutual-assistance-concept-pinkish-coral-bluevector-isolated-illustration_335657-1651.jpg?size=626&ext=jpg&ga=GA1.2.361051616.1622625034&semt=sph"
+                    src="./assets/image-wpi-3.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray" className="mb-2">
-                    Kolaborasi Kekuatan Tim yang Sinergis
+                    Tempat Bersinergi Para Ahli untuk Memberikan Komitmen
+                    Tebaiknya
                   </Typography>
                   <Typography className="text-justify">
-                    Warung Pangan Indonesia (WPI) membanggakan kolaborasi tim
-                    yang kuat dan sinergis, mencakup kegiatan Supply Chain
-                    Management, Trading, Finance Scheme, dan Business Networking
-                    yang didukung oleh Teknologi Informasi yang tepat guna. Ini
-                    memberikan jaminan bahwa WPI memiliki fondasi yang kokoh
-                    untuk mengelola secara efektif dan efisien rantai
-                    pasok pangan
+                    Sebagai tempat berusaha dalam mencari keuntungan perusahaan,
+                    WPI juga harus bisa menjadi wadah profesional - profesional
+                    yang ahli dibidang rantai pasok, rekayasa keuangan, sistem
+                    informasi teknologi, operasional logistik yang juga
+                    berkeinginan memberikan kontribusi yang terbaik untuk bangsa
+                    dan negara.
+                    <br /> Kami meyakini dengan sinergitas ini, maka komitmen
+                    terbaik mereka akan berimbas kepada layanan perusahaan untuk
+                    para mitra
                   </Typography>
                 </CardBody>
               </Card>
@@ -250,7 +275,7 @@ export default function Home() {
                   fontWeight: 800,
                 }}
               >
-                Keunggulan Berbelanja di Warung Pangan Indonesia
+                Keunggulan Melakukan Perdagangan Melalui Warung Pangan Indonesia
               </Typography>
             </div>
             <div className="flex py-8 gap-3 md:gap-6">
@@ -269,8 +294,9 @@ export default function Home() {
                   <b>Pasokan Produk Berkualitas</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Banyak produk yang ditawarkan dengan kualitas terjamin dengan
-                  harga yang kompetitif dan pengiriman barang yang tepat waktu.
+                  Menyiapkan dan menyediakan produk lokal yang memiliki potensi
+                  ekspor untuk dikembangkan baik untuk pasar domestik maupun
+                  ekspor sesuai dengan standar industri komoditi pangan
                 </p>
               </div>
             </div>
@@ -287,11 +313,11 @@ export default function Home() {
                     fontWeight: 800,
                   }}
                 >
-                  <b>Digitalisasi Warung</b>
+                  <b>Tersertifikasi Berkelas di Industri</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Solusi lengkap bagi pemilik bisnis, yang mencakup pencatatan
-                  transaksi, manajemen inventori, dan pemesanan via aplikasi
+                  Memenuhi Standar industri komditi pangan GMP, HACCP (Hazzard
+                  Analysis and Critical Control Points), BPOM dan Halal
                 </p>
               </div>
             </div>
@@ -308,23 +334,20 @@ export default function Home() {
                     fontWeight: 800,
                   }}
                 >
-                  <b>Pembinaan Mitra</b>
+                  <b>Rekayasa Supply Chain</b>
                 </Typography>
                 <p className="text-justify pt-1 lg:pt-0">
-                  Kami membantu para mitra agar bisnisnya dapat berkembang lebih
-                  maju, dengan pelatihan, permodalan, dan promosi yang bertujuan
-                  meningkatkan penjualan dan pengembangan kapasitas
+                  Membantu para supplier maupun buyer untuk mendapatkan skema
+                  supply chain yang efektif, efisien, ekonomis dan berkelanjutan
+                  dengan memanfaatkan asset maupun prospek bisnis yang ada serta
+                  dukungan B2B System Aggregator
                 </p>
               </div>
             </div>
           </div>
 
-          <div className=" lg:col-span-5 col-span-1 border shadow-lg flex justify-center rounded-md items-center">
-            <img
-              src="https://warungpangan.com/upload/settings/home_banner_keunggulan.png"
-              alt="image2"
-              style={{ height: "500px" }}
-            />
+          <div className=" lg:col-span-5 col-span-1 flex justify-center items-center">
+            <img src="./assets/ipad.png" alt="image2" className="" />
           </div>
         </div>
 
@@ -345,13 +368,13 @@ export default function Home() {
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12 h-full">
             <div className="flex justify-center items-center h-full px-4 md:px-0">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/mitra-1.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray">
                     Farhan Dwicahyo
@@ -374,15 +397,15 @@ export default function Home() {
                 </CardBody>
               </Card>
             </div>
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full px-4 md:px-0">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/mitra-3.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray">
                     Muhammad Rafli Akbar
@@ -400,18 +423,18 @@ export default function Home() {
                 </CardBody>
               </Card>
             </div>
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full px-4 md:px-0">
               <Card className="w-full h-full">
-                <CardHeader color="blue-gray" className="relative h-[200px]">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/mitra-2.png"
                     alt="card-image"
                     className="w-full h-full"
                   />
-                </CardHeader>
+                </div>
                 <CardBody>
                   <Typography variant="h5" color="blue-gray">
-                    Naufal Randika Parikesit
+                    Putra Fajar
                   </Typography>
                   <Typography className="mb-2 text-sm font-medium">
                     PT FAJAR ISLAM
@@ -430,7 +453,7 @@ export default function Home() {
         </div>
 
         {/* Content Image */}
-        <div className="container mx-auto flex justify-center pb-16 py-4">
+        <div className="container mx-auto flex justify-center pb-16 py-4 px-4 md:px-0">
           <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <a href="/produk">
               <img
@@ -470,7 +493,10 @@ export default function Home() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
+                <Button
+                  onClick={handleSubmitNotification}
+                  className="hover:bg-green-400 bg-wpigreen-50"
+                >
                   Submit
                 </Button>
               </div>

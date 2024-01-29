@@ -3,6 +3,7 @@ import MasterSidebar from "../components/masterSidebar";
 import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import { useNavigate, useParams } from "react-router";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -12,21 +13,6 @@ export default function Supplier() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [searchQuery, setSearchQuery] = useState("");
   const authToken = Cookies.get("authToken");
-
-  const fetchSupplierData = async () => {
-    try {
-      const response = await fetch("https://backend.ptwpi.co.id/api/supplier");
-      const data = await response.json();
-      // Check if the response contains the expected structure
-      if (data && data.status === "success" && data.data && data.data.data) {
-        setTableRows(data.data.data);
-      } else {
-        console.error("Invalid response format from the API");
-      }
-    } catch (error) {
-      console.error("Error fetching supplier data:", error);
-    }
-  };
 
   const handleResize = () => {
     setOpenSidebar(window.innerWidth >= 640);
@@ -42,6 +28,29 @@ export default function Supplier() {
   }, []);
 
   useEffect(() => {
+    const fetchSupplierData = async () => {
+      try {
+        const response = await axios.get(
+          "https://backend.ptwpi.co.id/api/supplier",
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Include the token in the request headers
+            },
+          }
+        );
+        const data = response.data;
+
+        // Check if the response contains the expected structure
+        if (data && data.status === "success" && data.data && data.data.data) {
+          setTableRows(data.data.data);
+        } else {
+          console.error("Invalid response format from the API");
+        }
+      } catch (error) {
+        console.error("Error fetching supplier data:", error);
+      }
+    };
+
     fetchSupplierData();
   }, [authToken]); // Include authToken in the dependency array
 
@@ -51,27 +60,38 @@ export default function Supplier() {
       company_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const navigateToDetail = (id) => {
+    navigate(`/admin-detail-supplier/${id}`); // Use navigate instead of history.push
+  };
+
+  
   const handleDelete = async (id) => {
-    try {
-      const authToken = Cookies.get('authToken');
+    // You can show a confirmation dialog here before deleting
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this supplier?"
+    );
 
-      if (!authToken) {
-        throw new Error('Access token not found in cookies');
+    if (confirmDelete) {
+      try {
+        const authToken = Cookies.get("authToken");
+
+        if (!authToken) {
+          throw new Error("Access token not found in cookies");
+        }
+        // Make a DELETE request using Axios
+        await axios.delete(`https://backend.ptwpi.co.id/api/supplier/${id}`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        // After successful deletion, navigate to a different route or perform any other actions
+        // window.location.reload();
+      } catch (error) {
+        console.error("Error deleting news item:", error);
       }
-
-      await axios.delete(`https://backend.ptwpi.co.id/api/supplier/${id}`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      // After successful deletion, fetch the updated supplier data
-      fetchSupplierData();
-    } catch (error) {
-      console.error('Error deleting data:', error);
     }
   };
 
@@ -85,20 +105,17 @@ export default function Supplier() {
       >
         <MasterSidebar />
       </div>
-
       {openSidebar && (
         <div
           className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
           onClick={() => setOpenSidebar(false)}
         ></div>
       )}
-
       {/* Navbar */}
       <MasterNavbarAdmin
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
       />
-
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md ">
@@ -172,7 +189,7 @@ export default function Supplier() {
             </td>
             <td className="p-4">
               <div className="">
-                <a href="/admin-detail-supplier">
+                <a href={`/admin-detail-supplier/${id}`}>
                   <button
                     type="button"
                     className="ml-2 mb-[-10px] bg-wpiblue-50 text-white font-bold px-4 h-10 rounded-md"
@@ -231,6 +248,7 @@ export default function Supplier() {
   </Card>
 </div>
 </div>
+
 
       {/* Footer */}
       <div className="pt-10">
