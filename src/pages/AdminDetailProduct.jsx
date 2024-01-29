@@ -119,6 +119,46 @@ export default function AdminDetailProduct() {
                       color="blue-gray"
                       className="font-normal "
                     >
+                      Product Name
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {productData.product_name}
+                    </Typography>
+                  </td>
+                </tr>
+                <tr className="even:bg-blue-gray-50/50">
+                  <td className="p-4 break-words">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      Brand Name
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {productData.brand}
+                    </Typography>
+                  </td>
+                </tr>
+                <tr className="even:bg-blue-gray-50/50">
+                  <td className="p-4 break-words">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
                       Company Name
                     </Typography>
                   </td>

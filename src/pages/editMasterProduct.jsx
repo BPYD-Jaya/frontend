@@ -38,7 +38,8 @@ export default function EditMasterProduct(props) {
   }, []);
 
   const [category, setCategory] = useState("");
-  const [categoryImage, setCategoryImage] = useState(null);
+  const [categoryImage, setCategoryImage] = useState("");
+
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
@@ -54,10 +55,10 @@ export default function EditMasterProduct(props) {
         console.log("API response:", response);
 
         setCategory(response.data.category);
-        setCategoryImage(response.data.category_image);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+        setCategoryImage(response.data.image_url);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
     };
 
     fetchCategoryData();
@@ -164,8 +165,12 @@ export default function EditMasterProduct(props) {
               </Typography>
             </div>
             <div className="md:col-span-4 shadow-md rounded-lg border b-2 border-gray-400">
-              <div className="sm:ml-0 md:-ml-2">
-                <img alt="" src={categoryImage} />
+              <div className="mr-2 ml-2 mt-3">
+              <img
+                src={categoryImage}
+                alt="category image"
+                className="w-full h-auto max-w-full md:max-w-[200px] lg:max-w-[200px] border"
+              />
               </div>
               <div className="md:flex pt-4 pl-4 md:pl-4 pb-6">
                 <div className="md:flex  justify-center items-center">

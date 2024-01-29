@@ -644,8 +644,6 @@ export default function AdminEditProduct() {
               </div>
             </div>
           )})}
-
-
           </div>
           <div className="col-span-12 flex justify-center lg:justify-end items-center pb-8">
             <Button
