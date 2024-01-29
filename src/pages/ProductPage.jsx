@@ -36,7 +36,6 @@ export default function ProductPage() {
     }
   }
 
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData({ category_id: filteredProduct.category_id }, pageNumber);
@@ -93,7 +92,6 @@ export default function ProductPage() {
       console.error('Failed to fetch products:', error.message);
     }
   };
-
 
   useEffect(() => {
     const handleScroll = () => {

@@ -153,8 +153,6 @@ export default function AdminEditProduct() {
     };
   }, []);
 
-  // console.log(categories)
-
   useEffect(() => {
     // Fetch cities when the selected province changes
     const fetchCities = async () => {
@@ -271,6 +269,13 @@ export default function AdminEditProduct() {
     }));
   };
 
+  const handleCompanyWhatsappChange = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      company_whatsapp_number: e.target.value,
+    }));
+  };
+
   const handleCategoryChange = (value) => {
     setProductData((prevData) => ({
       ...prevData,
@@ -326,8 +331,6 @@ export default function AdminEditProduct() {
       description: e.target.value,
     }));
   };
-
-  
 
   return (  
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
@@ -411,6 +414,22 @@ export default function AdminEditProduct() {
               onChange={handleCompanyNameChange}
             />
           </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Company Whatsapp Number
+          </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Company Whatsapp Number"
+                value={productData.company_whatsapp_number}
+                onChange={handleCompanyWhatsappChange}
+              />
+            </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
@@ -498,7 +517,7 @@ export default function AdminEditProduct() {
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-            Satuan
+            Volume
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
             <Input
@@ -540,19 +559,6 @@ export default function AdminEditProduct() {
             City
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 ">
-            {/* <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-            >
-              {cities.map((city) => (
-                <Option key={city.id} value={city.id}>
-                  {city.cityName}
-                </Option>
-              ))}
-            </Select> */}
-
             <select
               className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedCity}
@@ -569,7 +575,7 @@ export default function AdminEditProduct() {
                 </option>
               ))}
             </select>
-          </div>{" "}
+          </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
           </div>
@@ -604,7 +610,6 @@ export default function AdminEditProduct() {
             Specification
           </div>
           <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
-            
           {formData.additional_info.map((info, index) => {
           return (
             <div className="w-full" key={index}>

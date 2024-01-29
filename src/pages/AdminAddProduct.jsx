@@ -648,7 +648,6 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               Photo Product
             </div>
