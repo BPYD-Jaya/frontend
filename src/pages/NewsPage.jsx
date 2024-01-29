@@ -58,6 +58,8 @@ export default function NewsPage() {
           ...paginationData,
           current_page: pageNumber,
         });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         console.error("Invalid response format:", response);
       }

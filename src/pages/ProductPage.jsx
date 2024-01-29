@@ -38,9 +38,12 @@ export default function ProductPage() {
 
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    fetchData({category_id: filteredProduct.category_id}, pageNumber)
-  }
+    setCurrentPage(pageNumber);
+    fetchData({ category_id: filteredProduct.category_id }, pageNumber);
+
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const fetchData = async (filters, page = currentPage) => {
     try {
