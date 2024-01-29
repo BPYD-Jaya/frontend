@@ -327,8 +327,6 @@ export default function AdminEditProduct() {
     }));
   };
 
-  
-
   return (  
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
@@ -540,19 +538,6 @@ export default function AdminEditProduct() {
             City
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 ">
-            {/* <Select
-              color="indigo"
-              size="lg"
-              outline="outline-1 focus:outline-1"
-              className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-            >
-              {cities.map((city) => (
-                <Option key={city.id} value={city.id}>
-                  {city.cityName}
-                </Option>
-              ))}
-            </Select> */}
-
             <select
               className="border border-gray-400 rounded-md w-full py-3 px-2"
               value={selectedCity}
@@ -644,8 +629,6 @@ export default function AdminEditProduct() {
               </div>
             </div>
           )})}
-
-
           </div>
           <div className="col-span-12 flex justify-center lg:justify-end items-center pb-8">
             <Button

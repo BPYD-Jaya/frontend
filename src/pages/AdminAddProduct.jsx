@@ -76,6 +76,31 @@ export default function AdminAddProduct() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    const requiredFields = [
+      "product_name",
+      "brand",
+      "company",
+      "company_category",
+      "company_whatsapp_number",
+      "address",
+      "price",
+      "stock",
+      "volume",
+      "storage_type",
+      "packaging",
+      "category_id",
+      "description",
+      "province_id",
+      "city_id",
+    ];
+  
+    for (const field of requiredFields) {
+      if (!formData[field]) {
+        alert("Please fill in all required fields.");
+      return;
+      }
+    }
+  
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
@@ -326,7 +351,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Name"
                 value={formData.company}
                 onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })
@@ -344,7 +369,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Category"
                 value={formData.company_category}
                 onChange={(e) =>
                   setFormData({ ...formData, company_category: e.target.value })
@@ -362,7 +387,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Whatsapp Number"
                 value={formData.company_whatsapp_number}
                 onChange={(e) =>
                   setFormData({
@@ -461,7 +486,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Storage Type"
                 value={formData.storage_type}
                 onChange={(e) =>
                   setFormData({ ...formData, storage_type: e.target.value })
@@ -482,7 +507,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Packaging"
                 value={formData.packaging}
                 onChange={(e) =>
                   setFormData({ ...formData, packaging: e.target.value })
@@ -521,7 +546,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Description"
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })

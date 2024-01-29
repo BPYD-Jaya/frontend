@@ -108,12 +108,14 @@ export default function MitraPage() {
     onDrop: handleFileUpload,
   });
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if required fields are filled
+    if (!formData.name || !formData.company_name || !formData.company_email || !formData.company_phone || !formData.company_category || !formData.province_id || !formData.city_id || !formData.company_address || !formData.product_name || !formData.brand_name || !formData.stock || !formData.volume || !formData.category_id || !formData.price || !formData.description || !selectedFile) {
+      alert("Please fill in all required fields.");
+      return;
+    }
 
     // Membuat instance FormData baru
     const formDataToSend = new FormData();

@@ -52,6 +52,13 @@ export default function AboutPage() {
 
   const handleFormSubmit = () => {
     try {
+      
+      // Validasi form
+      if (!formData.nama || !formData.no_hp || !formData.email || !formData.perihal || !formData.pertanyaan) {
+        alert("Harap isi semua kolom pada form.");
+        return;
+      }
+
       const wa_link = result?.[0]?.wa_link + "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
 
       window.open(wa_link, "_blank")

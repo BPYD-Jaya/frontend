@@ -52,34 +52,44 @@ export default function AdminAddNews() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Check if required fields are empty
+    if (!formData.title || !formData.writer || !formData.content) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+  
     const formDataToSend = {
       blog_category_id: formData.category_id,
       title: formData.title,
       writer: formData.writer,
       content: formData.content,
     };
-console.log(FormData);
-
-
+    
+  
     if (selectedFile) {
       formDataToSend.blog_image = selectedFile;
     }
-
+  
     console.log("Data yang dikirim ke server:", formDataToSend);
-
-    await axios.post(`https://backend.ptwpi.co.id/api/blogs`, formDataToSend, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${Cookies.get("authToken")}`,
-      },
-    });
-
-    // Menampilkan notifikasi
-    alert("Blog data added successfully!");
-
-    // Mengarahkan ke halaman admin-blog setelah berhasil memperbarui data
-    navigate("/admin-blog");
+  
+    try {
+      await axios.post(`https://backend.ptwpi.co.id/api/blogs`, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${Cookies.get("authToken")}`,
+        },
+      });
+  
+      // Menampilkan notifikasi
+      alert("Blog data added successfully!");
+  
+      // Mengarahkan ke halaman admin-blog setelah berhasil memperbarui data
+      navigate("/admin-blog");
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+      alert("Error submitting data. Please try again later.");
+    }
   };
 
   const handleCancel = () => {
