@@ -163,11 +163,8 @@ export default function Home() {
           </div>
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-12 h-full">
             <div className="flex justify-center items-center h-full">
-              <Card className="w-full h-full">
-                <div
-                  color="blue-gray"
-                  className="relative h-[200px] shadow-lg rounded-lg"
-                >
+              <Card className="w-full h-full border">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/image-wpi-1.png"
                     alt="card-image"
@@ -195,11 +192,8 @@ export default function Home() {
               </Card>
             </div>
             <div className="flex justify-center items-center h-full">
-              <Card className="w-full h-full">
-                <div
-                  color="blue-gray"
-                  className="relative h-[200px] shadow-lg rounded-lg"
-                >
+              <Card className="w-full h-full border">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/image-wpi-2.png"
                     alt="card-image"
@@ -227,11 +221,8 @@ export default function Home() {
               </Card>
             </div>
             <div className="flex justify-center items-center h-full">
-              <Card className="w-full h-full">
-                <div
-                  color="blue-gray"
-                  className="relative h-[200px] shadow-lg rounded-lg"
-                >
+              <Card className="w-full h-full border">
+                <div color="blue-gray" className="relative h-[200px]">
                   <img
                     src="./assets/image-wpi-3.png"
                     alt="card-image"
@@ -266,7 +257,7 @@ export default function Home() {
             <div className="pb-5 lg:pb-0">
               <Typography
                 variant="h3"
-                className="text-[1.6rem] pr-4 lg:pr-0 lg:text-[2rem] !leading-8 text-start"
+                className="text-[1.6rem] pr-4 lg:pr-0 lg:text-[2rem] !leading-8 text-start mb-6"
                 style={{
                   fontFamily: "'M PLUS Rounded 1c', sans-serif",
                   fontWeight: 800,
@@ -275,11 +266,15 @@ export default function Home() {
                 Keunggulan Melakukan Perdagangan Melalui Warung Pangan Indonesia
               </Typography>
             </div>
-            <div className="flex py-8 gap-3 md:gap-6">
-              <span className="text-[3rem] lg:text-6xl flex md:h-full">
-                <FcApproval />
+            <div className="flex py-4 gap-3 md:gap-6">
+              <span className="w-20 h-20">
+                <img
+                  src="./assets/check-product.png"
+                  alt="img-certif"
+                  className="h-auto w-full"
+                />
               </span>
-              <div>
+              <div className="w-full">
                 <Typography
                   variant="lead"
                   className="text-[1.5rem] lg:pr-0 lg:text-[2rem] !leading-8 text-start"
@@ -297,11 +292,16 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex  py-4 gap-3 md:gap-6">
-              <span className="text-[3rem] lg:text-6xl flex   md:h-full   ">
-                <FcMultipleDevices />
+
+            <div className="flex py-4 gap-3 md:gap-6">
+              <span className="w-20 h-20">
+                <img
+                  src="./assets/certification.png"
+                  alt="img-certif"
+                  className="h-auto w-full"
+                />
               </span>
-              <div>
+              <div className="w-full">
                 <Typography
                   variant="lead"
                   className="text-[1.5rem] lg:pr-0 lg:text-[2rem] !leading-8 text-start"
@@ -318,11 +318,16 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
             <div className="flex py-4 gap-3 md:gap-6">
-              <span className="text-[3rem] lg:text-6xl flex   md:h-full   ">
-                <FcCustomerSupport />
+              <span className="w-20 h-20">
+                <img
+                  src="./assets/scm.png"
+                  alt="img-certif"
+                  className="h-auto w-full"
+                />
               </span>
-              <div>
+              <div className="w-full">
                 <Typography
                   variant="lead"
                   className="text-[1.5rem] lg:pr-0 lg:text-[2rem] !leading-8 text-start"
