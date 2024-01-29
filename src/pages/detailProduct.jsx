@@ -77,7 +77,9 @@ export default function DetailProduct() {
   };
 
   const handleIncrement = () => {
-    handleQuantityChange(quantity + 1);
+    if(quantity < product.stock) {
+      handleQuantityChange(quantity + 1);
+    }
   };
 
   const handleDecrement = () => {
