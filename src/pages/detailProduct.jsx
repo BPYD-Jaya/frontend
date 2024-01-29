@@ -226,6 +226,26 @@ export default function DetailProduct() {
                                 color="blue-gray"
                                 className="font-normal "
                               >
+                                Storage Type
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.storage_type}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
                                 Description
                               </Typography>
                             </td>
@@ -404,10 +424,6 @@ export default function DetailProduct() {
                       <p className="ml-2 py-1 text-xl">{product.volume}</p>
                     </div>
                   </div>
-                  {/* <div className="flex justify-between">
-                    <p>1 variation(s) 1000 item(s)</p>
-                    <span>$14,000.00</span>
-                  </div> */}
                   <div className="flex justify-between">
                     <p>Shipping fee</p>
                     <span>To be negotiated</span>

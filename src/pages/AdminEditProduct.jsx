@@ -153,8 +153,6 @@ export default function AdminEditProduct() {
     };
   }, []);
 
-  // console.log(categories)
-
   useEffect(() => {
     // Fetch cities when the selected province changes
     const fetchCities = async () => {
@@ -268,6 +266,13 @@ export default function AdminEditProduct() {
     setProductData((prevData) => ({
       ...prevData,
       company_name: e.target.value,
+    }));
+  };
+
+  const handleCompanyWhatsappChange = (e) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      company_whatsapp_number: e.target.value,
     }));
   };
 
@@ -410,6 +415,22 @@ export default function AdminEditProduct() {
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
+            Company Whatsapp Number
+          </div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Input
+                color="indigo"
+                size="lg"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                placeholder="Input Company Whatsapp Number"
+                value={productData.company_whatsapp_number}
+                onChange={handleCompanyWhatsappChange}
+              />
+            </div>
+          <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Category Product
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8">
@@ -496,7 +517,7 @@ export default function AdminEditProduct() {
             />
           </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-            Satuan
+            Volume
           </div>
           <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
             <Input
@@ -554,7 +575,7 @@ export default function AdminEditProduct() {
                 </option>
               ))}
             </select>
-          </div>{" "}
+          </div>
           <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
             Address
           </div>
@@ -589,7 +610,6 @@ export default function AdminEditProduct() {
             Specification
           </div>
           <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
-            
           {formData.additional_info.map((info, index) => {
           return (
             <div className="w-full" key={index}>

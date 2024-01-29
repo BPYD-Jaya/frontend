@@ -36,7 +36,6 @@ export default function ProductPage() {
     }
   }
 
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData({ category_id: filteredProduct.category_id }, pageNumber);
@@ -93,7 +92,6 @@ export default function ProductPage() {
       console.error('Failed to fetch products:', error.message);
     }
   };
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -215,14 +213,12 @@ export default function ProductPage() {
           </SwiperSlide>
           {category.map((cat, index) => (
             <SwiperSlide key={index}>
-              <a href="#">
                 <img
                   src={cat.image_url}
                   className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
                   alt={cat.category}
                   onClick={() => handleCategoryClick(cat.id)}
                 />
-              </a>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -271,22 +267,36 @@ export default function ProductPage() {
               <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
-          <div className="md:col-span-2 ">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {paginationData.data.map((item, idx) => {
-                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
-                return (
-                  <MasterCatalog
-                    id={item.id}
-                    imageUrl={item.link_image}
-                    brand={item.brand}
-                    productName={item.product_name}
-                    priceRange={price}
-                    wa_link={item.wa_link}
-                  />
-                )
-              })}
-            </div>
+            <div className="md:col-span-2">
+            {paginationData.data.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
+                {paginationData.data.map((item, idx) => {
+                  let price = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(item.price);
+                  return (
+                    <MasterCatalog
+                      key={idx}
+                      id={item.id}
+                      imageUrl={item.link_image}
+                      brand={item.brand}
+                      productName={item.product_name}
+                      priceRange={price}
+                      wa_link={item.wa_link}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center">
+                <img
+                  src="./assets/barang-tidak-tersedia.png"
+                  alt="Barang tidak tersedia"
+                  className="w-64 h-64"
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center   mt-6">
