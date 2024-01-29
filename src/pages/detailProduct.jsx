@@ -445,9 +445,7 @@ export default function DetailProduct() {
                         <div className="flex justify-center items-center gap-3">
                           <img
                             alt=""
-                            src={
-                              process.env.PUBLIC_URL + "/assets/whatsapp.png"
-                            }
+                            src={process.env.PUBLIC_URL + "/assets/whatsapp.png"}
                             className="h-6"
                           />
                           Hubungi Kami
