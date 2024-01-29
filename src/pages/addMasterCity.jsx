@@ -1,92 +1,72 @@
 import React, { useState, useEffect } from "react";
-import MasterSidebar from "../components/masterSidebar";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
 import {
   Button,
   Typography,
   Input,
 } from "@material-tailwind/react";
+import Axios from "axios";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
+import MasterSidebar from "../components/masterSidebar";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
-export default function EditMasterCity() {
-  const [city, setCity] = useState({ city: "", province_id: "" });
+export default function AddMasterCity() {
+  const [cityName, setCityName] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [provinces, setProvinces] = useState([]); // Add state for storing provinces
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const { id } = useParams();
+
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const authToken = Cookies.get("authToken");
-        if (!authToken) {
-          throw new Error("Access token not found in cookies");
-        }
-
-        const response = await axios.get(
-          `https://backend.ptwpi.co.id/api/cities/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
-
-        console.log("API response:", response);
-        setCity({
-          city: response.data.city,
-          province_id: response.data.province_id // Pastikan ini diset dengan benar
-        });
-      } catch (error) {
-        console.error("Error fetching city data:", error.message);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if cityName or selectedProvince is empty
+    if (!cityName || !selectedProvince) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     try {
       const authToken = Cookies.get("authToken");
+
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
 
       const formData = {
-        city: city.city,
-        province_id: city.province_id
+        city: cityName,
+        province_id: selectedProvince,
       };
 
-      console.log("Form Data:", formData);
-
-      const response = await axios.put(
-        `https://backend.ptwpi.co.id/api/cities/${id}`,
+      const response = await Axios.post(
+        "https://backend.ptwpi.co.id/api/cities/create",
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
 
-      console.log("City data successfully updated:", response.data);
+      console.log(formData)
+      console.log("Data successfully submitted:", response.data);
+
+      // Redirect to /master-kota after successful submission
       navigate("/master-kota");
     } catch (error) {
-      console.error("Error updating city data:", error.response ? error.response.data : error.message);
+      console.error("Error submitting data:", error.message);
     }
   };
 
-  const handleCityChange = (e) => {
-    setCity((prevCity) => ({ ...prevCity, city: e.target.value }));
-  };
+  const getProvince = async () => {
+    const res = await Axios.get("https://backend.ptwpi.co.id/api/provinces")
+    setProvinces(res.data)
+  }
+
+  useEffect(() => {
+    getProvince();
+  },[])
 
   useEffect(() => {
     const handleResize = () => {
@@ -95,49 +75,104 @@ export default function EditMasterCity() {
 
     window.addEventListener("resize", handleResize);
 
+    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // console.log (provinces)
+  console.log (cityName)
+  console.log (selectedProvince)
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-      {/* Rest of your component code */}
+      {/* Sidebar */}
+      <div
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
+          openSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <MasterSidebar />
+      </div>
+
+      {openSidebar && (
+        <div
+          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
+          onClick={() => setOpenSidebar(false)}
+        ></div>
+      )}
+
+      {/* Navbar */}
+      <MasterNavbarAdmin
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
+
+      {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form onSubmit={handleFormSubmit}>
-          {/* Rest of your form code */}
-          <div className="md:col-span-4 rounded-lg">
-            <Input
-              name="city"
-              color="indigo"
-              size="lg"
-              placeholder="Nama Kota"
-              value={city.city}
-              onChange={handleCityChange}
-              className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
+          <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
+            <div className="md:col-span-4">
+              <Typography variant="h5" className="pb-10">
+                Tambah Kota
+              </Typography>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Pilih Provinsi
+              </Typography>
+              <select
+                value={selectedProvince}
+                onChange={(e) => setSelectedProvince(e.target.value)}
+                className="w-full p-2 mt-1 border rounded-lg"
+              >
+                <option value="" disabled>
+                  Pilih Provinsi
+                </option>
+                {provinces.map((province) => (
+                  <option key={province.id} value={province.id}>
+                    {province.province}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-4">
+              <Typography variant="small" className="">
+                Nama Kota
+              </Typography>
+            </div>
+            <div className="md:col-span-4 rounded-lg">
+              <Input
+                color="indigo"
+                size="lg"
+                placeholder="Nama Kota"
+                className="!border-t-blue-gray-200 focus:!border-t-blue-900"
+                onChange={(e) => setCityName(e.target.value)}
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+            </div>
+            <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
+              <a
+                href="/master-kota"
+                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
+              >
+                <Button className="bg-red-400 flex">Batal</Button>
+              </a>
+                <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
+                  Simpan
+                </Button>
+            </div>
           </div>
-          <div className="md:col-span-4 rounded-lg">
-          <Input
-            name="province_id"
-            color="indigo"
-            size="lg"
-            placeholder="ID Provinsi"
-            value={city.province_id}
-            readOnly // Membuat input tidak dapat diedit
-            className="!border-t-blue-gray-200 focus:!border-t-blue-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-        </div>
-          {/* Rest of your form code */}
         </form>
       </div>
-      {/* Rest of your component code */}
+
+      {/* Footer */}
+      <div className="pt-10">
+        <MasterFooterAdmin />
+      </div>
     </div>
   );
 }

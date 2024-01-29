@@ -20,6 +20,12 @@ export default function AddMasterProvince() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if provinceName is empty
+    if (!provinceName) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     try {
       const authToken = Cookies.get("authToken");
 

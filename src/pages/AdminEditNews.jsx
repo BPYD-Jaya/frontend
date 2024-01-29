@@ -30,14 +30,6 @@ export default function AdminEditNews() {
     fetchBlogData();
   }, []);
 
-  // useEffect(() => {
-  //   // Misalnya, dapatkan token akses dari penyimpanan lokal
-  //   const token = localStorage.getItem("accessToken");
-  //   if (token) {
-  //     setAccessToken(token);
-  //   }
-  // }, []);
-
   const handleTittleNews = (e) => {
     setBlogData((prevData) => ({
       ...prevData,
@@ -232,7 +224,6 @@ export default function AdminEditNews() {
                         <span>
                           <Typography variant="small">Ganti Gambar</Typography>
                         </span>
-
                         <input
                           type="file"
                           className="absolute inset-0 opacity-0 cursor-pointer top-0 left-0 h-full w-full"

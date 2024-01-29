@@ -25,7 +25,7 @@ export default function ProductPage() {
   const [category, setCategory] = useState([])
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
   const [email, setEmail] = useState("")
-
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchCategory = async () => {
     try {
@@ -36,13 +36,15 @@ export default function ProductPage() {
     }
   }
 
-
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    fetchData({category_id: filteredProduct.category_id}, pageNumber)
-  }
+    setCurrentPage(pageNumber);
+    fetchData({ category_id: filteredProduct.category_id }, pageNumber);
 
-  const fetchData = async (filters, page) => {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const fetchData = async (filters, page = currentPage) => {
     try {
       let url = 'https://backend.ptwpi.co.id/api/products';
       const params = new URLSearchParams();
@@ -66,6 +68,10 @@ export default function ProductPage() {
         params.append('category_id', filters);
       }
 
+      if (searchQuery) {
+        params.append('search', searchQuery);
+      }
+
       // Handle pagination
       params.append('page', page);
 
@@ -86,7 +92,6 @@ export default function ProductPage() {
       console.error('Failed to fetch products:', error.message);
     }
   };
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -208,14 +213,12 @@ export default function ProductPage() {
           </SwiperSlide>
           {category.map((cat, index) => (
             <SwiperSlide key={index}>
-              <a href="#">
                 <img
                   src={cat.image_url}
                   className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
                   alt={cat.category}
                   onClick={() => handleCategoryClick(cat.id)}
                 />
-              </a>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -229,10 +232,13 @@ export default function ProductPage() {
               <input
                 type="text"
                 placeholder="Cari Produk"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border-wpigreen-500"
               />
               <button
                 type="button"
+                onClick={() => fetchData({ search: searchQuery })}
                 className="bg-wpigreen-50 text-white font-bold py-2 lg-4 h-10 rounded-r-md px-4 "
               >
                 <FaMagnifyingGlass />
@@ -261,22 +267,36 @@ export default function ProductPage() {
               <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
-          <div className="md:col-span-2 ">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
-              {paginationData.data.map((item, idx) => {
-                let price = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price);
-                return (
-                  <MasterCatalog
-                    id={item.id}
-                    imageUrl={item.link_image}
-                    brand={item.brand}
-                    productName={item.product_name}
-                    priceRange={price}
-                    wa_link={item.wa_link}
-                  />
-                )
-              })}
-            </div>
+            <div className="md:col-span-2">
+            {paginationData.data.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
+                {paginationData.data.map((item, idx) => {
+                  let price = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(item.price);
+                  return (
+                    <MasterCatalog
+                      key={idx}
+                      id={item.id}
+                      imageUrl={item.link_image}
+                      brand={item.brand}
+                      productName={item.product_name}
+                      priceRange={price}
+                      wa_link={item.wa_link}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center">
+                <img
+                  src="./assets/barang-tidak-tersedia.png"
+                  alt="Barang tidak tersedia"
+                  className="w-64 h-64"
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center   mt-6">
@@ -284,6 +304,7 @@ export default function ProductPage() {
             active={paginationData.current_page}
             onPageChange={paginate}
             totalItems={paginationData.total}
+            itemsOnPage={paginationData.per_page}
           />
         </div>
       </div>

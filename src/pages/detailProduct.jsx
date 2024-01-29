@@ -11,7 +11,7 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function Icon({ id, open }, priceInRupiah) {
@@ -37,23 +37,24 @@ function Icon({ id, open }, priceInRupiah) {
 
 export default function DetailProduct() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const { id } = useParams()
-  const [product, setProduct] = useState({})
-  const [email, setEmail] = useState("")
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  const [email, setEmail] = useState("");
 
   const TABLE_HEAD = ["Item ", "Value"];
 
-
   const fetchData = async () => {
     try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/products/' + id)
-      setProduct(res.data.data)
-      setPrice(res.data.data.price)
+      const res = await axios.get(
+        "https://backend.ptwpi.co.id/api/products/" + id
+      );
+      setProduct(res.data.data);
+      setPrice(res.data.data.price);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
-  
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -72,7 +73,7 @@ export default function DetailProduct() {
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
-    handlePriceChange(newQuantity)
+    handlePriceChange(newQuantity);
   };
 
   const handleIncrement = () => {
@@ -91,12 +92,11 @@ export default function DetailProduct() {
 
   const [isCardSticky, setIsCardSticky] = useState(false);
 
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState(0);
 
   const handlePriceChange = (newQuantity) => {
-    
-    setPrice(product.price * newQuantity)
-  }
+    setPrice(product.price * newQuantity);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,23 +113,25 @@ export default function DetailProduct() {
   }, []);
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  
-  const additionalInfo = product.additional_info || []
+  const additionalInfo = product.additional_info || [];
 
   const handleSubmitNotification = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       email: email,
-    }
+    };
     try {
-      const res = await axios.post('https://backend.ptwpi.co.id/api/notifications', data)
+      const res = await axios.post(
+        "https://backend.ptwpi.co.id/api/notifications",
+        data
+      );
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   return (
     <div>
@@ -148,18 +150,15 @@ export default function DetailProduct() {
         <div className="container mx-auto flex justify-start pt-4 xl:px-0">
           <div className="flex gap-2">
             <a
-              href="/blog"
+              href="/produk"
               className="text-wpigreen-50 hover:text-green-900 opacity-60"
             >
               Product
             </a>
             <div>/</div>
-            <a
-              href="#"
-              className="text-wpigreen-50 hover:text-green-900 font-bold"
-            >
-              *Nama produk*
-            </a>
+            <p className="text-wpigreen-50 hover:text-green-900 font-bold">
+              {product.product_name}
+            </p>
           </div>
         </div>
 
@@ -200,126 +199,156 @@ export default function DetailProduct() {
                           </tr>
                         </thead>
                         <tbody>
-                            <tr className="even:bg-blue-gray-50/50">
-                              <td className="p-4 break-words">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal "
-                                >
-                                  Place of Origin
-                                </Typography>
-                              </td>
-                              <td className="p-4">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal"
-                                >
-                                  {product.city}, {product.province}
-                                </Typography>
-                              </td>
-                            </tr>
-                            <tr className="even:bg-blue-gray-50/50">
-                              <td className="p-4 break-words">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal "
-                                >
-                                  Description
-                                </Typography>
-                              </td>
-                              <td className="p-4">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal"
-                                >
-                                  {product.description}
-                                </Typography>
-                              </td>
-                            </tr>
-                            <tr className="even:bg-blue-gray-50/50">
-                              <td className="p-4 break-words">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal "
-                                >
-                                  Category
-                                </Typography>
-                              </td>
-                              <td className="p-4">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal"
-                                >
-                                  {product.category}
-                                </Typography>
-                              </td>
-                            </tr>
-                            <tr className="even:bg-blue-gray-50/50">
-                              <td className="p-4 break-words">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal "
-                                >
-                                  Stock
-                                </Typography>
-                              </td>
-                              <td className="p-4">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal"
-                                >
-                                  {product.stock} {product.volume}
-                                </Typography>
-                              </td>
-                            </tr>
-                            {additionalInfo.map((info, index) => {
-                              const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
-                              const value = info[key]; // Get the value associated with the key
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Place of Origin
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.city}, {product.province}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Storage Type
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.storage_type}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Description
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.description}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Category
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.category}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Stock
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.stock} {product.volume}
+                              </Typography>
+                            </td>
+                          </tr>
+                          {additionalInfo.map((info, index) => {
+                            const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
+                            const value = info[key]; // Get the value associated with the key
 
-                              return (
-                                <tr className="even:bg-blue-gray-50/50" key={index}>
-                                  <td className="p-4 break-words">
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                      {key}
-                                    </Typography>
-                                  </td>
-                                  <td className="p-4">
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                      {value}
-                                    </Typography>
-                                  </td>
-                                </tr>
-                              )
-                            })
-                          } 
-                            <tr className="even:bg-blue-gray-50/50">
-                              <td className="p-4 break-words">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal "
-                                >
-                                  Address
-                                </Typography>
-                              </td>
-                              <td className="p-4">
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal"
-                                >
-                                  {product.address}
-                                </Typography>
-                              </td>
-                            </tr>
+                            return (
+                              <tr
+                                className="even:bg-blue-gray-50/50"
+                                key={index}
+                              >
+                                <td className="p-4 break-words">
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {key}
+                                  </Typography>
+                                </td>
+                                <td className="p-4">
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {value}
+                                  </Typography>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                          <tr className="even:bg-blue-gray-50/50">
+                            <td className="p-4 break-words">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal "
+                              >
+                                Address
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.address}
+                              </Typography>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -360,39 +389,41 @@ export default function DetailProduct() {
                       }}
                       className="font-bold"
                     >
-                      {new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(product.price)}
+                      {new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }).format(product.price)}
                     </Typography>
                   </div>
                   <div className="border-b">
                     <p className="py-4">Quantity</p>
-                    <ButtonGroup size="md" className=" justify-start pb-4">
-                      <Button
-                        onClick={handleDecrement}
-                        className="hover:bg-blue-400 bg-wpiblue-50"
-                      >
-                        -
-                      </Button>
-                      <input
-                        type="number"
-                        value={quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(parseInt(e.target.value))
-                        }
-                        className="w-[45px] max-w-[45px] border items-center text-center"
-                        placeholder="Qty."
-                      />
-                      <Button
-                        onClick={handleIncrement}
-                        className="hover:bg-blue-400 bg-wpiblue-50"
-                      >
-                        +
-                      </Button>
-                    </ButtonGroup>
+                    <div className="flex flex-row">
+                      <ButtonGroup size="md" className=" justify-start pb-4">
+                        <Button
+                          onClick={handleDecrement}
+                          className="hover:bg-blue-400 bg-wpiblue-50"
+                        >
+                          -
+                        </Button>
+                        <input
+                          type="number"
+                          value={quantity}
+                          onChange={(e) =>
+                            handleQuantityChange(parseInt(e.target.value))
+                          }
+                          className="w-[45px] max-w-[45px] border items-center text-center"
+                          placeholder="Qty."
+                        />
+                        <Button
+                          onClick={handleIncrement}
+                          className="hover:bg-blue-400 bg-wpiblue-50"
+                        >
+                          +
+                        </Button>
+                      </ButtonGroup>
+                      <p className="ml-2 py-1 text-xl">{product.volume}</p>
+                    </div>
                   </div>
-                  {/* <div className="flex justify-between">
-                    <p>1 variation(s) 1000 item(s)</p>
-                    <span>$14,000.00</span>
-                  </div> */}
                   <div className="flex justify-between">
                     <p>Shipping fee</p>
                     <span>To be negotiated</span>
@@ -408,16 +439,21 @@ export default function DetailProduct() {
                     >
                       Total
                     </Typography>
-                    <span style={{
-                fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                fontWeight: 700,
-              }} className="font-bold">{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(price)}</span>
+                    <span
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      className="font-bold"
+                    >
+                      {new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }).format(price)}
+                    </span>
                   </div>
                   <div className="w-full flex items-center justify-center">
-                    <a
-                      href={product.wa_link}
-                      className="w-full"
-                    >
+                    <a href={product.wa_link} className="w-full">
                       <Button
                         type="button"
                         className="ml-0 mb-[-10px] mt-4 bg-gradient-to-r from-wpigreen-100 to-wpigreen-200 text-white font-bold text-2xl py-2 px-4 h-12 w-full rounded-md"
@@ -425,7 +461,7 @@ export default function DetailProduct() {
                         <div className="flex justify-center items-center gap-3">
                           <img
                             alt=""
-                            src="./assets/whatsapp.png"
+                            src={process.env.PUBLIC_URL + "/assets/whatsapp.png"}
                             className="h-6"
                           />
                           Hubungi Kami
@@ -467,7 +503,10 @@ export default function DetailProduct() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
+                <Button
+                  onClick={handleSubmitNotification}
+                  className="hover:bg-green-400 bg-wpigreen-50"
+                >
                   Submit
                 </Button>
               </div>

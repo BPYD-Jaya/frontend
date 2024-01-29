@@ -17,7 +17,7 @@ export default function EditAbout() {
     const [formData, setFormData] = useState({})
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://backend.ptpwpi.co.id/api/about/1')
+            const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
             setResult(res.data.data)
         } catch (error) {
             console.error(error.message)
@@ -30,7 +30,7 @@ export default function EditAbout() {
             [e.target.name]: e.target.value
         })
     }
-    console.log(formData)
+    // console.log(formData)
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -213,9 +213,11 @@ export default function EditAbout() {
                         </div>
                         
                         <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
+                            <a href="/dashboard">
                             <Button className="bg-red-400 flex">
                                 Batal
                             </Button>
+                            </a>
                             <Button onClick={handleSubmit} className="bg-wpigreen-50 flex">
                                 Simpan
                             </Button>

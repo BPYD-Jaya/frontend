@@ -7,6 +7,7 @@ import MasterFooter from "../components/masterFooter";
 import MasterNews from "../components/masterNews";
 import MasterPagination from "../components/masterPagination";
 import { useNavigate, useParams } from "react-router";
+import axios from "axios";
 
 export default function NewsPage() {
   const navigate = useNavigate();
@@ -15,12 +16,26 @@ export default function NewsPage() {
 
   const { id } = useParams();
 
+  // const [productData, setProductData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // New state to store pagination data
+  const [paginationData, setPaginationData] = useState({
+    current_page: 1,
+    last_page: 1,
+    data: [],
+  });
+  console.log("paginationData", paginationData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("https://backend.ptwpi.co.id/api/blogs");
         const data = await response.json();
         setBlogData(data.blogs.data);
+        setFilteredProducts(data.blogs.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -29,6 +44,30 @@ export default function NewsPage() {
     fetchData();
   }, []);
 
+  const handlePageChange = async (pageNumber) => {
+    try {
+      const response = await axios.get(
+        `https://backend.ptwpi.co.id/api/blogs?page=${pageNumber}`,
+        {}
+      );
+  
+      if (response && response.data && response.data.blogs && response.data.blogs.data) {
+        const newData = response.data.blogs.data;
+        setFilteredProducts(newData); // Set the data array to filteredProducts
+        setPaginationData({
+          ...paginationData,
+          current_page: pageNumber,
+        });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        console.error("Invalid response format:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
   const navigateToDetail = (id) => {
     navigate(`/detail-blog/${id}`);
   };
@@ -105,7 +144,7 @@ export default function NewsPage() {
           </div>
           <div className="container mx-auto flex justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 text-start">
-              {blogData.map((item, index) => (
+              {filteredProducts.map((item, index) => (
                 <div
                   key={item.id}
                   onClick={() => navigateToDetail(item.id)}
@@ -116,8 +155,13 @@ export default function NewsPage() {
               ))}
             </div>
           </div>
-          <div className="flex lg:justify-center lg:pr-[435px]  items-center mt-6">
-            <MasterPagination />
+          <div className="flex lg:justify-center   items-center mt-6">
+            <MasterPagination
+              active={paginationData.current_page}
+              onPageChange={handlePageChange}
+              totalItems={blogData.length} // Pass the total number of items for pagination
+              itemsPerPage={paginationData.per_page} // Pass the number of items per page
+            />{" "}
           </div>
         </div>
 

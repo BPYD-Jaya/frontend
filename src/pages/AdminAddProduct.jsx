@@ -6,6 +6,7 @@ import {
   Typography,
   Select,
   Option,
+  Textarea,
 } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
@@ -17,7 +18,7 @@ import { useNavigate } from "react-router";
 const { object } = require("prop-types");
 
 export default function AdminAddProduct() {
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [additional_info, setAdditionalInfo] = useState([]);
   const [descriptionInputs, setDescriptionInputs] = useState(1);
   const [provinces, setProvinces] = useState([]);
@@ -72,10 +73,34 @@ export default function AdminAddProduct() {
     setFormData({ ...formData, additional_info: updatedAdditionalInfo });
   };
 
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    const requiredFields = [
+      "product_name",
+      "brand",
+      "company",
+      "company_category",
+      "company_whatsapp_number",
+      "address",
+      "price",
+      "stock",
+      "volume",
+      "storage_type",
+      "packaging",
+      "category_id",
+      "description",
+      "province_id",
+      "city_id",
+    ];
+  
+    for (const field of requiredFields) {
+      if (!formData[field]) {
+        alert("Please fill in all required fields.");
+      return;
+      }
+    }
+  
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
@@ -86,37 +111,41 @@ export default function AdminAddProduct() {
       const formDataToSend = new FormData();
 
       // Append text fields to FormData
-      formDataToSend.append('brand', formData.brand);
-      formDataToSend.append('product_name', formData.product_name);
-      formDataToSend.append('price', formData.price);
-      formDataToSend.append('stock', formData.stock);
-      formDataToSend.append('volume', formData.volume);
-      formDataToSend.append('category_id', formData.category_id);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('province_id', formData.province_id);
-      formDataToSend.append('city_id', formData.city_id);
-      formDataToSend.append('address', formData.address);
-      formDataToSend.append('company_name', formData.company);
-      formDataToSend.append('company_category', formData.company_category);
-      formDataToSend.append('company_whatsapp_number', formData.company_whatsapp_number);
-      formDataToSend.append('storage_type', formData.storage_type);
-      formDataToSend.append('packaging', formData.packaging);
+      formDataToSend.append("brand", formData.brand);
+      formDataToSend.append("product_name", formData.product_name);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("stock", formData.stock);
+      formDataToSend.append("volume", formData.volume);
+      formDataToSend.append("category_id", formData.category_id);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("province_id", formData.province_id);
+      formDataToSend.append("city_id", formData.city_id);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("company_name", formData.company);
+      formDataToSend.append("company_category", formData.company_category);
+      formDataToSend.append(
+        "company_whatsapp_number",
+        formData.company_whatsapp_number
+      );
+      formDataToSend.append("storage_type", formData.storage_type);
+      formDataToSend.append("packaging", formData.packaging);
 
       // Append file to FormData
-      if (selectedFile) { // Make sure selectedFile is a File object
-        formDataToSend.append('item_image', selectedFile, selectedFile.name);
+      if (selectedFile) {
+        // Make sure selectedFile is a File object
+        formDataToSend.append("item_image", selectedFile, selectedFile.name);
       }
 
       // Append additional_info array if necessary
-      if (formData.additional_info.length) {
-        formData.additional_info.forEach((info, index) => {
-          formDataToSend.append(`additional_info[${index}][item]`, info.item || '');
-          formDataToSend.append(`additional_info[${index}][desc]`, info.desc || '');
-        });
-      }
+      formData.additional_info.forEach((info, index) => {
+        formDataToSend.append(
+          `additional_info[${index}][${info.item}]`,
+          info.desc || ""
+        );
+      });
 
-      // Log formData for debugging
-      console.log("formData", formData);
+      // Log formDataToSend for debugging
+      console.log("formDataToSend", formDataToSend);
 
       // Axios POST request with FormData
       const response = await Axios.post(
@@ -137,7 +166,10 @@ export default function AdminAddProduct() {
       // Redirect after successful submission
       navigate("/admin-produk");
     } catch (error) {
-      console.error("Error submitting data:", error.response ? error.response.data : error);
+      console.error(
+        "Error submitting data:",
+        error.response ? error.response.data : error
+      );
     }
   };
 
@@ -235,12 +267,15 @@ export default function AdminAddProduct() {
     setDescriptionInputs(descriptionInputs + 1);
   };
 
+  // console.log(formData)
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
+          openSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <MasterSidebar />
       </div>
@@ -316,7 +351,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Name"
                 value={formData.company}
                 onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })
@@ -334,7 +369,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Category"
                 value={formData.company_category}
                 onChange={(e) =>
                   setFormData({ ...formData, company_category: e.target.value })
@@ -352,7 +387,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Company Whatsapp Number"
                 value={formData.company_whatsapp_number}
                 onChange={(e) =>
                   setFormData({
@@ -394,7 +429,10 @@ export default function AdminAddProduct() {
                 placeholder="Input Price"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, price: parseFloat(e.target.value) })
+                  setFormData({
+                    ...formData,
+                    price: parseFloat(e.target.value) || "",
+                  })
                 }
               />
             </div>
@@ -412,7 +450,10 @@ export default function AdminAddProduct() {
                 placeholder="Input Stock"
                 value={formData.stock}
                 onChange={(e) =>
-                  setFormData({ ...formData, stock: parseInt(e.target.value) })
+                  setFormData({
+                    ...formData,
+                    stock: parseInt(e.target.value) || "",
+                  })
                 }
               />
             </div>
@@ -437,21 +478,20 @@ export default function AdminAddProduct() {
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Storage Type
             </div>
-            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Input
-                color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                placeholder="Input Minyak Goreng BPYD"
-                value={formData.storage_type}
-                onChange={(e) =>
-                  setFormData({ ...formData, storage_type: e.target.value })
-                }
-              />
-            </div>
+              <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+                <Select
+                  color="indigo"
+                  size="lg"
+                  outline="outline-1 focus:outline-1"
+                  className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                  placeholder="Select Storage Type"
+                  value={formData.storage_type}
+                  onChange={(value) => setFormData({ ...formData, storage_type: value })}
+                >
+                  <Option value="Dry">Dry</Option>
+                  <Option value="Frozen">Frozen</Option>
+                </Select>
+              </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Packaging
             </div>
@@ -463,7 +503,7 @@ export default function AdminAddProduct() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Packaging"
                 value={formData.packaging}
                 onChange={(e) =>
                   setFormData({ ...formData, packaging: e.target.value })
@@ -495,14 +535,14 @@ export default function AdminAddProduct() {
               Description
             </div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Input
+              <Textarea
                 color="indigo"
                 size="lg"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder="Input Minyak Goreng BPYD"
+                placeholder="Input Description"
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
@@ -608,11 +648,13 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               Photo Product
             </div>
-            <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+            <div
+              className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
+              {...getRootProps()}
+            >
               <input {...getInputProps()} />
               {isDragActive ? (
                 <p>Drop the files here ...</p>
@@ -620,7 +662,9 @@ export default function AdminAddProduct() {
                 <div className="text-center flex flex-col items-center">
                   <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
                   <p className="mt-2">
-                    {selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}
+                    {selectedFile
+                      ? `File: ${selectedFile.path}`
+                      : "Drag and drop file here or click to select file"}
                   </p>
                 </div>
               )}

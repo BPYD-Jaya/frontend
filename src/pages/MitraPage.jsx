@@ -108,12 +108,14 @@ export default function MitraPage() {
     onDrop: handleFileUpload,
   });
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if required fields are filled
+    if (!formData.name || !formData.company_name || !formData.company_email || !formData.company_phone || !formData.company_category || !formData.province_id || !formData.city_id || !formData.company_address || !formData.product_name || !formData.brand_name || !formData.stock || !formData.volume || !formData.category_id || !formData.price || !formData.description || !selectedFile) {
+      alert("Please fill in all required fields.");
+      return;
+    }
 
     // Membuat instance FormData baru
     const formDataToSend = new FormData();
@@ -175,7 +177,7 @@ export default function MitraPage() {
 
       {/* Jumbotron */}
       <div
-        className="bg-wpiblue-50 xl:h-[675px] lg:h-[540px] h-[950px] md:h-[1000px] lg:pt-4 pt-0"
+        className="bg-wpiblue-50 xl:h-[675px] lg:h-[540px] h-[1000px] md:h-[1000px] lg:pt-4 pt-0"
         style={{ borderRadius: "0 0 50px 50px" }}
       >
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 gap-8">
@@ -209,7 +211,7 @@ export default function MitraPage() {
                   </Button>
                 </a>
               </div>
-              <div className="md:pt-0 pt-4 flex justify-end">
+              <div className="md:pt-0 pt-4 xl:translate-y-20 md:translate-y-14 translate-y-0 flex justify-end">
                 <img src="./assets/brick.png" alt="" className="" />
               </div>
             </div>
@@ -219,7 +221,7 @@ export default function MitraPage() {
 
       {/* Content */}
       <div className="mx-2">
-        <div className="bg-white container mx-auto md:-translate-y-[2.5rem] lg:-translate-y-[8.3rem] xl:-translate-y-[9rem] -translate-y-16 px-12 py-8 text-center shadow-lg rounded-lg">
+        <div className="bg-white container mx-auto md:-translate-y-[2.5rem] lg:-translate-y-[8.3rem] xl:-translate-y-[9rem] -translate-y-28 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="text-wpiblue-50">
             <Typography
               variant="h2"
