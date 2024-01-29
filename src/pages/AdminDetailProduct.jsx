@@ -220,6 +220,26 @@ export default function AdminDetailProduct() {
                       color="blue-gray"
                       className="font-normal "
                     >
+                      Storage Type
+                    </Typography>
+                    </td>
+                    <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {productData.storage_type}
+                    </Typography>
+                  </td>
+                </tr>
+                <tr className="even:bg-blue-gray-50/50">
+                  <td className="p-4 break-words">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
                       Category
                     </Typography>
                   </td>

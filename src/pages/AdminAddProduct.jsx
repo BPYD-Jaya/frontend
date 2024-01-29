@@ -478,24 +478,20 @@ export default function AdminAddProduct() {
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Storage Type
             </div>
-            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Select
-                color="indigo"
-                size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                placeholder="Input Storage Type"
-                value={formData.storage_type}
-                onChange={(e) =>
-                  setFormData({ ...formData, storage_type: e.target.value })
-                }
-              >
-                <Option>Dry</Option>
-                <Option>Frozen</Option>
-              </Select>
-            </div>
+              <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+                <Select
+                  color="indigo"
+                  size="lg"
+                  outline="outline-1 focus:outline-1"
+                  className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                  placeholder="Select Storage Type"
+                  value={formData.storage_type}
+                  onChange={(value) => setFormData({ ...formData, storage_type: value })}
+                >
+                  <Option value="Dry">Dry</Option>
+                  <Option value="Frozen">Frozen</Option>
+                </Select>
+              </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Packaging
             </div>

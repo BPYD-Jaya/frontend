@@ -301,6 +301,14 @@ export default function ProductPage() {
             )}
           </div>
         </div>
+        <div className="flex justify-center items-center   mt-6">
+          <MasterPagination
+            active={paginationData.current_page}
+            onPageChange={paginate}
+            totalItems={paginationData.total}
+            itemsOnPage={paginationData.per_page}
+          />
+        </div>
       </div>
 
       {/* Form Email */}
