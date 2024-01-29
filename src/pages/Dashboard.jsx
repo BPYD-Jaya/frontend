@@ -25,8 +25,6 @@ export default function DashboardPage() {
     }
   }
 
-  
-
   useEffect(() => {
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
