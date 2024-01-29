@@ -155,13 +155,16 @@ export default function AdminEditProduct() {
 
   useEffect(() => {
     // Fetch cities when the selected province changes
-    const fetchCities = async () => {
+    const fetchCities = async (pageNumber = 1) => {
       try {
         const response = await Axios.get(
-          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
+          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}&page=${pageNumber}`
         );
 
-        const filteredCities = response.data.data
+        const cityPageData = response.data;
+
+        // Map cities from the current page
+        const currentPageCities = cityPageData.data
           .filter((city) => city.province_id === Number(selectedProvince))
           .map((item, index) => ({
             id: item.id,
@@ -169,17 +172,25 @@ export default function AdminEditProduct() {
             cityName: item.city,
           }));
 
-        setCities(filteredCities);
+        // Add cities from the current page to the list
+        setCities((prevCities) => [...prevCities, ...currentPageCities]);
+
+        // If there are more pages, fetch the next page
+        if (cityPageData.next_page_url !== null) {
+          const nextPageNumber = pageNumber + 1;
+          fetchCities(nextPageNumber);
+        } else {
+        }
       } catch (error) {
         console.error("Error fetching city data:", error);
       }
     };
 
     if (selectedProvince !== null) {
+      // Clear cities when the selected province changes
+      setCities([]);
       fetchCities();
     }
-
-    // console.log(cities);
   }, [selectedProvince, provinces]);
 
   const handleAddSpesification = () => {
