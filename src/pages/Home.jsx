@@ -397,7 +397,7 @@ export default function Home() {
                 </CardBody>
               </Card>
             </div>
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full px-4 md:px-0">
               <Card className="w-full h-full">
                 <div color="blue-gray" className="relative h-[200px]">
                   <img
@@ -423,7 +423,7 @@ export default function Home() {
                 </CardBody>
               </Card>
             </div>
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full px-4 md:px-0">
               <Card className="w-full h-full">
                 <div color="blue-gray" className="relative h-[200px]">
                   <img
@@ -453,7 +453,7 @@ export default function Home() {
         </div>
 
         {/* Content Image */}
-        <div className="container mx-auto flex justify-center pb-16 py-4">
+        <div className="container mx-auto flex justify-center pb-16 py-4 px-4 md:px-0">
           <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <a href="/produk">
               <img
