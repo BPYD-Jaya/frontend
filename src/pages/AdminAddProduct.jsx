@@ -6,7 +6,7 @@ import {
   Typography,
   Select,
   Option,
-  Textarea
+  Textarea,
 } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
@@ -73,49 +73,55 @@ export default function AdminAddProduct() {
     setFormData({ ...formData, additional_info: updatedAdditionalInfo });
   };
 
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
-  
+
       // Initialize FormData
       const formDataToSend = new FormData();
-  
+
       // Append text fields to FormData
-      formDataToSend.append('brand', formData.brand);
-      formDataToSend.append('product_name', formData.product_name);
-      formDataToSend.append('price', formData.price);
-      formDataToSend.append('stock', formData.stock);
-      formDataToSend.append('volume', formData.volume);
-      formDataToSend.append('category_id', formData.category_id);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('province_id', formData.province_id);
-      formDataToSend.append('city_id', formData.city_id);
-      formDataToSend.append('address', formData.address);
-      formDataToSend.append('company_name', formData.company);
-      formDataToSend.append('company_category', formData.company_category);
-      formDataToSend.append('company_whatsapp_number', formData.company_whatsapp_number);
-      formDataToSend.append('storage_type', formData.storage_type);
-      formDataToSend.append('packaging', formData.packaging);
-  
+      formDataToSend.append("brand", formData.brand);
+      formDataToSend.append("product_name", formData.product_name);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("stock", formData.stock);
+      formDataToSend.append("volume", formData.volume);
+      formDataToSend.append("category_id", formData.category_id);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("province_id", formData.province_id);
+      formDataToSend.append("city_id", formData.city_id);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("company_name", formData.company);
+      formDataToSend.append("company_category", formData.company_category);
+      formDataToSend.append(
+        "company_whatsapp_number",
+        formData.company_whatsapp_number
+      );
+      formDataToSend.append("storage_type", formData.storage_type);
+      formDataToSend.append("packaging", formData.packaging);
+
       // Append file to FormData
-      if (selectedFile) { // Make sure selectedFile is a File object
-        formDataToSend.append('item_image', selectedFile, selectedFile.name);
+      if (selectedFile) {
+        // Make sure selectedFile is a File object
+        formDataToSend.append("item_image", selectedFile, selectedFile.name);
       }
-  
+
       // Append additional_info array if necessary
       formData.additional_info.forEach((info, index) => {
-        formDataToSend.append(`additional_info[${index}][${info.item}]`, info.desc || '');
+        formDataToSend.append(
+          `additional_info[${index}][${info.item}]`,
+          info.desc || ""
+        );
       });
-  
+
       // Log formDataToSend for debugging
       console.log("formDataToSend", formDataToSend);
-  
+
       // Axios POST request with FormData
       const response = await Axios.post(
         "https://backend.ptwpi.co.id/api/products",
@@ -127,19 +133,20 @@ export default function AdminAddProduct() {
           },
         }
       );
-  
+
       // Log response from the server
       console.log("response", response);
       console.log("Data successfully submitted:", response.data);
-  
+
       // Redirect after successful submission
       navigate("/admin-produk");
     } catch (error) {
-      console.error("Error submitting data:", error.response ? error.response.data : error);
+      console.error(
+        "Error submitting data:",
+        error.response ? error.response.data : error
+      );
     }
   };
-  
-  
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
@@ -241,8 +248,9 @@ export default function AdminAddProduct() {
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
+          openSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <MasterSidebar />
       </div>
@@ -396,7 +404,10 @@ export default function AdminAddProduct() {
                 placeholder="Input Price"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, price: parseFloat(e.target.value) || '' })
+                  setFormData({
+                    ...formData,
+                    price: parseFloat(e.target.value) || "",
+                  })
                 }
               />
             </div>
@@ -414,7 +425,10 @@ export default function AdminAddProduct() {
                 placeholder="Input Stock"
                 value={formData.stock}
                 onChange={(e) =>
-                  setFormData({ ...formData, stock: parseInt(e.target.value) || '' })
+                  setFormData({
+                    ...formData,
+                    stock: parseInt(e.target.value) || "",
+                  })
                 }
               />
             </div>
@@ -440,7 +454,7 @@ export default function AdminAddProduct() {
               Storage Type
             </div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Input
+              <Select
                 color="indigo"
                 size="lg"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
@@ -452,7 +466,10 @@ export default function AdminAddProduct() {
                 onChange={(e) =>
                   setFormData({ ...formData, storage_type: e.target.value })
                 }
-              />
+              >
+                <Option>Dry</Option>
+                <Option>Frozen</Option>
+              </Select>
             </div>
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
               Packaging
@@ -614,7 +631,10 @@ export default function AdminAddProduct() {
             <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
               Photo Product
             </div>
-            <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+            <div
+              className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
+              {...getRootProps()}
+            >
               <input {...getInputProps()} />
               {isDragActive ? (
                 <p>Drop the files here ...</p>
@@ -622,7 +642,9 @@ export default function AdminAddProduct() {
                 <div className="text-center flex flex-col items-center">
                   <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
                   <p className="mt-2">
-                    {selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}
+                    {selectedFile
+                      ? `File: ${selectedFile.path}`
+                      : "Drag and drop file here or click to select file"}
                   </p>
                 </div>
               )}
