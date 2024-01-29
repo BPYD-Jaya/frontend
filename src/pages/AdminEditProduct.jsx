@@ -155,13 +155,16 @@ export default function AdminEditProduct() {
 
   useEffect(() => {
     // Fetch cities when the selected province changes
-    const fetchCities = async () => {
+    const fetchCities = async (pageNumber = 1) => {
       try {
         const response = await Axios.get(
-          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}`
+          `https://backend.ptwpi.co.id/api/cities?province_id=${selectedProvince}&page=${pageNumber}`
         );
 
-        const filteredCities = response.data.data
+        const cityPageData = response.data;
+
+        // Map cities from the current page
+        const currentPageCities = cityPageData.data
           .filter((city) => city.province_id === Number(selectedProvince))
           .map((item, index) => ({
             id: item.id,
@@ -169,17 +172,25 @@ export default function AdminEditProduct() {
             cityName: item.city,
           }));
 
-        setCities(filteredCities);
+        // Add cities from the current page to the list
+        setCities((prevCities) => [...prevCities, ...currentPageCities]);
+
+        // If there are more pages, fetch the next page
+        if (cityPageData.next_page_url !== null) {
+          const nextPageNumber = pageNumber + 1;
+          fetchCities(nextPageNumber);
+        } else {
+        }
       } catch (error) {
         console.error("Error fetching city data:", error);
       }
     };
 
     if (selectedProvince !== null) {
+      // Clear cities when the selected province changes
+      setCities([]);
       fetchCities();
     }
-
-    // console.log(cities);
   }, [selectedProvince, provinces]);
 
   const handleAddSpesification = () => {
@@ -213,11 +224,14 @@ export default function AdminEditProduct() {
       formDataObject.append("city_id", parseInt(selectedCity));
       formDataObject.append("company", productData.company);
       formDataObject.append("company_category", productData.company_category);
-
+      formDataObject.append("company_name", productData.company_name);
+      formDataObject.append("company_whatsapp_number", productData.company_whatsapp_number);
+      formDataObject.append("storage_type", productData.storage_type);
+      formDataObject.append("packaging", productData.packaging);
   
       // Add the selected file to the form data
       if (selectedFile) {
-        formDataObject.append("product_image", selectedFile);
+        formDataObject.append("item_image", selectedFile);
       }
 
       productData.additional_info.forEach((info, index) => {
@@ -331,6 +345,8 @@ export default function AdminEditProduct() {
       description: e.target.value,
     }));
   };
+
+  console.log(productData)
 
   return (  
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
