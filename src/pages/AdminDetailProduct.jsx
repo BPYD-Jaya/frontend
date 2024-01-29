@@ -362,20 +362,20 @@ export default function AdminDetailProduct() {
                 </tr>
                 <tr className="even:bg-blue-gray-50/50">
                   <td className="p-4 break-words">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       Photo
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <div className="h-1/2 w-auto">
-                      <img src={productData.link_image} alt="" />
-                    </div>
-                  </td>
-                </tr>
+                  <div className="col-span-12 lg:col-span-9 pb-8">
+                    <img
+                      src={productData.link_image}
+                      alt=""
+                      className="w-full max-w-[200px] h-auto lg:h-[300px] md:max-w-[300px] md:h-auto sm:max-w-[200px] sm:h-auto"
+                    />
+                  </div>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>

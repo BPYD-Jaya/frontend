@@ -424,10 +424,6 @@ export default function DetailProduct() {
                       <p className="ml-2 py-1 text-xl">{product.volume}</p>
                     </div>
                   </div>
-                  {/* <div className="flex justify-between">
-                    <p>1 variation(s) 1000 item(s)</p>
-                    <span>$14,000.00</span>
-                  </div> */}
                   <div className="flex justify-between">
                     <p>Shipping fee</p>
                     <span>To be negotiated</span>
