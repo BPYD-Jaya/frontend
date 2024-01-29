@@ -615,7 +615,7 @@ export default function AdminAddProduct() {
                 size="lg"
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                value={selectedProvince}
+                // value={selectedProvince}
                 onChange={(value) => {
                   setSelectedProvince(value);
                   setFormData({ ...formData, province_id: value });
