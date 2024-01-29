@@ -68,16 +68,6 @@ export default function EditMasterProduct(props) {
     category_image: "",
   });
 
-  // const handleChange = (e) => {
-  //   const { category, value } = e.target;
-
-  //   setFormState((prevFormState) => ({
-  //     ...prevFormState,
-  //     [category]: value,
-  //   }));
-  //   setFormData({ ...formData, category: value });
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   

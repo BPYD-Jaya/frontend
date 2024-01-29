@@ -5,10 +5,8 @@ import {
   Button,
   Card,
   CardBody,
-  CardHeader,
   Input,
   Typography,
-  typography,
 } from "@material-tailwind/react";
 import { FaArrowRight } from "react-icons/fa";
 import {
@@ -17,7 +15,6 @@ import {
   FcMultipleDevices,
   FcOk,
 } from "react-icons/fc";
-import MasterCard from "../components/masterCard";
 import MasterFooter from "../components/masterFooter";
 import axios from "axios";
 
@@ -411,7 +408,7 @@ export default function Home() {
                     Muhammad Rafli Akbar
                   </Typography>
                   <Typography className="mb-2 text-sm font-medium">
-                    OPPIUM AGGENCY
+                    PT MAKMUR SEJAHTERA
                   </Typography>
                   <Typography className="text-justify">
                     WPI sukses menyediakan beragam komoditas dengan harga yang
@@ -437,7 +434,7 @@ export default function Home() {
                     Putra Fajar
                   </Typography>
                   <Typography className="mb-2 text-sm font-medium">
-                    PT FAJAR ISLAM
+                    PT FAJAR
                   </Typography>
                   <Typography className="text-justify">
                     WPI telah berhasil menawarkan berbagai jenis komoditas

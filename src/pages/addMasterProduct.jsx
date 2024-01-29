@@ -49,6 +49,12 @@ export default function AddMasterProduct() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if categoryName or selectedFile is empty
+    if (!categoryName || !selectedFile) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     try {
       const authToken = Cookies.get("authToken");
 

@@ -21,6 +21,12 @@ export default function AddMasterCity() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if cityName or selectedProvince is empty
+    if (!cityName || !selectedProvince) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     try {
       const authToken = Cookies.get("authToken");
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import MasterSidebar from "../components/masterSidebar";
 import { Card, Typography } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import MasterBarChart from "../components/masterBarChart";
-import { useAuth } from "../hooks/useAuth";
 import axios from "axios"
 import Cookies from "js-cookie";
 
