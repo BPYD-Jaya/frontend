@@ -1,8 +1,5 @@
 import React from "react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
   Typography,
 } from "@material-tailwind/react";
 import MasterButtonWa from "./masterButtonWa";
@@ -14,6 +11,7 @@ export default function MasterCatalog({
   wa_link,
   brand,
   id,
+  description,
 }) {
   return (
     <div className="lg:max-w-[250px] w-full rounded-lg shadow-lg">
@@ -56,7 +54,7 @@ export default function MasterCatalog({
                 textOverflow: "ellipsis",
               }}
             >
-              {productName}
+              {description}
             </Typography>
           </div>
           <div className="px-2">

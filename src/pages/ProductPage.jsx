@@ -281,7 +281,7 @@ export default function ProductPage() {
                       id={item.id}
                       imageUrl={item.link_image}
                       brand={item.brand}
-                      productName={item.product_name}
+                      description={item.description}
                       priceRange={price}
                       wa_link={item.wa_link}
                     />
@@ -293,7 +293,7 @@ export default function ProductPage() {
                 <img
                   src="./assets/barang-tidak-tersedia.png"
                   alt="Barang tidak tersedia"
-                  className="w-64 h-64"
+                  className="w-full h-full"
                 />
               </div>
             )}
