@@ -16,33 +16,33 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import axios from "axios"
+import axios from "axios";
 
 export default function MitraPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const [province, setProvince] = useState('');
-  const [city, setCity] = useState('');
+  const [province, setProvince] = useState("");
+  const [city, setCity] = useState("");
   const [provinceData, setProvinceData] = useState([]);
   const [cityData, setCityData] = useState([]);
   const [category, setCategory] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    company_name: '',
-    company_email: '',
-    company_phone: '',
-    company_category: '',
-    company_address: '',
-    product_name: '',
-    brand_name: '',
-    stock: '',
-    volume: '',
-    category_id: '',
-    province_id: '',
-    city_id: '',
-    price: '',
-    description: '',
+    name: "",
+    company_name: "",
+    company_email: "",
+    company_phone: "",
+    company_category: "",
+    company_address: "",
+    product_name: "",
+    brand_name: "",
+    stock: "",
+    volume: "",
+    category_id: "",
+    province_id: "",
+    city_id: "",
+    price: "",
+    description: "",
     item_image: null,
   });
 
@@ -62,14 +62,16 @@ export default function MitraPage() {
   useEffect(() => {
     if (province) fetchCity();
     else {
-      setCity('');
+      setCity("");
       setCityData([]);
     }
   }, [province]);
 
   const fetchProvince = async () => {
     try {
-      const { data } = await axios.get("https://backend.ptwpi.co.id/api/provinces");
+      const { data } = await axios.get(
+        "https://backend.ptwpi.co.id/api/provinces"
+      );
       setProvinceData(data);
     } catch (error) {
       console.error(error.message);
@@ -78,9 +80,11 @@ export default function MitraPage() {
 
   const fetchCity = async () => {
     try {
-      const { data } = await axios.get(`https://backend.ptwpi.co.id/api/cities/province/${province}`);
+      const { data } = await axios.get(
+        `https://backend.ptwpi.co.id/api/cities/province/${province}`
+      );
       setCityData(data);
-      setCity(data.length > 0 ? data[0].id : '');
+      setCity(data.length > 0 ? data[0].id : "");
     } catch (error) {
       console.error(error.message);
     }
@@ -88,7 +92,9 @@ export default function MitraPage() {
 
   const fetchCategory = async () => {
     try {
-      const { data } = await axios.get("https://backend.ptwpi.co.id/api/categories");
+      const { data } = await axios.get(
+        "https://backend.ptwpi.co.id/api/categories"
+      );
       setCategoryData(data);
     } catch (error) {
       console.error(error.message);
@@ -112,7 +118,24 @@ export default function MitraPage() {
     e.preventDefault();
 
     // Check if required fields are filled
-    if (!formData.name || !formData.company_name || !formData.company_email || !formData.company_phone || !formData.company_category || !formData.province_id || !formData.city_id || !formData.company_address || !formData.product_name || !formData.brand_name || !formData.stock || !formData.volume || !formData.category_id || !formData.price || !formData.description || !selectedFile) {
+    if (
+      !formData.name ||
+      !formData.company_name ||
+      !formData.company_email ||
+      !formData.company_phone ||
+      !formData.company_category ||
+      !formData.province_id ||
+      !formData.city_id ||
+      !formData.company_address ||
+      !formData.product_name ||
+      !formData.brand_name ||
+      !formData.stock ||
+      !formData.volume ||
+      !formData.category_id ||
+      !formData.price ||
+      !formData.description ||
+      !selectedFile
+    ) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -139,7 +162,7 @@ export default function MitraPage() {
 
     // Menambahkan file ke formData hanya jika file telah dipilih
     if (selectedFile) {
-      formDataToSend.append('item_image', selectedFile, selectedFile.name);
+      formDataToSend.append("item_image", selectedFile, selectedFile.name);
     }
     for (let [key, value] of formDataToSend.entries()) {
       console.log(`${key}: ${value}`);
@@ -151,11 +174,15 @@ export default function MitraPage() {
 
     // Mengirim formDataToSend ke server menggunakan axios
     try {
-      const response = await axios.post("https://backend.ptwpi.co.id/api/supplier/create", formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const response = await axios.post(
+        "https://backend.ptwpi.co.id/api/supplier/create",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
+      );
       console.log(response.data); // Log response dari server
 
       // Handle setelah submit berhasil, misalnya membersihkan form atau memberikan notifikasi ke pengguna
@@ -169,8 +196,9 @@ export default function MitraPage() {
     <div>
       {/* Navbar */}
       <div
-        className={`bg-wpiblue-50 ${isNavbarFixed ? "fixed top-0 w-full z-10" : ""
-          }`}
+        className={`bg-wpiblue-50 ${
+          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
+        }`}
       >
         <MasterNavbar />
       </div>
@@ -200,7 +228,7 @@ export default function MitraPage() {
                 eius rem nesciunt? Laborum, beatae.
               </Typography>
               <div className="flex justify-center lg:justify-start">
-                <a href="/login">
+                <a href="#">
                   <Button
                     className="hover:text-green-100 bg-wpigreen-50"
                     size="lg"
@@ -260,42 +288,63 @@ export default function MitraPage() {
             >
               <SwiperSlide>
                 <img
-                  src="https://warungpangan.com/upload/img/c38c8d98c6cff3469702e63cbe56686d.png"
+                  src="https://www.adibfood.com/wp-content/uploads/2020/08/logo.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://www.ptppi.co.id/wp-content/uploads/2022/01/PPI-ID-Food.png"
+                  src="https://pli.co.id/wp-content/uploads/2017/09/Logo-pli-size-50x50px-copy.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://www.bgrlogistik.id/bgr/img/logo_bli.png"
+                  src="https://ghinakaryanusantara.com/wp-content/uploads/2021/03/SAVE_20210328_011546.jpg"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://warungpangan.com/upload/img/mitra_bisnis_logo_2.png"
+                  src="https://www.widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://warungpangan.com/upload/img/mitra_bisnis_logo_5.png"
+                  src="https://static.wixstatic.com/media/440381_2f40f343b0e249ccb57be3ca9734ebb2~mv2.png/v1/crop/x_0,y_134,w_1899,h_251/fill/w_425,h_61,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ENPC_Gotham_Black_Shadow.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://warungpangan.com/upload/img/mitra_bisnis_logo_3.png"
+                  src="https://en.duofugroup.com/uploads/20230731/2d716affa34e36e0a7565ca79527064b.png"
+                  alt=""
+                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src="https://www.kemendag.go.id/assets/imgs/theme/logo.svg"
+                  alt=""
+                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src="https://badanpangan.go.id/themes/badan-pangan-nasional/assets/public/img/logo-trans.png"
+                  alt=""
+                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src="https://ppid.pertanian.go.id/assets/images/portal/logo.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
@@ -326,7 +375,9 @@ export default function MitraPage() {
                     type="text"
                     name="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter your name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -338,13 +389,17 @@ export default function MitraPage() {
                 </div>
 
                 <div className="flex flex-col p-4 mb-2 border border-b-4">
-                  <Typography className="font-bold text-center">Company</Typography>
+                  <Typography className="font-bold text-center">
+                    Company
+                  </Typography>
                   <Typography className="font-normal">Company Name</Typography>
                   <Input
                     type="text"
                     name="company_name"
                     value={formData.company_name}
-                    onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company_name: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter company name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -358,7 +413,12 @@ export default function MitraPage() {
                     type="email"
                     name="company_email"
                     value={formData.company_email}
-                    onChange={(e) => setFormData({ ...formData, company_email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        company_email: e.target.value,
+                      })
+                    }
                     size="sm"
                     placeholder="Enter company email"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -374,7 +434,12 @@ export default function MitraPage() {
                     type="text"
                     name="company_phone"
                     value={formData.company_phone}
-                    onChange={(e) => setFormData({ ...formData, company_phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        company_phone: e.target.value,
+                      })
+                    }
                     size="sm"
                     placeholder="Enter company phone number"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -383,12 +448,19 @@ export default function MitraPage() {
                         "before:content-none after:content-none w-full",
                     }}
                   />
-                  <Typography className="font-normal">Category Company</Typography>
+                  <Typography className="font-normal">
+                    Category Company
+                  </Typography>
                   <Input
                     type="text"
                     name="company_category"
                     value={formData.company_category}
-                    onChange={(e) => setFormData({ ...formData, company_category: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        company_category: e.target.value,
+                      })
+                    }
                     size="sm"
                     placeholder="Enter category"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -399,7 +471,14 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Province</Typography>
                   <Select
-                    onChange={(value) => { setProvince(value); setFormData({ ...formData, province_id: value, city_id: '' }); }}
+                    onChange={(value) => {
+                      setProvince(value);
+                      setFormData({
+                        ...formData,
+                        province_id: value,
+                        city_id: "",
+                      });
+                    }}
                     label="Pilih Provinsi"
                     name="province"
                     id="province"
@@ -413,7 +492,10 @@ export default function MitraPage() {
                   </Select>
                   <Typography className="font-normal">City</Typography>
                   <Select
-                    onChange={(value) => { setCity(value); setFormData({ ...formData, city_id: value }); }}
+                    onChange={(value) => {
+                      setCity(value);
+                      setFormData({ ...formData, city_id: value });
+                    }}
                     label="Pilih Kota"
                     name="city"
                     id="city"
@@ -430,7 +512,12 @@ export default function MitraPage() {
                   <Textarea
                     name="company_address"
                     value={formData.company_address}
-                    onChange={(e) => setFormData({ ...formData, company_address: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        company_address: e.target.value,
+                      })
+                    }
                     size="sm"
                     placeholder="Enter address"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -442,12 +529,16 @@ export default function MitraPage() {
                 </div>
 
                 <div className="flex flex-col p-4 border border-b-4">
-                  <Typography className="font-bold text-center">Product</Typography>
+                  <Typography className="font-bold text-center">
+                    Product
+                  </Typography>
                   <Typography className="font-normal">Product Name</Typography>
                   <Input
                     name="product_name"
                     value={formData.product_name}
-                    onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, product_name: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter product name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -460,7 +551,9 @@ export default function MitraPage() {
                   <Input
                     name="brand_name"
                     value={formData.brand_name}
-                    onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, brand_name: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter brand name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -474,7 +567,9 @@ export default function MitraPage() {
                     type="number"
                     name="stock"
                     value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, stock: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter stock amount"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -487,7 +582,9 @@ export default function MitraPage() {
                   <Input
                     name="volume"
                     value={formData.volume}
-                    onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, volume: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter volume"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -501,7 +598,9 @@ export default function MitraPage() {
                     type="number"
                     name="price"
                     value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter price"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -512,7 +611,10 @@ export default function MitraPage() {
                   />
                   <Typography className="font-normal">Category</Typography>
                   <Select
-                    onChange={(value) => { setCategory(value); setFormData({ ...formData, category_id: value }); }}
+                    onChange={(value) => {
+                      setCategory(value);
+                      setFormData({ ...formData, category_id: value });
+                    }}
                     name="category_id"
                     value={categoryData.category_id}
                     className="w-full"
@@ -530,7 +632,9 @@ export default function MitraPage() {
                   <Textarea
                     name="description"
                     value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
                     size="sm"
                     placeholder="Enter product description"
                     className="w-full"
@@ -539,7 +643,10 @@ export default function MitraPage() {
                   <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
                     Photo Product
                   </div>
-                  <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
+                  <div
+                    className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
+                    {...getRootProps()}
+                  >
                     <input {...getInputProps()} />
                     {isDragActive ? (
                       <p>Drop the files here ...</p>
@@ -547,7 +654,9 @@ export default function MitraPage() {
                       <div className="text-center flex flex-col items-center">
                         <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
                         <p className="mt-2">
-                          {selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}
+                          {selectedFile
+                            ? `File: ${selectedFile.path}`
+                            : "Drag and drop file here or click to select file"}
                         </p>
                       </div>
                     )}
@@ -566,8 +675,6 @@ export default function MitraPage() {
           </div>
         </div>
       </div>
-
-
 
       {/* Content Image */}
       <div className="container mx-auto flex justify-center pb-16 md:px-0 px-4">

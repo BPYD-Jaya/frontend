@@ -1,95 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import MasterNavbar from '../components/masterNavbar';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Button, Input, Typography } from '@material-tailwind/react';
-import MasterFilterCard from '../components/masterFilterCard';
-import MasterCatalog from '../components/masterCatalog';
-import MasterFooter from '../components/masterFooter';
-import MasterPagination from '../components/masterPagination';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import MasterNavbar from "../components/masterNavbar";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import MasterFilterCard from "../components/masterFilterCard";
+import MasterCatalog from "../components/masterCatalog";
+import MasterFooter from "../components/masterFooter";
+import MasterPagination from "../components/masterPagination";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import axios from "axios";
 
 export default function ProductPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
-  const [product, setProduct] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [product, setProduct] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [paginationData, setPaginationData] = useState({
     current_page: 1,
     last_page: 1,
     data: [],
-
-  })
-  const [category, setCategory] = useState([])
+  });
+  const [category, setCategory] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState({ category_id: null });
-  const [email, setEmail] = useState("")
-  const [searchQuery, setSearchQuery] = useState('');
+  const [email, setEmail] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchCategory = async () => {
     try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/categories')
-      setCategory(res.data)
+      const res = await axios.get("https://backend.ptwpi.co.id/api/categories");
+      setCategory(res.data);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData({ category_id: filteredProduct.category_id }, pageNumber);
 
     // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const fetchData = async (filters, page = currentPage) => {
     try {
-      let url = 'https://backend.ptwpi.co.id/api/products';
+      let url = "https://backend.ptwpi.co.id/api/products";
       const params = new URLSearchParams();
 
       // Check if filters is an object and has properties
-      if (typeof filters === 'object' && filters !== null && Object.keys(filters).length > 0) {
+      if (
+        typeof filters === "object" &&
+        filters !== null &&
+        Object.keys(filters).length > 0
+      ) {
         // Handle categories as an array
         if (Array.isArray(filters.categories)) {
-          filters.categories.forEach(category => {
-            params.append('category_id', parseInt(category, 10));
+          filters.categories.forEach((category) => {
+            params.append("category_id", parseInt(category, 10));
           });
         }
 
         // Append other filters
-        if (filters.provinsi) params.append('province_id', parseInt(filters.provinsi, 10));
-        if (filters.kota) params.append('city_id', parseInt(filters.kota, 10));
-        if (filters.terendah !== undefined) params.append('min_price', parseInt(filters.terendah, 10));
-        if (filters.tertinggi !== undefined) params.append('max_price', parseInt(filters.tertinggi, 10));
-      } else if (typeof filters === 'number') {
+        if (filters.provinsi)
+          params.append("province_id", parseInt(filters.provinsi, 10));
+        if (filters.kota) params.append("city_id", parseInt(filters.kota, 10));
+        if (filters.terendah !== undefined)
+          params.append("min_price", parseInt(filters.terendah, 10));
+        if (filters.tertinggi !== undefined)
+          params.append("max_price", parseInt(filters.tertinggi, 10));
+      } else if (typeof filters === "number") {
         // If filters is a number, it's assumed to be a category_id
-        params.append('category_id', filters);
+        params.append("category_id", filters);
       }
 
       if (searchQuery) {
-        params.append('search', searchQuery);
+        params.append("search", searchQuery);
       }
 
       // Handle pagination
-      params.append('page', page);
+      params.append("page", page);
 
       // Construct the final URL with all parameters
       url += `?${params.toString()}`;
 
       const options = {
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Access-Control-Allow-Origin': '*',
-        }
+          "Content-Type": "application/json",
+          Accept: "*/*",
+          "Access-Control-Allow-Origin": "*",
+        },
       };
 
       const res = await axios.get(url, options);
       setPaginationData(res.data.data);
     } catch (error) {
-      console.error('Failed to fetch products:', error.message);
+      console.error("Failed to fetch products:", error.message);
     }
   };
 
@@ -99,17 +105,17 @@ export default function ProductPage() {
       setIsNavbarFixed(scrollTop > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   useEffect(() => {
     fetchData(filteredProduct.category_id, currentPage);
     fetchCategory();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (filteredProduct.category_id) {
@@ -128,21 +134,25 @@ export default function ProductPage() {
   const handleSubmitNotification = async (e) => {
     e.preventDefault();
     const data = {
-      email: email
-    }
+      email: email,
+    };
     try {
-      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+      const res = await axios.post(
+        "https://backend.ptwpi.co.id/api/customer/send",
+        data
+      );
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   return (
     <div>
       {/* Navbar */}
       <div
-        className={`bg-wpiblue-50 ${isNavbarFixed ? 'fixed top-0 w-full z-50' : ''
-          }`}
+        className={`bg-wpiblue-50 ${
+          isNavbarFixed ? "fixed top-0 w-full z-50" : ""
+        }`}
       >
         <MasterNavbar />
       </div>
@@ -213,12 +223,12 @@ export default function ProductPage() {
           </SwiperSlide>
           {category.map((cat, index) => (
             <SwiperSlide key={index}>
-                <img
-                  src={cat.image_url}
-                  className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
-                  alt={cat.category}
-                  onClick={() => handleCategoryClick(cat.id)}
-                />
+              <img
+                src={cat.image_url}
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+                alt={cat.category}
+                onClick={() => handleCategoryClick(cat.id)}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -252,7 +262,7 @@ export default function ProductPage() {
               style={{
                 fontFamily: "'M PLUS Rounded 1c', sans-serif",
                 fontWeight: 800,
-                fontSize: '1.em',
+                fontSize: "1.em",
               }}
               tag="h5"
               className="font-bold text-lg md:text-base text-black ml-8 mb-1"
@@ -267,13 +277,13 @@ export default function ProductPage() {
               <MasterFilterCard onFilter={handleFilter} />
             </div>
           </div>
-            <div className="md:col-span-2">
+          <div className="md:col-span-2">
             {paginationData.data.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 md:px-0 md:mr-4">
                 {paginationData.data.map((item, idx) => {
-                  let price = new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
+                  let price = new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
                   }).format(item.price);
                   return (
                     <MasterCatalog
@@ -297,16 +307,24 @@ export default function ProductPage() {
                 />
               </div>
             )}
+            <div className="flex justify-center items-center mt-6">
+              <MasterPagination
+                active={paginationData.current_page}
+                onPageChange={paginate}
+                totalItems={paginationData.total}
+                itemsOnPage={paginationData.per_page}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex justify-center items-center   mt-6">
+        {/* <div className="bg-red-500 flex justify-center items-center   mt-6">
           <MasterPagination
             active={paginationData.current_page}
             onPageChange={paginate}
             totalItems={paginationData.total}
             itemsOnPage={paginationData.per_page}
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Form Email */}
@@ -327,17 +345,20 @@ export default function ProductPage() {
           <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
             <div className="flex gap-2 w-full">
               <Input
-                name='email'
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 size="lg"
                 placeholder="Email address"
                 className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none w-full',
+                  className: "before:content-none after:content-none w-full",
                 }}
               />
-              <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
+              <Button
+                onClick={handleSubmitNotification}
+                className="hover:bg-green-400 bg-wpigreen-50"
+              >
                 Submit
               </Button>
             </div>
