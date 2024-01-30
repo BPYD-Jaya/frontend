@@ -109,7 +109,7 @@ export default function AboutPage() {
           </div>
           <div className=" col-span-4 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-start">
             <Typography variant="h1" className="py-4 text-5xl" color="white">
-              Kami hadir sebagai solusi digital untuk semua kebutuhan warung
+              Kami hadir sebagai solusi digital untuk semua kebutuhan perusahaan
             </Typography>
           </div>
         </div>
