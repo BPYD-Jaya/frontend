@@ -16,7 +16,7 @@ export default function MasterBarChart() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/dashboard', {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/barchart', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('authToken')}`
         }
@@ -35,6 +35,11 @@ export default function MasterBarChart() {
       {
         name: "Supplier",
         data: [
+          result[3]?.VALUE ?? 0,
+          result[4]?.VALUE ?? 0,
+          result[5]?.VALUE ?? 0,
+          result[6]?.VALUE ?? 0,
+          result[7]?.VALUE ?? 0,
           result[8]?.VALUE ?? 0,
           result[9]?.VALUE ?? 0,
           result[10]?.VALUE ?? 0,
@@ -42,11 +47,6 @@ export default function MasterBarChart() {
           result[12]?.VALUE ?? 0,
           result[13]?.VALUE ?? 0,
           result[14]?.VALUE ?? 0,
-          result[15]?.VALUE ?? 0,
-          result[16]?.VALUE ?? 0,
-          result[17]?.VALUE ?? 0,
-          result[18]?.VALUE ?? 0,
-          result[19]?.VALUE ?? 0,
         ],
       },
     ],

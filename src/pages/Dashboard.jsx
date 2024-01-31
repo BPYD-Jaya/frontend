@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 export default function DashboardPage() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([])
+  const [result, setResult] = useState([])
 
   const fetchData = async () => {
     try {
@@ -20,6 +21,19 @@ export default function DashboardPage() {
       })
       // console.log(res.data.data)
       setData(res.data.data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const fetchResult = async () => {
+    try {
+      const res = await axios.get('https://backend.ptwpi.co.id/api/barchart', {
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('authToken')}`
+        }
+      })
+      setResult(res.data.data)
     } catch (error) {
       console.error(error.message)
     }
@@ -42,9 +56,10 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchData()
+    fetchResult()
   }, [])
 
-  // console.log(data)
+  console.log(result)
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -72,15 +87,18 @@ export default function DashboardPage() {
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
         <div className="gap-6  grid 2xl:grid-cols-4 md:grid-cols-2 justify-center">
-          {data.map(item => {
-            if (item.kolom === "All Products" || 
-            item.kolom === "Mineral Product" ||
-            item.kolom === "Horticulture Product" || 
-            item.kolom === "Agriculture Product" || 
-            item.kolom === "Meat Product" || 
-            item.kolom === "Aquaculture Product" || 
+          {data.map(item => 
+            (
+                <Card className="flex justify-center items-center md:w-auto w-96 h-32">
+                  <Typography className="font-bold">{item.kolom}</Typography>
+                  <Typography>{item.VALUE}</Typography>
+                </Card>
+              )
+          )}
+          {result.map(item => {
+            if ( 
             item.kolom === "Product Category" || 
-            item.kolom === "Supplier") {
+            item.kolom === "Supplier" || item.kolom === "All Products") {
               return (
                 <Card className="flex justify-center items-center md:w-auto w-96 h-32">
                   <Typography className="font-bold">{item.kolom}</Typography>
