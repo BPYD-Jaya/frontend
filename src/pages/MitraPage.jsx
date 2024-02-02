@@ -297,7 +297,7 @@ export default function MitraPage() {
                 <img
                   src="https://pli.co.id/wp-content/uploads/2017/09/pli-logo-1.png"
                   alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
+                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
                 />
               </SwiperSlide>
               <SwiperSlide>
@@ -311,14 +311,14 @@ export default function MitraPage() {
                 <img
                   src="https://widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png"
                   alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
+                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
                   src="https://static.wixstatic.com/media/440381_2f40f343b0e249ccb57be3ca9734ebb2~mv2.png/v1/crop/x_0,y_134,w_1899,h_251/fill/w_480,h_76,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ENPC_Gotham_Black_Shadow.png"
                   alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
+                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-full xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
@@ -339,14 +339,14 @@ export default function MitraPage() {
                 <img
                   src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoEQ5hi8sHodYnGMedbW-Ap7uXx0CrWct20o8ZTahKndFp0a6Vh2SENlPtwPF5-a-k-q-haSKNLdNbNRrVs7GMPVy9Jv5EIULrg2XGxcbeb1I7THLkoNahV0p59vUV4BD9iJIT3EYR7t_-jeq3l2mJio7RsRwsPTRa-nBxBMNvoYzAA-v8qZzrqQfwnw/w400-h225/BADAN%20PANGAN.jpg"
                   alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
+                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
                   src="https://bpatp-litbang-ppid.pertanian.go.id/assets/images/logo-kementan.jpg"
                   alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
+                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
                 />
               </SwiperSlide>
             </Swiper>
