@@ -155,7 +155,7 @@ export default function NewsPage() {
               ))}
             </div>
           </div>
-          <div className="flex lg:justify-center   items-center mt-6">
+          <div className="flex justify-center items-center mt-6 ">
             <MasterPagination
               active={paginationData.current_page}
               onPageChange={handlePageChange}
