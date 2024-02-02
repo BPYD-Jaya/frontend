@@ -266,7 +266,7 @@ export default function MitraPage() {
                 clickable: true,
               }}
               autoplay={{
-                delay: 500,
+                delay: 2000,
                 disableOnInteraction: false,
               }}
               modules={[Autoplay]}
@@ -288,42 +288,42 @@ export default function MitraPage() {
             >
               <SwiperSlide>
                 <img
-                  src="https://www.adibfood.com/wp-content/uploads/2020/08/logo.png"
+                  src="https://images.tokopedia.net/img/cache/215-square/GAnVPX/2021/2/25/24f3d5c5-8d7e-4579-b45c-a9df5fd9e322.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://pli.co.id/wp-content/uploads/2017/09/Logo-pli-size-50x50px-copy.png"
+                  src="https://pli.co.id/wp-content/uploads/2017/09/pli-logo-1.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://ghinakaryanusantara.com/wp-content/uploads/2021/03/SAVE_20210328_011546.jpg"
+                  src="https://www.adibfood.com/wp-content/uploads/2020/10/Logo-Adib-Cold-Logistics.jpg"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://www.widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png"
+                  src="https://widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://static.wixstatic.com/media/440381_2f40f343b0e249ccb57be3ca9734ebb2~mv2.png/v1/crop/x_0,y_134,w_1899,h_251/fill/w_425,h_61,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ENPC_Gotham_Black_Shadow.png"
+                  src="https://static.wixstatic.com/media/440381_2f40f343b0e249ccb57be3ca9734ebb2~mv2.png/v1/crop/x_0,y_134,w_1899,h_251/fill/w_480,h_76,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ENPC_Gotham_Black_Shadow.png"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://en.duofugroup.com/uploads/20230731/2d716affa34e36e0a7565ca79527064b.png"
+                  src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/mdl6l3c59lvuegrvluhn"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
@@ -337,14 +337,14 @@ export default function MitraPage() {
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://badanpangan.go.id/themes/badan-pangan-nasional/assets/public/img/logo-trans.png"
+                  src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoEQ5hi8sHodYnGMedbW-Ap7uXx0CrWct20o8ZTahKndFp0a6Vh2SENlPtwPF5-a-k-q-haSKNLdNbNRrVs7GMPVy9Jv5EIULrg2XGxcbeb1I7THLkoNahV0p59vUV4BD9iJIT3EYR7t_-jeq3l2mJio7RsRwsPTRa-nBxBMNvoYzAA-v8qZzrqQfwnw/w400-h225/BADAN%20PANGAN.jpg"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src="https://ppid.pertanian.go.id/assets/images/portal/logo.png"
+                  src="https://bpatp-litbang-ppid.pertanian.go.id/assets/images/logo-kementan.jpg"
                   alt=""
                   className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
                 />
