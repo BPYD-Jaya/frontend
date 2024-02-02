@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { TbMessage2Heart } from "react-icons/tb";
 import MasterFooter from "../components/masterFooter";
-import axios from "axios"
+import axios from "axios";
 
 export default function AboutPage() {
   const [isNavbarFixed, setIsNavbarFixed] = useState(false);
@@ -20,13 +20,13 @@ export default function AboutPage() {
     no_hp: "",
     perihal: "",
     pertanyaan: "",
-  })
-  const [email, setEmail] = useState("")
-  const [result, setResult] = useState({})
+  });
+  const [email, setEmail] = useState("");
+  const [result, setResult] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,39 +43,47 @@ export default function AboutPage() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('https://backend.ptwpi.co.id/api/about/1')
-      setResult(res.data.data)
+      const res = await axios.get("https://backend.ptwpi.co.id/api/about/1");
+      setResult(res.data.data);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   const handleFormSubmit = () => {
     try {
-      const wa_link = result?.[0]?.wa_link + "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
+      const wa_link =
+        result?.[0]?.wa_link +
+        "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" +
+        formData.perihal +
+        "%20dengan pertanyaan%20" +
+        formData.pertanyaan;
 
-      window.open(wa_link, "_blank")
+      window.open(wa_link, "_blank");
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   const handleSubmitNotification = async (e) => {
     e.preventDefault();
     const data = {
-      email: email
-    }
+      email: email,
+    };
     try {
-      const res = await axios.post('https://backend.ptwpi.co.id/api/customer/send', data)
+      const res = await axios.post(
+        "https://backend.ptwpi.co.id/api/customer/send",
+        data
+      );
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
-  
+    fetchData();
+  }, []);
+
   return (
     <div>
       {/* Navbar */}
@@ -120,11 +128,11 @@ export default function AboutPage() {
                 width={250}
               />
               <iframe
-                className="h-[200px] md:h-[300px] lg:h-[400px] w-full col-span-7"
-                src="https://www.youtube.com/embed/MVMSfjhCE8g"
-                title="Semangat Juang - Informatika UNDIP"
+                className="h-[200px] md:h-[300px] lg:h-[400px] w-full col-span-7 rounded-md "
+                src="https://www.youtube.com/embed/EYwhlnbNjdo"
+                title="Company Profile - Warung Pangan indonesia"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+                allowfullscreen
               ></iframe>
             </div>
           </div>
@@ -174,69 +182,63 @@ export default function AboutPage() {
         </div>
 
         {/* Produk dan Layanan */}
-<div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-8">
-  <div className="shadow-lg rounded-lg p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center items-center gap-6">
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/mine.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/ikan.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/daging.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/horticultural.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-    <div className="col-span-1 flex items-center justify-center">
-      <img
-        src="assets/agricultural.png"
-        alt=""
-        className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
-      />
-    </div>
-  </div>
-</div>
-
+        <div className="container mx-auto lg:py-0 md:px-4 lg:px-6 mt-2">
+          <div className="p-8 container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 justify-center items-center gap-6">
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/mine.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/ikan.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/daging.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/horticultural.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <img
+                src="assets/agricultural.png"
+                alt=""
+                className="block mx-auto mb-4 h-[120px] w-auto lg:mb-0 duration-300 hover:scale-105 hover:shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Visi dan Misi */}
-        <div className="grid w-full   grid-cols-1 xl:grid-cols-6 gap-2 xl:gap-8 mt-12">
-          <div className="col-span-3   xl:col-span-2 md:col-span-4 flex justify-center">
-            <Card className="shadow-lg  w-full h-[300px] xl:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-              <Typography
-                style={{
-                  fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                  fontWeight: 700,
-                }}
-                variant="lead"
-                color="white"
-                className="mt-3 font-normal "
-              >
-                Menjadi perusahaan aggregator pangan dan pendukung pangan
-                lainnya yang kuat secara Nasional dan terintegrasi di Pasar
-                Internasional
-              </Typography>
-            </Card>
+        <div className="container mx-auto xl:px-0 px-4">
+          <div>
+            <Typography
+              variant="h3"
+              style={{
+                fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                fontWeight: 800,
+              }}
+              className="text-center lg:text-start my-6"
+            >
+              Visi dan Misi
+            </Typography>
           </div>
-          <div className="col-span-3 md:col-span-4 flex justify-center items-center">
-            <div className="grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-4">
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+          <div className="grid w-full grid-cols-1 xl:grid-cols-6 gap-2 xl:gap-8">
+            <div className="col-span-3   xl:col-span-2 md:col-span-4 flex justify-center">
+              <Card className="shadow-lg  w-full h-[300px] xl:h-full overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
                 <Typography
                   style={{
                     fontFamily: "'M PLUS Rounded 1c', sans-serif",
@@ -244,80 +246,99 @@ export default function AboutPage() {
                   }}
                   variant="lead"
                   color="white"
-                  className="mt-3 font-normal"
+                  className="mt-3 font-normal "
                 >
-                  Membeli produk unggulan komoditas pangan dari sumber local
-                  dengan harga yang menari
+                  Menjadi perusahaan aggregator pangan dan pendukung pangan
+                  lainnya yang kuat secara Nasional dan terintegrasi di Pasar
+                  Internasional
                 </Typography>
               </Card>
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                <Typography
-                  style={{
-                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                    fontWeight: 700,
-                  }}
-                  variant="lead"
-                  color="white"
-                  className="mt-3 font-normal"
-                >
-                  Menjual produk komoditas pangan dgn harga yang terjangkau
-                </Typography>
-              </Card>
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                <Typography
-                  style={{
-                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                    fontWeight: 700,
-                  }}
-                  variant="lead"
-                  color="white"
-                  className="mt-3 font-normal"
-                >
-                  Menyiapkan peluang ekspor ke luar negeri dgn standarisasi dan
-                  perizinan yang relevan sesuai kebutuhan pasar
-                </Typography>
-              </Card>
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                <Typography
-                  style={{
-                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                    fontWeight: 700,
-                  }}
-                  variant="lead"
-                  color="white"
-                  className="mt-3 font-normal"
-                >
-                  Membantu pemerintah dgn berkolaborasi kepada kelembagaan yang
-                  terkait untuk komoditas pangan
-                </Typography>
-              </Card>
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                <Typography
-                  style={{
-                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                    fontWeight: 700,
-                  }}
-                  variant="lead"
-                  color="white"
-                  className="mt-3 font-normal"
-                >
-                  Melakukan digitalisasi untuk percepatan forecasting supply dan
-                  demand komoditi pangan
-                </Typography>
-              </Card>
-              <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                <Typography
-                  style={{
-                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                    fontWeight: 700,
-                  }}
-                  variant="lead"
-                  color="white"
-                  className="mt-3 font-normal"
-                >
-                  Menghadirkan teknologi pendukung yang efektif dan efisien
-                </Typography>
-              </Card>
+            </div>
+            <div className="col-span-3 md:col-span-4 flex justify-center items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-4">
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Membeli produk unggulan komoditas pangan dari sumber local
+                    dengan harga yang menari
+                  </Typography>
+                </Card>
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Menjual produk komoditas pangan dgn harga yang terjangkau
+                  </Typography>
+                </Card>
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Menyiapkan peluang ekspor ke luar negeri dgn standarisasi
+                    dan perizinan yang relevan sesuai kebutuhan pasar
+                  </Typography>
+                </Card>
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Membantu pemerintah dgn berkolaborasi kepada kelembagaan
+                    yang terkait untuk komoditas pangan
+                  </Typography>
+                </Card>
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Melakukan digitalisasi untuk percepatan forecasting supply
+                    dan demand komoditi pangan
+                  </Typography>
+                </Card>
+                <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
+                  <Typography
+                    style={{
+                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                      fontWeight: 700,
+                    }}
+                    variant="lead"
+                    color="white"
+                    className="mt-3 font-normal"
+                  >
+                    Menghadirkan teknologi pendukung yang efektif dan efisien
+                  </Typography>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
@@ -582,7 +603,8 @@ export default function AboutPage() {
                     placeholder=""
                   ></Textarea>
                 </div>
-                <Button onClick={handleFormSubmit}
+                <Button
+                  onClick={handleFormSubmit}
                   className="hover:text-green-100 bg-wpigreen-50 mt-2"
                   fullWidth
                 >
@@ -595,7 +617,7 @@ export default function AboutPage() {
       </div>
 
       {/* Content Image */}
-      <div className="container mx-auto flex justify-center pb-16 px-8">
+      <div className="container mx-auto flex justify-center pb-16 px-8 lg:px-0">
         <div className="overflow-hidden transform transition-transform duration-300 hover:scale-105 rounded-lg">
           <a href="/produk">
             <img src="./assets/banner.png" alt="" className="w-full" />
@@ -631,7 +653,10 @@ export default function AboutPage() {
                   className: "before:content-none after:content-none w-full",
                 }}
               />
-              <Button onClick={handleSubmitNotification} className="hover:bg-green-400 bg-wpigreen-50">
+              <Button
+                onClick={handleSubmitNotification}
+                className="hover:bg-green-400 bg-wpigreen-50"
+              >
                 Submit
               </Button>
             </div>
