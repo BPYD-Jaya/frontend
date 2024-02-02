@@ -62,7 +62,7 @@ export default function Home() {
       </div>
 
       {/* Jumbotron */}
-      <div className=" bg-wpigreen-50 xl:h-[820px] md:h-[1050px] h-[850px]">
+      <div className=" bg-wpigreen-50 xl:h-[820px] lg:h-[670px] md:h-[1100px] h-[850px]">
         <div
           className="bg-wpiblue-50 flex flex-col xl:h-[600px] md:h-[950px] lg:h-[550px] h-[750px]"
           style={{ borderRadius: "0 0 50px 50px" }}
@@ -131,7 +131,7 @@ export default function Home() {
             </div>
             <div className="h-[280px] md:h-[400px] lg:h-[33vw] xl:h-full xl:w-full py-5 mt-4 lg:mt-0 md:py-0 items-center">
               <img
-                src="./assets/hero.png"
+                src="./assets/newHero.png"
                 alt="image1"
                 className="h-full w-full   "
                 style={{ width: "100%", height: "100%" }}
@@ -141,7 +141,10 @@ export default function Home() {
         </div>
 
         {/* Carousel */}
-        <div className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[7vw] md:-translate-y-32 -translate-y-11 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 ">
+        <div
+          className="container mx-auto lg:-translate-y-[7vw] xl:-translate-y-[6.5vw] md:-translate-y-24
+         -translate-y-11 px-4 w-full h-[130px] md:h-[200px] lg:h-[17vw] xl:h-[300px]  sm:px-0 lg:px-0 "
+        >
           <MasterCarousel />
         </div>
 
