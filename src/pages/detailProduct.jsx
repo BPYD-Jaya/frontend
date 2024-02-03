@@ -202,7 +202,7 @@ export default function DetailProduct() {
                         </thead>
                         <tbody>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -222,7 +222,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -242,7 +242,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -262,7 +262,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -282,7 +282,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -302,7 +302,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -322,7 +322,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -342,7 +342,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50">
+                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -368,7 +368,7 @@ export default function DetailProduct() {
                               <tr
                                 key={index}
                               >
-                                <td className="p-4 break-words bg-blue-gray-50">
+                                <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
                                   <Typography
                                     variant="small"
                                     color="black"
