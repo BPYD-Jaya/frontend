@@ -165,7 +165,7 @@ export default function DetailProduct() {
         </div>
 
         {/* Catalog */}
-        <div className="container mx-auto pt-4">
+        <div className="container mx-auto pt-4 ">
           <div className="grid grid-cols-1 xl:grid-cols-12 mb-16 gap-2 lg:gap-6">
             <div className="col-span-1 lg:col-span-8">
               <div className="border rounded-md">
@@ -180,8 +180,8 @@ export default function DetailProduct() {
                     </Typography>
                   </AccordionHeader>
                   <AccordionBody>
-                    <div className="overflow-x-scroll">
-                      <table className="w-full min-w-max table-auto text-left">
+                    <div className="overflow-x-scroll rounded-lg shadow-md ">
+                      <table className="w-full min-w-max table-auto text-left border-collapse border-2 ">
                         <thead>
                           <tr>
                             {TABLE_HEAD.map((head) => (
@@ -191,7 +191,7 @@ export default function DetailProduct() {
                               >
                                 <Typography
                                   variant="small"
-                                  color="blue-gray"
+                                  color="black"
                                   className="font-normal leading-none opacity-70"
                                 >
                                   {head}
@@ -201,17 +201,57 @@ export default function DetailProduct() {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="black"
+                                className="font-normal leading-none opacity-70"
+                              >
+                                Supplier
+                              </Typography>
+                            </td>
+                            <td className="p-4 border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal "
+                                className="font-normal"
+                              >
+                                {product.company_name}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="black"
+                                className="font-normal leading-none opacity-70"
+                              >
+                                Company Category
+                              </Typography>
+                            </td>
+                            <td className="p-4 border-b border-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {product.company_category}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="black"
+                                className="font-normal leading-none opacity-70"
                               >
                                 Place of Origin
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-4 border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -221,37 +261,37 @@ export default function DetailProduct() {
                               </Typography>
                             </td>
                           </tr>
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
                               <Typography
                                 variant="small"
-                                color="blue-gray"
-                                className="font-normal "
+                                color="black"
+                                className="font-normal leading-none opacity-70"
                               >
-                                Storage Type
+                                Address
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-4 max-w-sm border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {product.storage_type}
+                                {product.address}
                               </Typography>
                             </td>
                           </tr>
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
                               <Typography
                                 variant="small"
-                                color="blue-gray"
-                                className="font-normal "
+                                color="black"
+                                className="font-normal leading-none opacity-70"
                               >
                                 Description
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-4 max-w-sm border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -261,17 +301,37 @@ export default function DetailProduct() {
                               </Typography>
                             </td>
                           </tr>
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="black"
+                                className="font-normal leading-none opacity-70"
+                              >
+                                Storage Type
+                              </Typography>
+                            </td>
+                            <td className="p-4 border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal "
+                                className="font-normal"
+                              >
+                                {product.storage_type}
+                              </Typography>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
+                              <Typography
+                                variant="small"
+                                color="black"
+                                className="font-normal leading-none opacity-70"
                               >
                                 Category
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-4 border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -281,20 +341,20 @@ export default function DetailProduct() {
                               </Typography>
                             </td>
                           </tr>
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
+                          <tr>
+                            <td className="p-4 break-words bg-blue-gray-50">
                               <Typography
                                 variant="small"
-                                color="blue-gray"
-                                className="font-normal "
+                                color="black"
+                                className="font-normal leading-none opacity-70"
                               >
                                 Stock
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-4 border-b border-blue-gray-50">
                               <Typography
                                 variant="small"
-                                color="blue-gray"
+                                color="black"
                                 className="font-normal"
                               >
                                 {product.stock} {product.volume}
@@ -304,22 +364,20 @@ export default function DetailProduct() {
                           {additionalInfo.map((info, index) => {
                             const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
                             const value = info[key]; // Get the value associated with the key
-
                             return (
                               <tr
-                                className="even:bg-blue-gray-50/50"
                                 key={index}
                               >
-                                <td className="p-4 break-words">
+                                <td className="p-4 break-words bg-blue-gray-50">
                                   <Typography
                                     variant="small"
-                                    color="blue-gray"
-                                    className="font-normal"
+                                    color="black"
+                                    className="font-normal leading-none opacity-70"
                                   >
                                     {key}
                                   </Typography>
                                 </td>
-                                <td className="p-4">
+                                <td className="p-4 border-b border-blue-gray-50">
                                   <Typography
                                     variant="small"
                                     color="blue-gray"
@@ -331,26 +389,6 @@ export default function DetailProduct() {
                               </tr>
                             );
                           })}
-                          <tr className="even:bg-blue-gray-50/50">
-                            <td className="p-4 break-words">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal "
-                              >
-                                Address
-                              </Typography>
-                            </td>
-                            <td className="p-4">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {product.address}
-                              </Typography>
-                            </td>
-                          </tr>
                         </tbody>
                       </table>
                     </div>
