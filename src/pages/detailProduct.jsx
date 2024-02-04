@@ -77,7 +77,7 @@ export default function DetailProduct() {
   };
 
   const handleIncrement = () => {
-    if(quantity < product.stock) {
+    if (quantity < product.stock) {
       handleQuantityChange(quantity + 1);
     }
   };
@@ -180,7 +180,7 @@ export default function DetailProduct() {
                     </Typography>
                   </AccordionHeader>
                   <AccordionBody>
-                    <div className="overflow-x-scroll rounded-lg shadow-md ">
+                    <div className="rounded-lg shadow-md ">
                       <table className="w-full min-w-max table-auto text-left border-collapse border-2 ">
                         <thead>
                           <tr>
@@ -202,7 +202,7 @@ export default function DetailProduct() {
                         </thead>
                         <tbody>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -211,7 +211,7 @@ export default function DetailProduct() {
                                 Supplier
                               </Typography>
                             </td>
-                            <td className="p-4 border-b border-blue-gray-50">
+                            <td className="p-4 border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -222,7 +222,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -231,7 +231,7 @@ export default function DetailProduct() {
                                 Company Category
                               </Typography>
                             </td>
-                            <td className="p-4 border-b border-blue-gray-50">
+                            <td className="p-4 border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -242,7 +242,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -251,7 +251,7 @@ export default function DetailProduct() {
                                 Place of Origin
                               </Typography>
                             </td>
-                            <td className="p-4 border-b border-blue-gray-50">
+                            <td className="p-4 border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -262,7 +262,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -282,7 +282,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -302,7 +302,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -322,7 +322,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -342,7 +342,7 @@ export default function DetailProduct() {
                             </td>
                           </tr>
                           <tr>
-                            <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                            <td className="p-4 break-words border border-blue-gray-50">
                               <Typography
                                 variant="small"
                                 color="black"
@@ -365,10 +365,8 @@ export default function DetailProduct() {
                             const key = Object.keys(info)[0]; // Get the key (e.g., "Nomor Model")
                             const value = info[key]; // Get the value associated with the key
                             return (
-                              <tr
-                                key={index}
-                              >
-                                <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                              <tr key={index}>
+                                <td className="p-4 break-words border border-blue-gray-50">
                                   <Typography
                                     variant="small"
                                     color="black"
@@ -501,7 +499,9 @@ export default function DetailProduct() {
                         <div className="flex justify-center items-center gap-3">
                           <img
                             alt=""
-                            src={process.env.PUBLIC_URL + "/assets/whatsapp.png"}
+                            src={
+                              process.env.PUBLIC_URL + "/assets/whatsapp.png"
+                            }
                             className="h-6"
                           />
                           Hubungi Kami

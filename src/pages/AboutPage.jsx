@@ -52,14 +52,24 @@ export default function AboutPage() {
 
   const handleFormSubmit = () => {
     try {
-      
       // Validasi form
-      if (!formData.nama || !formData.no_hp || !formData.email || !formData.perihal || !formData.pertanyaan) {
+      if (
+        !formData.nama ||
+        !formData.no_hp ||
+        !formData.email ||
+        !formData.perihal ||
+        !formData.pertanyaan
+      ) {
         alert("Harap isi semua kolom pada form.");
         return;
       }
 
-      const wa_link = result?.[0]?.wa_link + "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" + formData.perihal + "%20dengan pertanyaan%20" + formData.pertanyaan
+      const wa_link =
+        result?.[0]?.wa_link +
+        "?text=Halo%20kak%20saya%20mau%20tanya%20perihal%20" +
+        formData.perihal +
+        "%20dengan pertanyaan%20" +
+        formData.pertanyaan;
 
       window.open(wa_link, "_blank");
     } catch (error) {
@@ -102,17 +112,22 @@ export default function AboutPage() {
         className="bg-gradient-to-b from-wpiblue-50 to-wpiblue-100 xl:h-[650px] lg:h-[550px] md:h-[700px] sm:h-[650px] h-[600px] lg:pt-4 pt-0"
         style={{ borderRadius: "0 0 50px 50px" }}
       >
-        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 pt-8 lg:pt-0">
-          <div className=" flex justify-center items-center text-white col-span-8 ">
+        <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 pt-8 lg:pt-0 lg:gap-8 gap-0">
+          <div className=" flex justify-center items-center text-white col-span-7 ">
             <img
               src="./assets/heroAbout.png"
               alt="jumbotron"
               className="xl:h-[500px] md:h-[400px]"
             />
           </div>
-          <div className=" col-span-4 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-start">
-            <Typography variant="h1" className="py-4 text-5xl" color="white">
-              Kami hadir sebagai solusi digital untuk semua kebutuhan perusahaan
+          <div className=" col-span-5 xl:-translate-x-0 flex flex-col justify-center text-center lg:text-justify">
+            <Typography
+              variant="h1"
+              className="py-4 xl:text-5xl text-4xl"
+              color="white"
+            >
+              Kami hadir sebagai kekuatan utama dalam mengatasi tantangan di
+              industri pangan dan perdagangan
             </Typography>
           </div>
         </div>
@@ -250,6 +265,17 @@ export default function AboutPage() {
                   color="white"
                   className="mt-3 font-normal "
                 >
+                  VISI
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                    fontWeight: 700,
+                  }}
+                  variant="lead"
+                  color="white"
+                  className="mt-3 font-normal "
+                >
                   Menjadi perusahaan aggregator pangan dan pendukung pangan
                   lainnya yang kuat secara Nasional dan terintegrasi di Pasar
                   Internasional
@@ -259,86 +285,176 @@ export default function AboutPage() {
             <div className="col-span-3 md:col-span-4 flex justify-center items-center">
               <div className="grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-4">
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Membeli produk unggulan komoditas pangan dari sumber local
-                    dengan harga yang menari
-                  </Typography>
+                  <div>
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Membeli produk unggulan komoditas pangan dari sumber local
+                      dengan harga yang menari
+                    </Typography>
+                  </div>
                 </Card>
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Menjual produk komoditas pangan dgn harga yang terjangkau
-                  </Typography>
+                  <div>
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Menjual produk komoditas pangan dgn harga yang terjangkau
+                    </Typography>
+                  </div>
                 </Card>
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Menyiapkan peluang ekspor ke luar negeri dgn standarisasi
-                    dan perizinan yang relevan sesuai kebutuhan pasar
-                  </Typography>
+                  <div>
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Menyiapkan peluang ekspor ke luar negeri dgn standarisasi
+                      dan perizinan yang relevan sesuai kebutuhan pasar
+                    </Typography>
+                  </div>
                 </Card>
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Membantu pemerintah dgn berkolaborasi kepada kelembagaan
-                    yang terkait untuk komoditas pangan
-                  </Typography>
+                  <div>
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Membantu pemerintah dgn berkolaborasi kepada kelembagaan
+                      yang terkait untuk komoditas pangan
+                    </Typography>
+                  </div>
                 </Card>
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Melakukan digitalisasi untuk percepatan forecasting supply
-                    dan demand komoditi pangan
-                  </Typography>
+                  <div>
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Melakukan digitalisasi untuk percepatan forecasting supply
+                      dan demand komoditi pangan
+                    </Typography>
+                  </div>
                 </Card>
                 <Card className="shadow-lg w-full h-[300px] overflow-hidden p-4 text-center bg-gradient-to-b from-wpiblue-50 to-wpigreen-50 flex flex-col justify-center items-center ">
-                  <Typography
-                    style={{
-                      fontFamily: "'M PLUS Rounded 1c', sans-serif",
-                      fontWeight: 700,
-                    }}
-                    variant="lead"
-                    color="white"
-                    className="mt-3 font-normal"
-                  >
-                    Menghadirkan teknologi pendukung yang efektif dan efisien
-                  </Typography>
+                  <div className="">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal "
+                    >
+                      MISI
+                    </Typography>
+                  </div>
+                  <div className="h-[300px]">
+                    <Typography
+                      style={{
+                        fontFamily: "'M PLUS Rounded 1c', sans-serif",
+                        fontWeight: 700,
+                      }}
+                      variant="lead"
+                      color="white"
+                      className="mt-3 font-normal"
+                    >
+                      Menghadirkan teknologi pendukung yang efektif dan efisien
+                    </Typography>
+                  </div>
                 </Card>
               </div>
             </div>
@@ -362,13 +478,15 @@ export default function AboutPage() {
         </div>
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 justify-center items-center gap-6 ">
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
-            <CardBody>
+            <div className="">
               <img
                 src="assets/layanan.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
+            </div>
+            <div className="h-[200px]">
               <Typography
                 variant="h5"
                 style={{
@@ -384,16 +502,16 @@ export default function AboutPage() {
                 Melayani mitra bisnis dengan sepenu hati untuk mencapai kepuasan
                 pelanggan
               </Typography>
-            </CardBody>
+            </div>
           </Card>
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
-            <CardBody>
-              <img
-                src="assets/amanah.png"
-                alt=""
-                className="block mx-auto mb-4 lg:mb-0"
-                width={70}
-              />
+            <img
+              src="assets/amanah.png"
+              alt=""
+              className="block mx-auto mb-4 lg:mb-0"
+              width={70}
+            />
+            <div className="h-[200px]">
               <Typography
                 variant="h5"
                 style={{
@@ -409,16 +527,18 @@ export default function AboutPage() {
                 Selalu memenuhi komitmen sesuai dgn janji dan target yang telah
                 disepakati
               </Typography>
-            </CardBody>
+            </div>
           </Card>
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
-            <CardBody>
+            <div>
               <img
                 src="assets/profesional.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
+            </div>
+            <div className="h-[200px]">
               <Typography
                 variant="h5"
                 style={{
@@ -434,16 +554,18 @@ export default function AboutPage() {
                 Melayani mitra bisnis dengan sepenu hati untuk mencapai kepuasan
                 pelanggan
               </Typography>
-            </CardBody>
+            </div>
           </Card>
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
-            <CardBody>
+            <div>
               <img
                 src="assets/adapt.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
+            </div>
+            <div className="h-[200px]">
               <Typography
                 variant="h5"
                 style={{
@@ -459,16 +581,18 @@ export default function AboutPage() {
                 Cepat beradaptasi untuk terus berinovasi terhadap perkembangan
                 dunia industri yg terjadi setiap saat
               </Typography>
-            </CardBody>
+            </div>
           </Card>
           <Card className="py-1 flex flex-col justify-center items-center overflow-hidden transform transition-transform duration-300 hover:scale-105 shadow-lg text-center">
-            <CardBody>
+            <div>
               <img
                 src="assets/collaborative.png"
                 alt=""
                 className="block mx-auto mb-4 lg:mb-0"
                 width={70}
               />
+            </div>
+            <div className="h-[200px]">
               <Typography
                 variant="h5"
                 style={{
@@ -484,7 +608,7 @@ export default function AboutPage() {
                 Memiliki semangat kebersamaan yang tinggi dalam memberikan
                 solusi penyelesaian permasalahan yang ada
               </Typography>
-            </CardBody>
+            </div>
           </Card>
         </div>
       </div>
@@ -512,7 +636,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className=" flex justify-center items-center xl:w-1/2 w-full">
-              <form className=" py-6 mt-8 mb-2 max-w-screen-lg sm:w-96 w-full px-2">
+              <form className=" py-6 mt-8 mb-2 w-full px-2">
                 <div className="flex flex-col gap-4">
                   <Typography
                     variant="h6"

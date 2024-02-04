@@ -225,7 +225,7 @@ export default function ProductPage() {
             <SwiperSlide key={index}>
               <img
                 src={cat.image_url}
-                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0"
+                className="w-[250px] sm:w-[300px] md:w-[215px] lg:w-[175px] xl:w-[192px] mx-auto md:mx-0 cursor-pointer"
                 alt={cat.category}
                 onClick={() => handleCategoryClick(cat.id)}
               />
