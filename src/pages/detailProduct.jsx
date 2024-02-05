@@ -180,7 +180,7 @@ export default function DetailProduct() {
                     </Typography>
                   </AccordionHeader>
                   <AccordionBody>
-                    <div className="rounded-lg shadow-md ">
+                    <div className="overflow-x-scroll rounded-lg shadow-md ">
                       <table className="w-full min-w-max table-auto text-left border-collapse border-2 ">
                         <thead>
                           <tr>

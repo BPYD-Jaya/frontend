@@ -222,10 +222,9 @@ export default function MitraPage() {
             </Typography>
             <div className="text-justify">
               <Typography className="py-4" color="white">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptate dignissimos quasi, quos nobis amet et possimus tempora
-                corporis enim nam adipisci deleniti saepe, error perferendis
-                eius rem nesciunt? Laborum, beatae.
+                Dengan dukungan Teknologi Informasi, WPI memberikan akses pasar domestik dan internasional, serta integrasi teknologi informasi kepada para supplier. 
+                Kami mengundang para pemasok berkualitas untuk turut serta dalam upaya meningkatkan ketahanan pangan dan ketersediaan produk pangan yang beragam. 
+                Bergabunglah dengan WPI untuk menciptakan partnership yang berkelanjutan dan berkontribusi pada pertumbuhan industri pangan secara positif.
               </Typography>
               <div className="flex justify-center lg:justify-start">
                 <a href="#">

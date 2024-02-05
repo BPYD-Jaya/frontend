@@ -113,7 +113,7 @@ export default function AdminDetailProduct() {
               </thead>
               <tbody>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -122,7 +122,7 @@ export default function AdminDetailProduct() {
                       Product
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -133,7 +133,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -142,7 +142,7 @@ export default function AdminDetailProduct() {
                       Brand
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -153,7 +153,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -162,7 +162,7 @@ export default function AdminDetailProduct() {
                       Supplier
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -173,7 +173,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -182,7 +182,7 @@ export default function AdminDetailProduct() {
                       Company Category
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -193,7 +193,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -202,7 +202,7 @@ export default function AdminDetailProduct() {
                       Company Number
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -214,7 +214,7 @@ export default function AdminDetailProduct() {
                 </tr>
 
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -223,7 +223,7 @@ export default function AdminDetailProduct() {
                       Place of Origin
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -234,7 +234,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -243,7 +243,7 @@ export default function AdminDetailProduct() {
                       Address
                     </Typography>
                   </td>
-                  <td className="p-4 max-w-sm border-b border-blue-gray-50">
+                  <td className="p-4 max-w-sm border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -254,7 +254,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -263,7 +263,7 @@ export default function AdminDetailProduct() {
                       Description
                     </Typography>
                   </td>
-                  <td className="p-4 max-w-sm border-b border-blue-gray-50">
+                  <td className="p-4 max-w-sm border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -274,7 +274,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -283,7 +283,7 @@ export default function AdminDetailProduct() {
                       Storage Type
                     </Typography>
                     </td>
-                    <td className="p-4 border-b border-blue-gray-50">
+                    <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -294,7 +294,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -303,7 +303,7 @@ export default function AdminDetailProduct() {
                       Category
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -314,7 +314,7 @@ export default function AdminDetailProduct() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="black"
@@ -323,7 +323,7 @@ export default function AdminDetailProduct() {
                       Stock
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -338,7 +338,7 @@ export default function AdminDetailProduct() {
                   const value = info[key]; // Get the value associated with the key
                   return (
                     <tr key={index}>
-                      <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                      <td className="p-4 break-words border border-blue-gray-50">
                         <Typography
                           variant="small"
                           color="black"
@@ -347,7 +347,7 @@ export default function AdminDetailProduct() {
                           {key}
                         </Typography>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-50">
+                      <td className="p-4 border border-blue-gray-50">
                         <Typography
                           variant="small"
                           color="blue-gray"
@@ -360,12 +360,12 @@ export default function AdminDetailProduct() {
                   );
                 })}
                 <tr>
-                  <td className="p-4 break-words bg-blue-gray-50 border-b border-blue-gray-100">
+                  <td className="p-4 break-words border border-blue-gray-50">
                     <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Photo
                     </Typography>
                   </td>
-                  <td className="p-4 border-b border-blue-gray-50">
+                  <td className="p-4 border border-blue-gray-50">
                   <div className="col-span-12 lg:col-span-9 pb-8">
                     <img
                       src={productData.link_image}
