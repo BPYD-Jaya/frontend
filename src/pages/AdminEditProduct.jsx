@@ -346,6 +346,7 @@ export default function AdminEditProduct() {
     }));
   };
 
+
   console.log(productData)
 
   return (  
@@ -628,8 +629,8 @@ export default function AdminEditProduct() {
           <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
           {formData.additional_info.map((info, index) => {
           return (
-            <div className="w-full" key={index}>
-              <div className="pb-8">
+            <div className="w-full flex flex-row justify-between gap-3" key={index}>
+              <div className="pb-8 w-full">
                 <div className="pb-4">
                   <Input
                     color="indigo"
@@ -663,6 +664,19 @@ export default function AdminEditProduct() {
                   />
                 </div>
               </div>
+              <div className="flex justify-end items-center pb-8">
+                <Button
+                  onClick={() =>{
+                    const updatedAdditionalInfo = [...formData.additional_info];
+                    updatedAdditionalInfo.splice(index, 1);
+                    setProductData(formData => ({ ...formData, additional_info: updatedAdditionalInfo }));
+                  
+                  }}
+                  className="bg-red-400 text-white"
+                >
+                  -
+                </Button>
+              </div>
             </div>
           )})}
           </div>
@@ -680,7 +694,7 @@ export default function AdminEditProduct() {
           <div className="col-span-12 lg:col-span-9 pb-8">
             <img
               src={productData.link_image}
-              alt="product image"
+              alt="Product Image"
               className="w-full md:w-auto h-auto md:h-[300px] border"
             />
             <div className="flex items-center mt-2">
