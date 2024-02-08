@@ -27,7 +27,7 @@ export default function NewsPage() {
     last_page: 1,
     data: [],
   });
-  console.log("paginationData", paginationData);
+  //console.log("paginationData", paginationData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,11 +46,8 @@ export default function NewsPage() {
 
   const handlePageChange = async (pageNumber) => {
     try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/blogs?page=${pageNumber}`,
-        {}
-      );
-  
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/blogs?page=${pageNumber}`, {});
+
       if (response && response.data && response.data.blogs && response.data.blogs.data) {
         const newData = response.data.blogs.data;
         setFilteredProducts(newData); // Set the data array to filteredProducts
@@ -59,7 +56,7 @@ export default function NewsPage() {
           current_page: pageNumber,
         });
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         console.error("Invalid response format:", response);
       }
@@ -67,7 +64,7 @@ export default function NewsPage() {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   const navigateToDetail = (id) => {
     navigate(`/detail-blog/${id}`);
   };
@@ -88,20 +85,13 @@ export default function NewsPage() {
   return (
     <div>
       {/* Navbar */}
-      <div
-        className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
-        }`}
-      >
+      <div className={`bg-wpiblue-50 ${isNavbarFixed ? "fixed top-0 w-full z-10" : ""}`}>
         <MasterNavbar />
       </div>
 
       {/* Jumbotron */}
       <div className="">
-        <div
-          className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex flex-col justify-center items-center px-4 xl:px-36 xl:h-[400px] md:h-[500px] lg:h-[450px] h-[500px] pb-16"
-          style={{ borderRadius: "0 0 50px 50px" }}
-        >
+        <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex flex-col justify-center items-center px-4 xl:px-36 xl:h-[400px] md:h-[500px] lg:h-[450px] h-[500px] pb-16" style={{ borderRadius: "0 0 50px 50px" }}>
           <div className="flex flex-col justify-center items-center text-center text-white">
             <FaRegNewspaper size={100} className="mb-2" />
             <Typography
@@ -122,8 +112,7 @@ export default function NewsPage() {
               }}
               className="font-medium text-2xl"
             >
-              Dapatkan informasi bermanfaat seputar pengelolaan usaha anda dari
-              artikel yang kami berikan
+              Dapatkan informasi bermanfaat seputar pengelolaan usaha anda dari artikel yang kami berikan
             </Typography>
           </div>
         </div>
@@ -145,11 +134,7 @@ export default function NewsPage() {
           <div className="container mx-auto flex justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8 text-start">
               {filteredProducts.map((item, index) => (
-                <div
-                  key={item.id}
-                  onClick={() => navigateToDetail(item.id)}
-                  className="cursor-pointer"
-                >
+                <div key={item.id} onClick={() => navigateToDetail(item.id)} className="cursor-pointer">
                   <MasterNews {...item} />
                 </div>
               ))}
@@ -185,8 +170,7 @@ export default function NewsPage() {
                   fontWeight: 700,
                 }}
               >
-                Masukkan alamat email Anda untuk mendapatkan informasi menarik
-                dari kami!
+                Masukkan alamat email Anda untuk mendapatkan informasi menarik dari kami!
               </Typography>
             </div>
             <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
@@ -199,9 +183,7 @@ export default function NewsPage() {
                     className: "before:content-none after:content-none w-full",
                   }}
                 />
-                <Button className="hover:bg-green-400 bg-wpigreen-50">
-                  Submit
-                </Button>
+                <Button className="hover:bg-green-400 bg-wpigreen-50">Submit</Button>
               </div>
             </div>
           </div>

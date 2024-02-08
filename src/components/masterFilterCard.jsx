@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-  Button,
-  Card,
-  CardFooter,
-  Checkbox,
-  Input,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Slider,
-  Typography,
-} from '@material-tailwind/react';
-import { FaAngleDown } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { Accordion, AccordionBody, AccordionHeader, Button, Card, CardFooter, Checkbox, Input, List, ListItem, ListItemPrefix, Slider, Typography } from "@material-tailwind/react";
+import { FaAngleDown } from "react-icons/fa";
 
 export default function MasterFilterCard({ onFilter }) {
   const [section1Expanded, setSection1Expanded] = useState(false);
   const [section2Expanded, setSection2Expanded] = useState(false);
   const [section3Expanded, setSection3Expanded] = useState(false);
-  const [provinsi, setProvinsi] = useState('');
-  const [kota, setKota] = useState('');
+  const [provinsi, setProvinsi] = useState("");
+  const [kota, setKota] = useState("");
   const [provinsiData, setProvinsiData] = useState([]);
   const [kotaData, setKotaData] = useState([]);
   const [isLoadingProvinsi, setIsLoadingProvinsi] = useState(true);
@@ -32,17 +18,16 @@ export default function MasterFilterCard({ onFilter }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
 
-
   useEffect(() => {
     const fetchProvinsi = async () => {
       setIsLoadingProvinsi(true);
       try {
-        const response = await fetch('https://backend.ptwpi.co.id/api/provinces');
-        if (!response.ok) throw new Error('Failed to fetch provinces');
+        const response = await fetch("https://backend.ptwpi.co.id/api/provinces");
+        if (!response.ok) throw new Error("Failed to fetch provinces");
         const data = await response.json();
         setProvinsiData(data);
       } catch (error) {
-        console.error('Error fetching provinces:', error);
+        console.error("Error fetching provinces:", error);
       } finally {
         setIsLoadingProvinsi(false);
       }
@@ -54,7 +39,7 @@ export default function MasterFilterCard({ onFilter }) {
   useEffect(() => {
     if (!provinsi) {
       setKotaData([]);
-      setKota('');
+      setKota("");
       return;
     }
 
@@ -62,12 +47,12 @@ export default function MasterFilterCard({ onFilter }) {
       setIsLoadingKota(true);
       try {
         const response = await fetch(`https://backend.ptwpi.co.id/api/cities/province/${provinsi}`);
-        if (!response.ok) throw new Error('Failed to fetch cities');
+        if (!response.ok) throw new Error("Failed to fetch cities");
         const data = await response.json();
         setKotaData(data);
-        setKota(data.length > 0 ? data[0].id : '');
+        setKota(data.length > 0 ? data[0].id : "");
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        console.error("Error fetching cities:", error);
       } finally {
         setIsLoadingKota(false);
       }
@@ -80,12 +65,12 @@ export default function MasterFilterCard({ onFilter }) {
     const fetchCategories = async () => {
       setIsLoadingCategories(true);
       try {
-        const response = await fetch('https://backend.ptwpi.co.id/api/categories');
-        if (!response.ok) throw new Error('Failed to fetch categories');
+        const response = await fetch("https://backend.ptwpi.co.id/api/categories");
+        if (!response.ok) throw new Error("Failed to fetch categories");
         const data = await response.json();
         setCategories(data); // Assuming the API returns an array of category objects
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
       } finally {
         setIsLoadingCategories(false);
       }
@@ -97,7 +82,7 @@ export default function MasterFilterCard({ onFilter }) {
   // Handle Provinsi Change
   const handleProvinsiChange = (e) => {
     setProvinsi(parseInt(e.target.value));
-    setKota('');
+    setKota("");
   };
 
   // Handle Kota Change
@@ -107,9 +92,7 @@ export default function MasterFilterCard({ onFilter }) {
 
   // Handle Category Selection
   const handleCategoryChange = (categoryId, isChecked) => {
-    const newSelectedCategories = isChecked
-      ? [...selectedCategories, categoryId]
-      : selectedCategories.filter(id => id !== categoryId);
+    const newSelectedCategories = isChecked ? [...selectedCategories, categoryId] : selectedCategories.filter((id) => id !== categoryId);
     setSelectedCategories(newSelectedCategories);
   };
 
@@ -129,18 +112,18 @@ export default function MasterFilterCard({ onFilter }) {
       kota,
       categories: selectedCategories,
       terendah,
-      tertinggi
+      tertinggi,
     };
     onFilter(filters);
-    // console.log(filters);
+    // //console.log(filters);
   };
 
   return (
     <Card className="filters xl:w-96 w-full border-2 border-gray-300 shadow-md p-4">
       {/* Section 1: Lokasi */}
-      <Accordion open={section1Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section1Expanded ? 'rotate-180' : ''} transition-transform`} />}>
+      <Accordion open={section1Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section1Expanded ? "rotate-180" : ""} transition-transform`} />}>
         <AccordionHeader onClick={() => setSection1Expanded(!section1Expanded)}>
-          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section1Expanded ? 'green' : 'black'}>
+          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section1Expanded ? "green" : "black"}>
             Lokasi
           </Typography>
         </AccordionHeader>
@@ -175,9 +158,9 @@ export default function MasterFilterCard({ onFilter }) {
       </Accordion>
 
       {/* Section 2: Categories */}
-      <Accordion open={section2Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section2Expanded ? 'rotate-180' : ''} transition-transform`} />}>
+      <Accordion open={section2Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section2Expanded ? "rotate-180" : ""} transition-transform`} />}>
         <AccordionHeader onClick={() => setSection2Expanded(!section2Expanded)}>
-          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section2Expanded ? 'green' : 'black'}>
+          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section2Expanded ? "green" : "black"}>
             Kategori
           </Typography>
         </AccordionHeader>
@@ -190,7 +173,7 @@ export default function MasterFilterCard({ onFilter }) {
                 <ListItem key={category.id} className="p-0">
                   <label htmlFor={`category-${category.id}`} className="flex w-full cursor-pointer items-center px-3 py-2">
                     <ListItemPrefix className="mr-3">
-                      <Checkbox id={`category-${category.id}`} checked={selectedCategories.includes(category.id)} onChange={(e) => handleCategoryChange(category.id, e.target.checked)} containerProps={{ className: 'p-0' }} />
+                      <Checkbox id={`category-${category.id}`} checked={selectedCategories.includes(category.id)} onChange={(e) => handleCategoryChange(category.id, e.target.checked)} containerProps={{ className: "p-0" }} />
                     </ListItemPrefix>
                     <Typography className="font-medium" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 400 }} color="blue-gray">
                       {category.category} {/* Assuming the category object has a name property */}
@@ -204,9 +187,9 @@ export default function MasterFilterCard({ onFilter }) {
       </Accordion>
 
       {/* Section 3: Price Range */}
-      <Accordion open={section3Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section3Expanded ? 'rotate-180' : ''} transition-transform`} />}>
+      <Accordion open={section3Expanded} icon={<FaAngleDown className={`h-5 w-5 transform ${section3Expanded ? "rotate-180" : ""} transition-transform`} />}>
         <AccordionHeader onClick={() => setSection3Expanded(!section3Expanded)}>
-          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section3Expanded ? 'green' : 'black'}>
+          <Typography className="text-left uppercase font-semibold" style={{ fontFamily: "'M PLUS Rounded 1c', sans-serif", fontWeight: 800 }} color={section3Expanded ? "green" : "black"}>
             Harga
           </Typography>
         </AccordionHeader>
@@ -227,12 +210,12 @@ export default function MasterFilterCard({ onFilter }) {
       </Accordion>
 
       <CardFooter className="mt-2">
-        <Button className="w-full bg-wpigreen-50" onClick={handleFilterClick}>Tampilkan</Button>
+        <Button className="w-full bg-wpigreen-50" onClick={handleFilterClick}>
+          Tampilkan
+        </Button>
       </CardFooter>
     </Card>
   );
 }
 
-const AccordionIcon = ({ open }) => (
-  <FaAngleDown className={`h-5 w-5 transform ${open ? 'rotate-180' : ''} transition-transform`} />
-)
+const AccordionIcon = ({ open }) => <FaAngleDown className={`h-5 w-5 transform ${open ? "rotate-180" : ""} transition-transform`} />;

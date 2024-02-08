@@ -1,13 +1,7 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  Typography,
-  Input,
-  Textarea,
-} from "@material-tailwind/react";
+import { Button, Card, Typography, Input, Textarea } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { useDropzone } from "react-dropzone";
@@ -25,14 +19,10 @@ export default function EditMasterCity() {
     const file = e.target.files[0];
     setSelectedFile(file);
     // Handle the selected file as needed
-    console.log(file);
+    //console.log(file);
   };
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*", // Specify accepted file types
     onDrop: handleFileUpload,
   });
@@ -54,32 +44,20 @@ export default function EditMasterCity() {
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Edit Kategori Blog
               </Typography>
@@ -102,14 +80,10 @@ export default function EditMasterCity() {
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                  Batal
-                </Button>
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
               <a href="/master-blog" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-wpigreen-50 flex">
-                  Simpan
-                </Button>
+                <Button className="bg-wpigreen-50 flex">Simpan</Button>
               </a>
             </div>
           </div>

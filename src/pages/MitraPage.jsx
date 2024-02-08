@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MasterNavbar from "../components/masterNavbar";
-import {
-  Button,
-  Input,
-  Option,
-  Select,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, Input, Option, Select, Textarea, Typography } from "@material-tailwind/react";
 import { useDropzone } from "react-dropzone";
 import { FaArrowRight } from "react-icons/fa";
 import { FaCloudArrowUp } from "react-icons/fa6";
@@ -69,9 +62,7 @@ export default function MitraPage() {
 
   const fetchProvince = async () => {
     try {
-      const { data } = await axios.get(
-        "https://backend.ptwpi.co.id/api/provinces"
-      );
+      const { data } = await axios.get("https://backend.ptwpi.co.id/api/provinces");
       setProvinceData(data);
     } catch (error) {
       console.error(error.message);
@@ -80,9 +71,7 @@ export default function MitraPage() {
 
   const fetchCity = async () => {
     try {
-      const { data } = await axios.get(
-        `https://backend.ptwpi.co.id/api/cities/province/${province}`
-      );
+      const { data } = await axios.get(`https://backend.ptwpi.co.id/api/cities/province/${province}`);
       setCityData(data);
       setCity(data.length > 0 ? data[0].id : "");
     } catch (error) {
@@ -92,9 +81,7 @@ export default function MitraPage() {
 
   const fetchCategory = async () => {
     try {
-      const { data } = await axios.get(
-        "https://backend.ptwpi.co.id/api/categories"
-      );
+      const { data } = await axios.get("https://backend.ptwpi.co.id/api/categories");
       setCategoryData(data);
     } catch (error) {
       console.error(error.message);
@@ -165,25 +152,21 @@ export default function MitraPage() {
       formDataToSend.append("item_image", selectedFile, selectedFile.name);
     }
     for (let [key, value] of formDataToSend.entries()) {
-      console.log(`${key}: ${value}`);
+      //console.log(`${key}: ${value}`);
     }
 
-    console.log(formDataToSend); // Log formDataToSend untuk memastikan data yang dikirim benar
+    //console.log(formDataToSend); // Log formDataToSend untuk memastikan data yang dikirim benar
 
-    console.log(formData); // Log formData untuk memastikan data yang dikirim benar (opsional
+    //console.log(formData); // Log formData untuk memastikan data yang dikirim benar (opsional
 
     // Mengirim formDataToSend ke server menggunakan axios
     try {
-      const response = await axios.post(
-        "https://backend.ptwpi.co.id/api/supplier/create",
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(response.data); // Log response dari server
+      const response = await axios.post("https://backend.ptwpi.co.id/api/supplier/create", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      //console.log(response.data); // Log response dari server
 
       // Handle setelah submit berhasil, misalnya membersihkan form atau memberikan notifikasi ke pengguna
     } catch (error) {
@@ -195,26 +178,15 @@ export default function MitraPage() {
   return (
     <div>
       {/* Navbar */}
-      <div
-        className={`bg-wpiblue-50 ${
-          isNavbarFixed ? "fixed top-0 w-full z-10" : ""
-        }`}
-      >
+      <div className={`bg-wpiblue-50 ${isNavbarFixed ? "fixed top-0 w-full z-10" : ""}`}>
         <MasterNavbar />
       </div>
 
       {/* Jumbotron */}
-      <div
-        className="bg-wpiblue-50 xl:h-[675px] lg:h-[540px] h-[1000px] md:h-[1000px] lg:pt-4 pt-0"
-        style={{ borderRadius: "0 0 50px 50px" }}
-      >
+      <div className="bg-wpiblue-50 xl:h-[675px] lg:h-[540px] h-[1000px] md:h-[1000px] lg:pt-4 pt-0" style={{ borderRadius: "0 0 50px 50px" }}>
         <div className="container mx-auto grid lg:grid-cols-12 grid-cols-1 px-4 gap-8">
           <div className=" flex justify-start  items-center text-white col-span-6 pl-0 pt-2 lg:pl-6">
-            <img
-              src="./assets/heroMitra.png"
-              alt="jumbotron"
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
+            <img src="./assets/heroMitra.png" alt="jumbotron" style={{ maxWidth: "100%", height: "auto" }} />
           </div>
           <div className=" col-span-6  xl:-translate-x-0 flex flex-col justify-center">
             <Typography variant="h2" color="white">
@@ -222,16 +194,12 @@ export default function MitraPage() {
             </Typography>
             <div className="text-justify">
               <Typography className="py-4" color="white">
-                Dengan dukungan Teknologi Informasi, WPI memberikan akses pasar domestik dan internasional, serta integrasi teknologi informasi kepada para supplier. 
-                Kami mengundang para pemasok berkualitas untuk turut serta dalam upaya meningkatkan ketahanan pangan dan ketersediaan produk pangan yang beragam. 
-                Bergabunglah dengan WPI untuk menciptakan partnership yang berkelanjutan dan berkontribusi pada pertumbuhan industri pangan secara positif.
+                Dengan dukungan Teknologi Informasi, WPI memberikan akses pasar domestik dan internasional, serta integrasi teknologi informasi kepada para supplier. Kami mengundang para pemasok berkualitas untuk turut serta dalam upaya
+                meningkatkan ketahanan pangan dan ketersediaan produk pangan yang beragam. Bergabunglah dengan WPI untuk menciptakan partnership yang berkelanjutan dan berkontribusi pada pertumbuhan industri pangan secara positif.
               </Typography>
               <div className="flex justify-center lg:justify-start">
                 <a href="#">
-                  <Button
-                    className="hover:text-green-100 bg-wpigreen-50"
-                    size="lg"
-                  >
+                  <Button className="hover:text-green-100 bg-wpigreen-50" size="lg">
                     <div className="flex items-center text-2xl">
                       GABUNG SEKARANG <FaArrowRight className="ml-2" />
                     </div>
@@ -250,10 +218,7 @@ export default function MitraPage() {
       <div className="mx-2">
         <div className="bg-white container mx-auto md:-translate-y-[2.5rem] lg:-translate-y-[8.3rem] xl:-translate-y-[9rem] -translate-y-28 px-12 py-8 text-center shadow-lg rounded-lg">
           <div className="text-wpiblue-50">
-            <Typography
-              variant="h2"
-              className="text-2xl lg:text-4xl lg:py-4 pb-6 md:pb-8 pt-0"
-            >
+            <Typography variant="h2" className="text-2xl lg:text-4xl lg:py-4 pb-6 md:pb-8 pt-0">
               PARTNER KAMI
             </Typography>
           </div>
@@ -286,32 +251,16 @@ export default function MitraPage() {
               }}
             >
               <SwiperSlide>
-                <img
-                  src="https://images.tokopedia.net/img/cache/215-square/GAnVPX/2021/2/25/24f3d5c5-8d7e-4579-b45c-a9df5fd9e322.png"
-                  alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
-                />
+                <img src="https://images.tokopedia.net/img/cache/215-square/GAnVPX/2021/2/25/24f3d5c5-8d7e-4579-b45c-a9df5fd9e322.png" alt="" className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto" />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://pli.co.id/wp-content/uploads/2017/09/pli-logo-1.png"
-                  alt=""
-                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
-                />
+                <img src="https://pli.co.id/wp-content/uploads/2017/09/pli-logo-1.png" alt="" className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover" />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://www.adibfood.com/wp-content/uploads/2020/10/Logo-Adib-Cold-Logistics.jpg"
-                  alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto "
-                />
+                <img src="https://www.adibfood.com/wp-content/uploads/2020/10/Logo-Adib-Cold-Logistics.jpg" alt="" className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto " />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png"
-                  alt=""
-                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
-                />
+                <img src="https://widodomakmurperkasa.co.id/storage/app/media/wmp-logo.png" alt="" className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover" />
               </SwiperSlide>
               <SwiperSlide>
                 <img
@@ -321,18 +270,10 @@ export default function MitraPage() {
                 />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/mdl6l3c59lvuegrvluhn"
-                  alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
-                />
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/mdl6l3c59lvuegrvluhn" alt="" className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto" />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://www.kemendag.go.id/assets/imgs/theme/logo.svg"
-                  alt=""
-                  className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto"
-                />
+                <img src="https://www.kemendag.go.id/assets/imgs/theme/logo.svg" alt="" className="w-[300px] h-[150px] md:w-[130px] md:h-[70px] xl:w-[200px] xl:h-[100px] mx-auto" />
               </SwiperSlide>
               <SwiperSlide>
                 <img
@@ -342,11 +283,7 @@ export default function MitraPage() {
                 />
               </SwiperSlide>
               <SwiperSlide>
-                <img
-                  src="https://bpatp-litbang-ppid.pertanian.go.id/assets/images/logo-kementan.jpg"
-                  alt=""
-                  className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover"
-                />
+                <img src="https://bpatp-litbang-ppid.pertanian.go.id/assets/images/logo-kementan.jpg" alt="" className="h-[150px] md:h-[70px] xl:h-[100px] mx-auto object-cover" />
               </SwiperSlide>
             </Swiper>
           </div>
@@ -357,10 +294,7 @@ export default function MitraPage() {
       <div className="container mx-auto lg:-translate-y-10 -translate-y-0">
         <div className="mb-10 border rounded-lg shadow-lg mx-2 lg:mx-0 ">
           <div className="flex xl:flex-row flex-col">
-            <div
-              className="bg-gradient-to-r from-wpiblue-50 to-wpigreen-50 flex justify-center items-center text-center xl:w-1/2 w-full h-[300px] xl:h-auto"
-              style={{ borderRadius: "10px 100px 100px 10px" }}
-            >
+            <div className="bg-gradient-to-r from-wpiblue-50 to-wpigreen-50 flex justify-center items-center text-center xl:w-1/2 w-full h-[300px] xl:h-auto" style={{ borderRadius: "10px 100px 100px 10px" }}>
               <Typography variant="h1" color="white">
                 Formulir Pendaftaran Supplier
               </Typography>
@@ -374,37 +308,29 @@ export default function MitraPage() {
                     type="text"
                     name="name"
                     value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     size="sm"
                     placeholder="Enter your name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                 </div>
 
                 <div className="flex flex-col p-4 mb-2 border border-b-4">
-                  <Typography className="font-bold text-center">
-                    Company
-                  </Typography>
+                  <Typography className="font-bold text-center">Company</Typography>
                   <Typography className="font-normal">Company Name</Typography>
                   <Input
                     type="text"
                     name="company_name"
                     value={formData.company_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, company_name: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                     size="sm"
                     placeholder="Enter company name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Company Email</Typography>
@@ -422,13 +348,10 @@ export default function MitraPage() {
                     placeholder="Enter company email"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
-                  <Typography className="font-normal">
-                    Company Phone Number
-                  </Typography>
+                  <Typography className="font-normal">Company Phone Number</Typography>
                   <Input
                     type="text"
                     name="company_phone"
@@ -443,13 +366,10 @@ export default function MitraPage() {
                     placeholder="Enter company phone number"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
-                  <Typography className="font-normal">
-                    Category Company
-                  </Typography>
+                  <Typography className="font-normal">Category Company</Typography>
                   <Input
                     type="text"
                     name="company_category"
@@ -464,8 +384,7 @@ export default function MitraPage() {
                     placeholder="Enter category"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Province</Typography>
@@ -521,44 +440,35 @@ export default function MitraPage() {
                     placeholder="Enter address"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                 </div>
 
                 <div className="flex flex-col p-4 border border-b-4">
-                  <Typography className="font-bold text-center">
-                    Product
-                  </Typography>
+                  <Typography className="font-bold text-center">Product</Typography>
                   <Typography className="font-normal">Product Name</Typography>
                   <Input
                     name="product_name"
                     value={formData.product_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, product_name: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
                     size="sm"
                     placeholder="Enter product name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Brand Name</Typography>
                   <Input
                     name="brand_name"
                     value={formData.brand_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, brand_name: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
                     size="sm"
                     placeholder="Enter brand name"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Stock</Typography>
@@ -566,30 +476,24 @@ export default function MitraPage() {
                     type="number"
                     name="stock"
                     value={formData.stock}
-                    onChange={(e) =>
-                      setFormData({ ...formData, stock: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
                     size="sm"
                     placeholder="Enter stock amount"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Volume</Typography>
                   <Input
                     name="volume"
                     value={formData.volume}
-                    onChange={(e) =>
-                      setFormData({ ...formData, volume: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
                     size="sm"
                     placeholder="Enter volume"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Price</Typography>
@@ -597,15 +501,12 @@ export default function MitraPage() {
                     type="number"
                     name="price"
                     value={formData.price}
-                    onChange={(e) =>
-                      setFormData({ ...formData, price: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     size="sm"
                     placeholder="Enter price"
                     className="w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
-                      className:
-                        "before:content-none after:content-none w-full",
+                      className: "before:content-none after:content-none w-full",
                     }}
                   />
                   <Typography className="font-normal">Category</Typography>
@@ -628,45 +529,23 @@ export default function MitraPage() {
                     ))}
                   </Select>
                   <Typography className="font-normal">Description</Typography>
-                  <Textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={(e) =>
-                      setFormData({ ...formData, description: e.target.value })
-                    }
-                    size="sm"
-                    placeholder="Enter product description"
-                    className="w-full"
-                  />
+                  <Textarea name="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} size="sm" placeholder="Enter product description" className="w-full" />
 
-                  <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-                    Photo Product
-                  </div>
-                  <div
-                    className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
-                    {...getRootProps()}
-                  >
+                  <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">Photo Product</div>
+                  <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
                     <input {...getInputProps()} />
                     {isDragActive ? (
                       <p>Drop the files here ...</p>
                     ) : (
                       <div className="text-center flex flex-col items-center">
                         <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
-                        <p className="mt-2">
-                          {selectedFile
-                            ? `File: ${selectedFile.path}`
-                            : "Drag and drop file here or click to select file"}
-                        </p>
+                        <p className="mt-2">{selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}</p>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  className="hover:text-green-100 bg-wpigreen-50 mt-6"
-                  fullWidth
-                >
+                <Button type="submit" className="hover:text-green-100 bg-wpigreen-50 mt-6" fullWidth>
                   GABUNG SEKARANG
                 </Button>
               </form>
@@ -695,8 +574,7 @@ export default function MitraPage() {
                 fontWeight: 700,
               }}
             >
-              Masukkan alamat email Anda untuk mendapatkan informasi menarik
-              dari kami!
+              Masukkan alamat email Anda untuk mendapatkan informasi menarik dari kami!
             </Typography>
           </div>
           <div className="col-span-6 px-2 md:px-4 xl:px-2 flex items-center justify-center w-full">
@@ -709,9 +587,7 @@ export default function MitraPage() {
                   className: "before:content-none after:content-none w-full",
                 }}
               />
-              <Button className="hover:bg-green-400 bg-wpigreen-50">
-                Submit
-              </Button>
+              <Button className="hover:bg-green-400 bg-wpigreen-50">Submit</Button>
             </div>
           </div>
         </div>

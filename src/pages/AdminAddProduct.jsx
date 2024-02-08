@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import {
-  Button,
-  Input,
-  Typography,
-  Select,
-  Option,
-  Textarea,
-} from "@material-tailwind/react";
+import { Button, Input, Typography, Select, Option, Textarea } from "@material-tailwind/react";
 import MasterSidebar from "../components/masterSidebar";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
@@ -76,31 +69,15 @@ export default function AdminAddProduct() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const requiredFields = [
-      "product_name",
-      "brand",
-      "company",
-      "company_category",
-      "company_whatsapp_number",
-      "address",
-      "price",
-      "stock",
-      "volume",
-      "storage_type",
-      "packaging",
-      "category_id",
-      "description",
-      "province_id",
-      "city_id",
-    ];
-  
+    const requiredFields = ["product_name", "brand", "company", "company_category", "company_whatsapp_number", "address", "price", "stock", "volume", "storage_type", "packaging", "category_id", "description", "province_id", "city_id"];
+
     for (const field of requiredFields) {
       if (!formData[field]) {
         alert("Please fill in all required fields.");
-      return;
+        return;
       }
     }
-  
+
     try {
       const authToken = Cookies.get("authToken");
       if (!authToken) {
@@ -123,10 +100,7 @@ export default function AdminAddProduct() {
       formDataToSend.append("address", formData.address);
       formDataToSend.append("company_name", formData.company);
       formDataToSend.append("company_category", formData.company_category);
-      formDataToSend.append(
-        "company_whatsapp_number",
-        formData.company_whatsapp_number
-      );
+      formDataToSend.append("company_whatsapp_number", formData.company_whatsapp_number);
       formDataToSend.append("storage_type", formData.storage_type);
       formDataToSend.append("packaging", formData.packaging);
 
@@ -138,38 +112,28 @@ export default function AdminAddProduct() {
 
       // Append additional_info array if necessary
       formData.additional_info.forEach((info, index) => {
-        formDataToSend.append(
-          `additional_info[${index}][${info.item}]`,
-          info.desc || ""
-        );
+        formDataToSend.append(`additional_info[${index}][${info.item}]`, info.desc || "");
       });
 
       // Log formDataToSend for debugging
-      console.log("formDataToSend", formDataToSend);
+      //console.log("formDataToSend", formDataToSend);
 
       // Axios POST request with FormData
-      const response = await Axios.post(
-        "https://backend.ptwpi.co.id/api/products",
-        formDataToSend,
-        {
-          headers: {
-            Accept: "*/*",
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await Axios.post("https://backend.ptwpi.co.id/api/products", formDataToSend, {
+        headers: {
+          Accept: "*/*",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
       // Log response from the server
-      console.log("response", response);
-      console.log("Data successfully submitted:", response.data);
+      //console.log("response", response);
+      //console.log("Data successfully submitted:", response.data);
 
       // Redirect after successful submission
       navigate("/admin-produk");
     } catch (error) {
-      console.error(
-        "Error submitting data:",
-        error.response ? error.response.data : error
-      );
+      console.error("Error submitting data:", error.response ? error.response.data : error);
     }
   };
 
@@ -200,17 +164,10 @@ export default function AdminAddProduct() {
         throw new Error("Access token not found in cookies");
       }
 
-      const categoriesResponse = Axios.get(
-        "https://backend.ptwpi.co.id/api/categories"
-      );
-      const provincesResponse = Axios.get(
-        "https://backend.ptwpi.co.id/api/provinces"
-      );
+      const categoriesResponse = Axios.get("https://backend.ptwpi.co.id/api/categories");
+      const provincesResponse = Axios.get("https://backend.ptwpi.co.id/api/provinces");
 
-      const [categoriesData, provincesData] = await Promise.all([
-        categoriesResponse,
-        provincesResponse,
-      ]);
+      const [categoriesData, provincesData] = await Promise.all([categoriesResponse, provincesResponse]);
 
       const mappedCategories = categoriesData.data.map((category) => ({
         id: category.id,
@@ -239,10 +196,8 @@ export default function AdminAddProduct() {
     const fetchCities = async () => {
       try {
         if (selectedProvince !== "") {
-          console.log("Selected Province ID:", selectedProvince);
-          const response = await Axios.get(
-            `https://backend.ptwpi.co.id/api/cities/province/${selectedProvince}`
-          );
+          //console.log("Selected Province ID:", selectedProvince);
+          const response = await Axios.get(`https://backend.ptwpi.co.id/api/cities/province/${selectedProvince}`);
 
           const filteredCities = response.data.map((item) => ({
             id: item.id,
@@ -267,46 +222,30 @@ export default function AdminAddProduct() {
     setDescriptionInputs(descriptionInputs + 1);
   };
 
-  // console.log(formData)
+  // //console.log(formData)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* ADD Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
-          <Typography className="col-span-2 flex items-center">
-            Add Product
-          </Typography>
+          <Typography className="col-span-2 flex items-center">Add Product</Typography>
         </div>
 
         {/* Detail Product */}
         <form onSubmit={handleFormSubmit}>
           <div className="bg-white rounded-lg shadow-md grid grid-cols-12 p-8">
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Product Name
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Product Name</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -317,14 +256,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Product Name"
                 value={formData.product_name}
-                onChange={(e) =>
-                  setFormData({ ...formData, product_name: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Brand Name
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Brand Name</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -335,14 +270,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Brand Name"
                 value={formData.brand}
-                onChange={(e) =>
-                  setFormData({ ...formData, brand: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Company Name
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Company Name</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -353,14 +284,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Company Name"
                 value={formData.company}
-                onChange={(e) =>
-                  setFormData({ ...formData, company: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Company Category
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Company Category</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -371,14 +298,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Company Category"
                 value={formData.company_category}
-                onChange={(e) =>
-                  setFormData({ ...formData, company_category: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, company_category: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Company Whatsapp Number
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Company Whatsapp Number</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -397,9 +320,7 @@ export default function AdminAddProduct() {
                 }
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Address
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Address</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -410,14 +331,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Address"
                 value={formData.address}
-                onChange={(e) =>
-                  setFormData({ ...formData, address: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Price
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Price</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -436,9 +353,7 @@ export default function AdminAddProduct() {
                 }
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Stock
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Stock</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -457,9 +372,7 @@ export default function AdminAddProduct() {
                 }
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Volume
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Volume</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -470,31 +383,25 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Volume"
                 value={formData.volume}
-                onChange={(e) =>
-                  setFormData({ ...formData, volume: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Storage Type
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Storage Type</div>
+            <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
+              <Select
+                color="indigo"
+                size="lg"
+                outline="outline-1 focus:outline-1"
+                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
+                placeholder="Select Storage Type"
+                value={formData.storage_type}
+                onChange={(value) => setFormData({ ...formData, storage_type: value })}
+              >
+                <Option value="Dry">Dry</Option>
+                <Option value="Frozen">Frozen</Option>
+              </Select>
             </div>
-              <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-                <Select
-                  color="indigo"
-                  size="lg"
-                  outline="outline-1 focus:outline-1"
-                  className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                  placeholder="Select Storage Type"
-                  value={formData.storage_type}
-                  onChange={(value) => setFormData({ ...formData, storage_type: value })}
-                >
-                  <Option value="Dry">Dry</Option>
-                  <Option value="Frozen">Frozen</Option>
-                </Select>
-              </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Packaging
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Packaging</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Input
                 color="indigo"
@@ -505,14 +412,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Packaging"
                 value={formData.packaging}
-                onChange={(e) =>
-                  setFormData({ ...formData, packaging: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, packaging: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Category Product
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Category Product</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Select
                 color="indigo"
@@ -520,9 +423,7 @@ export default function AdminAddProduct() {
                 outline="outline-1 focus:outline-1"
                 className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
                 // value={formData.category_id}
-                onChange={(value) =>
-                  setFormData({ ...formData, category_id: value })
-                }
+                onChange={(value) => setFormData({ ...formData, category_id: value })}
               >
                 {categories.map((category) => (
                   <Option key={category.id} value={category.id}>
@@ -531,9 +432,7 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">
-              Description
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8 ">Description</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Textarea
                 color="indigo"
@@ -544,14 +443,10 @@ export default function AdminAddProduct() {
                 }}
                 placeholder="Input Description"
                 value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-start pb-8 ">
-              Specification
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-start pb-8 ">Specification</div>
             <div className="flex-row gap-2 justify-between col-span-12 lg:col-span-9 pb-4 font-bold">
               {[...Array(descriptionInputs)].map((item, index) => (
                 <div className=" w-full" key={index}>
@@ -566,13 +461,7 @@ export default function AdminAddProduct() {
                         }}
                         placeholder="Item"
                         value={formData.additional_info[index]?.item}
-                        onChange={(e) =>
-                          handleAdditionalInfoChange(
-                            index,
-                            "item",
-                            e.target.value
-                          )
-                        }
+                        onChange={(e) => handleAdditionalInfoChange(index, "item", e.target.value)}
                       />
                     </div>
                     <div className="pb-4">
@@ -585,13 +474,7 @@ export default function AdminAddProduct() {
                         }}
                         placeholder="Value"
                         value={formData.additional_info[index]?.desc}
-                        onChange={(e) =>
-                          handleAdditionalInfoChange(
-                            index,
-                            "desc",
-                            e.target.value
-                          )
-                        }
+                        onChange={(e) => handleAdditionalInfoChange(index, "desc", e.target.value)}
                       />
                     </div>
                   </div>
@@ -599,16 +482,11 @@ export default function AdminAddProduct() {
               ))}
             </div>
             <div className="col-span-12 flex justify-center lg:justify-end items-center pb-8">
-              <Button
-                onClick={handleAddDescription}
-                className="bg-blue-500 text-white"
-              >
+              <Button onClick={handleAddDescription} className="bg-blue-500 text-white">
                 Add Specification
               </Button>
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-              Province
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">Province</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
               <Select
                 color="indigo"
@@ -628,19 +506,9 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-              City
-            </div>
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">City</div>
             <div className="col-span-12 lg:col-span-9 pb-8 font-bold">
-              <Select
-                color="indigo"
-                size="lg"
-                outline="outline-1 focus:outline-1"
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-900"
-                onChange={(value) =>
-                  setFormData({ ...formData, city_id: value })
-                }
-              >
+              <Select color="indigo" size="lg" outline="outline-1 focus:outline-1" className=" !border-t-blue-gray-200 focus:!border-t-blue-900" onChange={(value) => setFormData({ ...formData, city_id: value })}>
                 {cities.map((city) => (
                   <Option key={city.id} value={city.id}>
                     {city.cityName}
@@ -648,38 +516,23 @@ export default function AdminAddProduct() {
                 ))}
               </Select>
             </div>
-            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">
-              Photo Product
-            </div>
-            <div
-              className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4"
-              {...getRootProps()}
-            >
+            <div className="col-span-12 lg:col-span-3 flex justify-start lg:justify-between items-center pb-8">Photo Product</div>
+            <div className="col-span-12 lg:col-span-9 py-4 border border-gray-400 rounded-lg mb-4" {...getRootProps()}>
               <input {...getInputProps()} />
               {isDragActive ? (
                 <p>Drop the files here ...</p>
               ) : (
                 <div className="text-center flex flex-col items-center">
                   <FaCloudArrowUp className="w-8 h-8 text-wpiblue-500" />
-                  <p className="mt-2">
-                    {selectedFile
-                      ? `File: ${selectedFile.path}`
-                      : "Drag and drop file here or click to select file"}
-                  </p>
+                  <p className="mt-2">{selectedFile ? `File: ${selectedFile.path}` : "Drag and drop file here or click to select file"}</p>
                 </div>
               )}
             </div>
             <div className="col-span-12 flex justify-end items-center">
-              <a
-                href="/admin-produk"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
+              <a href="/admin-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a
-                href="/admin-produk"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
+              <a href="/admin-produk" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button type="submit" className="bg-wpigreen-50 flex">
                   Simpan
                 </Button>

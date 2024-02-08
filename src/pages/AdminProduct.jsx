@@ -21,12 +21,7 @@ export default function AdminProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products",
-          {
-           
-          }
-        );
+        const response = await axios.get("https://backend.ptwpi.co.id/api/products", {});
 
         if (response && response.data) {
           const data = response.data.data;
@@ -41,11 +36,9 @@ export default function AdminProduct() {
     };
 
     fetchData();
-}, []);
+  }, []);
 
   useEffect(() => {
-    
-
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
     };
@@ -65,14 +58,11 @@ export default function AdminProduct() {
     last_page: 1,
     data: [],
   });
-  console.log("paginationData", paginationData);
+  //console.log("paginationData", paginationData);
 
   const handlePageChange = async (pageNumber) => {
     try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/products?page=${pageNumber}`,
-        {}
-      );
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/products?page=${pageNumber}`, {});
 
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
@@ -91,14 +81,11 @@ export default function AdminProduct() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.ptwpi.co.id/api/products?search=${searchInput}`,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("authToken")}`,
-          },
-        }
-      );
+      const response = await axios.get(`https://backend.ptwpi.co.id/api/products?search=${searchInput}`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("authToken")}`,
+        },
+      });
 
       if (response && response.data && response.data.data) {
         const newData = response.data.data.data;
@@ -113,31 +100,17 @@ export default function AdminProduct() {
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       <div className="h-full ml-6 md:ml-80 pt-10 mr-0 font-m-plus-rounded">
         <div className="grid grid-cols-4 gap-8 bg-white mr-6 mb-6 pt-4 pl-6 rounded-lg shadow-md ">
-          <Typography className="col-span-2 flex items-center">
-            Produk
-          </Typography>
+          <Typography className="col-span-2 flex items-center">Produk</Typography>
           <div className="pr-6 col-span-2 flex justify-end items-center">
             <a href="/admin-tambah-produk">
               <Button className="bg-wpigreen-50 flex gap-2 items-center">
@@ -155,11 +128,7 @@ export default function AdminProduct() {
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full h-10 pl-4 pr-12 rounded-l-md border-2 border-slate-600 focus:outline-none focus:border wpigreen-500"
               />
-              <button
-                type="button"
-                onClick={handleSearch}
-                className="bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 rounded-r-md"
-              >
+              <button type="button" onClick={handleSearch} className="bg-wpigreen-50 text-white font-bold py-2 px-4 h-10 rounded-r-md">
                 <FaMagnifyingGlass />
               </button>
             </div>
@@ -171,17 +140,8 @@ export default function AdminProduct() {
               style: "currency",
               currency: "IDR",
             }).format(item.price);
-            console.log(price);
-            return (
-              <MasterCatalogAdmin
-                id={item.id}
-                imageUrl={item.link_image}
-                brand={item.brand}
-                productName={item.product_name}
-                priceRange={price}
-                wa_link={item.wa_link}
-              />
-            );
+            //console.log(price);
+            return <MasterCatalogAdmin id={item.id} imageUrl={item.link_image} brand={item.brand} productName={item.product_name} priceRange={price} wa_link={item.wa_link} />;
           })}
           <div className="col-span-2 lg:col-span-3 2xl:col-span-4">
             <MasterPagination

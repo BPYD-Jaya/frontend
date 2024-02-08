@@ -1,11 +1,7 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import Axios from "axios";
@@ -38,19 +34,16 @@ export default function EditMasterProvince() {
           throw new Error("Access token not found in cookies");
         }
 
-        const response = await Axios.get(
-          `https://backend.ptwpi.co.id/api/provinces/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
+        const response = await Axios.get(`https://backend.ptwpi.co.id/api/provinces/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
 
         // Log the response for debugging
-        console.log("API response:", response);
+        //console.log("API response:", response);
 
         // Update the state with the fetched province data
         setProvinceName(response.data.province);
@@ -77,19 +70,15 @@ export default function EditMasterProvince() {
         province: provinceName,
       };
 
-      const response = await Axios.put(
-        `https://backend.ptwpi.co.id/api/provinces/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await Axios.put(`https://backend.ptwpi.co.id/api/provinces/${id}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
-      console.log("Province data successfully updated:", response.data);
+      //console.log("Province data successfully updated:", response.data);
       navigate("/master-provinsi");
     } catch (error) {
       console.error("Error updating province data:", error.message);
@@ -99,26 +88,14 @@ export default function EditMasterProvince() {
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
@@ -148,17 +125,13 @@ export default function EditMasterProvince() {
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6">
-              <a
-                href="/master-provinsi"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
+              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">Batal</Button>
               </a>
-              <a
-                href="/master-provinsi"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
-                <Button type="submit" className="bg-wpigreen-50 flex">Simpan</Button>
+              <a href="/master-provinsi" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
+                <Button type="submit" className="bg-wpigreen-50 flex">
+                  Simpan
+                </Button>
               </a>
             </div>
           </div>

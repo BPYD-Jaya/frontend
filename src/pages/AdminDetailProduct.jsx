@@ -18,9 +18,7 @@ export default function AdminDetailProduct() {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(
-          "https://backend.ptwpi.co.id/api/products/" + id
-        );
+        const response = await axios.get("https://backend.ptwpi.co.id/api/products/" + id);
         setProductData(response.data.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -30,7 +28,7 @@ export default function AdminDetailProduct() {
     fetchProductData();
   }, []);
 
-  console.log(productData);
+  //console.log(productData);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,7 +43,7 @@ export default function AdminDetailProduct() {
     };
   }, []);
 
-  console.log(productData);
+  //console.log(productData);
 
   if (!productData) {
     // Return loading or error state while waiting for data
@@ -61,32 +59,18 @@ export default function AdminDetailProduct() {
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <div className="grid grid-cols-4 gap-8 bg-white mb-6 py-6 pl-6 rounded-lg shadow-md ">
-          <Typography className="col-span-2 flex items-center">
-            Detail Product
-          </Typography>
+          <Typography className="col-span-2 flex items-center">Detail Product</Typography>
         </div>
 
         {/* Detail Product */}
@@ -96,15 +80,8 @@ export default function AdminDetailProduct() {
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                    >
-                      <Typography
-                        variant="small"
-                        color="black"
-                        className="font-normal leading-none opacity-70"
-                      >
+                    <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                         {head}
                       </Typography>
                     </th>
@@ -114,100 +91,60 @@ export default function AdminDetailProduct() {
               <tbody>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Product
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.product_name}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Brand
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.brand}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Supplier
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.company_name}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Company Category
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.company_category}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Company Number
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.company_whatsapp_number}
                     </Typography>
                   </td>
@@ -215,120 +152,72 @@ export default function AdminDetailProduct() {
 
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Place of Origin
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.city}, {productData.province}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Address
                     </Typography>
                   </td>
                   <td className="p-4 max-w-sm border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.address}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Description
                     </Typography>
                   </td>
                   <td className="p-4 max-w-sm border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.description}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Storage Type
                     </Typography>
-                    </td>
-                    <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                  </td>
+                  <td className="p-4 border border-blue-gray-50">
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.storage_type}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Category
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.category}
                     </Typography>
                   </td>
                 </tr>
                 <tr>
                   <td className="p-4 break-words border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="black"
-                      className="font-normal leading-none opacity-70"
-                    >
+                    <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                       Stock
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
+                    <Typography variant="small" color="blue-gray" className="font-normal">
                       {productData.stock} {productData.volume}
                     </Typography>
                   </td>
@@ -339,20 +228,12 @@ export default function AdminDetailProduct() {
                   return (
                     <tr key={index}>
                       <td className="p-4 break-words border border-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="black"
-                          className="font-normal leading-none opacity-70"
-                        >
+                        <Typography variant="small" color="black" className="font-normal leading-none opacity-70">
                           {key}
                         </Typography>
                       </td>
                       <td className="p-4 border border-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
+                        <Typography variant="small" color="blue-gray" className="font-normal">
                           {value}
                         </Typography>
                       </td>
@@ -366,23 +247,16 @@ export default function AdminDetailProduct() {
                     </Typography>
                   </td>
                   <td className="p-4 border border-blue-gray-50">
-                  <div className="col-span-12 lg:col-span-9 pb-8">
-                    <img
-                      src={productData.link_image}
-                      alt=""
-                      className="w-full max-w-[200px] h-auto lg:h-[300px] md:max-w-[300px] md:h-auto sm:max-w-[200px] sm:h-auto"
-                    />
-                  </div>
-                </td>
-              </tr>
+                    <div className="col-span-12 lg:col-span-9 pb-8">
+                      <img src={productData.link_image} alt="" className="w-full max-w-[200px] h-auto lg:h-[300px] md:max-w-[300px] md:h-auto sm:max-w-[200px] sm:h-auto" />
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
           <div className="col-span-12 flex justify-end items-center mt-4">
-            <Button
-              onClick={handleRedirect}
-              className="bg-orange-400 justify-center"
-            >
+            <Button onClick={handleRedirect} className="bg-orange-400 justify-center">
               Edit
             </Button>
           </div>

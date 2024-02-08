@@ -1,11 +1,7 @@
 import React from "react";
 import MasterSidebar from "../components/masterSidebar";
 import { useState, useEffect } from "react";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
 import { useParams, useNavigate } from "react-router-dom";
@@ -17,7 +13,7 @@ export default function EditMasterCity() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [city, setCity] = useState("");
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const {id} = useParams()
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,19 +23,16 @@ export default function EditMasterCity() {
           throw new Error("Access token not found in cookies");
         }
 
-        const response = await axios.get(
-          `https://backend.ptwpi.co.id/api/cities/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
+        const response = await axios.get(`https://backend.ptwpi.co.id/api/cities/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
 
         // Log the response for debugging
-        console.log("API response:", response);
+        //console.log("API response:", response);
 
         // Update the state with the fetched province data
         setSelectedProvince(response.data.province_id);
@@ -56,30 +49,26 @@ export default function EditMasterCity() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const authToken = Cookies.get("authToken");
-  
+
       if (!authToken) {
         throw new Error("Access token not found in cookies");
       }
-  
+
       const formData = {
         city: city, //  send the city name
         province_id: selectedProvince,
       };
-  
-      const response = await axios.put(
-        `https://backend.ptwpi.co.id/api/cities/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-  
-      console.log("City data successfully updated:", response.data);
+
+      const response = await axios.put(`https://backend.ptwpi.co.id/api/cities/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      //console.log("City data successfully updated:", response.data);
       navigate("/master-kota");
     } catch (error) {
       if (error.response && error.response.status === 422) {
@@ -90,7 +79,7 @@ export default function EditMasterCity() {
         console.error("Error updating city data:", error.message);
       }
     }
-  };  
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -108,32 +97,20 @@ export default function EditMasterCity() {
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
         <form onSubmit={handleFormSubmit}>
           <div className="grid md:grid-cols-4 gap-2 bg-white md:mr-6 mb-6 pt-6 pb-6 px-6 rounded-lg shadow-md">
-          <div className="md:col-span-4">
+            <div className="md:col-span-4">
               <Typography variant="h5" className="pb-10">
                 Edit Nama Kota
               </Typography>
@@ -177,13 +154,11 @@ export default function EditMasterCity() {
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
               <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
-                <Button className="bg-red-400 flex">
-                 Batal
-                </Button>
+                <Button className="bg-red-400 flex">Batal</Button>
               </a>
-                <Button type="submit" className="bg-wpigreen-50 flex">
-                 Simpan
-                </Button>
+              <Button type="submit" className="bg-wpigreen-50 flex">
+                Simpan
+              </Button>
             </div>
           </div>
         </form>

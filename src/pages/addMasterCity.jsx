@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import { Button, Typography, Input } from "@material-tailwind/react";
 import Axios from "axios";
 import MasterFooterAdmin from "../components/masterFooterAdmin";
 import MasterNavbarAdmin from "../components/masterNavbarAdmin";
@@ -39,18 +35,14 @@ export default function AddMasterCity() {
         province_id: selectedProvince,
       };
 
-      const response = await Axios.post(
-        "https://backend.ptwpi.co.id/api/cities/create",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await Axios.post("https://backend.ptwpi.co.id/api/cities/create", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
-      console.log(formData)
-      console.log("Data successfully submitted:", response.data);
+      //console.log(formData)
+      //console.log("Data successfully submitted:", response.data);
 
       // Redirect to /master-kota after successful submission
       navigate("/master-kota");
@@ -60,13 +52,13 @@ export default function AddMasterCity() {
   };
 
   const getProvince = async () => {
-    const res = await Axios.get("https://backend.ptwpi.co.id/api/provinces")
-    setProvinces(res.data)
-  }
+    const res = await Axios.get("https://backend.ptwpi.co.id/api/provinces");
+    setProvinces(res.data);
+  };
 
   useEffect(() => {
     getProvince();
-  },[])
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -81,33 +73,21 @@ export default function AddMasterCity() {
     };
   }, []);
 
-  // console.log (provinces)
-  console.log (cityName)
-  console.log (selectedProvince)
+  // //console.log (provinces)
+  //console.log (cityName)
+  //console.log (selectedProvince)
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen">
       {/* Sidebar */}
-      <div
-        className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <div className={`bg-white z-50 fixed top-0 h-full md:block transition-transform duration-200 ease-in-out ${openSidebar ? "translate-x-0" : "-translate-x-full"}`}>
         <MasterSidebar />
       </div>
 
-      {openSidebar && (
-        <div
-          className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden "
-          onClick={() => setOpenSidebar(false)}
-        ></div>
-      )}
+      {openSidebar && <div className="fixed inset-0 bg-black z-40 transition-opacity duration-200 ease-in-out opacity-50 md:hidden " onClick={() => setOpenSidebar(false)}></div>}
 
       {/* Navbar */}
-      <MasterNavbarAdmin
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <MasterNavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Product */}
       <div className="flex-grow h-full ml-4 md:ml-80 pt-10 mr-4">
@@ -122,11 +102,7 @@ export default function AddMasterCity() {
               <Typography variant="small" className="">
                 Pilih Provinsi
               </Typography>
-              <select
-                value={selectedProvince}
-                onChange={(e) => setSelectedProvince(e.target.value)}
-                className="w-full p-2 mt-1 border rounded-lg"
-              >
+              <select value={selectedProvince} onChange={(e) => setSelectedProvince(e.target.value)} className="w-full p-2 mt-1 border rounded-lg">
                 <option value="" disabled>
                   Pilih Provinsi
                 </option>
@@ -155,15 +131,12 @@ export default function AddMasterCity() {
               />
             </div>
             <div className="md:col-span-4 flex justify-end items-center pt-6 gap-1">
-              <a
-                href="/master-kota"
-                className="flex gap-2 text-wpigreen-500 ml-4 text-sm"
-              >
+              <a href="/master-kota" className="flex gap-2 text-wpigreen-500 ml-4 text-sm">
                 <Button className="bg-red-400 flex">Batal</Button>
               </a>
-                <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
-                  Simpan
-                </Button>
+              <Button onClick={handleFormSubmit} className="bg-wpigreen-50 flex">
+                Simpan
+              </Button>
             </div>
           </div>
         </form>
